@@ -4,10 +4,15 @@ $(document).ready(function() {
   var editor = ace.edit("editor");
   editor.setTheme("ace/theme/monokai");
   editor.getSession().setMode("ace/mode/html");
+  editor.setOptions({enableBasicAutocompletion: true});
+  var langTools = ace.require("ace/ext/language_tools");
+  var groupPath = [];
+  var temp_html, lineNum;
+  var groupBuckets = $("#groupbuckets");
+  groupBuckets.empty();
+  groupBuckets.append("<p>Group Tokenization:</p>");
 
-  $("#submitButton").click(function() {
-    algorithm(editor.getValue());
-  });
+
 
   //This shows the html body code on the iframe.
   //This saves the content of the html doc that is going to be created on an iframe. 
@@ -31,7 +36,7 @@ $(document).ready(function() {
 		var currline = editor.getSelectionRange().start.row;
 		var wholelinetxt = editor.session.getLine(currline);
 		var html = $.parseHTML(wholelinetxt);
-	    var tag, attributes, class_;
+	    var tag, attributes, class_, element;
 
 	    //Getting tag attributes and class name of the last element the programmer wrote.
 	    //Assuming that programmer writes only one element at each line.
@@ -39,6 +44,7 @@ $(document).ready(function() {
 			if(html[entry].nodeType==1){
 			 tag = html[entry].nodeName;
 				 if(html[entry].attributes){
+				 	 element = html[entry];
 					 attributes = html[entry].attributes;
 					 class_ = html[entry].className;
 				}
@@ -73,22 +79,21 @@ $(document).ready(function() {
 			}
 			allWithSameTag = [];
     	}
-		
-		//Looking for all the elements in the body to find the ones 
-		//that are the same as the last one the programme wrote.
+	
 		var buckets = $('#buckets');
 		buckets.empty();
-
+		//Looking for all the elements in the body to find the ones 
+		//that are the same as the last one the programmer wrote.
 		allWithSameClass = body.find("[class='"+class_+"']");
 
-		//All with same tag and attributes.
+		//Add to div to output answer, all with same tag and attributes.
 		if(isSameAttributes || allWithSameTag_attr.length>0){
 			buckets.append("<p><u><b>All same element with same attributes:</b></u><br> Frequency: "+ 
 				allWithSameTag_frequency+"</p>");
 			buckets.append(allWithSameTag_attr);
 		}
 
-		//All with same class.
+		//Add to div to output answer, all with same class.
 		if(class_ && allWithSameClass.length>1){
 			buckets.append("<p><b><u>All elements with same class:</b></u><br> Frequency: "+
 			 allWithSameClass.length+"</p>");
@@ -97,6 +102,7 @@ $(document).ready(function() {
 					+allWithSameClass[entry].getAttribute('class')+"<br>");
 			}
 		}
+		groupTokenization(body, groupPath, html, currline, langTools, groupBuckets);
     });
   })();
 });
