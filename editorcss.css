@@ -7,7 +7,7 @@
 #mainContainer {
   position: relative;
   display: block;
-  height: 69%;
+  height: 100%;
   width: 100%;
   float: left;
 }
@@ -28,7 +28,7 @@
   float: left;
 }
 
-#tokenizationContainer {
+/*#tokenizationContainer {
   position: relative;
   display: block;
   height: 30%;
@@ -37,7 +37,7 @@
   overflow: scroll;
   margin-left: 2%;
 }
-
+*/
 #output {
   position: relative;
   border: 1px solid black;
