@@ -9,6 +9,7 @@ function attributeTokenization(){
 
     //Getting the current line the programmer is working on from Ace editor.	
 	document.currline = document.editor.getSelectionRange().start.row;
+	//All text at a certain line
 	var wholelinetxt = document.editor.session.getLine(document.currline);
 	document.html = $.parseHTML(wholelinetxt);
     var tag, attributes, class_, element;
@@ -19,13 +20,19 @@ function attributeTokenization(){
     //Getting tag attributes and class name of the last element the programmer wrote.
     //Assuming that programmer writes only one element at each line.
 	for(var entry in document.html){
+		//nodeType method determines whether the element is an element node, attribute node, text node, comment node, returns 1-4 respectively 
 		if(document.html[entry].nodeType==1){		
 		 	tag = document.html[entry].nodeName.toLowerCase();
+		 	//If the element has attributes..
 			if(document.html[entry].attributes){
+				//Sets element to exist
 			 	 element = document.html[entry];
+			 	 //Extracts attribute that is tied with the element
 				 attributes = document.html[entry].attributes;
+				 //Extracts class name
 				 class_ = document.html[entry].className;
 				 isCode = true;
+				 //If attribute has a value..
 				 if(attributes.length>0){
 				 	findingSameAttributes(element);	
 				 }
