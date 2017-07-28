@@ -48,14 +48,14 @@ function groupTokenization(){
 	    return spaces;
 	}
 
-	//To find the frecuency of each group of elements.
+	//To find the frequency of each group of elements.
 	function mode(array){
 		for(var i = 0; i<array.length; i++){
-		    if (!document.frecuencyarray[array[i]]) 
-		    	document.frecuencyarray[array[i]] = 0;
-		    document.frecuencyarray[array[i]] += 1
+		    if (!document.frequencyarray[array[i]]) 
+		    	document.frequencyarray[array[i]] = 0;
+		    document.frequencyarray[array[i]] += 1
 		}
-		console.log(document.frecuencyarray);
+		console.log(document.frequencyarray);
 	}
 
 }
