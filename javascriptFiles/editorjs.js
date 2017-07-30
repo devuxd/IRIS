@@ -38,9 +38,27 @@ $(document).ready(function() {
 	//Custom autocomplete.
 	var staticWordCompleter = {//Custom autocoplete.
     getCompletions: function(editor, session, pos, prefix, callback) {
-    	document.frequencyarray.sort('value');
-    	var sortedarray = Object.keys(document.frequencyarray);
-        callback(null, sortedarray.map(function(word) {
+
+      var array = [];
+
+      //This will allow the list created to be sorted 
+      //according to thier frequency.
+      var keys = Object.keys(document.frequencyarray);
+      for(var entry=0; entry<keys.length; entry++){
+        array[entry] =  {"key":keys[entry],"value": document.frequencyarray[keys[entry]].freq};
+       }
+      array.sort(function(a,b){
+            return a.value < b.value;
+      });
+
+      //This is to get the string of the element that will be 
+      //presented on the auto-complete.
+      for(var entry=0; entry<array.length; entry++){
+        keys[entry] = Object.values(array[entry])[0];
+      }
+       
+    	//This does the auto-complete.
+        callback(null, keys.map(function(word) {
         	var removedSpaces = word.replace(/\n /g, "");
             return {
                 caption: removedSpaces,
@@ -48,7 +66,6 @@ $(document).ready(function() {
                 meta: "static"
             };
         }));
-
 	    }
 	}
 	document.langTools.setCompleters([staticWordCompleter]);
