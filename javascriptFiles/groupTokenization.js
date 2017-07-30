@@ -18,9 +18,7 @@ function groupTokenization(){
 				lastChild = lastChild.lastElementChild;
 				tabcounter++;
 				tagPath[0] += " <"+lastChild.nodeName.toLowerCase()+"> \n"+indent(tabcounter);//Add tag to path.
-				console.log(lastChild);
 			}
-			console.log(tagPath[0]);
 			//Adding closing tags to path of string.
 			var tagPathclosingtags = tagPath[0].split(' ');
 			for(var i=tagPathclosingtags.length-1; i>0; i--){
@@ -55,7 +53,6 @@ function groupTokenization(){
 		    	document.frequencyarray[array[i]] = 0;
 		    document.frequencyarray[array[i]] += 1
 		}
-		console.log(document.frequencyarray);
 	}
 
 }
