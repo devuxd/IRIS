@@ -5,17 +5,21 @@ $(document).ready(function() {
   document.editor = ace.edit("editor");
   document.editor.setTheme("ace/theme/monokai");
   document.editor.getSession().setMode("ace/mode/html");
-  document.editor.setOptions({enableBasicAutocompletion: true});
-  document.langTools = ace.require("ace/ext/language_tools");
+  document.editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+      });
+  var langTools = ace.require("ace/ext/language_tools");
+
+  //To have easiy access to them in all .js files.
   document.html; 
   document.currline;
   document.groupPaths = [];  
   document.lastline;
   document.lastelement;
   document.frequencyarray = [];
-  document.newArray= [];
   document.isGroupTag = false;
-
 
   //This shows the html body code on the iframe.
   //This saves the content of the html doc that is going to be created on an iframe. 
@@ -35,6 +39,8 @@ $(document).ready(function() {
 	    });
   })();
 
+
+
 	//Custom autocomplete.
 	var staticWordCompleter = {//Custom autocoplete.
     getCompletions: function(editor, session, pos, prefix, callback) {
@@ -47,6 +53,8 @@ $(document).ready(function() {
       for(var entry=0; entry<keys.length; entry++){
         array[entry] =  {"key":keys[entry],"value": document.frequencyarray[keys[entry]].freq};
        }
+
+      //Sorts array.
       array.sort(function(a,b){
             return a.value < b.value;
       });
@@ -60,6 +68,8 @@ $(document).ready(function() {
     	//This does the auto-complete.
         callback(null, keys.map(function(word) {
         	var removedSpaces = word.replace(/\n /g, "");
+          removedSpaces = removedSpaces.replace("> <", "><");
+          removedSpaces = removedSpaces.replace(/ *</g, "<");
             return {
                 caption: removedSpaces,
                 value: word,
@@ -68,5 +78,5 @@ $(document).ready(function() {
         }));
 	    }
 	}
-	document.langTools.setCompleters([staticWordCompleter]);
+	langTools.setCompleters([staticWordCompleter]);
 });

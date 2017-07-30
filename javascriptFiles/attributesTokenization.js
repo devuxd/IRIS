@@ -3,6 +3,7 @@ function attributeTokenization(){
 
     var tag, attributes, element;
 	var element_string = [""];
+	var attr_string = [""];
 	var timer;
     
     //Getting the current line the programmer is working on from Ace editor.
@@ -46,6 +47,9 @@ function attributeTokenization(){
 
 		for(var entry=0; entry<attributes.length; entry++){
 			if(attributes && attributes[entry] && attributes[entry].nodeValue!=""){
+		
+				attr_string[entry] = " "+attributes[entry].nodeName+"="+"'"+attributes[entry].nodeValue+"'";
+
 				if(entry==0)
 					element_string[0] +=" <"+tag;
 
@@ -54,21 +58,30 @@ function attributeTokenization(){
 				//This add the element to an array, if the programmer is working on the same
 				//element's attributes, this will keep adding to that element until the
 				//user finishes writing it. 
-				if(Object.keys(document.frequencyarray).length==0)//First line of code written
+				if(Object.keys(document.frequencyarray).length==0){//First line of code written
 					document.frequencyarray[element_string[0]+"></"+tag+">"] = {"line":document.currline,"freq":1};
+					document.frequencyarray[attr_string[entry]] = {"line":document.currline,"freq":1};
+				}
 				else {
 					var keys = Object.keys(document.frequencyarray);
 					//Checks the array to see if the current element the programmer is working
 					//is already on the list, by looking for the element and the current line.
 					for (var i=0; i<keys.length; i++) {
-						if(document.frequencyarray[keys[i]].line==document.currline){
+						if(document.frequencyarray[keys[i]].line==document.currline &&
+							keys[i].includes(attributes[entry].nodeName) || 
+							document.frequencyarray[keys[i]].line==document.currline &&
+							keys[i].includes(attributes[entry].nodeValue)) {
 							delete document.frequencyarray[keys[i]];
 						}
 					}
-					var freqnum  = 1;
+					var freqnum  = 1, freqnum_attr = 1;
 					if(typeof(document.frequencyarray[element_string[0]+"></"+tag+">"]) != "undefined")
 						freqnum = (document.frequencyarray[element_string[0]+"></"+tag+">"].freq+1);
 					document.frequencyarray[element_string[0]+"></"+tag+">"] = {"line":document.currline,"freq":freqnum};
+
+					if(typeof(document.frequencyarray[attr_string[entry]]) != "undefined")
+						freqnum_attr = (document.frequencyarray[attr_string[entry]].freq+1);
+					document.frequencyarray[attr_string[entry]] = {"line":document.currline,"freq":freqnum};
 				}
 			}
 		}
