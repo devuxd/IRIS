@@ -19,7 +19,6 @@ $(document).ready(function() {
   document.lastline;
   document.lastelement;
   document.frequencyarray = [];
-  document.isGroupTag = false;
 
   //This shows the html body code on the iframe.
   //This saves the content of the html doc that is going to be created on an iframe. 
@@ -39,19 +38,19 @@ $(document).ready(function() {
 	    });
   })();
 
-
-
 	//Custom autocomplete.
 	var staticWordCompleter = {//Custom autocoplete.
     getCompletions: function(editor, session, pos, prefix, callback) {
 
       var array = [];
+      var totalFreq = 1;
 
       //This will allow the list created to be sorted 
       //according to thier frequency.
       var keys = Object.keys(document.frequencyarray);
       for(var entry=0; entry<keys.length; entry++){
-        array[entry] =  {"key":keys[entry],"value": document.frequencyarray[keys[entry]].freq};
+          array[entry] =  {"key":keys[entry],"value": document.frequencyarray[keys[entry]].freq};
+          totalFreq += array[entry].value;
        }
 
       //Sorts array.
@@ -61,8 +60,9 @@ $(document).ready(function() {
 
       //This is to get the string of the element that will be 
       //presented on the auto-complete.
+      console.log(totalFreq);
       for(var entry=0; entry<array.length; entry++){
-        keys[entry] = Object.values(array[entry])[0];
+           keys[entry] = Object.values(array[entry])[0]+" - freq:"+Number(((array[entry].value/totalFreq)*100).toFixed(2))+"%";
       }
        
     	//This does the auto-complete.
@@ -70,6 +70,7 @@ $(document).ready(function() {
         	var removedSpaces = word.replace(/\n /g, "");
           removedSpaces = removedSpaces.replace("> <", "><");
           removedSpaces = removedSpaces.replace(/ *</g, "<");
+          word = word.replace(/ - freq:\d*.*/g,"");
             return {
                 caption: removedSpaces,
                 value: word,
