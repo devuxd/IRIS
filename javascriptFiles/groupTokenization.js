@@ -50,8 +50,8 @@ function groupTokenization(){
 	function mode(array){
 		for(var i = 0; i<array.length; i++){
 		    if (!document.frequencyarray[array[i]]) 
-		    	document.frequencyarray[array[i]] = 0;
-		    document.frequencyarray[array[i]] += 1
+		    	document.frequencyarray[array[i]] = {"line":0, "freq":0};
+		    document.frequencyarray[array[i]].freq += 1
 		}
 	}
 

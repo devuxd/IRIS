@@ -2,8 +2,10 @@
 function attributeTokenization(){
 
     var tag, attributes, element;
-	var element_string = [""];
-	var attr_string = [""];
+	var element_string = [""];//Array of element string.
+	var attr_string = [""];//Array of attribute=value string.
+	var attr_type_string = [""];//Array of attribute types.
+	var attr_value_string = [""];//Array of attribute values.
 	var timer;
     
     //Getting the current line the programmer is working on from Ace editor.
@@ -28,17 +30,16 @@ function attributeTokenization(){
 				 //The function findingSameAttributes, will only be called if
 				 //the element has attributes.
 				 if(attributes.length>0){
+
 				 	findingSameAttributes(element);	
 				 	document.lastLine = document.currline;
 					document.lastAttribute = attributes;
 					
 					//To save info of the last state of the editor
-					//everytime there is a keyup.
+					//every time there is a keyup.
 					document.lastLine = document.currline;
 					document.lastelement = element;
 				 }
-				 else
-				 	document.isGroupTag;
   			}
 	  	}
 	 		
@@ -47,46 +48,59 @@ function attributeTokenization(){
 
 		for(var entry=0; entry<attributes.length; entry++){
 			if(attributes && attributes[entry] && attributes[entry].nodeValue!=""){
-		
-				attr_string[entry] = " "+attributes[entry].nodeName+"="+"'"+attributes[entry].nodeValue+"'";
-
-				if(entry==0)
+				if(entry==0)//Need to add the tag to the element string.
 					element_string[0] +=" <"+tag;
 
-				element_string[0] +=  " "+attributes[entry].nodeName +"='"+attributes[entry].nodeValue+"'";
-				
-				//This add the element to an array, if the programmer is working on the same
-				//element's attributes, this will keep adding to that element until the
-				//user finishes writing it. 
+				//Adding element as a string to a list.
+				attr_string[entry] = " "+attributes[entry].nodeName+"="+"'"+attributes[entry].nodeValue+"'";//Individual attributes
+				element_string[0] +=  " "+attributes[entry].nodeName +"='"+attributes[entry].nodeValue+"'";//All attributes
+				attr_type_string[entry] = " "+attributes[entry].nodeName;//Attribute type
+				attr_value_string[entry] = " "+attributes[entry].nodeValue;//Attribute value
+
+				//This add the element string to an array, if the programmer is working on the same
+				//element's attributes, this will keep adding to that element attirbute value or
+				//attribute name until the user finishes writing the element. 
 				if(Object.keys(document.frequencyarray).length==0){//First line of code written
 					document.frequencyarray[element_string[0]+"></"+tag+">"] = {"line":document.currline,"freq":1};
 					document.frequencyarray[attr_string[entry]] = {"line":document.currline,"freq":1};
+					document.frequencyarray[attr_type_string[entry]] = {"line":document.currline,"freq":1};
+					document.frequencyarray[attr_value_string[entry]] = {"line":document.currline,"freq":1};
 				}
 				else {
+					//Checks the array to see if the element the programmer is working
+					//is already on the list, by looking for the element string on the
+					// objec, which has the current line information.
 					var keys = Object.keys(document.frequencyarray);
-					//Checks the array to see if the current element the programmer is working
-					//is already on the list, by looking for the element and the current line.
-					for (var i=0; i<keys.length; i++) {
-						if(document.frequencyarray[keys[i]].line==document.currline &&
-							keys[i].includes(attributes[entry].nodeName) || 
-							document.frequencyarray[keys[i]].line==document.currline &&
-							keys[i].includes(attributes[entry].nodeValue)) {
-							delete document.frequencyarray[keys[i]];
+					var keyIndex = 0;
+					for (var i in document.frequencyarray) {
+						//Makes sure we only delete the attribute with current value or name accordingly. 
+						if(document.frequencyarray[i].line==document.currline &&
+							keys[keyIndex].includes(attributes[entry].nodeName) || 
+							document.frequencyarray[i].line==document.currline &&
+							attributes[entry].nodeValue.startsWith(keys[keyIndex].replace(" ",""))) {
+							delete document.frequencyarray[i];
 						}
+						keyIndex++;
 					}
-					var freqnum  = 1, freqnum_attr = 1;
+					var freqnum  = 1;
+					//Adds value frequency to the object of element string.
 					if(typeof(document.frequencyarray[element_string[0]+"></"+tag+">"]) != "undefined")
 						freqnum = (document.frequencyarray[element_string[0]+"></"+tag+">"].freq+1);
 					document.frequencyarray[element_string[0]+"></"+tag+">"] = {"line":document.currline,"freq":freqnum};
-
+					freqnum  = 1;
 					if(typeof(document.frequencyarray[attr_string[entry]]) != "undefined")
-						freqnum_attr = (document.frequencyarray[attr_string[entry]].freq+1);
+						freqnum = (document.frequencyarray[attr_string[entry]].freq+1);
 					document.frequencyarray[attr_string[entry]] = {"line":document.currline,"freq":freqnum};
+					freqnum  = 1;
+					if(typeof(document.frequencyarray[attr_type_string[entry]]) != "undefined")
+						freqnum = (document.frequencyarray[attr_type_string[entry]].freq+1);
+					document.frequencyarray[attr_type_string[entry]] = {"line":document.currline,"freq":freqnum};
+					freqnum  = 1;
+					if(typeof(document.frequencyarray[attr_value_string[entry]]) != "undefined")
+						freqnum = (document.frequencyarray[attr_value_string[entry]].freq+1);
+					document.frequencyarray[attr_value_string[entry]] = {"line":document.currline,"freq":freqnum};
 				}
 			}
-		}
-			
+		}		
 	}
 }
-
- 
