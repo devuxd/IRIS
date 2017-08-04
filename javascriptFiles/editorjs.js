@@ -23,7 +23,6 @@ $(document).ready(function() {
   document.isAttributeVal = false;
   document.attr_type_obj = [];
   document.attr_value_obj = [];
-  document.keyVal;
 
   //This shows the html body code on the iframe.
   //This saves the content of the html doc that is going to be created on an iframe. 
@@ -38,14 +37,21 @@ $(document).ready(function() {
   var timer;
   document.editor.on('focus', function(event, editors) {
 	    $(this).keyup(function(e) {   
-		    	 attributeTokenization();	
-           groupTokenization(); 
-           document.keyVal = e.key;
-            //Change auto-complete if key up of enter, >, shift.
-           if(e.keyCode==13 || e.keyCode==190 || e.keyCode==222){
+        if(!(e.key=="Enter")){//Don't do anything on keup enter.
+		    	attributeTokenization();	
+          groupTokenization(); 
+          //Change auto-complete if key up of enter, >, shift.
+          if(e.keyCode==13 || e.keyCode==190 || e.keyCode==222){
               document.isAttributeVal = false;
               document.isAttributeType = false;
             }
+          //If keyup is either of this, the autocomplete should change to the list of
+          //attr values.
+          if(e.key == "=" || e.key == '"' || e.key == "'"){
+            document.isAttributeType = false;
+            document.isAttributeVal = true;
+          }
+        }
 	    });
   })();
 

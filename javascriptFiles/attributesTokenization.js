@@ -22,10 +22,7 @@ function attributeTokenization(){
 		 	tag = document.html[entry].nodeName.toLowerCase();
 		 	if(tag!="undefined")
 		 		document.isAttributeType = true;
-		 	if(tag!="undefined" && (document.keyVal == "=" || document.keyVal == '"' || document.keyVal == "'")){
-		 		document.isAttributeType = false;
-			 	document.isAttributeVal = true;
-		 	}
+
 			 	 element = document.html[entry];
 				 attributes = document.html[entry].attributes;
 
@@ -95,7 +92,7 @@ function attributeTokenization(){
 				attr_string[entry] = " "+attributes[entry].nodeName+"="+"'"+attributes[entry].nodeValue+"'";//Individual attributes
 				element_string[0] +=  " "+attributes[entry].nodeName +"='"+attributes[entry].nodeValue+"'";//All attributes
 				attr_type_string[entry] = " "+attributes[entry].nodeName;//Attribute type
-				attr_value_string[entry] = " "+attributes[entry].nodeValue;//Attribute value
+				attr_value_string[entry] = attributes[entry].nodeValue;//Attribute value
 
 				//These add the string type butckets to an array, if the programmer is working on the same
 				//line attributes, this will keep updating that bucket by deleting the previous.
