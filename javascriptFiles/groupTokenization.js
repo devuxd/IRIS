@@ -7,7 +7,6 @@ function groupTokenization(){
      
 	if(!lastLine)lastLine=document.currline;
 
-
 	//Finds the last child the programmer has written and 
 	//saves the path from body to that child to compare
 	//path to find patterns.
@@ -54,5 +53,4 @@ function groupTokenization(){
 		    document.frequencyarray[array[i]].freq += 1
 		}
 	}
-
 }
