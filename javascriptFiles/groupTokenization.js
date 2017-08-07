@@ -7,7 +7,6 @@ function groupTokenization(){
      
 	if(!lastLine)lastLine=document.currline;
 
-
 	//Finds the last child the programmer has written and 
 	//saves the path from body to that child to compare
 	//path to find patterns.
@@ -18,9 +17,7 @@ function groupTokenization(){
 				lastChild = lastChild.lastElementChild;
 				tabcounter++;
 				tagPath[0] += " <"+lastChild.nodeName.toLowerCase()+"> \n"+indent(tabcounter);//Add tag to path.
-				console.log(lastChild);
 			}
-			console.log(tagPath[0]);
 			//Adding closing tags to path of string.
 			var tagPathclosingtags = tagPath[0].split(' ');
 			for(var i=tagPathclosingtags.length-1; i>0; i--){
@@ -48,14 +45,12 @@ function groupTokenization(){
 	    return spaces;
 	}
 
-	//To find the frecuency of each group of elements.
+	//To find the frequency of each group of elements.
 	function mode(array){
 		for(var i = 0; i<array.length; i++){
-		    if (!document.frecuencyarray[array[i]]) 
-		    	document.frecuencyarray[array[i]] = 0;
-		    document.frecuencyarray[array[i]] += 1
+		    if (!document.frequencyarray[array[i]]) 
+		    	document.frequencyarray[array[i]] = {"line":0, "freq":0};
+		    document.frequencyarray[array[i]].freq += 1
 		}
-		console.log(document.frecuencyarray);
 	}
-
 }
