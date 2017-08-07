@@ -28,16 +28,6 @@
   float: left;
 }
 
-/*#tokenizationContainer {
-  position: relative;
-  display: block;
-  height: 30%;
-  width: 100%;
-  float: left;
-  overflow: scroll;
-  margin-left: 2%;
-}
-*/
 #output {
   position: relative;
   border: 1px solid black;
