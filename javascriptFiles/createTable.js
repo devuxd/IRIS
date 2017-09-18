@@ -8,26 +8,43 @@ function createTable(){
 	if(typeof(elements)!="undefined" && elements.length>0){
 		//To update the table on every keyup.
 		document.elementTable = new Map();
+		document.completeElementTable = new Map();
 		for(let element of elements){
 			if(typeof(element) && element.attributes.length>0){
 				for(let attr of element.attributes){
-					createMap(element.tagName, attr);
+					createElementTable(element.tagName, attr);
+					if(attr.nodeValue!=""){
+						document.completeElementTable.set(
+							$("iframe").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"="+attr.nodeValue+"]")[0],
+								$("iframe").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"="+attr.nodeValue+"]").length);
+					}
 				}
-			}else
-				createMap(element.tagName, "undefined");
+			}else{
+				createElementTable(element.tagName, "undefined");
+				var allSameTag = document.completeElementTable.get($("iframe").contents().find(element.nodeName.toLowerCase()))
+				if(typeof(allSameTag)!="undefined"){
+					for(let elem of allSameTag)
+						if(typeof(elem[0].attributes)=="undefined"){
+							var freq = document.completeElementTable.get(element)+1;
+							document.completeElementTable.set(element, freq);
+						}
+				}
+				else
+					document.completeElementTable.set(element, 1);
+				
+			}
 		}
 	}
 }
 
 //Organizes each element in a table format to keep
 //track of the frequency of each element and thier attributes.
-function createMap(tag, attribute){
+function createElementTable(tag, attribute){
 	if(typeof(document.elementTable.get(tag))=="undefined"){//Adding the tag
 		document.elementTable.set(tag,[1,""]);
 	}
 	else if(typeof(document.elementTable.get(tag))!="undefined" && attribute=="undefined"){
-		var tagFreq = document.elementTable.get(tag)[0]+1;
-		document.elementTable.set(tag,[tagFreq,""]);
+		document.elementTable.set(tag,[$("iframe").contents().find(tag.toLowerCase()).length,document.elementTable.get(tag)]);
 	}
  	if(attribute!="undefined"){
 		if(document.elementTable.get(tag)[1]==""){//Adding first attribute/value
@@ -49,6 +66,6 @@ function createMap(tag, attribute){
 			document.elementTable.get(tag)[1].get(attribute.nodeName).set(attribute.nodeValue, attCount);
 		}
 	}
-	console.log(document.elementTable);
 }
+	
 	

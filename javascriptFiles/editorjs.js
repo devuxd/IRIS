@@ -15,8 +15,9 @@ $(document).ready(function() {
   //To have easiy access to them in all .js files.
   document.html; 
   document.elementTable = new Map(); 
-  document.attributeFreq = [];
-  document.elementFreq = [];
+  document.completeElementTable = new Map();
+  document.allAutoCompleteList = [];
+  // document.elementFreq = [];
 
   //This shows the html body code on the iframe.
   //This saves the content of the html doc that is going to be created on an iframe. 
@@ -34,6 +35,7 @@ $(document).ready(function() {
             || e.key=="ArrowRight")){//Don't do anything when pressing any arrow.
             createTable();
             attributeTokenization();
+            groupTokenization();
         }
 	    });
   })();
@@ -43,17 +45,20 @@ $(document).ready(function() {
     getCompletions: function(editor, session, pos, prefix, callback) {
       var attributeList = [];
       var i=0;
-      for(var attString in document.attributeFreq){
-         attributeList[i++]  = attString + document.attributeFreq[attString];
+      for(var attString in document.allAutoCompleteList){
+        if(typeof( document.allAutoCompleteList)!="undefined")
+         attributeList[i++]  = attString + document.allAutoCompleteList[attString];
       }
        //This does the auto-complete.
       callback(null, attributeList.map(function(word) {
-         var valueList;
-          valueList= word.replace(/ Freq: [0-9]/g,"");
+         var valueList = word.replace(/ Freq: [0-9]/g,"");
+         var freq = "";
+         if(word.match(/Freq: [0-9]/g)!=null)
+            freq = word.match(/Freq: [0-9]/g).toString();
           return {
-              caption: word,
+              caption: valueList,
               value: valueList,
-              meta: "static"
+              meta: freq
           };
       }));
     }
