@@ -35,7 +35,6 @@ $(document).ready(function() {
             || e.key=="ArrowRight")){//Don't do anything when pressing any arrow.
             createTable();
             attributeTokenization();
-            groupTokenization();
         }
 	    });
   })();

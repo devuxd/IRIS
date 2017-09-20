@@ -12,7 +12,9 @@ function createTable(){
 		for(let element of elements){
 			if(typeof(element) && element.attributes.length>0){
 				for(let attr of element.attributes){
-					createElementTable(element.tagName, attr);
+					if(element.attributes[0].nodeName!="<"){
+						createElementTable(element.tagName, attr);
+					}
 					if(attr.nodeValue!=""){
 						document.completeElementTable.set(
 							$("iframe").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"="+attr.nodeValue+"]")[0],
@@ -44,7 +46,7 @@ function createElementTable(tag, attribute){
 		document.elementTable.set(tag,[1,""]);
 	}
 	else if(typeof(document.elementTable.get(tag))!="undefined" && attribute=="undefined"){
-		document.elementTable.set(tag,[$("iframe").contents().find(tag.toLowerCase()).length,document.elementTable.get(tag)]);
+		document.elementTable.set(tag,[$("iframe").contents().find(tag.toLowerCase()).length,document.elementTable.get(tag)[1]]);
 	}
  	if(attribute!="undefined"){
 		if(document.elementTable.get(tag)[1]==""){//Adding first attribute/value

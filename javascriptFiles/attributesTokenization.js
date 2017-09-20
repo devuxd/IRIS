@@ -41,4 +41,5 @@ function elementTokenization(){
 		console.log("All auto Complete list");
 		console.log(document.allAutoCompleteList);
 	}
+	groupTokenization();
 }
