@@ -44,19 +44,25 @@ $(document).ready(function() {
     getCompletions: function(editor, session, pos, prefix, callback) {
       var attributeList = [];
       var i=0;
-      for(var attString in document.allAutoCompleteList){
-        if(typeof( document.allAutoCompleteList)!="undefined")
-         attributeList[i++]  = attString + document.allAutoCompleteList[attString];
+      if(typeof( document.allAutoCompleteList)!="undefined"){
+         //  //Sorts array.
+         // document.allAutoCompleteList.sort(function(a,b){
+         //       return a.value < b.value;
+         // });
+        for(var attString in document.allAutoCompleteList){
+           attributeList[i++]  = attString + document.allAutoCompleteList[attString];
+        }
       }
-       //This does the auto-complete.
+         //This does the auto-complete.
       callback(null, attributeList.map(function(word) {
          var valueList = word.replace(/ Freq: [0-9]/g,"");
          var freq = "";
          if(word.match(/Freq: [0-9]/g)!=null)
             freq = word.match(/Freq: [0-9]/g).toString();
+          word = valueList.replace(/</g,"");
           return {
               caption: valueList,
-              value: valueList,
+              value: word,
               meta: freq
           };
       }));
