@@ -1,0 +1,39 @@
+
+aboutcom.html
+
+<a class="primary-dash-nav-link  active " href="/">HOME</a>
+<a class="primary-dash-nav-link " href="/our-brands/">OUR BRANDS</a>
+<div class="embed-container"> 
+ <iframe id="dotdash_video" src="https://player.vimeo.com/video/215571869" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> 
+</div>
+<img src="https://www.dotdash.com/wp-content/uploads/2017/04/verywell-photo.jpg" width="100%" height="100%">
+<a target="_blank" href="https://www.thespruce.com/diys-for-your-kitchen-4121413">50 DIYs to Update Your Kitchen</a>
+<a target="_blank" href="https://www.lifewire.com/best-tablets-to-buy-4036560">The 10 Best Tablets to Buy in 2017</a>
+<div> 
+ <a target="_blank" href="https://www.thebalance.com/" class="visit-link">VISIT THEBALANCE</a> 
+</div>
+<div class="footer-col first"> 
+ <strong>Advertising Inquiries</strong> 
+ <p> <a href="mailto:advertise@dotdash.com">advertise@dotdash.com</a> </p> 
+</div>
+<div class="footer-col"> 
+ <strong>Dotdash Chicago</strong> 
+ <p> 444 N. Michigan Avenue<br> Suite 1460<br> Chicago, IL 60611 </p> 
+</div>
+
+
+###################################################################################
+acquirethisnamecom.html
+
+<span></span>
+<div id="divLogin" class="user-panel"> 
+ <ul> 
+  <li> <label class="iblock bold">Username:</label> <input name="ctl00$txtUsername" type="text" id="txtUsername" class="w-150"> </li> 
+  <li> <label class="iblock bold">Password:</label> <input name="ctl00$txtPassword" type="password" id="txtPassword" class="w-150"><br> </li> 
+  <li> <input type="submit" name="ctl00$btnLogin" value="Login" id="btnLogin" class="panel-login grey-1"> <a class="panel-pass" href="/m/login/PasswordReset.aspx"><span>Forgot password?</span></a> </li> 
+ </ul> 
+</div>
+<div id="ss"> 
+ <div id="slider"> 
+ 
+###################################################################################
