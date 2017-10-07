@@ -2,18 +2,18 @@ var express = require('express');
 var fs = require('fs');
 var readline = require('readline');
 var app = express();
-global.trainingData = new Map();
-global.testingData = new Map();
 var editor = require(__dirname+'/public/EditorCopy/javascriptFiles/RunEditor');
 
-app.use(express.static(__dirname+'/public/EditorCopy'));
+global.trainingData = new Map();//Contains the training data.
+global.testingData = new Map();//Contains the testing data.
 
+app.use(express.static(__dirname+'/public/EditorCopy'));
 app.get('/', function (req, res) {
   res.sendFile(__dirname +'/public/EditorCopy/studyIndex.html');
 });
 
 var rl = readline.createInterface({
-      input : fs.createReadStream('mess.text'),
+      input : fs.createReadStream('TrainingSet.text'),
       output: process.stdout,
       terminal: false
 });
@@ -23,7 +23,6 @@ rl.on('line',function(line){
 	saveSets(trainingData, line);
      // console.log(line); //or parse line
 });
-
 
 app.listen(8000, function () {
   console.log('Example app listening on port 8000!');

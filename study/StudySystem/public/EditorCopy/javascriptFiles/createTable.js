@@ -11,19 +11,22 @@ function createTable(){
 		document.completeElementTable = new Map();
 		for(let element of elements){
 			if(typeof(element) && element.attributes.length>0){
-				for(let attr of element.attributes){
+				// for(let attr of element.attributes){  			Changed these lines on the prilot testing
+				   for(var i=0; i<element.attributes.length; i++){//copy becauese jsdom does not 
+				   		var attr = element.attributes[i];         //have an iterator for children.
 					if(element.attributes[0].nodeName!="<"){
 						createElementTable(element.tagName, attr);
 					}
 					if(attr.nodeValue!=""){
+						var a = attr.nodeValue.replaceAll(/\s(?=[^s]*\s)/,".");//In Case we get multiple classes.
 						document.completeElementTable.set(
-							$("iframe").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"="+attr.nodeValue+"]")[0],
-								$("iframe").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"="+attr.nodeValue+"]").length);
+							$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"='"+a+"']")[0],
+								$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"='"+a+"']").length);
 					}
 				}
 			}else{
 				createElementTable(element.tagName, "undefined");
-				var allSameTag = document.completeElementTable.get($("iframe").contents().find(element.nodeName.toLowerCase()))
+				var allSameTag = document.completeElementTable.get($("iframe#output").contents().find(element.nodeName.toLowerCase()))
 				if(typeof(allSameTag)!="undefined"){
 					for(let elem of allSameTag)
 						if(typeof(elem[0].attributes)=="undefined"){
@@ -46,7 +49,7 @@ function createElementTable(tag, attribute){
 		document.elementTable.set(tag,[1,""]);
 	}
 	else if(typeof(document.elementTable.get(tag))!="undefined" && attribute=="undefined"){
-		document.elementTable.set(tag,[$("iframe").contents().find(tag.toLowerCase()).length,document.elementTable.get(tag)[1]]);
+		document.elementTable.set(tag,[$("iframe#output").contents().find(tag.toLowerCase()).length,document.elementTable.get(tag)[1]]);
 	}
  	if(attribute!="undefined"){
 		if(document.elementTable.get(tag)[1]==""){//Adding first attribute/value
@@ -69,5 +72,3 @@ function createElementTable(tag, attribute){
 		}
 	}
 }
-	
-	

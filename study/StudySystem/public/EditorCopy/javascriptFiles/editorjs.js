@@ -1,5 +1,7 @@
 
-$( document ).ready(function() {
+$( document ).ready(function editorjs() {
+  //Added for pilot test
+  document.editorSelector = $("div#editor");
   //Using ace to get the editor.	
   document.editor = ace.edit("editor");
   document.editor.setTheme("ace/theme/monokai");
@@ -8,7 +10,7 @@ $( document ).ready(function() {
         enableBasicAutocompletion: true,
         enableSnippets: true,
         enableLiveAutocompletion: true
-      });
+      }); 
   var langTools = ace.require("ace/ext/language_tools");
 
   //To have easiy access to them in all .js files.
@@ -67,4 +69,4 @@ $( document ).ready(function() {
     }
   }
 	langTools.setCompleters([staticWordCompleter]);
-});
+  });
