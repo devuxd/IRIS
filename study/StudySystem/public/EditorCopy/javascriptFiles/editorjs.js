@@ -1,6 +1,5 @@
 
-$(document).ready(function() {
-
+$( document ).ready(function() {
   //Using ace to get the editor.	
   document.editor = ace.edit("editor");
   document.editor.setTheme("ace/theme/monokai");
@@ -17,7 +16,6 @@ $(document).ready(function() {
   document.elementTable = new Map(); 
   document.completeElementTable = new Map();
   document.allAutoCompleteList = [];
-  // document.elementFreq = [];
 
   //This shows the html body code on the iframe.
   //This saves the content of the html doc that is going to be created on an iframe. 
@@ -69,7 +67,4 @@ $(document).ready(function() {
     }
   }
 	langTools.setCompleters([staticWordCompleter]);
-  // var training = require('./index').trainingData;
-  // console.log(trainingData);
- 
 });

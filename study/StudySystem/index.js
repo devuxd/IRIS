@@ -2,14 +2,14 @@ var express = require('express');
 var fs = require('fs');
 var readline = require('readline');
 var app = express();
-var $ = require('jquery');
 global.trainingData = new Map();
 global.testingData = new Map();
+var editor = require(__dirname+'/public/EditorCopy/javascriptFiles/RunEditor');
 
 app.use(express.static(__dirname+'/public/EditorCopy'));
 
 app.get('/', function (req, res) {
-  res.sendFile(__dirname +'/public/EditorCopy/editor.html');
+  res.sendFile(__dirname +'/public/EditorCopy/studyIndex.html');
 });
 
 var rl = readline.createInterface({
@@ -34,7 +34,7 @@ function saveSets(set, line){
 		filename = line;
 		count++;
 	}else if(line.includes("#########")){
-		count=1;
+		count=0;
 	}else if(line!=""){
 		if(typeof(set.get(filename,set.get(filename)))!='undefined')
 			set.set(filename,set.get(filename)+"\n"+line);
@@ -44,6 +44,4 @@ function saveSets(set, line){
 	}
 }
 
-// exports.trainingData = global.trainingData;
-// var m = require(__dirname+'/public/EditorCopy/javascriptFiles/editorjs');
 
