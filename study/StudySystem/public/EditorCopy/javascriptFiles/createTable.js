@@ -18,7 +18,12 @@ function createTable(){
 						createElementTable(element.tagName, attr);
 					}
 					if(attr.nodeValue!=""){
-						var a = attr.nodeValue.replaceAll(/\s(?=[^s]*\s)/,".");//In Case we get multiple classes.
+						var a = attr.nodeValue.replace(/\s+(?=[^\s+])/g,".");//In Case we get multiple classes.
+						console.log(element.nodeName);
+						console.log(attr.nodeName);
+						console.log(a);
+						console.log($("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"='"+a+"']")[0]);
+
 						document.completeElementTable.set(
 							$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"='"+a+"']")[0],
 								$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"='"+a+"']").length);

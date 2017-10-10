@@ -16,7 +16,7 @@ function createTable(){
 						createElementTable(element.tagName, attr);
 					}
 					if(attr.nodeValue!=""){
-						var a = attr.nodeValue.replace(/\s+(?=[^\s+])/,".");//In Case we get multiple classes.
+						var a = attr.nodeValue.replace(/\s+(?=[^\s+])/g,".");//In Case we get multiple classes.
 						document.completeElementTable.set(
 							$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"='"+a+"']")[0],
 								$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"='"+a+"']").length);
