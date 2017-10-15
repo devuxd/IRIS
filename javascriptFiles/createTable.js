@@ -11,15 +11,25 @@ function createTable(){
 		document.completeElementTable = new Map();
 		for(let element of elements){
 			if(typeof(element) && element.attributes.length>0){
-				for(let attr of element.attributes){
+				for(var i=0; i<element.attributes.length; i++){//copy becauese jsdom does not 
+				   	var attr = element.attributes[i];         //have an iterator for children.
 					if(element.attributes[0].nodeName!="<"){
 						createElementTable(element.tagName, attr);
 					}
 					if(attr.nodeValue!=""){
-						var a = attr.nodeValue.replace(/\s+(?=[^\s+])/g,".");//In Case we get multiple classes.
+						if(attr.nodeValue=="title")
+							attrValName = attr.nodeName;
+						else//In case it contains multiple classes or special char.
+							attrValName = attr.nodeValue.replace(/\s+(?=[^\s+])/g,".").replace(/'/g,"\\'");
+						attrName = attr.nodeName.replace(/:/g,'\\\:');//In case we get : special char.
+
+						if(attrValName=="We're.on.a.mission..Wanna.join?"){
+							console.log("here");
+						}
+
 						document.completeElementTable.set(
-							$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"='"+a+"']")[0],
-								$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"='"+a+"']").length);
+							$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attrName+"='"+attrValName+"']")[0],
+								$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attrName+"='"+attrValName+"']").length);
 					}
 				}
 			}else{

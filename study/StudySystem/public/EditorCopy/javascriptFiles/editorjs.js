@@ -13,7 +13,7 @@ $( document ).ready(function editorjs() {
       }); 
   var langTools = ace.require("ace/ext/language_tools");
 
-  //To have easiy access to them in all .js files.
+  //To have easy access to them in all .js files.
   document.html; 
   document.elementTable = new Map(); 
   document.completeElementTable = new Map();

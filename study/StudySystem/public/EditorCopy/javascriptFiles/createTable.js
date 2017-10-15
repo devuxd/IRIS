@@ -2,7 +2,7 @@ function createTable(){
 	//Getting the body of the programmers html code.
     document.body_.html(document.editor.getValue());	
 	var elements = document.body_.find("*");
-	var query;
+	var query, attrValName, attrName;
 	//Once the user starts writing an element, this
 	//starts collecting elements.
 	if(typeof(elements)!="undefined" && elements.length>0){
@@ -18,15 +18,19 @@ function createTable(){
 						createElementTable(element.tagName, attr);
 					}
 					if(attr.nodeValue!=""){
-						var a = attr.nodeValue.replace(/\s+(?=[^\s+])/g,".");//In Case we get multiple classes.
-						console.log(element.nodeName);
-						console.log(attr.nodeName);
-						console.log(a);
-						console.log($("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"='"+a+"']")[0]);
+						if(attr.nodeValue=="title")
+							attrValName = attr.nodeName;
+						else//In case it contains multiple classes or special char.
+							attrValName = attr.nodeValue.replace(/\s+(?=[^\s+])/g,".").replace(/'/g,"\\'");
+						attrName = attr.nodeName.replace(/:/g,'\\\:');//In case we get : special char.
+
+						if(attrValName=="We're.on.a.mission..Wanna.join?"){
+							console.log("here");
+						}
 
 						document.completeElementTable.set(
-							$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"='"+a+"']")[0],
-								$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attr.nodeName+"='"+a+"']").length);
+							$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attrName+"='"+attrValName+"']")[0],
+								$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attrName+"='"+attrValName+"']").length);
 					}
 				}
 			}else{
