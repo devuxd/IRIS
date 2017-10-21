@@ -25,9 +25,9 @@
  *	and value = all the html code. The timeout is to make them
  *	run asynchronous.
  */
-	readFile('SmallTraining.text', global.trainingData);
+	readFile('TestInputFiles/SmallTraining.text', global.trainingData);
 	setTimeout(function() {
-		readFile('SmallTesting.text', global.testingData);
+		readFile('TestInputFiles/SmallTesting.text', global.testingData);
 	}, 1000);
 
 	//Takes each line and adds it to the global map.

@@ -6,7 +6,9 @@
   var fs = require('fs');
   require('jsdom-global')();
   const jsdom = require("jsdom");
-  var csvdata = require(csvdata);
+  var csvdata = require("csvdata");
+
+  var output = [];
 
   const { JSDOM } = jsdom;
   var htmlSource = fs.readFileSync(__dirname+"/../editor.html", "utf-8");
@@ -15,14 +17,17 @@
   }).then(dom => {
     setTimeout(function(){ //Timeout to wait for all the script to finish loading.
       for(var file of global.trainingData){
-        dom.window.document.editor.session.setValue(file[1]);
-        dom.window.document.editorSelector.keyup();
+         for(var file of global.testingData){
+            dom.window.document.editor.session.setValue(file[1]);
+            dom.window.document.editorSelector.keyup();
+            dom.window.document.editor.session.setValue(file[1]);
+            dom.window.document.editorSelector.keyup();
+            for(var data in dom.window.document.allAutoCompleteList){
+              output[data] = dom.window.document.allAutoCompleteList[data];
+            }
+        }
       }
-      for(var file of global.testingData){
-        dom.window.document.editor.session.setValue(file[1]);
-           dom.window.document.editorSelector.keyup();
-          console.log(dom.window.document.allAutoCompleteList);
-          csvdata.write('./my-file.csv', data, {header: 'name,hair,age'})
-      }
+    csvdata.write('./study.csv', output);
+    console.log(output);
     }, 5000);  
   });
