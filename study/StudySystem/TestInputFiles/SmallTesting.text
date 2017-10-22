@@ -1,22 +1,22 @@
 aboutcom.html
 
-1 attr value: primary-dash-nav-link  active 
-2 attr value: /
-3 attr value: primary-dash-nav-link 
-4 attr value: /our-brands/
-5 attr value: embed-container
-6 attr value: https://www.dotdash.com/wp-content/uploads/2017/04/verywell-photo.jpg
-7 attr value: 100%
-8 attr value: 100%
-9 attr value: _blank
-10 attr value: https://www.thespruce.com/diys-for-your-kitchen-4121413
-11 attr value: _blank
-12 attr value: https://www.lifewire.com/best-tablets-to-buy-4036560
-13 attr value: footer-col first
-14 attr value: footer-col
+1 attr key: <a class
+2 attr key: <a href
+3 attr key: <a class
+4 attr key: <a href
+5 attr key: <div class
+6 attr key: <img src
+7 attr key: <img width
+8 attr key: <img height
+9 attr key: <a target
+10 attr key: <a href
+11 attr key: <a target
+12 attr key: <a href
+13 attr key: <div class
+14 attr key: <div class
 
 
 ##############################################################################################################
 acquirethisnamecom.html
 
-1 attr value: /m/legal/privacy-policy.aspx
+1 attr key: <a href

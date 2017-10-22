@@ -40,8 +40,10 @@
 		}else if(line!=""){
 			if(typeof(set.get(filename,set.get(filename)))!='undefined')
 				set.set(filename,set.get(filename)+"\n"+line);
-			else 
+			else{ 
+				line  = line.replace(/ .*: /g,"");
 				set.set(filename,line);
+			}
 			count++;
 		}
 	}

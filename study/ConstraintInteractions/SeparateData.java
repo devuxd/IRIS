@@ -150,7 +150,7 @@ public class SeparateData {
 			for (Attribute attr : element.attributes()) {
 				attrTestingSetWriter.newLine();
 				attrAnswerWriter.newLine();
-				attrTestingSetWriter.write(attrlineCounter + " attr key: " + attr.getKey());
+				attrTestingSetWriter.write(attrlineCounter + " attr key: <" + element.tagName()+" "+attr.getKey());
 				attrAnswerWriter.write(attrlineCounter++ + " attr value: " + attr.getValue());
 			}
 		} else if (element.attributes().size() > 5) {

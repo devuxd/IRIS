@@ -16,15 +16,37 @@
 
   }).then(dom => {
     setTimeout(function(){ //Timeout to wait for all the script to finish loading.
-      for(var file of global.trainingData){
-         for(var file of global.testingData){
-            dom.window.document.editor.session.setValue(file[1]);
-            dom.window.document.editorSelector.keyup();
-            dom.window.document.editor.session.setValue(file[1]);
-            dom.window.document.editorSelector.keyup();
-            for(var data in dom.window.document.allAutoCompleteList){
-              output[data] = dom.window.document.allAutoCompleteList[data];
+      for(var fileTrain of global.trainingData){
+         for(var fileTest of global.testingData){
+           var linesTraining = fileTest[1].split("\n");
+            delete linesTraining[0];
+            for(var line of linesTraining){
+              if(typeof(line)!="undefined"){
+                line  = line.replace(/\d .*: /g,"");
+                dom.window.document.editor.session.setValue(fileTrain[1]);
+              }
             }
+            dom.window.document.editorSelector.keyup();
+            var lines = fileTest[1].split("\n");
+            var fileName = lines[0];
+            delete lines[0];
+            for(var line of lines){
+              if(typeof(line)!="undefined"){
+                line  = line.replace(/\d .*: /g,"");
+                dom.window.document.editor.session.setValue(line);
+                dom.window.document.editorSelector.keyup();
+                var outputtemp = "";
+                for(var word in dom.window.document.allAutoCompleteList){
+                    if(outputtemp=="")
+                       outputtemp+= fileName+","+word +" "+ dom.window.document.allAutoCompleteList[word];
+                    else 
+                      outputtemp+= ","+word +" "+ dom.window.document.allAutoCompleteList[word];
+                }
+               
+                console.log(output);
+              }
+           }
+            output.push([outputtemp]);
         }
       }
     csvdata.write('./study.csv', output);

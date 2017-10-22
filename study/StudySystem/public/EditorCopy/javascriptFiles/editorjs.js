@@ -34,10 +34,14 @@ $( document ).ready(function editorjs() {
          if(!(e.key=="ArrowUp" || e.key=="ArrowDown"|| e.key=="ArrowLeft" 
             || e.key=="ArrowRight")){//Don't do anything when pressing any arrow.
             createTable();
+            document.currentAutocomplete = document.editor.completer;//$("div[class='ace_line ace_selected']").text();
+            console.log(document.currentAutocomplete);
             attributeTokenization();
         }
 	    });
   })();
+
+
 
   //Custom autocomplete.
   var staticWordCompleter = {
@@ -60,8 +64,10 @@ $( document ).ready(function editorjs() {
          if(word.match(/Freq: [0-9]/g)!=null)
             freq = word.match(/Freq: [0-9]/g).toString();
           word = valueList.replace(/</g,"");
+          console.log("#############################"+word+" "+freq);
+
           return {
-              caption: valueList,
+              captsion: valueList,
               value: word,
               meta: freq
           };
