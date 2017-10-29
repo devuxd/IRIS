@@ -37,7 +37,33 @@ $( document ).ready(function editorjs() {
             document.currentAutocomplete = document.editor.completer;//$("div[class='ace_line ace_selected']").text();
             console.log(document.currentAutocomplete);
             attributeTokenization();
-        }
+
+            document.editor.selection.moveCursorFileEnd();
+
+            var Autocomplete = require("ace/autocomplete").Autocomplete;
+            var util = require("ace/autocomplete/util");
+
+            /*
+              * Snippet taken from ext-language_tools.js from Ace library to create an instance
+              * of the editors autocomplete and get the ranked version of the autocomplete list.
+            */var hasCompleter = document.editor.completer && document.editor.completer.activated;
+            if (e.key === "backspace") {
+                if (hasCompleter && !util.getCompletionPrefix(document.editor))
+                    document.editor.completer.detach();
+            }
+            else {
+                var prefix = util.getCompletionPrefix(document.editor);
+                if (prefix && !hasCompleter) {
+                    if (!document.editor.completer) {
+                        document.editor.completer = new Autocomplete();
+                    }
+                    document.editor.completer.autoInsert = false;
+                    document.editor.completer.showPopup(document.editor);
+                    if(document.content = document.editor.completer.completions!=null)
+                      document.content = document.editor.completer.completions.filtered;//Getting the ranked list.
+                }
+            }
+          }
 	    });
   })();
 
@@ -64,7 +90,6 @@ $( document ).ready(function editorjs() {
          if(word.match(/Freq: [0-9]/g)!=null)
             freq = word.match(/Freq: [0-9]/g).toString();
           word = valueList.replace(/</g,"");
-          console.log("#############################"+word+" "+freq);
 
           return {
               captsion: valueList,

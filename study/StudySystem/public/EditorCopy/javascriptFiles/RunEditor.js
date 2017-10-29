@@ -9,6 +9,7 @@
   var csvdata = require("csvdata");
 
   var output = [];
+  var labels = "fileName";
 
   const { JSDOM } = jsdom;
   var htmlSource = fs.readFileSync(__dirname+"/../editor.html", "utf-8");
@@ -18,38 +19,38 @@
     setTimeout(function(){ //Timeout to wait for all the script to finish loading.
       for(var fileTrain of global.trainingData){
          for(var fileTest of global.testingData){
-           var linesTraining = fileTest[1].split("\n");
-            delete linesTraining[0];
-            for(var line of linesTraining){
+            //Getting all training and testing data.
+            var linesTraining = fileTrain[1];
+            var linesTesting = fileTest[1].split("\n");
+            var fileName = linesTesting[0];//Getting filename
+            delete linesTesting[0];
+
+            for(var line of linesTesting){//Through each testline to get all different autocompletes.
               if(typeof(line)!="undefined"){
-                line  = line.replace(/\d .*: /g,"");
-                dom.window.document.editor.session.setValue(fileTrain[1]);
-              }
-            }
-            dom.window.document.editorSelector.keyup();
-            var lines = fileTest[1].split("\n");
-            var fileName = lines[0];
-            delete lines[0];
-            for(var line of lines){
-              if(typeof(line)!="undefined"){
-                line  = line.replace(/\d .*: /g,"");
-                dom.window.document.editor.session.setValue(line);
+                line  = line.replace(/\d+ .*: /g,"");
+                //Imputing the training and testing set to the editor.
+                dom.window.document.editor.session.setValue(linesTraining+"\n"+line);
+                //Simulating a keyup on the editor to get autocompletes.
                 dom.window.document.editorSelector.keyup();
-                var outputtemp = "";
-                for(var word in dom.window.document.allAutoCompleteList){
-                    if(outputtemp=="")
-                       outputtemp+= fileName+","+word +" "+ dom.window.document.allAutoCompleteList[word];
-                    else 
-                      outputtemp+= ","+word +" "+ dom.window.document.allAutoCompleteList[word];
+                  var rankedAutoComplete = dom.window.document.content;
+                  var outputtemp = "";
+                  for(var i in rankedAutoComplete){
+                      if(outputtemp==""){
+                         outputtemp+= fileName +": "+ line +","+ rankedAutoComplete[i].value +" "
+                                                               + rankedAutoComplete[i].meta;
+                       }
+                      else {
+                        outputtemp+= ","+rankedAutoComplete[i].value +" "
+                                        + rankedAutoComplete[i].meta;
+                      }
+                  } 
+                  output.push([outputtemp]); 
+                  console.log(output);
                 }
-               
-                console.log(output);
-              }
            }
-            output.push([outputtemp]);
         }
       }
-    csvdata.write('./study.csv', output);
+    csvdata.write('./study2.csv', output);
     console.log(output);
     }, 5000);  
   });

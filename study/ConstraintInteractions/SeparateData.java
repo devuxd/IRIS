@@ -40,41 +40,58 @@ public class SeparateData {
 			for (int i = 0; i < doc.length; i++) {
 				// Using jsoup to parse the html code.
 				fileHtml = "";
+				// Preprocessing the html file.
 				doc[i].select("script, style, #comment").remove();// Removing scripts comments and styles.
 				doc[i].select("[style]").removeAttr("style");
 				doc[i].select("[comment]").removeAttr("comment");
 				Elements body = doc[i].getElementsByTag("body");// Getting just the body of the html file.
 				Elements elements = body.select("*");// All elements on html file.
-				int lineNumber = 1;// To count total lines.
-				int lineToRemove = (int) (elements.size() / (elements.size() * .06));// 0.07 of elements(with their
-				// child) will be for testing.
-				attrTestingSetWriter.write(doc[i].baseUri().replaceAll(".*http", "") + "\n");
-				attrAnswerWriter.write(doc[i].baseUri().replaceAll(".*http", "") + "\n");
+//				int lineNumber = 1;// To count total lines.
+				int elementToRemove = (int) (elements.size() / (elements.size() * .7));// 0.7 of elements(with their
+																						// child) will be for testing.
+				// Adding the name of the html file to the training and testing data.
+				String filename = doc[i].baseUri().replaceAll(".*http", "");
+				attrTestingSetWriter.write(filename + "\n");
+				attrAnswerWriter.write(filename + "\n");
 
-				groupTestingSetWriter.write(doc[i].baseUri().replaceAll(".*http", "") + "\n");
-				groupAnswerWriter.write(doc[i].baseUri().replaceAll(".*http", "") + "\n");
+				groupTestingSetWriter.write(filename + "\n");
+				groupAnswerWriter.write(filename + "\n");
 
-				// To create testing sets with answers of attributes set.
+				trainingSetWriter.write(filename + "\n");
+
+				// To create testing and training data with testing answers.
+				int elementCounter = 0;
 				for (Element element : elements) {
-					if (lineNumber++ % lineToRemove == 0) {
-						if (maxChild(element)) {
-							// Creates testing set and answers for attributes.
-							createAttrTesting_AnswerSets(element);
-							// Creates testing set and answers for groups of elements.
-							createGroupTesting_AnswerSets(element);
+					size = 0;
+					size(element);// Gets the size of the element.
+					elementCounter += size;// Counts all elements.
+					if (elementCounter <= 4000) {// Only up to 4000 elements total (including children).
+						// To create the training set.
+						createTrainingSet(element);
+						if (elementCounter++ % elementToRemove == 0) {
+							if (maxChild(element)) {
+								// Creates testing set and answers for attributes.
+								createAttrTesting_AnswerSets(element);
+								// Creates testing set and answers for groups of elements.
+								createGroupTesting_AnswerSets(element);
+							}
 						}
 					}
+					elementCounter++;
 				}
 				attrlineCounter = 1;
 				grouplineCounter = 1;
+
+				trainingSetWriter.write(diviser);
+				System.out.println(
+						"Training set for file " + doc[i].baseUri().replaceAll(".*http", "") + " has been created.");
+
 				attrAnswerWriter.write(diviser);
 				attrTestingSetWriter.write(diviser);
 				groupAnswerWriter.write(diviser);
 				groupTestingSetWriter.write(diviser);
 				System.out.println("Testing set and Answers for file " + doc[i].baseUri().replaceAll(".*http", "")
 						+ " has been created.");
-				// To create the training set.
-				createTrainingSet(body, i);
 			}
 			trainingSetWriter.close();
 			attrTestingSetWriter.close();
@@ -85,6 +102,20 @@ public class SeparateData {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	int size;
+
+	/*
+	 * Recursive function that makes sure every to get the size of an element.
+	 */public boolean size(Element elements) {
+		if (elements.children().size() == 0)
+			return false;
+		for (Element el : elements.children()) {
+			size++;
+			size(el);
+		}
+		return true;
 	}
 
 	/*
@@ -103,16 +134,6 @@ public class SeparateData {
 		return true;
 	}
 
-	/*
-	 * Helper function that helps get the training set data to add each child of the
-	 * html body.
-	 */public void getTraingData(Element child) {
-		String tag = child.nodeName();
-		if (!tag.equals("scirpt")) {
-			fileHtml += child.toString();
-		}
-	}
-
 	// Getting all html files using jsoup.
 	public Document[] readFiles() throws Exception {
 		String htmlDir = "websitesHTML";
@@ -121,7 +142,7 @@ public class SeparateData {
 		File[] htmlFiles = dir.listFiles();
 		int i = 0;
 		for (File html : htmlFiles) {
-			if (i == 100)
+			if (i == 100)// Only testing 100 html files.
 				break;
 			if (html.isFile()) {
 				allHtml[i++] = Jsoup.parse(html, "UTF-8", html.getAbsolutePath());
@@ -131,14 +152,9 @@ public class SeparateData {
 	}
 
 	// Creating the Training Set
-	public void createTrainingSet(Elements body, int i) throws Exception {
-		// Getting all data for the training set.
-		body.forEach((child) -> getTraingData(child));
+	public void createTrainingSet(Element element) throws Exception {
 		trainingSetWriter.newLine();
-		trainingSetWriter.write(doc[i].baseUri().replaceAll(".*http", "") + "\n");
-		trainingSetWriter.write(fileHtml + "\n");
-		trainingSetWriter.write(diviser);
-		System.out.println("Training set for file " + doc[i].baseUri().replaceAll(".*http", "") + " has been created.");
+		trainingSetWriter.write(element.toString());
 	}
 
 	/*
@@ -150,15 +166,15 @@ public class SeparateData {
 			for (Attribute attr : element.attributes()) {
 				attrTestingSetWriter.newLine();
 				attrAnswerWriter.newLine();
-				attrTestingSetWriter.write(attrlineCounter + " attr key: <" + element.tagName()+" "+attr.getKey());
+				attrTestingSetWriter.write(attrlineCounter + " attr key: <" + element.tagName() + " " + attr.getKey());
 				attrAnswerWriter.write(attrlineCounter++ + " attr value: " + attr.getValue());
 			}
 		} else if (element.attributes().size() > 5) {
 			attrTestingSetWriter.newLine();
 			attrAnswerWriter.newLine();
 			attrTestingSetWriter.write(attrlineCounter + " Element tag: <" + element.nodeName());
-			attrAnswerWriter.write(attrlineCounter++ + " Element: " + element.toString()
-													.replaceAll("<", "").replaceAll(element.nodeName(), ""));
+			attrAnswerWriter.write(attrlineCounter++ + " Element: "
+					+ element.toString().replaceAll("<", "").replaceAll(element.nodeName(), ""));
 		}
 		if (element != null && element.parent() != null) {
 			element.remove();
