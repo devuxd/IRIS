@@ -13,15 +13,18 @@ import org.jsoup.select.Elements;
  * It also creates an answer for the testing set.
  * */
 public class SeparateData {
+	
 	private BufferedWriter trainingSetWriter = null;
 	private BufferedWriter attrTestingSetWriter = null;
 	private BufferedWriter attrAnswerWriter = null;
 	private BufferedWriter groupAnswerWriter = null;
 	private BufferedWriter groupTestingSetWriter = null;
+	
 	private String fileHtml;
 	private Document doc[] = null;
 	private int attrlineCounter = 1;
 	private int grouplineCounter = 1;
+	
 	// To know when the training and testing data of a specific html page has ended.
 	private String diviser = "\n\n\n#######################################################"
 			+ "#######################################################\n";
@@ -46,8 +49,7 @@ public class SeparateData {
 				doc[i].select("[comment]").removeAttr("comment");
 				Elements body = doc[i].getElementsByTag("body");// Getting just the body of the html file.
 				Elements elements = body.select("*");// All elements on html file.
-//				int lineNumber = 1;// To count total lines.
-				int elementToRemove = (int) (elements.size() / (elements.size() * .7));// 0.7 of elements(with their
+				int elementToRemove = (int) (elements.size() / (elements.size() * .2));// 0.2 of elements(with their
 																						// child) will be for testing.
 				// Adding the name of the html file to the training and testing data.
 				String filename = doc[i].baseUri().replaceAll(".*http", "");
@@ -63,9 +65,10 @@ public class SeparateData {
 				int elementCounter = 0;
 				for (Element element : elements) {
 					size = 0;
-					size(element);// Gets the size of the element.
+					if(!element.tagName().equals("body"))
+						size(element);// Gets the size of the element.
 					elementCounter += size;// Counts all elements.
-					if (elementCounter <= 4000) {// Only up to 4000 elements total (including children).
+					if (elementCounter <= 800) {// Only up to 800 elements total (including children).
 						// To create the training set.
 						createTrainingSet(element);
 						if (elementCounter++ % elementToRemove == 0) {
@@ -120,12 +123,12 @@ public class SeparateData {
 
 	/*
 	 * Recursive function that makes sure every child of the element does not have
-	 * more than 3 children. This is to shorten the testing set data.
+	 * more than 8 children. This is to shorten the testing set data.
 	 */public boolean maxChild(Element elements) {
-		if (elements.children().size() > 3)
+		if (elements.children().size() > 9)
 			return false;
 		for (Element el : elements.children()) {
-			if (el.children().size() > 2)
+			if (el.children().size() > 8)
 				return false;
 			if (el.children().size() >= 1)
 				if (!maxChild(el))

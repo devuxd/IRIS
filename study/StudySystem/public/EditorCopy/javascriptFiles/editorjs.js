@@ -34,18 +34,16 @@ $( document ).ready(function editorjs() {
          if(!(e.key=="ArrowUp" || e.key=="ArrowDown"|| e.key=="ArrowLeft" 
             || e.key=="ArrowRight")){//Don't do anything when pressing any arrow.
             createTable();
-            document.currentAutocomplete = document.editor.completer;//$("div[class='ace_line ace_selected']").text();
-            console.log(document.currentAutocomplete);
             attributeTokenization();
+            elementTokenization();
 
             document.editor.selection.moveCursorFileEnd();
-
             var Autocomplete = require("ace/autocomplete").Autocomplete;
             var util = require("ace/autocomplete/util");
-
             /*
               * Snippet taken from ext-language_tools.js from Ace library to create an instance
               * of the editors autocomplete and get the ranked version of the autocomplete list.
+              * Ontly need this to run the study.
             */var hasCompleter = document.editor.completer && document.editor.completer.activated;
             if (e.key === "backspace") {
                 if (hasCompleter && !util.getCompletionPrefix(document.editor))
@@ -67,34 +65,31 @@ $( document ).ready(function editorjs() {
 	    });
   })();
 
-
-
   //Custom autocomplete.
   var staticWordCompleter = {
     getCompletions: function(editor, session, pos, prefix, callback) {
       var attributeList = [];
       var i=0;
       if(typeof( document.allAutoCompleteList)!="undefined"){
-         //  //Sorts array.
-         // document.allAutoCompleteList.sort(function(a,b){
-         //       return a.value < b.value;
-         // });
         for(var attString in document.allAutoCompleteList){
            attributeList[i++]  = attString + document.allAutoCompleteList[attString];
         }
       }
          //This does the auto-complete.
       callback(null, attributeList.map(function(word) {
-         var valueList = word.replace(/ Freq: [0-9]/g,"");
+         var listWord = word.replace(/ Freq: [0-9]/g,"");
          var freq = "";
          if(word.match(/Freq: [0-9]/g)!=null)
             freq = word.match(/Freq: [0-9]/g).toString();
-          word = valueList.replace(/</g,"");
+          word = listWord.replace(/</g,"");
+          var wscore = parseInt(freq.match(/[0-9]/g));
 
           return {
-              captsion: valueList,
-              value: word,
-              meta: freq
+              caption: listWord,//the words it shows
+              value: word,//the words it writes if clicked
+              score: wscore,//score to rank them according to freq
+              meta: freq//the words frequency.
+             
           };
       }));
     }

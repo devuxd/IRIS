@@ -1,63 +1,21 @@
 aboutcom.html
 
-1 Element no children: <span class="fixed-hi-holder">    
+1 Element no children: <body class="dash dash-home  ">  <!-- Google Tag Manager (noscript) -->   <!-- End Google Tag Manager (noscript) -->  <!-- wrapper --> 
 
-2 Element no children: <div class="big-video-section home dash-section">   
+2 Element no children: <div class="wrapper">  
 
-3 Element no children: <div id="video_container">   
-
-4 Element no children: <div class="links">    
-
-5 Element no children: <div class="links">    
-
-6 Element no children: <div class="links">    
-
-7 Element no children: <div class="links">    
-
-8 Element no children: <div class="links">    
-
-9 Element no children: <div class="links">    
-
-10 Element no children: <div class="footer-group footer-group-contact">    
-
-11 Element no children: <div class="footer-col first">   
-
-12 Element no children: <div class="footer-col">   
-
-13 Element no children: <p> 1500 Broadway6th Floor New York, NY 10036 (212) 204-4000 
-
-14 Element no children: <div class="footer-col">   
-
-15 Element no children: <p> 444 N. Michigan Avenue Suite 1460 Chicago, IL 60611 
-
-16 Element no children: <div class="footer-col">   
-
-17 Element no children: <p> 2 Embarcadero Center 7th Floor San Francisco, CA 94111 
+3 Element no children: <div class="dash-menu-widget">    
 
 
 
 ##############################################################################################################
 acquirethisnamecom.html
 
-1 Element no children: <div class="brand">   
+1 Element no children: <li>   <!-- .user-panel --> 
 
-2 Element no children: <li>   
+2 Element no children: <ul>    
 
-3 Element no children: <li>   
-
-4 Element no children: <li>   
-
-5 Element no children: <ul>    
-
-6 Element no children: <ul>    
-
-7 Element no children: <ul>    
-
-8 Element no children: <ul>    
-
-9 Element no children: <ul>    
-
-10 Element no children: <ul>    
+3 Element no children: <a href="/m/monetize-your-domains/default.aspx">    
 
 
 
@@ -66,503 +24,139 @@ addthiscom.html
 
 1 Element no children: <div class="vertical-center">   
 
-2 Element no children: <div class="vertical-center">   
+2 Element no children: <div class="topnav-inner">     
 
-3 Element no children: <div class="vertical-center">   
+3 Element no children: <ul class="topnav-right">     
 
-4 Element no children: <div class="vertical-center">   
-
-5 Element no children: <div class="vertical-center">   
-
-6 Element no children: <a class="menu-icon" href="#menu">   
-
-7 Element no children: <li class="lang-mobile">  Select a Language  
-
-8 Element no children: <li class="topnav-signin" id="login_dashboard">   
-
-9 Element no children: <div class="header-cta animated bounceIn">    
-
-10 Element no children: <form id="auth-google-frm" method="post" action="/darkseid/account/register-google">   
-
-11 Element no children: <form id="auth-facebook-frm" method="post" action="/darkseid/account/register-facebook">   
-
-12 Element no children: <div class="col-md-5 col-md-offset-1 share-copy">    
-
-13 Element no children: <g id="share-homepage-illo-device-background" transform="translate(221.000000, 42.000000)">   
-
-14 Element no children: <g id="share-line2" transform="translate(70.000000, 285.000000)" stroke="#B0DBFF" stroke-linejoin="round">    
-
-15 Element no children: <text id="share-text2" opacity="0.776236007" font-family="Montserrat-Regular, Montserrat" font-size="12" font-weight="normal" fill="#FFFFFF">   
-
-16 Element no children: <g id="share-line1" transform="translate(96.000000, 71.000000)" stroke="#B0DBFF" stroke-linejoin="round">    
-
-17 Element no children: <text id="share-text1" opacity="0.776236007" font-family="Montserrat-Regular, Montserrat" font-size="12" font-weight="normal" fill="#FFFFFF">    
-
-18 Element no children: <div class="row">   
-
-19 Element no children: <div class="col-md-6 col-md-offset-2">   
-
-20 Element no children: <g id="follow-device-background" transform="translate(0.000000, 51.000000)">    
-
-21 Element no children: <g id="follow-tool-mockup" transform="translate(72.000000, 131.000000)">    
-
-22 Element no children: <g id="follow-dotted-line-2" transform="translate(175.000000, 217.000000)" stroke="#BDF5E1" stroke-linejoin="round">    
-
-23 Element no children: <text id="follow-text2" opacity="0.776236007" font-family="Montserrat-Regular, Montserrat" font-size="12" font-weight="normal" fill="#FFFFFF">    
-
-24 Element no children: <g id="follow-dotted-line-1" transform="translate(164.000000, 69.000000)" stroke="#BDF5E1" stroke-linejoin="round">    
-
-25 Element no children: <text id="follow-text1" opacity="0.776236007" font-family="Montserrat-Regular, Montserrat" font-size="12" font-weight="normal" fill="#FFFFFF">   
-
-26 Element no children: <div class="col-md-4 follow-copy">    
-
-27 Element no children: <div class="col-md-6">    
-
-28 Element no children: <div class="col-md-4 col-md-offset-1 related-copy">    
+4 Element no children: <li class="topnav-language">    
 
 
 
 ##############################################################################################################
 addtoanycom.html
 
-1 Element no children: <div class="grid_6">    
+1 Element no children: <div class="menu_wrapper">   
 
-2 Element no children: <div class="grid_6">    
+2 Element no children: <div class="column left">       
 
 3 Element no children: <div class="grid_6">    
-
-4 Element no children: <div class="grid_6">    
-
-5 Element no children: <div class="grid_6">    
-
-6 Element no children: <div class="grid_6">    
-
-7 Element no children: <div class="grid_6">    
-
-8 Element no children: <div class="grid_6">    
-
-9 Element no children: <div class="grid_6">    
-
-10 Element no children: <div class="grid_6">    
-
-11 Element no children: <h1 class="GET get_addon">   
-
-12 Element no children: <div>    
 
 
 
 ##############################################################################################################
 adobecom.html
 
-1 Element no children: <a class="Gnav-logo" href="/" data-adobe-analytics-linkname="Globalnav:Menu:Adobe">   
-
-2 Element no children: <aside class="Gnav-search" role="Search">   
-
-3 Element no children: <form action="/search.html" method="get" class="Gnav-search-form">   
-
-4 Element no children: <div class="Gnav-search-icons">   
-
 
 
 ##############################################################################################################
 androidcom.html
 
-1 Element no children: <svg aria-hidden="false" aria-label="Phones" class="icon icon--svg icon--phone" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">   
-
-2 Element no children: <svg aria-hidden="false" aria-label="Wear" class="icon icon--svg icon--wear" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">   
-
-3 Element no children: <svg aria-hidden="false" aria-label="TV" class="icon icon--svg icon--tv" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">   
-
-4 Element no children: <svg aria-hidden="false" aria-label="Auto" class="icon icon--svg icon--auto" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">   
-
-5 Element no children: <svg aria-hidden="false" aria-label="Phones" class="icon icon--svg icon--phone" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">   
+1 Element no children: <svg aria-hidden="false" aria-label="TV" class="icon icon--svg icon--tv" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">   
 
 
 
 ##############################################################################################################
 applecom.html
 
-1 Element no children: <div id="ac-ls-dropdown-select" class="ac-ls-dropdown-select ac-ls-dropdown-nav-item" type="text" role="button" aria-haspopup="true">   
+1 Element no children: <ul class="ac-ls-itemlist" role="presentation">    
 
-2 Element no children: <span id="ac-ls-dropdown-title">   
+2 Element no children: <li role="menuitem" id="ac-ls-dropdown-option-1" class="ac-ls-dropdown-option ac-ls-dropdown-nav-item" aria-selected="true">   
 
-3 Element no children: <ul class="ac-ls-itemlist" role="presentation">    
+3 Element no children: <li role="menuitem" id="ac-ls-dropdown-option-2" class="ac-ls-dropdown-option ac-ls-dropdown-nav-item">   
 
-4 Element no children: <li role="menuitem" id="ac-ls-dropdown-option-1" class="ac-ls-dropdown-option ac-ls-dropdown-nav-item" aria-selected="true">   
+4 Element no children: <li class="ac-gn-item ac-gn-menuicon">    
 
-5 Element no children: <li role="menuitem" id="ac-ls-dropdown-option-2" class="ac-ls-dropdown-option ac-ls-dropdown-nav-item">   
+5 Element no children: <li class="ac-gn-item ac-gn-bag" id="ac-gn-bag">   
 
-6 Element no children: <li class="ac-gn-item ac-gn-menuicon">    
+6 Element no children: <a class="ac-gn-link ac-gn-link-bag" href="/us/shop/goto/bag" data-analytics-title="bag" data-analytics-click="bag" aria-label="Shopping Bag" data-string-badge="Shopping Bag with Items">   
 
-7 Element no children: <label class="ac-gn-menuicon-label" for="ac-gn-menustate" aria-hidden="true">   
-
-8 Element no children: <li class="ac-gn-item ac-gn-bag ac-gn-bag-small" id="ac-gn-bag-small">   
-
-9 Element no children: <a class="ac-gn-link ac-gn-link-bag" href="/us/shop/goto/bag" data-analytics-title="bag" data-analytics-click="bag" aria-label="Shopping Bag" data-string-badge="Shopping Bag with Items">   
-
-10 Element no children: <li class="ac-gn-item ac-gn-bag" id="ac-gn-bag">   
-
-11 Element no children: <a class="ac-gn-link ac-gn-link-bag" href="/us/shop/goto/bag" data-analytics-title="bag" data-analytics-click="bag" aria-label="Shopping Bag" data-string-badge="Shopping Bag with Items">   
-
-12 Element no children: <span class="ac-gn-searchview-close-wrapper">   
-
-13 Element no children: <aside class="ac-gn-bagview" data-analytics-region="bag">   
-
-14 Element no children: <ul id="tier-one-hero-positions" class="homepage-section-positions  tier-one-heroes-count-3" data-tier-one-heroes-count="3">    
-
-15 Element no children: <a href="/iphone-8/" tabindex="0" class="unit-wrapper">   
-
-16 Element no children: <div class="unit-copy-wrapper">   
-
-17 Element no children: <a href="/iphone-x/" tabindex="0" class="unit-wrapper">   
-
-18 Element no children: <div class="unit-copy-wrapper">   
-
-19 Element no children: <a href="/apple-watch-series-3/" tabindex="0" class="unit-wrapper">   
-
-20 Element no children: <div class="unit-copy-wrapper">   
-
-21 Element no children: <a href="/apple-tv-4k/" tabindex="0" class="unit-wrapper theme-dark">   
-
-22 Element no children: <div class="unit-copy-wrapper">   
-
-23 Element no children: <a href="/ios/ios-11/" tabindex="0" class="unit-wrapper">   
-
-24 Element no children: <div class="unit-copy-wrapper">   
-
-25 Element no children: <a href="/watchos/" tabindex="0" class="unit-wrapper">   
-
-26 Element no children: <div class="unit-copy-wrapper">   
-
-27 Element no children: <li class="homepage-section-item half-width-promo-position half-width-promo-position-4" data-promo-type="show-hide" id="half-width-promo-position-4">   
-
-28 Element no children: <a href="/us-hed/shop/" tabindex="0" class="unit-wrapper">   
-
-29 Element no children: <div class="unit-copy-wrapper">   
-
-30 Element no children: <a href="/us-hed/shop/" tabindex="0" class="unit-wrapper">   
-
-31 Element no children: <div class="unit-copy-wrapper">   
-
-32 Element no children: <ul class="ac-gf-directory-column-section-list">   
-
-33 Element no children: <ul class="ac-gf-directory-column-section-list">   
-
-34 Element no children: <ul class="ac-gf-directory-column-section-list">    
-
-35 Element no children: <div class="ac-gf-footer-shop" x-ms-format-detection="none">  More ways to shop: Visit an , . 
-
-36 Element no children: <div id="ac-ls-dropdown-select" class="ac-ls-dropdown-select ac-ls-dropdown-nav-item" type="text" role="button" aria-haspopup="true">   
-
-37 Element no children: <span id="ac-ls-dropdown-title">   
+7 Element no children: <aside id="ac-gn-searchview" class="ac-gn-searchview" role="search" data-analytics-region="search">   
 
 
 
 ##############################################################################################################
 axscom.html
 
-1 Element no children: <div>
+1 Element no children: <td>  <!--      <div><img src="http://cdn.distilnetworks.com/deployment_resources/images/theft-bot-home.png"><br><br>
 
-2 Element no children: <ul>    
-
-3 Element no children: <noscript>   
+2 Element no children: <noscript>   
 
 
 
 ##############################################################################################################
 barnesandnoblecom.html
 
-1 Element no children: <span class="hidden"> 
-
 
 
 ##############################################################################################################
 bbccom.html
 
-1 Element no children: <div class="orb-skip-links">   
+1 Element no children: <div id="mybbc-wrapper" class="orb-nav-section orb-nav-id orb-nav-focus">    
+
+2 Element no children: <a id="notification-link" class="js-notification-link animated three" href="#">     
 
 
 
 ##############################################################################################################
 bigcartelcom.html
 
-1 Element no children: <ul class="nav account">    
+1 Element no children: <div class="video-container">    
 
-2 Element no children: <div class="video-container">    
+2 Element no children: <div class="module module-full">   
 
-3 Element no children: <video id="bgvid" loop preload>   
+3 Element no children: <div class="lettering">   
 
-4 Element no children: <div class="module module-full">   
+4 Element no children: <div class="windowed-slider-window">   
 
-5 Element no children: <div class="lettering">   
+5 Element no children: <div class="slide-inner">   
 
-6 Element no children: <a class="watch-video" data-hash="video" data-video="We Believe in the Artist" href="#video">   
-
-7 Element no children: <svg class="play-button play-button-small" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50" width="50px" height="50px">
-
-8 Element no children: <div class="module module-full">   
-
-9 Element no children: <div class="windowed-slider-content with-dots">    
-
-10 Element no children: <div class="slide-inner">   
-
-11 Element no children: <div class="slide-inner">   
-
-12 Element no children: <div class="slide-inner">   
-
-13 Element no children: <div class="site-credit-slider">    
-
-14 Element no children: <div class="footer-nav-wrapper">    
-
-15 Element no children: <ul class="footer-links footer-links-col1">   
-
-16 Element no children: <ul class="footer-links footer-links-col2">   
-
-17 Element no children: <ul class="footer-links footer-links-col3">   
-
-18 Element no children: <ul class="social">    
-
-19 Element no children: <video data-alt-mp4="/videos/homevid-960x540-rf27-80ecdaf0.mp4v?" data-alt-webm="/videos/homevid-960x540-rf27-569f2060.webm?" id="homevid">   
-
-20 Element no children: <svg class="play-button play-button-small" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50" width="50px" height="50px">
-
-21 Element no children: <svg class="pause-button" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="54px" height="54px" x="0px" y="0px" viewbox="0 0 54 54" enable-background="new 0 0 54 54" xml:space="preserve">    
-
-22 Element no children: <div class="homevid-track">   
+6 Element no children: <div class="module module-full">     
 
 
 
 ##############################################################################################################
 bingcom.html
 
-1 Element no children: <li id="scpt0" class="">
-
-2 Element no children: <li id="scpt1" class="">
-
-3 Element no children: <li id="scpt2" class="">
-
-4 Element no children: <li id="scpt3" class="">
-
-5 Element no children: <div>
-
-6 Element no children: <div>
-
-7 Element no children: <div>
-
-8 Element no children: <div>
-
-9 Element no children: <div>
-
-10 Element no children: <div>
-
-11 Element no children: <div>
-
-12 Element no children: <div>
-
-13 Element no children: <div>
-
-14 Element no children: <a class="id_button" id="id_rh" aria-label="Microsoft Rewards" role="dialog" href="/rewards/dashboard" h="ID=SERP,5068.1">
-
-15 Element no children: <div id="sh_rdiv">
-
-16 Element no children: <div>
-
-17 Element no children: <ul id="hp_share_options">
-
-18 Element no children: <a id="hp_fav_img" class=" " title="Favorite this image" data-title-add="Favorite this image" data-title-rm="Unfavorite this image" href="javascript:void(0)" h="ID=SERP,5033.1">
-
-19 Element no children: <a id="hp_fav_login" class="hp_fav_login" aria-hidden="true" tabindex="-1" href="javascript:void(0)" h="ID=SERP,5033.2">
-
-20 Element no children: <div>
-
-21 Element no children: <div id="musCardDesc">
-
-22 Element no children: <div>
-
 
 
 ##############################################################################################################
 bloggercom.html
 
-1 Element no children: <radialgradient id="XMLID_3_" cx=".067" cy=".033" r="45.159" gradientunits="userSpaceOnUse">
+1 Element no children: <div class="theme js-theme red ">         
 
-2 Element no children: <radialgradient id="gradienttwo" cx=".067" cy=".033" r="45.159" gradientunits="userSpaceOnUse">     
+2 Element no children: <section class="section choose-design" id="choose-design" tabindex="0">   
 
-3 Element no children: <div class="header--buttons">   
+3 Element no children: <section class="section free-domain" tabindex="0">   
 
-4 Element no children: <header class="hero--header">    
-
-5 Element no children: <div>   
-
-6 Element no children: <div class="background">    
-
-7 Element no children: <div>   
-
-8 Element no children: <div>   
-
-9 Element no children: <section class="section know-your-audience" tabindex="0">   
-
-10 Element no children: <div>   
-
-11 Element no children: <div class="background">   
-
-12 Element no children: <div>   
-
-13 Element no children: <div>   
-
-14 Element no children: <div>   
-
-15 Element no children: <div class="background">    
-
-16 Element no children: <header class="millions--header">    
-
-17 Element no children: <div class="background millions__background">   
-
-18 Element no children: <ul>    
-
-19 Element no children: <ul>    
-
-20 Element no children: <ul>    
+4 Element no children: <section class="section memories" tabindex="0">   
 
 
 
 ##############################################################################################################
 s://www.bloomberg.com/
 
-1 Element no children: <div class="india-banner" data-tracker-events="click" data-tracker-category="nav" data-tracker-label="india-banner">   
-
-2 Element no children: <header class="bb-that-header bb-that--container">  
-
-3 Element no children: <a class="bb-that-header__link" href="https://bba.bloomberg.net/?utm_source=bloomberg-menu&amp;utm_medium=bcom">
-
-4 Element no children: <section class="bb-that-category">  
-
-5 Element no children: <div class="bb-that-category__content">
-
-6 Element no children: <div class="bb-that-category__content">
-
-7 Element no children: <section class="bb-that-category">  
-
-8 Element no children: <ul class="bb-that-category__content">
-
-9 Element no children: <section class="bb-that-category">  
-
-10 Element no children: <ul class="bb-that-category__content">
-
-11 Element no children: <section class="bb-that-category">  
-
-12 Element no children: <ul class="bb-that-category__content">
-
-13 Element no children: <section class="bb-that-category">  
-
-14 Element no children: <ul class="bb-that-category__content">
-
-15 Element no children: <section class="bb-that-category">  
-
-16 Element no children: <div class="bb-that-category__content">
-
-17 Element no children: <div class="bb-that-category__content">
-
 
 
 ##############################################################################################################
 bluehostcom.html
 
-1 Element no children: <li class="tab about_tab"> 
+1 Element no children: <body class=" no_js">  <!--<![endif]-->  <!-- Google Tag Manager -->     <!-- End Google Tag Manager -->        
 
-2 Element no children: <ul class="subnav">   
+2 Element no children: <ul class="clear">
 
-3 Element no children: <li class="tab support_tab"> 
-
-4 Element no children: <ul class="subnav">   
-
-5 Element no children: <li class="tab programs_tab"> 
-
-6 Element no children: <ul class="subnav">   
-
-7 Element no children: <del class="js_p_del strike-price"> 
-
-8 Element no children: <li class="as_is"> 
-
-9 Element no children: <li class="as_is">1-Click 
-
-10 Element no children: <a href="/shared" id="ribbon" class="skinny-bar shadow-top skinny-bar-link">   
-
-11 Element no children: <h4> 
-
-12 Element no children: <li class="google-icon">    
-
-13 Element no children: <div class="wrapper">   
-
-14 Element no children: <div id="cloud-pane-text">    
-
-15 Element no children: <a href="/professional-services/sitetransfer" class="product_basic">    
-
-16 Element no children: <div class="btn_sticker">   
-
-17 Element no children: <div id="js_required" class="attention">   
-
-18 Element no children: <div id="promotion" class="promotional_price_footer"> *Promotional pricing is for the first term only and  apply upon renewal.  does not extend to domain names.
+3 Element no children: <li class="tab programs_tab"> 
 
 
 
 ##############################################################################################################
 bookingcom.html
 
-1 Element no children: <div id="perfFrame">   
-
 
 
 ##############################################################################################################
 bostoncom.html
 
-1 Element no children: <a href="https://www.boston.com/section/events" class="page-nav__link">
-
-2 Element no children: <form class="search-form js-search-strip-colon" action="https://www.boston.com/">    
-
-3 Element no children: <ul class="slide-out-nav__list">  
-
-4 Element no children: <a href="https://www.boston.com/section/events" class="page-nav__link">
-
-5 Element no children: <ul class="slide-out-nav__list">  
-
-6 Element no children: <ul>    
-
-7 Element no children: <a href="https://www.boston.com/boston-traffic" class="breaking-news__link">
-
-8 Element no children: <div class="scoreboard-baseball__logo">    
-
-9 Element no children: <div class="scoreboard-baseball__scores">    
-
-10 Element no children: <div class="scoreboard-baseball__score-group">   
-
-11 Element no children: <div class="scoreboard-baseball__score-group">   
-
-12 Element no children: <div class="primary-content">
-
-13 Element no children: <a href="https://www.boston.com/culture/entertainment/2017/09/22/the-cast-and-crew-of-stronger-say-its-not-the-boston-marathon-bombing-movie-youre-expecting" class="image-tease__link">   
-
-14 Element no children: <a href="https://www.boston.com/culture/travel/2017/09/22/party-at-these-13-new-england-oktoberfests-this-fall" class="image-tease__link">   
-
-15 Element no children: <a href="https://www.boston.com/news/animals/2017/09/22/humpback-whales-have-been-enjoying-their-meals-very-close-to-salisbury-beach" class="image-tease__link">   
-
-16 Element no children: <a href="https://www.boston.com/news/local-news/2017/09/22/da-man-apparently-killed-young-son-and-then-himself" class="headline-list__link" data-omniture="stream |  | headline | ">   
-
-17 Element no children: <a href="https://www.boston.com/news/local-news/2017/09/22/police-release-records-on-groton-quadruple-homicide" class="headline-list__link" data-omniture="stream |  | headline | ">   
-
-18 Element no children: <a href="https://www.boston.com/news/local-news/2017/09/22/doctor-sentenced-for-killing-yale-physician" class="headline-list__link" data-omniture="stream |  | headline | ">   
-
-19 Element no children: <a href="https://www.boston.com/news/local-news/2017/09/22/judge-tosses-suit-by-vermont-family-of-hazed-football-player-who-killed-self" class="headline-list__link" data-omniture="stream |  | headline | ">   
-
-20 Element no children: <a href="https://www.boston.com/news/politics/2017/09/22/federal-government-connecticut-was-a-target-of-election-hacking" class="headline-list__link" data-omniture="stream |  | headline | ">   
-
-21 Element no children: <a href="https://www.boston.com/news/politics/2017/09/22/humorist-jimmy-tingle-files-papers-to-run-for-massachusetts-lieutenant-governor" class="headline-list__link" data-omniture="stream |  | headline | ">   
-
-22 Element no children: <a href="https://www.boston.com/news/local-news/2017/09/22/whats-known-about-cte-and-how-it-affects-the-brain" class="headline-list__link" data-omniture="stream |  | headline | ">   
-
-23 Element no children: <a href="https://www.boston.com/culture/books/2017/09/22/batman-comic-series-to-feature-scenery-from-portland-maine" class="headline-list__link" data-omniture="stream |  | headline | ">   
-
-24 Element no children: <a href="https://www.boston.com/cars/car-culture/2017/09/22/boston-cup" class="image-tease__link">   
+1 Element no children: <div class="page-header-wrapper">   
 
 
 
@@ -571,174 +165,52 @@ businessinsidercom.html
 
 1 Element no children: <div class="hamburger">    
 
-2 Element no children: <li>   
-
-3 Element no children: <a data-search-icon-close href="#" class="close-x display-none">   
-
-4 Element no children: <div class="tout tout-0 id-59c54dbf19d2f536008b4ce0">    
-
-5 Element no children: <ul>   
-
-6 Element no children: <li class="pageviews">   
+2 Element no children: <a data-search-icon-close href="#" class="close-x display-none">   
 
 
 
 ##############################################################################################################
 businessweekcom.html
 
-1 Element no children: <header class="bb-that-header bb-that--container">  
-
-2 Element no children: <a class="bb-that-header__link" href="https://bba.bloomberg.net/?utm_source=bloomberg-menu&amp;utm_medium=bcom">
-
-3 Element no children: <section class="bb-that-category">  
-
-4 Element no children: <div class="bb-that-category__content">
-
-5 Element no children: <div class="bb-that-category__content">
-
-6 Element no children: <section class="bb-that-category">  
-
-7 Element no children: <ul class="bb-that-category__content">
-
-8 Element no children: <section class="bb-that-category">  
-
-9 Element no children: <ul class="bb-that-category__content">
-
-10 Element no children: <section class="bb-that-category">  
-
-11 Element no children: <ul class="bb-that-category__content">
-
-12 Element no children: <section class="bb-that-category">  
-
-13 Element no children: <ul class="bb-that-category__content">
-
-14 Element no children: <section class="bb-that-category">  
-
-15 Element no children: <div class="bb-that-category__content">
-
-16 Element no children: <div class="bb-that-category__content">
+1 Element no children: <a class="bb-that-header__link" href="https://bba.bloomberg.net/?utm_source=bloomberg-menu&amp;utm_medium=bcom">
 
 
 
 ##############################################################################################################
 buydomainscom.html
 
-1 Element no children: <h3 class="mo-h3 txt-bd-grey">   
-
-2 Element no children: <strong class="txt-sm-rem">   
-
-3 Element no children: <span class="txt-bd-blue">
-
-4 Element no children: <p class="txt-med">   
-
-5 Element no children: <span>   
-
-6 Element no children: <strong>  
-
-7 Element no children: <ul id="contain-social" class="contain-social-form-fill clearfix">   
-
-8 Element no children: <li class="mo-offer" ng-show="dialogType=='make-offer'">    
-
-9 Element no children: <li class="mo-mid-name label-none">   
-
-10 Element no children: <li class="mo-email-confirm">    
-
-11 Element no children: <li class="mo-phone">    
+1 Element no children: <div id="header" class="contain-head container-layout">  <!-- logo -->   <!-- phone numbers -->   <!-- navigation -->  
 
 
 
 ##############################################################################################################
 buzzfeedcom.html
 
-1 Element no children: <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1294.2 150" id="bf-news-logo">   
+1 Element no children: <g id="videopauseicon">   
 
-2 Element no children: <symbol viewbox="0 0 200 200" id="win">  
+2 Element no children: <svg id="BuzzFeed" xmlns="http://www.w3.org/2000/svg" viewbox="31 231.9 853.3 150.1">   
 
-3 Element no children: <symbol viewbox="0 0 200 200" id="fail">  
-
-4 Element no children: <g fill="none">    
-
-5 Element no children: <svg viewbox="0 0 495 116" xmlns="http://www.w3.org/2000/svg" id="reporting-to-you">
-
-6 Element no children: <g id="videopauseicon">   
-
-7 Element no children: <g id="videomuteicon">   
-
-8 Element no children: <g fill-rule="evenodd">   
-
-9 Element no children: <svg viewbox="0 0 512 512" id="share-more-icon">  
-
-10 Element no children: <svg id="BuzzFeed" xmlns="http://www.w3.org/2000/svg" viewbox="31 231.9 853.3 150.1">   
-
-11 Element no children: <svg viewbox="0 0 38 38">   
-
-12 Element no children: <svg viewbox="0 0 1024 1024">    
-
-13 Element no children: <svg viewbox="0 0 1024 1024">    
-
-14 Element no children: <svg viewbox="0 0 1024 1024">    
-
-15 Element no children: <svg viewbox="0 0 1024 1024">    
-
-16 Element no children: <svg viewbox="0 0 512 512">   
+3 Element no children: <div class="xs-flex">      
 
 
 
 ##############################################################################################################
 cbslocalcom.html
 
-1 Element no children: <div class="sponsored-by ad-size-120x60">   
+1 Element no children: <body class="home page-template page-template-templates page-template-page-twocol page-template-templatespage-twocol-php page page-id-4174 desktop-display-type  mp6 customizer-styles-applied highlander-enabled highlander-light">  <!--[if lt IE 9]>			<script src="//html5shim.googlecode.com/svn/trunk/html5.js">		<![endif]-->  <!--[if lte IE 8]>			<div id="global-browser-not-supported">				<p>Sorry, your browser is out-of-date and cannot support this site. Please upgrade to the latest version, or try another browser.				<p><a href="http://www.microsoft.com/windows/internet-explorer/default.aspx" target="_blank">Download Internet Explorer					<![endif]-->   <!-- wpcom_wp_footer -->                    <!-- Moat and Cloudfront tracking pixels -->          <!--	generated 276 seconds ago	generated in 0.065 seconds	served from batcache in 0.001 seconds	expires in 24 seconds--> 
 
-2 Element no children: <div class="header-row-top header-row">   
+2 Element no children: <div id="page-header-bottom-right" class="header-cell">   
 
-3 Element no children: <div id="component-social" class="header-component follow-us social-follow-items size-24x24 ">
-
-4 Element no children: <form action="http://cbslocal.com/search/" class="search">
-
-5 Element no children: <div class="story">    
-
-6 Element no children: <p> &nbsp;
-
-7 Element no children: <div id="listen-live-button" class="listen-live-action">
-
-8 Element no children: <div id="text-3" class="block sidebar-widget widget_text">  
-
-9 Element no children: <div id="text-6" class="block sidebar-widget widget_text">  
-
-10 Element no children: <div id="text-5" class="block sidebar-widget widget_text">  
-
-11 Element no children: <div class="social-align-wrapper">   
-
-12 Element no children: <div class="copyright-wrapper">   
-
-13 Element no children: <div class="listen-live">   
+3 Element no children: <div id="text-6" class="block sidebar-widget widget_text">  
 
 
 
 ##############################################################################################################
 cbsnewscom.html
 
-1 Element no children: <symbol id="icon-social-instagram" viewbox="0 0 32 32">
+1 Element no children: <g id="icon-more" stroke-width="2">
 
-2 Element no children: <g id="icon-eye">
-
-3 Element no children: <g id="icon-more" stroke-width="2">
-
-4 Element no children: <g id="icon-search" stroke-width="2">
-
-5 Element no children: <g id="icon-search-large" stroke-width="2">
-
-6 Element no children: <g id="icon-shows" stroke-width="2">
-
-7 Element no children: <g id="icon-hamburger" stroke-width="2">
-
-8 Element no children: <g id="icon-close" stroke-width="2">
-
-9 Element no children: <g id="icon-video" stroke-width="2">
-
-10 Element no children: <a href="https://www.cbsnews.com/" rel="home" aria-label="Go to CBS News home page" data-click-tracking="genericClickCbsNews" data-omniture-track-data="{&quot;clickProperty&quot;:&quot;Site Header|Branding&quot;}" data-invalid-url-rewritten-http=""> 
-
-11 Element no children: <svg viewbox="0 0 195 36" class="site-logo__icon site-logo__icon--type-logo" role="img">
+2 Element no children: <g id="icon-search" stroke-width="2">
 
 
 
@@ -747,108 +219,10 @@ chicagotribunecom.html
 
 1 Element no children: <symbol id="trb_photo_gallery" viewbox="0 0 20 18" stroke-width="1.3">
 
-2 Element no children: <symbol id="trb_circle_play" viewbox="0 0 73.856 73.856">
-
-3 Element no children: <div class="trb_mh_adB trb_masthead_adBanner">   
-
-4 Element no children: <div class="trb_outfit_primaryItem_label">  &nbsp;
-
-5 Element no children: <aside class="trb_em trb_em_th" data-content-pgcredit="" data-content-id="94688834" data-content-size="leadart" data-content-type="image" data-content-subtype="photo">  
-
-6 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94683235" data-content-slug="ct-met-autumnal-equinox-20170921" data-content-section="News" data-content-playtime="00:43" data-content-type="video"> 
-
-7 Element no children: <a href="/news/daywatch/94683235-132.html#nt=oft02a-1gp2" data-role="delayload_item  delayload_done imgsize_item" class="trb_outfit_group_list_item_figure"> 
-
-8 Element no children: <section class="trb_outfit_group_list_item_body">
-
-9 Element no children: <div class="trb_outfit_group_item_label" data-content-label="">  
-
-10 Element no children: <h3 class="trb_outfit_relatedListTitle">
-
-11 Element no children: <li class="trb_outfit_list_headline" data-content-id="94687235" data-content-slug="ct-john-mccain-health-care-bill-20170922" data-content-section="News" data-content-type="story"> 
-
-12 Element no children: <div class="trb_outfit_categorySectionHeading_container"> 
-
-13 Element no children: <li class="trb_outfit_list_headline" data-content-id="94687247" data-content-slug="ct-biz-geolocation-privacy-rauner-veto-20170922" data-content-section="Business" data-content-type="story"> 
-
-14 Element no children: <div class="trb_outfit_categorySectionHeading_container"> 
-
-15 Element no children: <li class="trb_outfit_list_headline" data-content-id="94684684" data-content-slug="ct-stone-park-two-dead-20170922" data-content-section="Suburbs" data-content-type="story"> 
-
-16 Element no children: <div class="trb_outfit_categorySectionHeading_container"> 
-
-17 Element no children: <li class="trb_outfit_list_headline" data-content-id="94690686" data-content-slug="ct-puerto-rico-hurricane-failing-dam-20170922" data-content-section="News" data-content-type="story"> 
-
-18 Element no children: <div class="trb_outfit_categorySectionHeading_container"> 
-
-19 Element no children: <li class="trb_outfit_list_headline" data-content-id="94689883" data-content-slug="ct-states-election-hacking-russia-20170922" data-content-section="News" data-content-type="story"> 
-
-20 Element no children: <div class="trb_outfit_categorySectionHeading_container"> 
-
-21 Element no children: <li class="trb_outfit_list_headline" data-content-id="94687115" data-content-slug="ct-teamsters-boss-cinespace-studio-extortion-met-20170922" data-content-section="News" data-content-type="story"> 
-
-22 Element no children: <div class="trb_outfit_categorySectionHeading_container"> 
-
 
 
 ##############################################################################################################
 cloudflarecom.html
-
-1 Element no children: <div class="tile__content--1200px">   
-
-2 Element no children: <div class="grid--center grid--vertical-center">   
-
-3 Element no children: <a href="/">   
-
-4 Element no children: <form action="https://www.cloudflare.com/a/sign-up" class=" top-nav__signup-form js-nav-signup-form hidden-element" method="POST">   
-
-5 Element no children: <div class="mobile-sub-nav__title" data-submenu="productsMobile">   
-
-6 Element no children: <ul class="mobile-sub-nav">   
-
-7 Element no children: <div class="mobile-sub-nav__title" data-submenu="learningMobileArea">   
-
-8 Element no children: <ul class="mobile-sub-nav">    
-
-9 Element no children: <div class="mobile-sub-nav__title" data-submenu="appsMobile">   
-
-10 Element no children: <ul class="mobile-sub-nav">   
-
-11 Element no children: <ul class="grid__item grid__item--full-fourth grid__item--no-v-padding">    
-
-12 Element no children: <form class="st-search-form">   
-
-13 Element no children: <ul class="grid__item grid__item--full-fourth">    
-
-14 Element no children: <form class="st-search-form">   
-
-15 Element no children: <form class="st-search-form">   
-
-16 Element no children: <a href="/apps/drift" class="apps-nav__link-container" data-tracking-category="topnav" data-tracking-action="click" data-tracking-label="apps_drift">   
-
-17 Element no children: <a href="/apps/viglink" class="apps-nav__link-container" data-tracking-category="topnav" data-tracking-action="click" data-tracking-label="apps_viglink">   
-
-18 Element no children: <a href="/apps/noadblock" class="apps-nav__link-container" data-tracking-category="topnav" data-tracking-action="click" data-tracking-label="apps_noadblock">   
-
-19 Element no children: <a href="/apps/paypal" class="apps-nav__link-container" data-tracking-category="topnav" data-tracking-action="click" data-tracking-label="apps_paypal">   
-
-20 Element no children: <a href="/apps/privy" class="apps-nav__link-container" data-tracking-category="topnav" data-tracking-action="click" data-tracking-label="apps_privy">   
-
-21 Element no children: <a href="/apps/welcome-bar" class="apps-nav__link-container" data-tracking-category="topnav" data-tracking-action="click" data-tracking-label="apps_welcome_bar">   
-
-22 Element no children: <a href="/apps/cover-message" class="apps-nav__link-container" data-tracking-category="topnav" data-tracking-action="click" data-tracking-label="apps_cover_message">   
-
-23 Element no children: <a href="/apps/tweet-this" class="apps-nav__link-container" data-tracking-category="topnav" data-tracking-action="click" data-tracking-label="apps_tweet_this">   
-
-24 Element no children: <a href="/apps/facebook-comments" class="apps-nav__link-container" data-tracking-category="topnav" data-tracking-action="click" data-tracking-label="apps_facebook_comments">   
-
-25 Element no children: <a href="/apps/social-icons" class="apps-nav__link-container" data-tracking-category="topnav" data-tracking-action="click" data-tracking-label="apps_social_icons">   
-
-26 Element no children: <a href="/apps/google-translate" class="apps-nav__link-container" data-tracking-category="topnav" data-tracking-action="click" data-tracking-label="apps_tweet_this">   
-
-27 Element no children: <a href="/apps/satismeter" class="apps-nav__link-container" data-tracking-category="topnav" data-tracking-action="click" data-tracking-label="apps_satismeter">   
-
-28 Element no children: <div class="grid__item grid__item--full-fourth grid__item--no-v-padding nopad">    
 
 
 
@@ -860,21 +234,11 @@ cnbccom.html
 ##############################################################################################################
 cnetcom.html
 
-1 Element no children: <symbol id="playOverlay" viewbox="-99 101 100 100">
+1 Element no children: <symbol id="allContent" viewbox="0 0 32 32">
 
 2 Element no children: <g>
 
-3 Element no children: <g>
-
-4 Element no children: <g>
-
-5 Element no children: <g>
-
-6 Element no children: <g>
-
-7 Element no children: <symbol id="more" viewbox="0 0 32 7.3">
-
-8 Element no children: <symbol id="list" viewbox="0 0 375 392">
+3 Element no children: <symbol id="list" viewbox="0 0 375 392">
 
 
 
@@ -885,127 +249,41 @@ cnncom.html
 
 2 Element no children: <div class="user-msg--header">
 
-3 Element no children: <div class="breaking-news">
-
-4 Element no children: <div class="nav-section">
-
-5 Element no children: <div class="nav-section__name js-nav-section-name" data-analytics-header="main-menu_homepage">
-
-6 Element no children: <form id="search-form" class="search__form" method="get" action="/search/" name="headerSearch">
-
-7 Element no children: <div class="search__form-fields">
-
-8 Element no children: <label class="edition-picker__radio-button">
-
-9 Element no children: <label class="edition-picker__radio-button">
-
-10 Element no children: <label class="edition-picker__radio-button">
-
-11 Element no children: <label class="edition-picker__radio-button">
-
-12 Element no children: <div class="nav-flyout__menu-item nav-flyout__menu-item--homepage" data-analytics-header="flyout-menu_homepage">
-
-13 Element no children: <ul class="nav-flyout__submenu">
-
-14 Element no children: <ul class="nav-flyout__submenu">
-
-15 Element no children: <ul class="nav-flyout__submenu">
-
-16 Element no children: <div class="nav-flyout__menu-item nav-flyout__menu-item--vr" data-analytics-header="flyout-menu_vr">
-
-17 Element no children: <ul class="nav-flyout__submenu">
-
-18 Element no children: <label class="edition-picker__radio-button">
-
-19 Element no children: <label class="edition-picker__radio-button">
-
-20 Element no children: <div class="nav-flyout-footer__social">
-
-21 Element no children: <div class="l-footer__tools">
-
-22 Element no children: <form method="get" action="/search/" name="footerSearch" class="search__footer--form">
+3 Element no children: <div class="js-edition-picker edition-picker">
 
 
 
 ##############################################################################################################
 constantcontactcom.html
 
-1 Element no children: <ul>    
+1 Element no children: <body name="top" class="    ">           
 
-2 Element no children: <div class="utility-nav">    
+2 Element no children: <div class="bottom-nav">    
 
-3 Element no children: <h1 class="col-sm-12 col-sm-offset-0">Send great-looking emails that drive big results.
+3 Element no children: <div>   
 
-4 Element no children: <h2 class="col-sm-12 col-sm-offset-0">Constant Contact email marketing. Powerful stuff.
-
-5 Element no children: <div class="row ">   
-
-6 Element no children: <p class="hero-subhead"> Or  »
-
-7 Element no children: <div class="bottom-nav">    
-
-8 Element no children: <div>   
-
-9 Element no children: <div>   
-
-10 Element no children: <div>   
-
-11 Element no children: <div class="footer-container-cta">    
-
-12 Element no children: <form method="get" action="/search">   
-
-13 Element no children: <p class="mobile-cta footer-icon-before footer-icon-dollar-sign">   
-
-14 Element no children: <p class="mobile-cta footer-icon-before footer-icon-phone">   
-
-15 Element no children: <a href="//www.constantcontact.com" class="footer-logo" data-om-config="footer,home_logo">   
+4 Element no children: <div class="footer-container-fluid">    
 
 
 
 ##############################################################################################################
 cpanelcom.html
 
-1 Element no children: <div class="jumbotron container-max-width text-center">    
+1 Element no children: <div class="row cta">   
 
-2 Element no children: <div class="row cta">   
+2 Element no children: <div class="row ecosystem">   
 
-3 Element no children: <div class="row ecosystem">   
+3 Element no children: <div class="col-sm-6 money">    
 
-4 Element no children: <div class="col-sm-6 money">    
+4 Element no children: <div class="container-max-width">   
 
-5 Element no children: <div class="col-sm-6 alone">    
+5 Element no children: <div class="col-sm-6">    
 
-6 Element no children: <div class="row">   
+6 Element no children: <div class="container-max-width">    
 
-7 Element no children: <div class="col-sm-6">    
+7 Element no children: <div class="row key-parnters">       
 
-8 Element no children: <div class="col-sm-6">    
-
-9 Element no children: <div class="col-sm-4">    
-
-10 Element no children: <div class="col-sm-4">    
-
-11 Element no children: <div class="col-sm-4">    
-
-12 Element no children: <div class="row">   
-
-13 Element no children: <div class="col-sm-12 col-md-6">   
-
-14 Element no children: <div class="container-max-width">   <!-- <a href="https://server.iad.liveperson.net/hc/55720005/?cmd=file&file=visitorWantsToChat&offlineURL=http://www.cpanel.net/offline-chat.html&site=55720005&byhref=1&imageUrl=https://server.iad.liveperson.net/hcp/Gallery/ChatButton-Gallery/English/General/1a/" target="chat55720005"  onClick="ga('send', 'event', 'button', 'click', 'home - live sales chat');javascript:window.open('https://server.iad.liveperson.net/hc/55720005/?cmd=file&file=visitorWantsToChat&offlineURL=http://www.cpanel.net/offline-chat.html&site=55720005&imageUrl=https://server.iad.liveperson.net/hcp/Gallery/ChatButton-Gallery/English/General/1a/&referrer='+escape(document.location),'chat55720005','width=475,height=400,resizable=yes');return false;" class="col-sm-4 chat">Live Sales Chat   
-
-15 Element no children: <h5>Thanks  support really blew the lid off their product today. SO Great!  
-
-16 Element no children: <h5>And this my friends is why  will always be my control panel of choice, check out their  support  
-
-17 Element no children: <h5>Can't thank you enough for all the hard work today, thanks  support, you deserve it!!!! 
-
-18 Element no children: <div class="row">   
-
-19 Element no children: <p class="small">©  All Rights Reserved /  / 
-
-20 Element no children: <div class="container-fluid trademark">   
-
-21 Element no children: <div class="col-sm-12 text-center">   
+8 Element no children: <div class="carousel-inner" role="listbox">    
 
 
 
@@ -1014,19 +292,7 @@ deviantartcom.html
 
 1 Element no children: <span id="deviantart-logo">    
 
-2 Element no children: <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewbox="0 0 100 167" preserveaspectratio="xMidYMid meet">  
-
-3 Element no children: <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewbox="2 25 80 22" preserveaspectratio="xMidYMid meet">  
-
-4 Element no children: <td id="oh-menu-shop" class="oh-hasmenu oh-hashover oh-keep "> 
-
-5 Element no children: <ul class="oh-menu-list"> 
-
-6 Element no children: <a href="https://shop.deviantart.com" data-ga_click_event="{&quot;category&quot;:&quot;Retail&quot;,&quot;action&quot;:&quot;shoplink_appbar&quot;,&quot;nofollow&quot;:0}" class="mi iconset-more"> 
-
-7 Element no children: <div class="navbar-menu-inner-scroll">   
-
-8 Element no children: <div class="da-custom-ad-box da-ad-high-impact">   
+2 Element no children: <a href="https://shop.deviantart.com" data-ga_click_event="{&quot;category&quot;:&quot;Retail&quot;,&quot;action&quot;:&quot;shoplink_appbar&quot;,&quot;nofollow&quot;:0}" class="mi iconset-more"> 
 
 
 
@@ -1035,487 +301,97 @@ directdomainscom.html
 
 1 Element no children: <g>   
 
-2 Element no children: <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 12 12" xml:space="preserve">    
-
-3 Element no children: <div class="inner-billboard">    
-
-4 Element no children: <div class="home-specialist feature animation-transition">   
-
-5 Element no children: <p class="gray txt-light txt-thin">Let's talk about how we can help you.  
-
-6 Element no children: <a id="track-dod-fave" class="domain-fave">   
-
-7 Element no children: <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 12 12" xml:space="preserve">   
-
 
 
 ##############################################################################################################
 dribbblecom.html
 
-1 Element no children: <div>   
+1 Element no children: <ul class="tabs">     
 
-2 Element no children: <ul class="tabs">    
-
-3 Element no children: <li id="t-meetups">   
-
-4 Element no children: <ul class="tabs">   
-
-5 Element no children: <div class="full-pitch group">   
-
-6 Element no children: <ul class="sub">
-
-7 Element no children: <svg xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid" width="72" height="72" viewbox="0 0 72 72" class="icon">  
-
-8 Element no children: <svg xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid" width="72" height="72" viewbox="0 0 72 72" class="icon">  
-
-9 Element no children: <svg xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid" width="72" height="72" viewbox="0 0 72 72" class="icon">  
-
-10 Element no children: <svg xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid" width="72" height="72" viewbox="0 0 72 72" class="icon">  
-
-11 Element no children: <div class="notice-alert">   
+2 Element no children: <li id="t-more">   
 
 
 
 ##############################################################################################################
 dropboxcom.html
 
-1 Element no children: <div class="login-form-container__google-div">
-
-2 Element no children: <div data-js-component-id="component6069023690725978119" tabindex="-1" id="pyxl6069023690725978117" class="login-email text-input login-text-input standard">
-
-3 Element no children: <div class="text-input-error-wrapper">
-
-4 Element no children: <div class="text-input-wrapper"> 
-
-5 Element no children: <div class="text-input-error-wrapper">
-
-6 Element no children: <div class="text-input-wrapper"> 
-
-7 Element no children: <div class="sprite-div">
-
-8 Element no children: <div class="checkbox checkbox-inline standard remember-me">
-
-9 Element no children: <div class="text-input-error-wrapper">
-
-10 Element no children: <button disabled="True" type="submit" class="login-button signin-button button-primary">
-
-11 Element no children: <div data-js-component-id="component6069023690725978127" tabindex="-1" id="pyxl6069023690725978125" class="inline-input text-input login-text-input standard">
-
-12 Element no children: <div class="text-input-error-wrapper">
-
-13 Element no children: <div class="text-input-wrapper"> 
-
-14 Element no children: <div class="checkbox checkbox-inline standard remember-me">
-
-15 Element no children: <div class="text-input-error-wrapper">
-
-16 Element no children: <div data-js-component-id="component6069023690725978129" class="tooltip-wrapper info-icon"> 
-
-17 Element no children: <div class="tooltip-prompt sprite-div">
-
-18 Element no children: <div class="two-factor-need-help">
-
-19 Element no children: <p> 
-
-20 Element no children: <div data-js-component-id="component6069023690725978134" tabindex="-1" id="pyxl6069023690725978132" class="text-input login-text-input standard">
-
-21 Element no children: <div class="text-input-error-wrapper">
-
-22 Element no children: <div class="text-input-wrapper"> 
-
-23 Element no children: <div class="two-factor-seckey-instructions">
-
-24 Element no children: <div class="checkbox checkbox-inline standard remember-me">
-
-25 Element no children: <div class="text-input-error-wrapper">
-
-26 Element no children: <div data-js-component-id="component6069023690725978136" class="tooltip-wrapper info-icon"> 
-
-27 Element no children: <div class="tooltip-prompt sprite-div">
-
-28 Element no children: <div class="two-factor-use-phone-instead">
-
-29 Element no children: <div data-js-component-id="component6069023690725978141" tabindex="-1" id="pyxl6069023690725978139" class="input-fname text-input__margin-right text-input standard first">
-
-30 Element no children: <div class="text-input-error-wrapper">
-
-31 Element no children: <div class="text-input-wrapper"> 
-
-32 Element no children: <div data-js-component-id="component6069023690725978144" tabindex="-1" id="pyxl6069023690725978142" class="input-lname second text-input standard">
-
-33 Element no children: <div class="text-input-error-wrapper">
-
-34 Element no children: <div class="text-input-wrapper"> 
-
-35 Element no children: <div data-js-component-id="component6069023690725978147" tabindex="-1" id="pyxl6069023690725978145" class="input-email text-input__margin-right text-input standard">
-
-36 Element no children: <div class="text-input-error-wrapper">
-
-37 Element no children: <div class="text-input-wrapper"> 
-
-38 Element no children: <div class="text-input-error-wrapper">
-
-39 Element no children: <div class="checkbox checkbox-inline agree standard">
-
-40 Element no children: <div class="text-input-error-wrapper">
-
-41 Element no children: <section class="supernav" data-reactid="3">
-
-42 Element no children: <a class="arbor-logo" href="/" data-reactid="7">
-
-43 Element no children: <ul class="supernav__section-list" data-reactid="11">
-
-44 Element no children: <div class="hero__copy">
-
-45 Element no children: <header class="header-text">
-
-46 Element no children: <div data-js-component-id="component6069023690725978158" tabindex="-1" id="pyxl6069023690725978156" class="hidden-inputs text-input__margin-right text-input standard input-fname first">
-
-47 Element no children: <div class="text-input-error-wrapper">
-
-48 Element no children: <div class="text-input-wrapper"> 
-
-49 Element no children: <div data-js-component-id="component6069023690725978161" tabindex="-1" id="pyxl6069023690725978159" class="hidden-inputs text-input standard second input-lname">
-
-50 Element no children: <div class="text-input-error-wrapper">
-
-51 Element no children: <div class="text-input-wrapper"> 
-
-52 Element no children: <div data-js-component-id="component6069023690725978164" tabindex="-1" id="pyxl6069023690725978162" class="clearfix text-input standard exp-input-combined-name input-fullname">
-
-53 Element no children: <div class="text-input-error-wrapper">
-
-54 Element no children: <div class="text-input-wrapper"> 
-
-55 Element no children: <div data-js-component-id="component6069023690725978167" tabindex="-1" id="pyxl6069023690725978165" class="input-email text-input__margin-right text-input standard">
-
-56 Element no children: <div class="text-input-error-wrapper">
-
-57 Element no children: <div class="text-input-wrapper"> 
-
-58 Element no children: <div class="text-input-error-wrapper">
-
-59 Element no children: <div class="checkbox checkbox-inline agree standard">
-
-60 Element no children: <div class="text-input-error-wrapper">
-
 
 
 ##############################################################################################################
 ebaycom.html
 
-1 Element no children: <div id="gh-shop" class="gh-hide-if-nocss">
+1 Element no children: <form id="gh-f" method="get" action="https://www.ebay.com/sch/i.html">
 
-2 Element no children: <div id="gh-ac-box2">
-
-3 Element no children: <div class="gh-menu">
+2 Element no children: <div class="gh-menu">
 
 
 
 ##############################################################################################################
 eepurlcom.html
 
+1 Element no children: <body>       
+
+2 Element no children: <div id="wrapper">   
+
 
 
 ##############################################################################################################
 elegantthemescom.html
 
-1 Element no children: <div class="et_mobile_menu_button">    
+1 Element no children: <body class="homepage">   <!-- end #main-nav -->   <!-- end #main-header -->   <!-- end #main-area -->   <!-- end #main-footer -->   <!-- Facebook Retargeting -->    <!-- End Facebook Retargeting -->  <!-- Adroll -->   <!-- End Adroll -->  <!-- Adwords Retargeting -->     <!-- End Adwords Retargeting -->  <!-- Intercom -->   <!-- End Intercom -->  <!-- Google Analytics -->   <!-- End Google Analytics -->   <!-- Video Script-->   <!-- END Video Script-->  
 
-2 Element no children: <hgroup id="site-description">   
+2 Element no children: <div class="container container_large clearfix">   <!-- end .feature -->   <!-- end .feature -->   <!-- end .feature -->   <!-- end .feature --> 
 
-3 Element no children: <div class="et_box et_box_1_2 homepage_box">    
+3 Element no children: <div class="et_blurb_1_4">    
 
-4 Element no children: <div class="et_box et_box_1_2 homepage_box">    
+4 Element no children: <div class="container">    
 
-5 Element no children: <div class="et_blurb_1_4">    
-
-6 Element no children: <div class="et_blurb_1_4">    
-
-7 Element no children: <div class="et_blurb_1_4">    
-
-8 Element no children: <div class="et_blurb_1_4">    
-
-9 Element no children: <div class="et_box_1_2 et_blurb">    
-
-10 Element no children: <div class="et_box_1_2 et_blurb">    
-
-11 Element no children: <div class="et_box_1_2 et_blurb">    
-
-12 Element no children: <div class="et_box_1_2 et_blurb">    
-
-13 Element no children: <div class="container">    
-
-14 Element no children: <p id="guarantee">We offer a , so joining is 
-
-15 Element no children: <div id="logos">    
-
-16 Element no children: <div id="copyright">    
+5 Element no children: <div id="copyright">    
 
 
 
 ##############################################################################################################
 etsycom.html
 
+1 Element no children: <ul class="tabs clear" role="tablist">   
+
 
 
 ##############################################################################################################
 eventbritecom.html
 
-1 Element no children: <a class="eb-logo js-d-track-link" href="https://www.eventbrite.com/" data-event-action="LogoHome" data-event-category="header" data-event-label="home">   
+1 Element no children: <header>   
 
-2 Element no children: <a href="#" class="hide-large js-header-search-icon mobile-action-b" title="Search">   
+2 Element no children: <form action="/d/" method="GET" class="responsive-form is-hidden" id="search-autocomplete">   
 
-3 Element no children: <ul class="list list--has-highlight">    
+3 Element no children: <div class="gh-dd gh-profile-box js-gh-dd show-large">   
 
-4 Element no children: <a class="user-avatar header-link js-gh-action hide-large" onclick="if (!window['_EB_GLOBAL_HEADER_INITED']) { document.getElementById('js-global-nav-account-menu').className += ' js-gh-dd-menu--show'; return false; }" href="https://www.eventbrite.com/account/" data-automation="global-nav-user-avatar" aria-controls="js-global-nav-account-menu" aria-haspopup="true" aria-expanded="false">   
-
-5 Element no children: <ul class="list">    
-
-6 Element no children: <div class="autocomplete-component">   
-
-7 Element no children: <div class="show-large g-cell--has-overflow autocomplete-component search-bar-component">   
-
-8 Element no children: <div class="search-bar-component">   
-
-9 Element no children: <h3 class="section-header l-align-left" aria-label="Popular Events in  Sterling, VA">    
-
-10 Element no children: <div class="autocomplete-component l-align-left popular-autocomplete">   
-
-11 Element no children: <div class="poster-card__header">   
-
-12 Element no children: <div class="poster-card__body">    
-
-13 Element no children: <div class="poster-card__footer">   
-
-14 Element no children: <div class="poster-card__tags">   
-
-15 Element no children: <div class="poster-card__actions">   
-
-16 Element no children: <a class="js-share-event-card share-action" href="#" data-eid="17434703668" title="Share" aria-haspopup="true">   
-
-17 Element no children: <div class="poster-card__header">   
-
-18 Element no children: <div class="poster-card__body">    
+4 Element no children: <div class="gh-dd gh-help-box js-gh-dd">   
 
 
 
 ##############################################################################################################
 facebookcom.html
 
-1 Element no children: <div class="_6a _608n" aria-label="Navigation Assistant" aria-keyshortcuts="Alt+/" role="menubar" id="u_0_x">
+1 Element no children: <a class="_42ft _4jy0 _55pi _2agf _4o_4 _p _4jy3 _517h _51sy" role="button" href="#" aria-haspopup="true" aria-expanded="false" rel="toggle" id="u_0_z">
 
-2 Element no children: <a class="_42ft _4jy0 _55pi _2agf _4o_4 _p _4jy3 _517h _51sy" role="button" href="#" aria-haspopup="true" aria-expanded="false" rel="toggle" id="u_0_z">
+2 Element no children: <a class="_42ft _4jy0 _55pi _2agf _4o_4 _3_s2 _p _4jy3 _4jy1 selected _51sy" role="button" href="#" aria-haspopup="true" tabindex="-1" aria-expanded="false" rel="toggle" id="u_0_11">
 
-3 Element no children: <a class="_42ft _4jy0 _55pi _2agf _4o_4 _3_s2 _p _4jy3 _4jy1 selected _51sy" role="button" href="#" aria-haspopup="true" tabindex="-1" aria-expanded="false" rel="toggle" id="u_0_11">
-
-4 Element no children: <div class="_6a _3bcy"> Press  +  to open this menu
-
-5 Element no children: <tr>
-
-6 Element no children: <tr>
-
-7 Element no children: <tr>
+3 Element no children: <div class="_6a _3bcy"> Press  +  to open this menu
 
 
 
 ##############################################################################################################
 fc2com.html
 
-1 Element no children: <div id="inf_box">   
-
-2 Element no children: <ul class="tab">   
-
-3 Element no children: <ul class="panel">   
-
-4 Element no children: <div class="service_body">  <!-- おすすめサービス -->    
-
-5 Element no children: <dl>   
-
-6 Element no children: <dt> 
-
-7 Element no children: <dl>   
-
-8 Element no children: <dt> 
-
-9 Element no children: <div class="service_body">  <!-- ブログを作る・楽しむ -->     <!--					<dl>						<dt><a id="service_bj" class="service_img" href="http://bj.fc2.com/" title="FC2ブログジャンキーはこちら">&nbsp;						<dd>アクセス数に伸び悩んでいる方に！										<dl>						<dt>						<dd>										 --> 
-
-10 Element no children: <dl>   
-
-11 Element no children: <dt class="charge_too"> 
-
-12 Element no children: <dl>   
-
-13 Element no children: <dt>
-
-14 Element no children: <dl>   
-
-15 Element no children: <dt class="charge_too">  
-
-16 Element no children: <dl>   
-
-17 Element no children: <dt>
-
-18 Element no children: <dl>   
-
-19 Element no children: <dt>
-
-20 Element no children: <dl>   
-
-21 Element no children: <dt class="charge_too">
-
-22 Element no children: <dl>   
-
-23 Element no children: <dt>
-
-24 Element no children: <dl>  
-
-25 Element no children: <dt class="charge_too">  
-
-26 Element no children: <dl>   
-
-27 Element no children: <dt class="charge">  
-
-28 Element no children: <dl>   
-
-29 Element no children: <dt class="charge">  
-
-30 Element no children: <dl>   
-
-31 Element no children: <dt class="charge">  
-
-32 Element no children: <dl>   
-
-33 Element no children: <dt class="charge">  
-
-34 Element no children: <dl>   
-
-35 Element no children: <dt class="charge">  
-
-36 Element no children: <dl>   
-
-37 Element no children: <dt class="charge_too">  
-
-38 Element no children: <dl>   
-
-39 Element no children: <dt>
-
-40 Element no children: <dl>   
-
-41 Element no children: <dt>
-
-42 Element no children: <dl>   
-
-43 Element no children: <dt class="charge_too">  
-
-44 Element no children: <dl>   
-
-45 Element no children: <dt> 
-
-46 Element no children: <dl>   
-
-47 Element no children: <dt>
-
-48 Element no children: <dl>   
-
-49 Element no children: <dt>
-
-50 Element no children: <dl>   
-
-51 Element no children: <dt>
-
-52 Element no children: <dl>   
-
-53 Element no children: <dt>
-
-54 Element no children: <dl>   
-
-55 Element no children: <dt>
-
-56 Element no children: <dl>   
-
-57 Element no children: <dt> 
-
-58 Element no children: <dl>   
-
-59 Element no children: <dt>
-
-60 Element no children: <dl>   
-
-61 Element no children: <dt>
-
-62 Element no children: <dl>   
-
-63 Element no children: <dt>
-
-64 Element no children: <dl>   
-
-65 Element no children: <dt>
-
-66 Element no children: <dl>   
-
-67 Element no children: <dt>
-
-68 Element no children: <dl>   
-
-69 Element no children: <dt>
-
-70 Element no children: <dl>   
-
-71 Element no children: <dt>
-
-72 Element no children: <dl>   
-
-73 Element no children: <dt>
-
-74 Element no children: <dl>   
-
-75 Element no children: <dt>
-
-76 Element no children: <dl>   
-
-77 Element no children: <dt>
-
-78 Element no children: <dl>   
-
-79 Element no children: <dt>
-
-80 Element no children: <dl>   
-
-81 Element no children: <dt>
-
-82 Element no children: <dl>   
-
-83 Element no children: <dt> 
-
-84 Element no children: <dl>   
-
-85 Element no children: <dt>
-
-86 Element no children: <dl>   
-
-87 Element no children: <dt>
-
-88 Element no children: <dl class="charge">   
-
-89 Element no children: <dt>
-
-90 Element no children: <div align="center">  <!-- <a href="http://blog.fc2.com/click/?adid=79&amp;adurl=http%3A%2F%2Ffc2.com%2Finvitation.html"><img src="//static.fc2.com/fc2com/img/fc2_staff_banner190x100.png" alt="FC2スタッフ募集" style="margin:18px 0 1.5em 0;" />  <!--a href="http://fc2.to/16fyUV"><img src="//static.fc2.com/fc2com/img/fc2_staff.gif.png" width="120" alt="FC2スタッフ募集" style="margin:0px 0 1.5em 0;" />  <!--a href="//fc2.com/careers/ja/index.html"><img src="//static.fc2.com/fc2com/img/fc2_staff.gif.png" width="120" alt="FC2スタッフ募集" style="margin:0px 0 1.5em 0;" />    <!--a href="http://wifi.fc2.com/" target="_blank"><img src="//static.fc2.com/share/image/banner_wifi/banner_wifi_ja120x600_area.png?120530" width="120" height="600" alt="FC2 WiFi" />  
-
-91 Element no children: <div id="ad_banner468x60">  <!-- 日本語表示 -->   <!-- FC2管理用 -->   <!-- FC2管理用 --> 
+1 Element no children: <div id="header" class="whenIE7below">   
 
 
 
 ##############################################################################################################
 feedburnercom.html
 
-1 Element no children: <div class="banner">   
-
-2 Element no children: <div>    
-
-3 Element no children: <div class="one-google">    
-
-4 Element no children: <p class="create-account">   
+1 Element no children: <div class="one-google">    
 
 
 
@@ -1524,293 +400,37 @@ flickrcom.html
 
 1 Element no children: <symbol viewbox="0 0 24 24" id="icon-CC">
 
-2 Element no children: <symbol viewbox="0 0 24 24" id="icon-ISO">
+2 Element no children: <symbol viewbox="0 0 24 24" id="icon-brightness">
 
-3 Element no children: <symbol viewbox="0 0 24 24" id="icon-WB">
+3 Element no children: <symbol viewbox="0 0 24 24" id="icon-copy">
 
-4 Element no children: <symbol viewbox="0 0 24 24" id="icon-aspect">
+4 Element no children: <symbol viewbox="0 0 24 24" id="icon-explore">
 
-5 Element no children: <symbol viewbox="0 0 24 24" id="icon-attribution">
+5 Element no children: <symbol id="icon-flickr-free" viewbox="0 0 108.01 33.32">
 
-6 Element no children: <symbol viewbox="0 0 24 24" id="icon-brightness">
+6 Element no children: <symbol viewbox="0 0 24 24" id="icon-group">
 
-7 Element no children: <symbol viewbox="0 0 24 24" id="icon-camera">
-
-8 Element no children: <symbol viewbox="0 0 24 24" id="icon-cart">
-
-9 Element no children: <symbol viewbox="0 0 24 24" id="icon-check_circle_hollow">
-
-10 Element no children: <symbol viewbox="0 0 24 24" id="icon-copy">
-
-11 Element no children: <symbol viewbox="0 0 24 24" id="icon-copyright">
-
-12 Element no children: <symbol viewbox="0 0 24 24" id="icon-copyright_zero">
-
-13 Element no children: <symbol viewbox="0 0 24 24" id="icon-crop">
-
-14 Element no children: <symbol viewbox="0 0 24 24" id="icon-envelope">
-
-15 Element no children: <symbol viewbox="0 0 24 24" id="icon-explore">
-
-16 Element no children: <symbol viewbox="0 0 24 24" id="icon-explore_hollow">
-
-17 Element no children: <symbol viewbox="0 0 24 24" id="icon-exposure">
-
-18 Element no children: <symbol id="icon-flickr-free" viewbox="0 0 108.01 33.32">
-
-19 Element no children: <symbol id="icon-flickr-pro" viewbox="0 0 182.3 41.4">
-
-20 Element no children: <symbol id="icon-flickr-pro-adobe" viewbox="0 0 219 43">
-
-21 Element no children: <symbol viewbox="0 0 24 24" id="icon-group">
-
-22 Element no children: <symbol viewbox="0 0 24 24" id="icon-help_hollow">
-
-23 Element no children: <symbol viewbox="0 0 24 24" id="icon-info_hollow">
-
-24 Element no children: <symbol viewbox="0 0 24 24" id="icon-keyboard">
-
-25 Element no children: <symbol viewbox="0 0 24 24" id="icon-lens">
-
-26 Element no children: <symbol viewbox="0 0 24 24" id="icon-link">
-
-27 Element no children: <symbol viewbox="0 0 24 24" id="icon-mail">
-
-28 Element no children: <symbol viewbox="0 0 24 24" id="icon-more_horizontal">
-
-29 Element no children: <symbol viewbox="0 0 24 24" id="icon-more_vertical">
-
-30 Element no children: <symbol viewbox="0 0 24 24" id="icon-no_deriv">
-
-31 Element no children: <symbol viewbox="0 0 24 24" id="icon-people">
-
-32 Element no children: <symbol viewbox="0 0 24 24" id="icon-photo_hollow">
-
-33 Element no children: <symbol viewbox="0 0 24 24" id="icon-publish">
-
-34 Element no children: <symbol viewbox="0 0 24 24" id="icon-sharealike">
-
-35 Element no children: <symbol viewbox="0 0 24 24" id="icon-shutter_speed">
-
-36 Element no children: <g transform="translate(1)" stroke="#FFF" fill="none" fill-rule="evenodd">
-
-37 Element no children: <form method="get" action="/search/" role="search" class="search-form">    
-
-38 Element no children: <label data-track="gnSearchSearchIcon" aria-label="Search">   
-
-39 Element no children: <div class="copy">    
-
-40 Element no children: <li class="foot-li lang-switcher">   
-
-41 Element no children: <symbol viewbox="0 0 24 24" id="icon-CC">
-
-42 Element no children: <symbol viewbox="0 0 24 24" id="icon-ISO">
-
-43 Element no children: <symbol viewbox="0 0 24 24" id="icon-WB">
-
-44 Element no children: <symbol viewbox="0 0 24 24" id="icon-aspect">
-
-45 Element no children: <symbol viewbox="0 0 24 24" id="icon-attribution">
-
-46 Element no children: <symbol viewbox="0 0 24 24" id="icon-brightness">
-
-47 Element no children: <symbol viewbox="0 0 24 24" id="icon-camera">
-
-48 Element no children: <symbol viewbox="0 0 24 24" id="icon-cart">
-
-49 Element no children: <symbol viewbox="0 0 24 24" id="icon-check_circle_hollow">
-
-50 Element no children: <symbol viewbox="0 0 24 24" id="icon-copy">
-
-51 Element no children: <symbol viewbox="0 0 24 24" id="icon-copyright">
-
-52 Element no children: <symbol viewbox="0 0 24 24" id="icon-copyright_zero">
-
-53 Element no children: <symbol viewbox="0 0 24 24" id="icon-crop">
-
-54 Element no children: <symbol viewbox="0 0 24 24" id="icon-envelope">
-
-55 Element no children: <symbol viewbox="0 0 24 24" id="icon-explore">
-
-56 Element no children: <symbol viewbox="0 0 24 24" id="icon-explore_hollow">
-
-57 Element no children: <symbol viewbox="0 0 24 24" id="icon-exposure">
-
-58 Element no children: <symbol id="icon-flickr-free" viewbox="0 0 108.01 33.32">
-
-59 Element no children: <symbol id="icon-flickr-pro" viewbox="0 0 182.3 41.4">
-
-60 Element no children: <symbol id="icon-flickr-pro-adobe" viewbox="0 0 219 43">
-
-61 Element no children: <symbol viewbox="0 0 24 24" id="icon-group">
-
-62 Element no children: <symbol viewbox="0 0 24 24" id="icon-help_hollow">
-
-63 Element no children: <symbol viewbox="0 0 24 24" id="icon-info_hollow">
-
-64 Element no children: <symbol viewbox="0 0 24 24" id="icon-keyboard">
-
-65 Element no children: <symbol viewbox="0 0 24 24" id="icon-lens">
-
-66 Element no children: <symbol viewbox="0 0 24 24" id="icon-link">
-
-67 Element no children: <symbol viewbox="0 0 24 24" id="icon-mail">
-
-68 Element no children: <symbol viewbox="0 0 24 24" id="icon-more_horizontal">
-
-69 Element no children: <symbol viewbox="0 0 24 24" id="icon-more_vertical">
-
-70 Element no children: <symbol viewbox="0 0 24 24" id="icon-no_deriv">
-
-71 Element no children: <symbol viewbox="0 0 24 24" id="icon-people">
-
-72 Element no children: <symbol viewbox="0 0 24 24" id="icon-photo_hollow">
+7 Element no children: <symbol viewbox="0 0 24 24" id="icon-link">
 
 
 
 ##############################################################################################################
 fortunecom.html
 
-1 Element no children: <div class="logo-container">    
+1 Element no children: <header class="main-header" role="banner">   
 
 2 Element no children: <form class="site-nav-search site-search" action="http://search-app.fortune.com">   
 
-3 Element no children: <div class="fortune-search">   
-
-4 Element no children: <form class="site-search" action="http://search-app.fortune.com">   
-
-5 Element no children: <div class="fortune-search">   
-
-6 Element no children: <article>    
-
-7 Element no children: <article>    
-
-8 Element no children: <article>    
-
-9 Element no children: <article>    
-
-10 Element no children: <article>    
-
-11 Element no children: <article>    
-
-12 Element no children: <article class="featured-secondary-with-image">   
-
-13 Element no children: <div class="secondary-featured-image">   
-
-14 Element no children: <div class="commentary-wrapper">    
-
-15 Element no children: <article class="commentary-article">   
-
-16 Element no children: <div class="commentary-byline-img">   
-
-17 Element no children: <div class="commentary-article-content rail-offset">   
-
-18 Element no children: <article class="commentary-article">   
-
-19 Element no children: <div class="commentary-byline-img">   
-
-20 Element no children: <div class="commentary-article-content rail-offset">   
-
-21 Element no children: <article class="commentary-article">   
-
-22 Element no children: <div class="commentary-byline-img">   
-
-23 Element no children: <div class="commentary-article-content rail-offset">   
-
-24 Element no children: <header class="fortune-500-companies-header module-header">   
-
-25 Element no children: <div class="fortune-500-see-all-buttons">   
-
-26 Element no children: <div class="company-content">    
-
-27 Element no children: <div class="company-content">    
-
-28 Element no children: <div class="company-content">    
-
-29 Element no children: <div class="market-data-module home-module" data-event="hp-markets">   
-
-30 Element no children: <a href="http://fortune.com/most-powerful-women/" data-event="hp-rankings">   
-
-31 Element no children: <a href="http://fortune.com/global500/" data-event="hp-rankings">   
-
-32 Element no children: <a href="http://fortune.com/fortune500/" data-event="hp-rankings">   
-
-33 Element no children: <div class="copyright">    
-
-34 Element no children: <p class="p3">
-
-35 Element no children: <div class="copyright mobile">    
-
-36 Element no children: <header class="fortune-modal-header">   
-
-37 Element no children: <div class="remember-me-forgot">    
-
-38 Element no children: <div class="sign-up subscribe-section">   
-
-39 Element no children: <header class="fortune-modal-header">   
+3 Element no children: <div id="content" class="home-content" role="main">   
 
 
 
 ##############################################################################################################
 foursquarecom.html
 
-1 Element no children: <div class="locationPivotDrawer drawer">
+1 Element no children: <div id="desktopHeader" class="withDrawer consumerMode withProductBar">
 
-2 Element no children: <div class="nearbyLocationsBlock">
-
-3 Element no children: <div class="getInspiredBlock">
-
-4 Element no children: <form action="/explore" method="get" id="search">
-
-5 Element no children: <div class="inputSet searchInputSet withDropdownArrow" data-placeholder="I'm looking for...">
-
-6 Element no children: <div class="inputSet locationInputSet">
-
-7 Element no children: <button class="submitButton" type="submit">
-
-8 Element no children: <div class="hotThisWeekHeader">
-
-9 Element no children: <h2>
-
-10 Element no children: <td>
-
-11 Element no children: <td>
-
-12 Element no children: <td>
-
-13 Element no children: <td>
-
-14 Element no children: <td>
-
-15 Element no children: <td>
-
-16 Element no children: <td>
-
-17 Element no children: <td>
-
-18 Element no children: <td>
-
-19 Element no children: <td>
-
-20 Element no children: <td>
-
-21 Element no children: <td>
-
-22 Element no children: <td>
-
-23 Element no children: <td>
-
-24 Element no children: <td>
-
-25 Element no children: <td>
-
-26 Element no children: <td>
-
-27 Element no children: <td>
-
-28 Element no children: <td>
-
-29 Element no children: <td>
+2 Element no children: <ul class="wrap">
 
 
 
@@ -1822,333 +442,45 @@ foxnewscom.html
 ##############################################################################################################
 ftcom.html
 
-1 Element no children: <ul class="o-header__anon-list">   
-
-2 Element no children: <div class="o-header__top-wrapper">    
-
-3 Element no children: <div class="o-header__top-column o-header__top-column--left">   
-
-4 Element no children: <ul class="o-header__nav-list">    
-
 
 
 ##############################################################################################################
 getpocketcom.html
 
-1 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/creativity" target="_blank">   
+1 Element no children: <div class="small-12 large-9 columns">    
 
-2 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/design" target="_blank">   
+2 Element no children: <ul>      
 
-3 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/fitness" target="_blank">   
+3 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/parenting" target="_blank">   
 
-4 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/food" target="_blank">   
-
-5 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/parenting" target="_blank">   
-
-6 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/travel" target="_blank">   
-
-7 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/science" target="_blank">   
-
-8 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/tech" target="_blank">   
-
-9 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/politics" target="_blank">   
-
-10 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/film" target="_blank">   
-
-11 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/business" target="_blank">   
-
-12 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/sports" target="_blank">   
-
-13 Element no children: <ul class="home-article-stats">   
-
-14 Element no children: <li class="article-stat article-stat-saves">   
-
-15 Element no children: <ul class="home-article-stats">   
-
-16 Element no children: <li class="article-stat article-stat-saves">   
-
-17 Element no children: <ul class="home-article-stats">   
-
-18 Element no children: <li class="article-stat article-stat-saves">   
-
-19 Element no children: <ul class="home-article-stats">   
-
-20 Element no children: <li class="article-stat article-stat-saves">   
-
-21 Element no children: <ul class="home-article-stats">   
-
-22 Element no children: <li class="article-stat article-stat-saves">   
-
-23 Element no children: <ul class="home-article-stats">   
-
-24 Element no children: <li class="article-stat article-stat-saves">   
-
-25 Element no children: <ul class="home-article-stats">   
-
-26 Element no children: <li class="article-stat article-stat-saves">   
-
-27 Element no children: <ul class="home-article-stats">   
-
-28 Element no children: <li class="article-stat article-stat-saves">   
-
-29 Element no children: <ul class="home-article-stats">   
-
-30 Element no children: <li class="article-stat article-stat-saves">   
-
-31 Element no children: <ul class="home-article-stats">   
-
-32 Element no children: <li class="article-stat article-stat-saves">   
-
-33 Element no children: <ul class="home-article-stats">   
-
-34 Element no children: <li class="article-stat article-stat-saves">   
-
-35 Element no children: <ul class="home-article-stats">   
-
-36 Element no children: <li class="article-stat article-stat-saves">   
-
-37 Element no children: <div class="signupform-start">    
-
-38 Element no children: <a href="#" class="btn signup-btn-google">
-
-39 Element no children: <div class="form-field">    
-
-40 Element no children: <span class="error-bubble">
-
-41 Element no children: <div class="form-field">    
-
-42 Element no children: <span class="error-bubble">
-
-43 Element no children: <div class="form-field">    
-
-44 Element no children: <span class="error-bubble">
-
-45 Element no children: <p class="alreadyhave">Already have an account?  
-
-46 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/creativity" target="_blank">   
-
-47 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/design" target="_blank">   
-
-48 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/fitness" target="_blank">   
-
-49 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/food" target="_blank">   
-
-50 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/parenting" target="_blank">   
-
-51 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/travel" target="_blank">   
-
-52 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/science" target="_blank">   
-
-53 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/tech" target="_blank">   
-
-54 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/politics" target="_blank">   
-
-55 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/film" target="_blank">   
-
-56 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/business" target="_blank">   
-
-57 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/sports" target="_blank">   
-
-58 Element no children: <ul class="home-article-stats">   
-
-59 Element no children: <li class="article-stat article-stat-saves">   
-
-60 Element no children: <ul class="home-article-stats">   
-
-61 Element no children: <li class="article-stat article-stat-saves">   
-
-62 Element no children: <ul class="home-article-stats">   
-
-63 Element no children: <li class="article-stat article-stat-saves">   
-
-64 Element no children: <ul class="home-article-stats">   
-
-65 Element no children: <li class="article-stat article-stat-saves">   
-
-66 Element no children: <ul class="home-article-stats">   
-
-67 Element no children: <li class="article-stat article-stat-saves">   
-
-68 Element no children: <ul class="home-article-stats">   
-
-69 Element no children: <li class="article-stat article-stat-saves">   
-
-70 Element no children: <ul class="home-article-stats">   
-
-71 Element no children: <li class="article-stat article-stat-saves">   
-
-72 Element no children: <ul class="home-article-stats">   
-
-73 Element no children: <li class="article-stat article-stat-saves">   
-
-74 Element no children: <ul class="home-article-stats">   
-
-75 Element no children: <li class="article-stat article-stat-saves">   
-
-76 Element no children: <ul class="home-article-stats">   
-
-77 Element no children: <li class="article-stat article-stat-saves">   
-
-78 Element no children: <ul class="home-article-stats">   
-
-79 Element no children: <li class="article-stat article-stat-saves">   
-
-80 Element no children: <ul class="home-article-stats">   
-
-81 Element no children: <li class="article-stat article-stat-saves">   
-
-82 Element no children: <div class="small-12 large-4 columns home-saveforlater">    
-
-83 Element no children: <ul>    
-
-84 Element no children: <div class="small-12 large-4 columns home-saveforlater">   
+4 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/film" target="_blank">   
 
 
 
 ##############################################################################################################
 githubcom.html
 
-1 Element no children: <div class="d-flex flex-justify-between flex-items-center">   
-
-2 Element no children: <label class="form-control header-search-wrapper js-chromeless-input-container">    
-
-3 Element no children: <div class="HeaderNavlink px-0 py-2 m-0">    
-
-4 Element no children: <div class="col-md-7 text-center text-md-left ">   
-
-5 Element no children: <p class="alt-lead mb-4"> GitHub is a development platform inspired by the way you work. From  to , you can host and review code, manage projects, and build software alongside millions of other&nbsp;developers. 
-
-6 Element no children: <div>
-
-7 Element no children: <dl class="form-group mt-0">   
-
-8 Element no children: <dl class="form-group">   
-
-9 Element no children: <dl class="form-group">    
-
-10 Element no children: <p class="form-control-note mb-0 text-center"> By clicking "Sign up for GitHub", you agree to our  and .  
-
-11 Element no children: <a href="https://githubuniverse.com/?utm_source=github&amp;utm_medium=banner&amp;utm_campaign=ww-dotcom-universe-20170717" class="no-underline">    
-
-12 Element no children: <div class="col-sm-8 col-md-6 mx-auto text-center text-md-left pr-md-5">    
-
-13 Element no children: <div class="col-sm-8 col-md-6 mx-auto text-center text-md-left pl-md-5">    
-
-14 Element no children: <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewbox="0 0 58.5 58.7" class="d-block mx-auto mb-2" width="72">
-
-15 Element no children: <div class="col-md-8 py-md-6 mx-auto">   
-
-16 Element no children: <a href=" /open-source/stories/ariya " class="story-link  d-block d-lg-flex height-full rounded-1 box-shadow-extra-large">   
-
-17 Element no children: <div class="width-full text-center p-3 py-lg-0">   
-
-18 Element no children: <a href=" /open-source/stories/freakboy3742 " class="story-link  d-block d-lg-flex height-full rounded-1 box-shadow-extra-large">   
-
-19 Element no children: <div class="width-full text-center p-3 py-lg-0">   
-
-20 Element no children: <a href=" /business/customers/mailchimp " class="story-link story-link--customer d-block d-lg-flex height-full rounded-1 box-shadow-extra-large">   
-
-21 Element no children: <div class="width-full text-center p-3 py-lg-0">   
-
-22 Element no children: <a href=" /open-source/stories/kris-nova " class="story-link  d-block d-lg-flex height-full rounded-1 box-shadow-extra-large">   
-
-23 Element no children: <div class="width-full text-center p-3 py-lg-0">   
-
-24 Element no children: <a href=" /open-source/stories/yyx990803 " class="story-link  d-block d-lg-flex height-full rounded-1 box-shadow-extra-large">   
-
-25 Element no children: <div class="width-full text-center p-3 py-lg-0">   
-
-26 Element no children: <a href=" /business/customers/mapbox " class="story-link story-link--customer d-block d-lg-flex height-full rounded-1 box-shadow-extra-large">   
-
-27 Element no children: <div class="width-full text-center p-3 py-lg-0">   
-
-28 Element no children: <a href=" /open-source/stories/jessfraz " class="story-link  d-block d-lg-flex height-full rounded-1 box-shadow-extra-large">   
-
-29 Element no children: <div class="width-full text-center p-3 py-lg-0">   
-
-30 Element no children: <div class="communitystats position-relative">    
-
-31 Element no children: <a href="/open-source" class="d-inline-block summarylink">   
-
-32 Element no children: <div class="circle d-flex flex-column flex-justify-center text-center p-4 mx-auto mt-6 mb-3 m-md-3 bg-orange box-shadow-extra-large">   
-
-33 Element no children: <div class="summarylink-btn d-flex flex-justify-between flex-items-center f5 text-gray-dark rounded-1 p-sm-4">   
-
-34 Element no children: <a href="/personal" class="d-inline-block summarylink">   
-
-35 Element no children: <div class="circle d-flex flex-column flex-justify-center text-center p-4 mx-auto mt-6 mb-3 m-md-3 bg-blue box-shadow-extra-large">   
-
-36 Element no children: <div class="summarylink-btn d-flex flex-justify-between flex-items-center f5 text-gray-dark rounded-1 p-sm-4">   
-
-37 Element no children: <a href="/business" class="d-inline-block summarylink">   
-
-38 Element no children: <div class="circle d-flex flex-column flex-justify-center text-center p-4 mx-auto mt-6 mb-3 m-md-3 bg-purple box-shadow-extra-large">   
-
-39 Element no children: <div class="summarylink-btn d-flex flex-justify-between flex-items-center f5 text-gray-dark rounded-1 p-sm-4">   
-
-40 Element no children: <div>
-
-41 Element no children: <dl class="form-group col-12 col-sm-8 col-lg-3 mx-auto mt-0 mx-lg-0 mb-3 mb-lg-0 px-3">   
-
-42 Element no children: <dl class="form-group col-12 col-sm-8 col-lg-3 mx-auto mt-0 mx-lg-0 mb-3 mb-lg-0 px-3">   
-
-43 Element no children: <dl class="form-group col-12 col-sm-8 col-lg-3 mx-auto mt-0 mx-lg-0 mb-3 mb-lg-0 px-3">   
-
-44 Element no children: <p class="form-control-note text-center mt-6"> By clicking "Sign up for GitHub", you agree to our  and .  
-
-45 Element no children: <div class="col-12 col-md-2 mb-3">   
-
-46 Element no children: <div id="ajax-error-message" class="ajax-error-message flash flash-error">   You can't perform that action at this time. 
-
-47 Element no children: <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner d-none">    
-
-48 Element no children: <div class="facebox-popup">   
+1 Element no children: <div class="d-lg-flex">   
 
 
 
 ##############################################################################################################
 gizmodocom.html
 
-1 Element no children: <div class="networknav__usertools">
+1 Element no children: <ul class="js_sections">
 
-2 Element no children: <a href="//gizmodo.com" class="logo" title="Gizmodo" data-ga="[Sub navigation, Logo click, js_pageType]">
+2 Element no children: <span class="spinner bounce">
 
-3 Element no children: <symbol id="gizmodo-avatar-svgid">
+3 Element no children: <a href="//gizmodo.com" class="logo" title="Gizmodo" data-ga="[Sub navigation, Logo click, js_pageType]">
 
-4 Element no children: <span class="spinner bounce">
-
-5 Element no children: <a href="//gizmodo.com" class="logo" title="Gizmodo" data-ga="[Sub navigation, Logo click, js_pageType]">
-
-6 Element no children: <symbol id="gizmodo-avatar-svgid">
-
-7 Element no children: <div class="mobile-nav__hamburger">
+4 Element no children: <div class="curation-main-container js_curation-main-container dui-override">
 
 
 
 ##############################################################################################################
 gocom.html
 
-1 Element no children: <dd class="goc-dropdown">    
-
-2 Element no children: <dd class="">    
-
-3 Element no children: <dd class="">   
-
-4 Element no children: <button class="goc-logo-image" id="goc-button">   
-
-5 Element no children: <li class="goc-desktop goc-hidden goc-dropdown" id="goc-more-link">
-
-6 Element no children: <a href="#">
-
-7 Element no children: <a href="#" role="button">   
-
-8 Element no children: <ul>    
-
-9 Element no children: <form class="goc-search" action="https://search.disney.com/search" method="GET">   
-
-10 Element no children: <div id="goc-nav" class="goc-el goc-bg-dark">   
-
-11 Element no children: <div class="body-bg">    
+1 Element no children: <dl>       
 
 
 
@@ -2156,20 +488,6 @@ gocom.html
 goodreadscom.html
 
 1 Element no children: <div class="formBox">   
-
-2 Element no children: <div class="fieldPara">   
-
-3 Element no children: <div class="fieldPara">    
-
-4 Element no children: <div class="sellingPointBoxLeft">   
-
-5 Element no children: <div class="sellingPointBoxRight">   
-
-6 Element no children: <div class="discoveryBoxResultBook">    
-
-7 Element no children: <div class="discoveryBoxResultBook">    
-
-8 Element no children: <div class="auto_complete_field_wrapper">    
 
 
 
@@ -2180,236 +498,60 @@ googlecom.html
 
 2 Element no children: <a href="/search?site=&amp;ie=UTF-8&amp;q=autumn+equinox+2017&amp;oi=ddle&amp;ct=fall-equinox-2017-northern-hemisphere-5921669083299840&amp;hl=en&amp;sa=X&amp;ved=0ahUKEwjF3dSZg7rWAhUG5iYKHaIlBDQQPQgD">
 
-3 Element no children: <td class="fl sblc" align="left" nowrap width="25%">
+3 Element no children: <nobr>  |  | 
 
-4 Element no children: <p>© 2017 -  - 
+4 Element no children: <td align="center" nowrap>
 
-5 Element no children: <div id="lga">
+5 Element no children: <div id="fll">
 
-6 Element no children: <a href="/search?site=&amp;ie=UTF-8&amp;q=autumn+equinox+2017&amp;oi=ddle&amp;ct=fall-equinox-2017-northern-hemisphere-5921669083299840&amp;hl=en&amp;sa=X&amp;ved=0ahUKEwjZkaK-g7rWAhUHWSYKHRI9ADQQPQgD">
-
-7 Element no children: <td class="fl sblc" align="left" nowrap width="25%">
-
-8 Element no children: <p>© 2017 -  - 
-
-9 Element no children: <div id="lga">
-
-10 Element no children: <a href="/search?site=&amp;ie=UTF-8&amp;q=autumn+equinox+2017&amp;oi=ddle&amp;ct=fall-equinox-2017-northern-hemisphere-5921669083299840&amp;hl=en&amp;sa=X&amp;ved=0ahUKEwj7_oTJhLrWAhWG3SYKHWlxC74QPQgD">
-
-11 Element no children: <td class="fl sblc" align="left" nowrap width="25%">
-
-12 Element no children: <p>© 2017 -  - 
-
-13 Element no children: <div id="lga">
-
-14 Element no children: <a href="/search?site=&amp;ie=UTF-8&amp;q=autumn+equinox+2017&amp;oi=ddle&amp;ct=fall-equinox-2017-northern-hemisphere-5921669083299840&amp;hl=en&amp;sa=X&amp;ved=0ahUKEwiS6YyuhbrWAhVL6CYKHd6xCacQPQgD">
-
-15 Element no children: <td class="fl sblc" align="left" nowrap width="25%">
-
-16 Element no children: <p>© 2017 -  - 
-
-17 Element no children: <div id="lga">
-
-18 Element no children: <a href="/search?site=&amp;ie=UTF-8&amp;q=autumn+equinox+2017&amp;oi=ddle&amp;ct=fall-equinox-2017-northern-hemisphere-5921669083299840&amp;hl=en&amp;sa=X&amp;ved=0ahUKEwiGztm8hbrWAhXCQiYKHa6JAQgQPQgD">
-
-19 Element no children: <td class="fl sblc" align="left" nowrap width="25%">
-
-20 Element no children: <p>© 2017 -  - 
+6 Element no children: <p>© 2017 -  - 
 
 
 
 ##############################################################################################################
 gravatarcom.html
 
-1 Element no children: <a href="http://wordpress.com">   
+1 Element no children: <body id="page">  <!--/ #wrap -->       
 
-2 Element no children: <a href="http://vaultpress.com">   
+2 Element no children: <a href="http://wordpress.com">   
 
-3 Element no children: <a href="http://akismet.com">   
+3 Element no children: <div class="gcard_header">   
 
-4 Element no children: <a href="http://polldaddy.com">   
-
-5 Element no children: <li class="current">   
-
-6 Element no children: <li id="wpcc-sign-in">   
-
-7 Element no children: <div id="v-HNyK67JS-1-placeholder" class="videopress-placeholder">     
-
-8 Element no children: <p>Setting up Gravatars on your site is easy; you don't even need an account!  for leading blog software and content management systems, and  will have you running Gravatars in no&nbsp;time.
-
-9 Element no children: <div id="user-logos-container">   
-
-10 Element no children: <ul id="vp-primary-footer">    
-
-11 Element no children: <ul id="vp-secondary-footer">   
+4 Element no children: <div class="grav-inner gcard-about">    
 
 
 
 ##############################################################################################################
 hiltoncom.html
 
-1 Element no children: <ul id="utility_links_list">    
+1 Element no children: <div id="view_res_form">   
 
-2 Element no children: <div class="logged_out_view">   
+2 Element no children: <div id="view_res_msg">   
 
-3 Element no children: <div class="ac">   
+3 Element no children: <div id="existing_travel_links_container">   
 
-4 Element no children: <a href="#" id="find" class="custom_button" role="button" onclick="javascript:jQuery('#findReservationForm').submit();">
-
-5 Element no children: <div id="view_res_msg">   
-
-6 Element no children: <div id="existing_travel_links_container">   
-
-7 Element no children: <div class="stay_details">    
-
-8 Element no children: <ul class="manage_link_list ac">   
-
-9 Element no children: <div id="join_hhonors_container" class="account_container">   
-
-10 Element no children: <a href="https://secure3.hilton.com/en/hh/customer/join/joinHHonors.htm" id="join_hhonors_button" class="custom_button">
-
-11 Element no children: <div class="blue bar_section">   
-
-12 Element no children: <div class="silver bar_section">   
-
-13 Element no children: <div class="gold bar_section">   
-
-14 Element no children: <div class="diamond bar_section">   
-
-15 Element no children: <div class="blue bar_section">   
-
-16 Element no children: <div class="silver bar_section">   
-
-17 Element no children: <div class="gold bar_section">   
-
-18 Element no children: <div class="diamond bar_section">   
-
-19 Element no children: <div class="blue bar_section">   
-
-20 Element no children: <div class="silver bar_section">   
-
-21 Element no children: <div class="gold bar_section">   
-
-22 Element no children: <div class="diamond bar_section">   
-
-23 Element no children: <div class="lifetimeDiamondUserOverview">   
+4 Element no children: <div id="account_view" class="header_content_container ac">    <!-- join container start -->   <!-- end join container -->  <!-- suppress tier progress bar start -->   <!-- end suppress tier progress bar -->  <!-- Member status start -->   <!-- Member status end -->  <!-- new for CR 21743 -->  
 
 
 
 ##############################################################################################################
 histatscom.html
 
-1 Element no children: <tbody>  
-
-2 Element no children: <a href="/" class="histatsLogo">    
-
-3 Element no children: <div class="histatsSpot">    
-
-4 Element no children: <tr>   
-
-5 Element no children: <td width="50" align="left" valign="bottom">   
-
-6 Element no children: <li>  
-
-7 Element no children: <form method="post" action="/viewstats/?DOLOGIN=1">   
-
-8 Element no children: <tbody>  
-
-9 Element no children: <tr>   
-
-10 Element no children: <tr>   
-
-11 Element no children: <tr>   
-
-12 Element no children: <div class="bt"> /
-
-13 Element no children: <td align="center">  
-
-14 Element no children: <tbody>   
-
-15 Element no children: <tr>   
-
-16 Element no children: <tr>   
-
-17 Element no children: <tr>   
-
-18 Element no children: <td height="30" align="right"> 
-
-19 Element no children: <td width="245" align="center" valign="top">   
-
-20 Element no children: <div class="HOMEthu" id="f1">   
-
-21 Element no children: <tbody>  
-
-22 Element no children: <tr>   
-
-23 Element no children: <tr>   
-
-24 Element no children: <td width="245" align="center" valign="top">   
-
-25 Element no children: <div class="HOMEthu" id="f2">   
-
-26 Element no children: <tr>   
-
 
 
 ##############################################################################################################
 homesteadcom.html
 
-1 Element no children: <li class="menu-652 menuparent  menu-path-node-14  even ">
+1 Element no children: <body class="html front not-logged-in one-sidebar sidebar-first page-node page-node- page-node-1 node-type-page">        <!-- END LivePerson Monitor. -->                
 
-2 Element no children: <div class="two columns">   
+2 Element no children: <li class="menu-652 menuparent  menu-path-node-14  even ">
 
-3 Element no children: <div id="login">  
-
-4 Element no children: <div class="ds-3col-stacked-fluid node node-page view-mode-full clearfix">    
-
-5 Element no children: <div class="body field">
-
-6 Element no children: <div class="main-index2">
-
-7 Element no children: <ul>    
-
-8 Element no children: <ul>    
-
-9 Element no children: <ul>    
-
-10 Element no children: <div class="two columns">    
-
-11 Element no children: <div class="two columns">    
-
-12 Element no children: <div class="two columns">    
-
-13 Element no children: <div class="two columns">    
-
-14 Element no children: <div class="two columns">    
-
-15 Element no children: <div class="two columns">    
-
-16 Element no children: <li class="expanded">
-
-17 Element no children: <ul class="menu">  
-
-18 Element no children: <ul class="menu">   
-
-19 Element no children: <li class="expanded">
-
-20 Element no children: <ul class="menu">  
-
-21 Element no children: <div id="copyright"> © 2016 Homestead Technologies Inc. All Rights Reserved. |  | 
+3 Element no children: <div class="main-index2">
 
 
 
 ##############################################################################################################
 houzzcom.html
-
-1 Element no children: <li id="navMyCart" class=" menu-container ">
-
-2 Element no children: <a href="https://www.houzz.com/viewCart" objid="navMyCart" class="nav-button menu-title ">
-
-3 Element no children: <form class="navbar-search-bar highlight-search" name="searchForm" id="searchForm" autocomplete="off" action="#" onsubmit="return HZ.navigation.Header.search();" method="get">   
-
-4 Element no children: <div class="navbar-search-shell trackMe" role="search">  
 
 
 
@@ -2421,154 +563,12 @@ hpcom.html
 ##############################################################################################################
 huffingtonpostcom.html
 
-1 Element no children: <div class="bn-desktop-alert-signup">   
-
-2 Element no children: <div class="desktop-alerts-center">   
-
-3 Element no children: <div class="header__hamburger bn-hamburger-menu js-hamburger-button-container">   
-
-4 Element no children: <div class="header__editions bn-editions js-editions-button bn-editions-link bn-multiple">   
-
-5 Element no children: <a class="card__splash__wrapper js-card-image bn-splash-image" href="/entry/john-mccain-graham-cassidy_us_59c54e5ce4b01cc57ff2119a?ncid=inblnkushpmg00000009" target="">   
-
-6 Element no children: <div class="card__headlines">   
-
-7 Element no children: <div class="card__image__wrapper">    
-
-8 Element no children: <div class="card__content">  
-
-9 Element no children: <div class="card__headlines">   
-
-10 Element no children: <div class="card__image__wrapper">   
-
-11 Element no children: <div class="card__content">  
-
-12 Element no children: <div class="card__headlines">   
-
-13 Element no children: <div class="card__image__wrapper">   
-
-14 Element no children: <div class="card__content">  
-
-15 Element no children: <div class="card__headlines">   
-
-16 Element no children: <div class="card__image__wrapper">   
-
-17 Element no children: <div class="card__content">  
-
-18 Element no children: <div class="card__headlines">   
-
-19 Element no children: <div class="card__image__wrapper">   
-
-20 Element no children: <div class="card__content">  
-
-21 Element no children: <div class="card__headlines">   
-
-22 Element no children: <div class="card__image__wrapper">   
-
-23 Element no children: <div class="card__content">   
-
-24 Element no children: <a class="bn-splash-image card__splash__wrapper js-card-image" data-card-link="us_59c5282ce4b01cc57ff1b47e" href="/entry/donald-trump-travel-ban_us_59c5282ce4b01cc57ff1b47e?ncid=inblnkushpmg00000009" target="">   
-
-25 Element no children: <div class="card__image__wrapper">   
-
-26 Element no children: <div class="card__content">    
-
-27 Element no children: <a class="bn-splash-image card__splash__wrapper js-card-image" data-card-link="us_59c5326be4b01cc57ff1cb4d" href="/entry/james-comey-howard-university_us_59c5326be4b01cc57ff1cb4d?ncid=inblnkushpmg00000009" target="">   
-
-28 Element no children: <div class="card__image__wrapper">   
-
-29 Element no children: <div class="elevator bn-zone-right">   
-
-30 Element no children: <div class="zone__content bn-zone" data-zone="series">    
-
-31 Element no children: <div class="card__content">   
-
-32 Element no children: <div class="card__headlines">   
-
-33 Element no children: <div class="card__byline">  By  and  
-
-34 Element no children: <div class="card__image__wrapper">   
-
-35 Element no children: <div class="card__content">   
-
-36 Element no children: <div class="card__headlines">   
-
-37 Element no children: <div class="card__image__wrapper">   
-
-38 Element no children: <div class="card__content">   
-
-39 Element no children: <div class="card__headlines">   
-
-40 Element no children: <div class="card__image__wrapper">   
-
-41 Element no children: <section class="zone zone--bottom zone--shaft" id="zone_bottom">    
-
-42 Element no children: <div class="zone__content bn-zone" data-zone="bottom">   
-
-43 Element no children: <div class="card__content">   
-
-44 Element no children: <div class="card__image__wrapper sigil sigil--bottom-left sigil--medium sigil--video">   
-
-45 Element no children: <div class="card__content">   
-
-46 Element no children: <div class="card__image__wrapper sigil sigil--bottom-left sigil--medium sigil--video">   
-
-47 Element no children: <div class="card__content">    
-
-48 Element no children: <a class="bn-splash-image card__splash__wrapper js-card-image" data-card-link="us_59c57d7de4b0cdc77331530c" href="/entry/kylie-jenner-is-reportedly-pregnant_us_59c57d7de4b0cdc77331530c?ncid=inblnkushpmg00000009" target="">   
-
-49 Element no children: <div class="card__image__wrapper">   
-
 
 
 ##############################################################################################################
 ibmcom.html
 
-1 Element no children: <nav aria-label="IBM">   
-
-2 Element no children: <div class="ibm-col-12-6 ibm-col-medium-12-8 ibm-col-large-12-6 ibm-col-xlarge-12-6">     <!-- <p class="ibm-ind-link">							<a data-widget="videoplayer" data-overlayplayersize="xlarge" data-videodisplay="overlay" data-videoid="l6uHXtQcwo4" data-videotype="youtube" data-showvideoduration="false" class="ibm-play-link" href="javaScript:return(false);">Explore episode 1: Lightsabers						 
-
-3 Element no children: <ul class="ibm-link-list">   
-
-4 Element no children: <div class="ibm-card__content ibm-padding-bottom-2">    
-
-5 Element no children: <div class="ibm-card__content ibm-padding-bottom-2">    
-
-6 Element no children: <div class="ibm-card__content ibm-padding-bottom-2">    
-
-7 Element no children: <div class="ibm-padding-content">   
-
-8 Element no children: <div class="ibm-card__content ibm-padding-bottom-2">    
-
-9 Element no children: <div class="ibm-card__content ibm-padding-bottom-2">    
-
-10 Element no children: <div class="ibm-card__content ibm-padding-bottom-2">    
-
-11 Element no children: <div class="ibm-padding-content">    
-
-12 Element no children: <div class="ibm-card__content ibm-padding-bottom-2">    
-
-13 Element no children: <div class="ibm-card__content ibm-padding-bottom-2">    
-
-14 Element no children: <div class="ibm-card__content ibm-padding-bottom-2">    
-
-15 Element no children: <a href="http://www.ibm.com/analytics/us/en/?lnk=ushpv18c1&amp;lnk2=learn" class="ibm-blocklink ibm_cci-border-decoration">    
-
-16 Element no children: <a href="http://www.ibm.com/cloud-computing/us/en?lnk=ushpv18c2&amp;lnk2=learn" class="ibm-blocklink ibm_cci-border-decoration">    
-
-17 Element no children: <a href="https://www.ibm.com/watson/customer-engagement/?lnk=ushpv18c3&amp;lnk2=learn" class="ibm-blocklink ibm_cci-border-decoration">    
-
-18 Element no children: <a href="http://www.ibm.com/it-infrastructure/us-en/?lnk=ushpv18c4&amp;lnk2=learn" class="ibm-blocklink ibm_cci-border-decoration">    
-
-19 Element no children: <a href="https://www.ibm.com/services/us/en/it-services/gts-it-service-home-page-1.html?lnk=ushpv18c9&amp;lnk2=learn" class="ibm-blocklink ibm_cci-border-decoration">    
-
-20 Element no children: <a href="http://www-03.ibm.com/financing/us-en/?lnk=ushpv18c5&amp;lnk2=learn" class="ibm-blocklink ibm_cci-border-decoration">    
-
-21 Element no children: <a href="http://www.ibm.com/mobile/?lnk=ushpv18c6&amp;lnk2=learn" class="ibm-blocklink ibm_cci-border-decoration">    
-
-22 Element no children: <a href="http://www.ibm.com/security/?lnk=ushpv18c7&amp;lnk2=learn" class="ibm-blocklink ibm_cci-border-decoration">    
-
-23 Element no children: <a href="https://www.ibm.com/watson/?lnk=ushpv18c8&amp;lnk2=learn" class="ibm-blocklink ibm_cci-border-decoration">    
+1 Element no children: <body id="ibm-com" class="ibm-type">   <!-- Overlay Content -->    
 
 
 
@@ -2580,25 +580,7 @@ imdbcom.html
 ##############################################################################################################
 imgurcom.html
 
-1 Element no children: <div class="terms-footer">    
-
-2 Element no children: <ul>    
-
-3 Element no children: <a class="upload-button" href="//imgur.com/upload">    
-
-4 Element no children: <ul class="user-nav">    
-
-5 Element no children: <form class="search-form" method="get" action="//imgur.com/search">   
-
-6 Element no children: <li class="signin-link">   
-
-7 Element no children: <div class="margin-top">    
-
-8 Element no children: <div class="right">   
-
-9 Element no children: <ul>    
-
-10 Element no children: <ul>   
+1 Element no children: <li class="signin-link">   
 
 
 
@@ -2607,49 +589,7 @@ indiatimescom.html
 
 1 Element no children: <div id="dae_xyz">      
 
-2 Element no children: <form class="search-form pull-left" onsubmit="return false">    
-
-3 Element no children: <div id="sorry_div" class="sory-cont"> <!--sorry-msg start -->   
-
-4 Element no children: <div class="header-right pull-left">    <!--<a href="http://www.indiatimes.com/videocafe/"><i class="sprite head-video">  
-
-5 Element no children: <a href="javascript:void(0);" class="note-txt position-rel" onmousedown="ga('send' , 'event', ' Web Header ' , ' Dynamic Header ' , 'Notifications' , 'http://www.indiatimes.com')">  
-
-6 Element no children: <div class="notifi-container" id="notifi-container_1">   
-
-7 Element no children: <div class="dropbtn">    
-
-8 Element no children: <div class="dropdown-cont" id="login-menu-top">    
-
-9 Element no children: <div class="ssoLoginDiv signin">    
-
-10 Element no children: <div class="middle-container">    <!-- <a href="http://www.indiatimes.com/trending"><i class="sprite top-trending">   <!-- <a href="javascript:void(0);"><i class="sprite temp"> 
-
-11 Element no children: <div class="pull-left channel">   <!-- <a id="headerMenu_scrolled" href="javascript:void(0);" class="menu"><div class="bar">  
-
-12 Element no children: <a href="javascript:void(0);" class="note-txt position-rel" onmousedown="ga('send' , 'event', ' Web Header ' , ' Dynamic Header ' , 'Notifications' , 'http://www.indiatimes.com')">  
-
-13 Element no children: <div class="notifi-container" id="notifi-container_1">   
-
-14 Element no children: <div class="dropbtn">    
-
-15 Element no children: <div class="dropdown-cont" id="login-menu-bottom">    
-
-16 Element no children: <div class="ssoLoginDiv signin">    
-
-17 Element no children: <dt>   
-
-18 Element no children: <dt>   
-
-19 Element no children: <dd>    
-
-20 Element no children: <dt>   
-
-21 Element no children: <dt>   
-
-22 Element no children: <dd>    
-
-23 Element no children: <dt>   
+2 Element no children: <div class="onboarding-container list-container cf">  <!--sorry-msg end -->    
 
 
 
@@ -2658,94 +598,30 @@ indiegogocom.html
 
 1 Element no children: <ul>    
 
-2 Element no children: <div id="dUF_first_name">   
-
-3 Element no children: <div id="dUF_last_name">   
-
-4 Element no children: <div id="dUF_email">   
-
-5 Element no children: <div id="dUF_city">   
-
 
 
 ##############################################################################################################
 issuucom.html
 
-1 Element no children: <div class="gs__copy">    
+1 Element no children: <div class="gs__header">   
 
-2 Element no children: <g class="ih-Logo-mark">   
+2 Element no children: <div class="gs__copy">    
 
-3 Element no children: <g fill="none" fill-rule="evenodd"> 
+3 Element no children: <div class="ih-Root-inner container">     
 
-4 Element no children: <g fill="none" fill-rule="evenodd"> 
-
-5 Element no children: <div class="ih-loggedOutButtons">    
+4 Element no children: <ul class="ih-Navigation">   
 
 
 
 ##############################################################################################################
 jimdocom.html
 
-1 Element no children: <g class="tp-jimdo-logo__group-1">
-
-2 Element no children: <g class="tp-jimdo-logo__group-2">
-
-3 Element no children: <ul class="cc-nav-level-0 j-nav-level-0">    
-
-4 Element no children: <button type="button" class="tp-meta-nav__btn tp-nav-toggle" id="tp-nav-toggle"> 
-
-5 Element no children: <div class="wt-cm-app-links wt-cm-app-links--header">   
-
-6 Element no children: <div class="wt-cm-user-site">    
-
-7 Element no children: <div class="wt-cm-visual-wrapper wt-cm-visual-wrapper--steps">    
-
-8 Element no children: <div class="wt-cm-section-content--templates">    
-
-9 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-10 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-11 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-12 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-13 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-14 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-15 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-16 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-17 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-18 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-19 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-20 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-21 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-22 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-23 Element no children: <div class="wt-cm-template-slider__slide js-template-slider__slide">   
-
-24 Element no children: <div class="wt-cm-visual-wrapper wt-cm-visual-wrapper--gallery">    
-
-25 Element no children: <div class="wt-cm-visual-wrapper wt-cm-visual-wrapper--seo">   
-
 
 
 ##############################################################################################################
 kickstartercom.html
 
-1 Element no children: <div class="site-nav__right">    
-
-2 Element no children: <a aria-label="Enter Search" class="site-nav__item site-nav__item--search js-toggle-search" data-nav="search" href="#">   
-
-3 Element no children: <div class="mr3 mt2">   
+1 Element no children: <form class="site-nav__search-form" role="search" action="/projects/search" accept-charset="UTF-8" method="get">    
 
 
 
@@ -2758,164 +634,10 @@ latimescom.html
 
 3 Element no children: <div class="trb_mh_adB trb_masthead_adBanner">   
 
-4 Element no children: <article class="trb_outfit_primaryItem_article">   
-
-5 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94686080" data-content-slug="la-fg-mexico-earthquake-mainbar-20170922" data-content-section="World" data-content-type="story"> 
-
-6 Element no children: <section class="trb_outfit_group_list_item_body">
-
-7 Element no children: <div class="trb_outfit_group_item_label" data-content-label="">  
-
-8 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94691074" data-content-slug="la-pol-ca-essential-politics-updates-california-s-main-election-website-was-1506123459" data-content-section="Politics" data-content-type="htmlstory"> 
-
-9 Element no children: <section class="trb_outfit_group_list_item_body">
-
-10 Element no children: <div class="trb_outfit_group_item_label" data-content-label="">  
-
-11 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94685324" data-content-slug="la-fg-trump-northkorea-20170922" data-content-section="Politics" data-content-type="story"> 
-
-12 Element no children: <section class="trb_outfit_group_list_item_body">
-
-13 Element no children: <div class="trb_outfit_group_item_label" data-content-label="">  
-
-14 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94682956" data-content-slug="la-na-puerto-rico-maria-survivors-20170922" data-content-section="NATION" data-content-type="story"> 
-
-15 Element no children: <section class="trb_outfit_group_list_item_body">
-
-16 Element no children: <div class="trb_outfit_group_item_label" data-content-label="">  
-
-17 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94687143" data-content-slug="la-fg-trump-travel-ban-20170922" data-content-section="Politics" data-content-type="story"> 
-
-18 Element no children: <section class="trb_outfit_group_list_item_body">
-
-19 Element no children: <div class="trb_outfit_group_item_label" data-content-label="">  
-
-20 Element no children: <li class="trb_outfit_list_headline" data-content-id="94685058" data-content-slug="la-na-pol-trump-kim-dotard-20170922" data-content-section="Politics" data-content-type="story"> 
-
-21 Element no children: <li class="trb_outfit_list_headline" data-content-id="94686055" data-content-slug="la-et-entertainment-news-updates-bill-clinton-james-patterson-showtime-1506096542" data-content-section="ENTERTAINMENT" data-content-type="htmlstory"> 
-
-22 Element no children: <li class="trb_outfit_list_headline" data-content-id="94682201" data-content-slug="la-na-pol-trump-solar-tariffs-20170922" data-content-section="Politics" data-content-type="story"> 
-
-23 Element no children: <li class="trb_outfit_list_headline" data-content-id="94682182" data-content-slug="la-na-tt-atlas-shrugs-20170921" data-content-section="Opinion" data-content-type="story"> 
-
-24 Element no children: <li class="trb_outfit_list_headline" data-content-id="94678435" data-content-slug="la-na-facebook-russia-20170921" data-content-section="Politics" data-content-type="story"> 
-
-25 Element no children: <li class="trb_outfit_list_headline" data-content-id="94675453" data-content-slug="la-fg-trump-northkorea-20170921" data-content-section="NATION" data-content-type="story"> 
-
-26 Element no children: <li class="trb_outfit_list_headline" data-content-id="94664297" data-content-slug="la-na-pol-obamacare-repeal-impact-20170920" data-content-section="Politics" data-content-type="story"> 
-
-27 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94667042" data-content-slug="la-california-attorney-general-xavier-becerra-announces-lawsuit-against-trump-administration-20170920" data-content-section="Photography &amp; Video" data-content-playtime="03:32" data-content-type="video"> 
-
-28 Element no children: <a href="/visuals/video/94667042-132.html#nt=oft12aH-1gp4" data-role="delayload_item  delayload_done imgsize_item" class="trb_outfit_group_list_item_figure"> 
-
-29 Element no children: <section class="trb_outfit_group_list_item_body">
-
-30 Element no children: <h3 class="trb_outfit_relatedListTitle">
-
-31 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94589590" data-content-slug="la-ent-tiff-dee-rees-mudbound-director-video-20170912" data-content-section="Photography &amp; Video" data-content-playtime="01:19" data-content-type="video"> 
-
-32 Element no children: <a href="/visuals/video/94589590-132.html#nt=oft12aH-1gp4" data-role="delayload_item  delayload_done imgsize_item" class="trb_outfit_group_list_item_figure"> 
-
-33 Element no children: <section class="trb_outfit_group_list_item_body">
-
-34 Element no children: <h3 class="trb_outfit_relatedListTitle">
-
-35 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94580029" data-content-slug="la-guillermo-del-toro-and-michael-shannon-of-shape-of-water-20170911" data-content-section="Photography &amp; Video" data-content-playtime="02:19" data-content-type="video"> 
-
-36 Element no children: <a href="/visuals/video/94580029-132.html#nt=oft12aH-1gp4" data-role="delayload_item  delayload_done imgsize_item" class="trb_outfit_group_list_item_figure"> 
-
-37 Element no children: <section class="trb_outfit_group_list_item_body">
-
-38 Element no children: <h3 class="trb_outfit_relatedListTitle">
-
-39 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94518851" data-content-slug="la-what-is-tiff-2017-20170905" data-content-section="Photography &amp; Video" data-content-playtime="02:16" data-content-type="video"> 
-
-40 Element no children: <a href="/visuals/video/94518851-132.html#nt=oft12aH-1gp4" data-role="delayload_item  delayload_done imgsize_item" class="trb_outfit_group_list_item_figure"> 
-
-41 Element no children: <section class="trb_outfit_group_list_item_body">
-
-42 Element no children: <h3 class="trb_outfit_relatedListTitle">
-
-43 Element no children: <ul class="trb_outfit_group_list" data-role="delayload">
-
-44 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94672174" data-content-slug="la-me-edu-best-high-schools-college-20170922" data-content-section="LOCAL" data-content-type="htmlstory"> 
-
-45 Element no children: <section class="trb_outfit_group_list_item_body">
-
-46 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94686542" data-content-slug="la-me-palm-trees-dying-skyline-los-angeles-20170922" data-content-section="LOCAL" data-content-type="story"> 
-
-47 Element no children: <section class="trb_outfit_group_list_item_body">
-
-48 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94581005" data-content-slug="la-et-cam-esotouric-los-angeles-times-bombing-20170922" data-content-section="ENTERTAINMENT" data-content-type="story"> 
-
-49 Element no children: <section class="trb_outfit_group_list_item_body">
-
-50 Element no children: <section class="trb_outfit_section trb_outfit_title_section" data-outfit-type="">  
-
-51 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94643382" data-content-slug="la-hm-erskine-column-20170923" data-content-section="HOME &amp; GARDEN" data-content-type="story"> 
-
-52 Element no children: <section class="trb_outfit_group_list_item_body">
-
-53 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94668129" data-content-slug="la-oe-serpell-becoming-an-american-citizen-in-the-age-of-trump-20170921" data-content-section="Opinion" data-content-type="story"> 
-
-54 Element no children: <section class="trb_outfit_group_list_item_body">
-
-55 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94659078" data-content-slug="la-oe-johnson-concern-trolls-single-payer-20170921" data-content-section="Opinion" data-content-type="story"> 
-
-56 Element no children: <section class="trb_outfit_group_list_item_body">
-
-57 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94667854" data-content-slug="la-ed-graham-cassidy-20170921" data-content-section="Opinion" data-content-type="story"> 
-
-58 Element no children: <section class="trb_outfit_group_list_item_body">
-
-59 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94645145" data-content-slug="la-oe-gatto-ten-points-housing-20170920" data-content-section="Opinion" data-content-type="story"> 
-
-60 Element no children: <section class="trb_outfit_group_list_item_body">
-
-61 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94662712" data-content-slug="la-ol-puppy-mills-bill-20170920" data-content-section="Opinion" data-content-type="story"> 
-
-62 Element no children: <section class="trb_outfit_group_list_item_body">
-
-63 Element no children: <section class="trb_outfit_section trb_outfit_title_section" data-outfit-type="">  
-
-64 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94645727" data-content-slug="la-et-ms-tom-petty-hollywood-bowl-20170922" data-content-section="ENTERTAINMENT" data-content-type="story"> 
-
-65 Element no children: <section class="trb_outfit_group_list_item_body">
-
-66 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94688063" data-content-slug="la-et-entertainment-news-updates-jerry-lewis-six-sons-excluded-from-will-1506107758" data-content-section="ENTERTAINMENT" data-content-type="htmlstory"> 
-
-67 Element no children: <section class="trb_outfit_group_list_item_body">
-
-68 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94617521" data-content-slug="la-et-mn-mulleavy-sisters-rodarte-woodshock-20170922" data-content-section="ENTERTAINMENT" data-content-type="story"> 
-
-69 Element no children: <section class="trb_outfit_group_list_item_body">
-
-70 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94648199" data-content-slug="la-et-ms-jhene-aiko-trip-20170922" data-content-section="ENTERTAINMENT" data-content-type="story"> 
-
-71 Element no children: <section class="trb_outfit_group_list_item_body">
-
-72 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94682865" data-content-slug="la-et-cam-datebook-carolyn-castano-murales-rebeldes-20170921" data-content-section="ENTERTAINMENT" data-content-type="htmlstory"> 
-
-73 Element no children: <section class="trb_outfit_group_list_item_body">
-
-74 Element no children: <li class="trb_outfit_group_list_item" data-content-id="94678728" data-content-slug="la-et-st-0923-tvhighlights-20170923" data-content-section="ENTERTAINMENT" data-content-type="story"> 
-
-75 Element no children: <section class="trb_outfit_group_list_item_body">
-
 
 
 ##############################################################################################################
 linkedincom.html
-
-1 Element no children: <div id="login-callout" class="hopscotch-bubble animated hopscotch-callout no-number hidden" tabindex="-1">
-
-2 Element no children: <div class="hopscotch-bubble-container">
-
-3 Element no children: <div class="hopscotch-bubble-content">
-
-4 Element no children: <div class="wrapper">
-
-5 Element no children: <span class="agreement">By clicking Join now, you agree to the LinkedIn , , and .
 
 
 
@@ -2924,161 +646,45 @@ loopiacom.html
 
 1 Element no children: <div id="sitebuilder-view">    
 
-2 Element no children: <a href="javascript:menu.toggleModal('cart');" class="headerbtn cart-btn">   
+2 Element no children: <div id="login_box" class="hide-mobile">       
 
 3 Element no children: <form action="/order/" method="post" name="topsearch" id="domain_search_header">   
 
-4 Element no children: <div class="search_frame">
-
-5 Element no children: <a href="javascript:menu.toggleModal('cart');" class="main_menu_mobile_icon cart-btn">
-
-6 Element no children: <div class="cart-modal">    
-
-7 Element no children: <span class="red">/month
-
-8 Element no children: <ul>
-
-9 Element no children: <div class="main-image-right">    
-
-10 Element no children: <div class="search_frame search_frame_order home-wide">   
-
-11 Element no children: <div class="domain-info home-wide ">
-
-12 Element no children: <div class="domain-info home-wide ">
-
-13 Element no children: <div class="domain-info home-wide">
-
-14 Element no children: <div class="domain-info home-wide ">
-
-15 Element no children: <div class="special-push-domain-box"> Safer website with SSL 
-
-16 Element no children: <div class="product-info">    <!--<div class="product-info-label no-linebreak">Now also with automatic monthly payment <img src="https://static.loopia.se/responsive/images/footer/visa_mastercard.png">  
-
-17 Element no children: <span class="no-linebreak red ">From /month
-
-18 Element no children: <div class="product-info">    <!--<div class="product-info-label no-linebreak">Now also with automatic monthly payment <img src="https://static.loopia.se/responsive/images/footer/visa_mastercard.png">  
-
-19 Element no children: <span class="no-linebreak red ">From /month
-
-20 Element no children: <div class="main home-wide">   
-
-21 Element no children: <p class="white-text"> Our popular and award winning Super Support is included in all of our services. 
-
-22 Element no children: <div class="column1of3">    
-
-23 Element no children: <div class="column2of3">    
-
-24 Element no children: <div class="column3of3">    
-
-25 Element no children: <div class="product-info">    <!--<div class="product-info-label no-linebreak">Now also with automatic monthly payment <img src="https://static.loopia.se/responsive/images/footer/visa_mastercard.png">  
-
-26 Element no children: <span class="no-linebreak red ">From /month
-
-27 Element no children: <span class="no-linebreak red ">From /month
-
-28 Element no children: <ul>  <!--<li><a href="/order/">Order    
-
-29 Element no children: <div class="extra">   
-
-30 Element no children: <div class="extra">    
-
-31 Element no children: <div class="col1of2">   
-
-32 Element no children: <div id="tax_footer" class="col2of2 textalign-right">    
-
-33 Element no children: <p>Show prices   
-
-34 Element no children: <div class="perc50footer right">    
-
-35 Element no children: <p> uses cookies. By continuing to browse the site you are agreeing to our use of . 
+4 Element no children: <div class="main_menu_mobile show-mobile">  <!-- Mobile menu -->     
 
 
 
 ##############################################################################################################
 mapquestcom.html
 
-1 Element no children: <mq-splash-screen mq-feature-toggle="sponsoredHome" ng-if="::ctrl.showSplashScreen()" tracking="ctrl.splashScreenTracking" main-bg-image="ctrl.splashConfig.heroImage" footer-bg-image="ctrl.splashConfig.footerImage" layers="$root.layers" branded-layers="$root.brandedLayers" all-hotels-layer="$root.allHotelsLayer" sponsored-layer="ctrl.splashScreenSponsoredLayer" click-main="ctrl.onClickSplashScreenMain()" dismissed="ctrl.onSplashScreenDismissed()" open-menu="openMainNav()" open-account-menu="ctrl.onOpenAccountMenu()" open-ota="ctrl.openMultiBookingWidget()" search-suggestions-selected="ctrl.findPlaces($event, true)" ng-cloak>    
+1 Element no children: <a ng-href="{{ctrl.splashConfig.ctaClickUrl}}" target="_blank" analytics-on analytics-category="{{ctrl.splashScreenTracking.category}}" analytics-event="{{ctrl.splashScreenTracking.action.cta}}">   
 
-2 Element no children: <a ng-href="{{ctrl.splashConfig.ctaClickUrl}}" target="_blank" analytics-on analytics-category="{{ctrl.splashScreenTracking.category}}" analytics-event="{{ctrl.splashScreenTracking.action.cta}}">   
+2 Element no children: <div class="print-header">   
 
-3 Element no children: <div class="print-header">   
+3 Element no children: <a class="book-travel" ng-class="{'widget-visible' : ctrl.multiBookingWidgetVisible()}" uib-popover-template="ctrl.multiBookingPopover" popover-animation="true" popover-placement="right" popover-append-to-body="true" popover-class="multi-booking-widget" popover-trigger="'none'" popover-is-open="ctrl.multiBookingWidgetVisible()" ng-click="ctrl.toggleMultiBookingWidget()" analytics-on analytics-event="book-travel-clicked" analytics-category="leadin">   
 
-4 Element no children: <div class="mq-logo-bar hidden-xs hidden-sm">   
-
-5 Element no children: <a class="mq-connector-logo" title="MapQuest" analytics-on="click" analytics-event="logo" ui-sref="Home({layer:null})" ui-sref-opts="{reload:true}">   
-
-6 Element no children: <form class="search-form" ng-submit="ctrl.findPlaces(ctrl.input)">    
-
-7 Element no children: <a ui-sref="Directions" href="/directions" class="directions" alt="Get step by step walking or driving directions to your destination." analytics-on analytics-event="need-directions-clicked" analytics-category="leadin">   
-
-8 Element no children: <div class="route-planner">   
-
-9 Element no children: <a class="book-travel" ng-class="{'widget-visible' : ctrl.multiBookingWidgetVisible()}" uib-popover-template="ctrl.multiBookingPopover" popover-animation="true" popover-placement="right" popover-append-to-body="true" popover-class="multi-booking-widget" popover-trigger="'none'" popover-is-open="ctrl.multiBookingWidgetVisible()" ng-click="ctrl.toggleMultiBookingWidget()" analytics-on analytics-event="book-travel-clicked" analytics-category="leadin">   
-
-10 Element no children: <div class="print-container">   
-
-11 Element no children: <div ng-if="ctrl.shouldShowMainAd728x90()" ng-class="{'primary-panel-closed': style.sliverShowing}" class="main-ad-728x90-container hidden-print hidden-md hidden-sm hidden-xs">  <!-- TODO: update prod admin tool with mn -->   
+4 Element no children: <div class="print-container">   
 
 
 
 ##############################################################################################################
 marketwatchcom.html
 
-1 Element no children: <i class="icon">    
+1 Element no children: <div class="group left">   
 
-2 Element no children: <a class="btn btn--outline btn--watchlist" href="http://www.marketwatch.com/watchlist" data-track-query=".btn--watchlist" data-track-code="MW_Header_Watchlist">
+2 Element no children: <i class="icon">    
 
-3 Element no children: <div class="account-links">    
-
-4 Element no children: <a class="btn btn--text btn--login" href="https://accounts.marketwatch.com/login?ifr=1&amp;target=http%3A%2F%2Fwww.marketwatch.com%2F" data-track-query=".btn--login" data-track-code="MW_Header_Login">
-
-5 Element no children: <a class="btn btn--outline btn--search">
-
-6 Element no children: <mw-expires class="bulletin" duration="0">    
-
-7 Element no children: <h3 class="bulletin__headline">   
-
-8 Element no children: <div class="markets__chart">   
-
-9 Element no children: <a class="list__item" data-track-code="MW_Header_Movers_APC" href="http://www.marketwatch.com/investing/stock/apc">   <!-- URL Link ^FLAG -->  
-
-10 Element no children: <a class="list__item" data-track-code="MW_Header_Movers_SLG" href="http://www.marketwatch.com/investing/stock/slg">   <!-- URL Link ^FLAG -->  
-
-11 Element no children: <a class="list__item" data-track-code="MW_Header_Movers_BBY" href="http://www.marketwatch.com/investing/stock/bby">   <!-- URL Link ^FLAG -->  
-
-12 Element no children: <a class="list__item" data-track-code="MW_Header_Movers_ADS" href="http://www.marketwatch.com/investing/stock/ads">   <!-- URL Link ^FLAG -->  
+3 Element no children: <a class="btn btn--outline btn--watchlist" href="http://www.marketwatch.com/watchlist" data-track-query=".btn--watchlist" data-track-code="MW_Header_Watchlist">
 
 
 
 ##############################################################################################################
 marriottcom.html
 
-1 Element no children: <a href="/sitemap.mi" id="menu" class="is-drawer-control analytics-click" data-analytics="{&quot;sendNow&quot;:&quot;true&quot;}" role="button" aria-controls="primary-nav">    
-
 
 
 ##############################################################################################################
 mashablecom.html
-
-1 Element no children: <div class="wrap">  We're using cookies to improve your experience.   
-
-2 Element no children: <a class="brand" data-turbo-target="body-container" href="/"> 
-
-3 Element no children: <a class="follow-trigger" href="/follow-mashable/">  
-
-4 Element no children: <li>    
-
-5 Element no children: <form accept-charset="UTF-8" action="/search/" method="get">  
-
-6 Element no children: <ul class="column-list"> 
-
-7 Element no children: <ul class="column-list"> 
-
-8 Element no children: <ul class="column-list"> 
-
-9 Element no children: <ul class="column-list"> 
-
-10 Element no children: <ul class="column-list"> 
 
 
 
@@ -3090,251 +696,33 @@ mediumcom.html
 ##############################################################################################################
 meetupcom.html
 
-1 Element no children: <symbol viewbox="0 0 20 20" id="icon-address">
+1 Element no children: <symbol viewbox="0 0 20 20" id="icon-align-top">
 
-2 Element no children: <symbol viewbox="0 0 20 20" id="icon-align-top">
+2 Element no children: <symbol viewbox="0 0 20 20" id="icon-block">
 
-3 Element no children: <symbol viewbox="0 0 792 1224" id="icon-arrow-left">
+3 Element no children: <symbol viewbox="0 0 20 20" id="icon-chevron-down">
 
-4 Element no children: <symbol viewbox="0 0 792 1224" id="icon-arrow-right">
+4 Element no children: <symbol viewbox="0 0 20 20" id="icon-chevron-small-right">
 
-5 Element no children: <symbol viewbox="0 0 20 20" id="icon-back">
+5 Element no children: <symbol viewbox="-389 391 20 20" id="icon-circle-with-check">
 
-6 Element no children: <symbol viewbox="0 0 300 300" id="icon-bell">
+6 Element no children: <symbol viewbox="0 0 20 20" id="icon-circle-with-cross">
 
-7 Element no children: <symbol viewbox="0 0 20 20" id="icon-block">
-
-8 Element no children: <symbol viewbox="0 0 300 300" id="icon-calendar">
-
-9 Element no children: <symbol viewbox="0 0 20 20" id="icon-camera">
-
-10 Element no children: <symbol viewbox="0 0 20 20" id="icon-ccw">
-
-11 Element no children: <symbol viewbox="0 0 20 20" id="icon-check">
-
-12 Element no children: <symbol viewbox="0 0 20 20" id="icon-chevron-down">
-
-13 Element no children: <symbol viewbox="0 0 20 20" id="icon-chevron-left">
-
-14 Element no children: <symbol viewbox="0 0 20 20" id="icon-chevron-right">
-
-15 Element no children: <symbol viewbox="0 0 20 20" id="icon-chevron-small-down">
-
-16 Element no children: <symbol viewbox="0 0 20 20" id="icon-chevron-small-left">
-
-17 Element no children: <symbol viewbox="0 0 20 20" id="icon-chevron-small-right">
-
-18 Element no children: <symbol viewbox="0 0 20 20" id="icon-chevron-small-up">
-
-19 Element no children: <symbol viewbox="0 0 20 20" id="icon-chevron-up">
-
-20 Element no children: <symbol viewbox="-389 391 20 20" id="icon-circle-with-check">
-
-21 Element no children: <symbol viewbox="0 0 20 20" id="icon-circle-with-cross">
-
-22 Element no children: <symbol viewbox="0 0 20 20" id="icon-circle-with-plus">
-
-23 Element no children: <symbol viewbox="0 0 20 20" id="icon-controller-play">
-
-24 Element no children: <symbol viewbox="0 0 20 20" id="icon-cross">
-
-25 Element no children: <symbol viewbox="0 0 20 20" id="icon-dots-three-vertical">
-
-26 Element no children: <symbol viewbox="0 0 20 20" id="icon-edit">
-
-27 Element no children: <symbol viewbox="0 0 20 20" id="icon-emptyheart">
-
-28 Element no children: <symbol viewbox="0 0 20 20" id="icon-export">
-
-29 Element no children: <symbol viewbox="0 0 20 20" id="icon-eye-with-line">
-
-30 Element no children: <symbol viewbox="0 0 20 20" id="icon-eye">
-
-31 Element no children: <symbol viewbox="0 0 24 24" id="icon-facebook">
-
-32 Element no children: <symbol viewbox="0 0 20 20" id="icon-folder">
-
-33 Element no children: <symbol viewbox="0 0 20 20" id="icon-fullheart">
-
-34 Element no children: <symbol viewbox="0 0 20 20" id="icon-globe">
-
-35 Element no children: <symbol viewbox="93 383 36 36" id="icon-gmail">
-
-36 Element no children: <symbol viewbox="0 0 24 24" id="icon-google">
-
-37 Element no children: <symbol viewbox="0 0 300 300" id="icon-groups">
-
-38 Element no children: <symbol viewbox="0 0 20 20" id="icon-help-with-circle">
-
-39 Element no children: <symbol viewbox="0 0 20 20" id="icon-image">
-
-40 Element no children: <symbol viewbox="0 0 20 20" id="icon-images">
-
-41 Element no children: <symbol viewbox="0 0 20 20" id="icon-instagram">
-
-42 Element no children: <symbol viewbox="0 0 17 17" id="icon-interested-star">
-
-43 Element no children: <symbol viewbox="0 0 20 20" id="icon-light-bulb">
-
-44 Element no children: <symbol viewbox="0 0 20 20" id="icon-link">
-
-45 Element no children: <symbol viewbox="0 0 20 20" id="icon-location-pin">
-
-46 Element no children: <symbol viewbox="0 0 525 500" id="icon-m-swarm">
-
-47 Element no children: <symbol viewbox="0 0 54 57" id="icon-magnifying-glass">
-
-48 Element no children: <symbol viewbox="0 0 20 20" id="icon-mail">
-
-49 Element no children: <symbol viewbox="0 0 300 300" id="icon-messages">
-
-50 Element no children: <symbol viewbox="0 0 20 20" id="icon-minus">
-
-51 Element no children: <symbol viewbox="0 0 20 20" id="icon-more">
-
-52 Element no children: <symbol viewbox="57.5 3.667 24 24" id="icon-muplabel">
-
-53 Element no children: <symbol viewbox="0 0 1296 1728" id="icon-newmup">
-
-54 Element no children: <symbol viewbox="0 0 18 18" id="icon-open-new">
-
-55 Element no children: <clippath id="outlook-SVGID_8_">
-
-56 Element no children: <symbol viewbox="0 0 237.6 151.2" id="icon-person">
-
-57 Element no children: <symbol viewbox="0 0 60 60" id="icon-plus-in-circle">
-
-58 Element no children: <g>
-
-59 Element no children: <symbol viewbox="0 0 59 59" id="icon-plus">
-
-60 Element no children: <symbol viewbox="0 0 20 20" id="icon-price-ribbon">
-
-61 Element no children: <symbol viewbox="0 0 20 20" id="icon-print">
-
-62 Element no children: <symbol viewbox="0 0 30 29" id="icon-pro-communities">
-
-63 Element no children: <symbol viewbox="0 0 20 20" id="icon-pro-network">
-
-64 Element no children: <symbol viewbox="0 0 40 20" id="icon-pro-power-of">
-
-65 Element no children: <symbol viewbox="0 0 26 18" id="icon-pro-pricing">
-
-66 Element no children: <symbol viewbox="0 0 24 27" id="icon-rl-calendar">
-
-67 Element no children: <symbol viewbox="0 0 26 24" id="icon-rl-groups">
-
-68 Element no children: <symbol viewbox="0 0 26 24" id="icon-rl-messages">
-
-69 Element no children: <symbol viewbox="0 0 1296 1728" id="icon-shield">
-
-70 Element no children: <symbol viewbox="0 0 20 20" id="icon-star">
-
-71 Element no children: <symbol viewbox="0 0 20 20" id="icon-ticket">
-
-72 Element no children: <symbol viewbox="0 0 20 20" id="icon-trash">
-
-73 Element no children: <symbol viewbox="0 0 20 20" id="icon-triangle-down">
-
-74 Element no children: <symbol viewbox="0 0 20 20" id="icon-triangle-up">
-
-75 Element no children: <symbol viewbox="0 0 20 20" id="icon-twitter">
-
-76 Element no children: <symbol viewbox="0 0 20 20" id="icon-user">
-
-77 Element no children: <symbol viewbox="0 0 20 20" id="icon-warning">
-
-78 Element no children: <symbol viewbox="-399 383 36 36" id="icon-yahoo">
-
-79 Element no children: <div id="homeVideoWrap">   
-
-80 Element no children: <div class="bounds align--center">   
-
-81 Element no children: <div class="chunk">   
+7 Element no children: <symbol viewbox="0 0 20 20" id="icon-edit">
 
 
 
 ##############################################################################################################
 msncom.html
 
-1 Element no children: <div class="header-logo">   
+1 Element no children: <div class="searchbox">        
 
 2 Element no children: <div class="headlinebar">   
-
-3 Element no children: <div class="weatileleft">   
-
-4 Element no children: <div>
-
-5 Element no children: <div class="add-loc-as-container">   
-
-6 Element no children: <div role="radiogroup">   
-
-7 Element no children: <form id="idbd100e585a8743b1867dcd97f888d9ea" class="setdegree" action="/en-us/weather/ajax/places/savedegree/" method="post">   
-
-8 Element no children: <div>   
-
-9 Element no children: <div>   
-
-10 Element no children: <div class="popularnow">    
-
-11 Element no children: <ul>   
-
-12 Element no children: <ul>   
-
-13 Element no children: <a href="https://clk.tradedoubler.com/click?p=261853&amp;a=2811279&amp;g=0&amp;epi=PRIME_ENUS_HP_STORES_L1_DAVINCI_3DPRINTER&amp;url=https://www.microsoft.com/en-us/store/d/da-vinci-minimaker-3d-printer/90n8q5bvr7h5/86s4" target="_blank" data-pg="TSTPRMUS32" data-pid="7HD66FC">  Your first 3D printer! Get inspired with the da Vinci miniMaker 3D Printer  
-
-14 Element no children: <a href="https://clk.tradedoubler.com/click?p=261853&amp;a=2811279&amp;g=0&amp;epi=PRIME_ENUS_HP_STORES_L2_XBOXONEX_&amp;url=https://www.microsoft.com/en-us/store/d/xbox-one-x-1tb-console/8NQ33JVV1S9V?WT.mc_id=XB1X_PO_092017" target="_blank" data-pg="TSTPRMUS32" data-pid="7HD66FC">  Presenting Xbox One X, the world’s most powerful console (pre-order now)  
-
-15 Element no children: <a href="https://clk.tradedoubler.com/click?p=261853&amp;a=2811279&amp;g=0&amp;epi=PRIME_ENUS_HP_STORES_L3_NUVISION_89&amp;url=https://www.microsoft.com/en-us/store/d/nuvision-solo-10-draw-tm101w610l-tablet/8xpkxt274r1x/98G5" target="_blank" data-pg="TSTPRMUS32" data-pid="7HD66FC">  This NuVision tablet includes Word, Excel, PowerPoint, &amp; sleeve, sale $89  
-
-16 Element no children: <a href="https://clk.tradedoubler.com/click?p=261853&amp;a=2811279&amp;g=0&amp;epi=PRIME_ENUS_HP_STORES_L4_FALL_PC_SALE&amp;url=https://www.microsoft.com/en-us/store/collections/pcdeals" target="_blank" data-pg="TSTPRMUS32" data-pid="7HD66FC">  Fall sale: Save big on laptops, desktops, and gaming PCs  
-
-17 Element no children: <div>  
 
 
 
 ##############################################################################################################
 myshopifycom.html
-
-1 Element no children: <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 44 44">
-
-2 Element no children: <label data-bind-class="{            'js-has-error': state.error,            'js-is-filled': state.filled || state.value.length > 0          }" class="marketing-input-wrapper">
-
-3 Element no children: <label data-bind-class="{            'js-has-error': state.error,            'js-is-filled': state.filled || state.value.length > 0          }" class="marketing-input-wrapper">
-
-4 Element no children: <label data-bind-class="{          'js-has-error': state.error == true,          'js-is-pending': state.pending == true,          'js-is-focused': state.focus == true,          'js-has-detail': state.error &amp;&amp; state.errors.existingAdmin,          'js-is-filled': state.filled == true || state.value.length > 0,        }" class="marketing-input-wrapper shop_name ">
-
-5 Element no children: <svg class="icon" aria-labelledby="icon-polaris/mobile-hamburger-21-title">  
-
-6 Element no children: <svg class="icon" aria-labelledby="icon-shopify-full-color-black-22-title">  
-
-7 Element no children: <ul class="marketing-nav__items marketing-nav__user display--desktop">    
-
-8 Element no children: <div class="drawer__top">   
-
-9 Element no children: <svg class="icon" aria-labelledby="icon-shopify-full-color-black-26-title">  
-
-10 Element no children: <svg class="icon" aria-labelledby="icon-polaris/cancel-27-title">  
-
-11 Element no children: <ul class="drawer__items drawer__items--user">    
-
-12 Element no children: <div class="section-heading gutter-bottom">   
-
-13 Element no children: <label class="marketing-input-wrapper marketing-input-button-pair">
-
-14 Element no children: <div class="marketing-input-button__field-wrapper">
-
-15 Element no children: <picture class="media__crop">  <!--[if IE 9]><video style="display: none;"><![endif]-->    <!--[if IE 9]>  
-
-16 Element no children: <picture class="media__crop">  <!--[if IE 9]><video style="display: none;"><![endif]-->    <!--[if IE 9]>  
-
-17 Element no children: <p class="color-white gutter-bottom--reset"> Jaya Kahlon of Smoke &amp; Ash uses Shopify to  and  
-
-18 Element no children: <picture class="media__crop">  <!--[if IE 9]><video style="display: none;"><![endif]-->    <!--[if IE 9]>  
-
-19 Element no children: <p class="color-white gutter-bottom--reset"> Meg Sinclair of Muttonhead uses Shopify to  and  
-
-20 Element no children: <div class="grid__item grid__item--mobile-up-2 grid__item--mobile-up-push-2 hero-carousel__nav">   
 
 
 
@@ -3346,170 +734,24 @@ myspacecom.html
 ##############################################################################################################
 namejetcom.html
 
-1 Element no children: <div>   
-
-2 Element no children: <ul>   
-
-3 Element no children: <div id="Notice6">   
-
-4 Element no children: <li class="sCF">   
-
-5 Element no children: <li class="sCF">   
-
-6 Element no children: <li class="sCF">   
-
-7 Element no children: <li class="sCF">   
-
-8 Element no children: <li class="sCF">   
-
-9 Element no children: <li class="sCF">   
-
-10 Element no children: <li class="sCF">   
-
-11 Element no children: <li class="sCF">   
-
-12 Element no children: <li class="sCF">   
-
-13 Element no children: <li class="sCF">   
-
-14 Element no children: <li class="sCF">   
-
-15 Element no children: <li class="sCF">   
-
-16 Element no children: <li class="sCF">   
-
-17 Element no children: <li class="sCF">   
-
-18 Element no children: <li class="sCF">   
-
-19 Element no children: <li class="sCF">   
-
-20 Element no children: <li class="sCF">   
-
-21 Element no children: <li class="sCF">   
-
-22 Element no children: <li class="sCF">   
-
-23 Element no children: <li class="sCF">   
-
-24 Element no children: <li class="sCF">   
-
-25 Element no children: <li class="sCF">   
-
-26 Element no children: <li class="sCF">   
-
-27 Element no children: <li class="sCF">   
-
-28 Element no children: <li class="sCF">   
-
-29 Element no children: <li class="sCF">   
-
-30 Element no children: <li class="sCF">   
-
-31 Element no children: <li class="sCF">   
-
-32 Element no children: <li class="sCF">   
-
-33 Element no children: <li class="sCF">   
-
-34 Element no children: <li class="sCF">   
-
-35 Element no children: <li class="sCF">   
-
-36 Element no children: <li class="sCF">   
-
-37 Element no children: <li class="sCF">   
-
 
 
 ##############################################################################################################
 naturecom.html
 
-1 Element no children: <div role="status" class="hide-print text-orange grade-a-hide">
-
-2 Element no children: <div class="header-logo-container header-primary-color">
-
-3 Element no children: <a href="/" class="header-logo inline-block equalize-line-height" data-track="click" data-track-source="logo" data-track-dest="link:nature.com">
-
-4 Element no children: <article>
-
-5 Element no children: <div class="flex-box flex-rr-nowrap mq640-kill-flex background-black cleared">
-
-6 Element no children: <div class="featured-article-img flex-box mq640-kill-flex position-relative text-right hide-overflow grid grid-8 mq640-grid-12 mq640-last last">
-
-7 Element no children: <div class="contrast-text pa20 pr0 mq640-pr20">
-
-8 Element no children: <div class="cleared">
-
-9 Element no children: <div class="cleared">
-
-10 Element no children: <p class="mb2 text13 tighten-line-height text-gray-light">
-
-11 Element no children: <ul class="pa0 inline clean-list">
-
-12 Element no children: <p class="mb4 text13 tighten-line-height text-gray-light">
-
-13 Element no children: <p class="mb4 text13 tighten-line-height text-gray-light">
-
-14 Element no children: <p class="mb4 text13 tighten-line-height text-gray-light">
-
-15 Element no children: <p class="mb4 text13 tighten-line-height text-gray-light">
-
-16 Element no children: <p class="mb4 text13 tighten-line-height text-gray-light">
-
-17 Element no children: <p class="mb4 text13 tighten-line-height text-gray-light">
-
-18 Element no children: <p class="mb4 text13 tighten-line-height text-gray-light">
-
-19 Element no children: <li itemprop="creator" itemscope itemtype="http://schema.org/Person">
-
-20 Element no children: <p class="mb4 text13 tighten-line-height text-gray-light">
-
-21 Element no children: <li itemprop="creator" itemscope itemtype="http://schema.org/Person">
-
-22 Element no children: <p class="mb4 text13 tighten-line-height text-gray-light">
-
-23 Element no children: <li itemprop="creator" itemscope itemtype="http://schema.org/Person">
-
-24 Element no children: <p class="mb4 text13 tighten-line-height text-gray-light">
-
-25 Element no children: <li itemprop="creator" itemscope itemtype="http://schema.org/Person">
-
-26 Element no children: <div class="grid grid-7 mq640-grid-12 mt10"> , 569
-
-27 Element no children: <p class="mb4 text13 tighten-line-height text-gray-light">
-
-28 Element no children: <li itemprop="creator" itemscope itemtype="http://schema.org/Person">
-
-29 Element no children: <p class="mb4 text13 tighten-line-height text-gray-light">
-
-30 Element no children: <a href="/nrd/journal/vaop/ncurrent/full/nrd.2017.188.html" itemprop="url" data-track="click" data-track-source="intensity-2-article-title" data-track-dest="doi:10.1038/nrd.2017.188" data-track-article="true" data-track-article-type="research_highlights" data-track-journal="Nature_Reviews_Drug_Discovery" data-splittest-experiment="pubserv__article_show_more">Autoimmune disease: LKB1 helps T cells battle exhaustion
-
-31 Element no children: <li itemprop="creator" itemscope itemtype="http://schema.org/Person">
+1 Element no children: <div class="container cleared container-type-header" data-container-type="header">
 
 
 
 ##############################################################################################################
 nbcnewscom.html
 
+1 Element no children: <div class="breaking-banner_txt">  
+
 
 
 ##############################################################################################################
 networksolutionscom.html
-
-1 Element no children: <form method="GET" name="site-search" action="/search.jsp">    
-
-2 Element no children: <a href="/domain-name-registration/index.jsp">
-
-3 Element no children: <ul>    
-
-4 Element no children: <ul>    
-
-5 Element no children: <ul>    
-
-6 Element no children: <ul>    
-
-7 Element no children: <div class="mobileNav">   
 
 
 
@@ -3521,73 +763,11 @@ newyorkercom.html
 ##############################################################################################################
 ningcom.html
 
-1 Element no children: <div class="header-nav__mobile show_onSmall">  
+1 Element no children: <body>   <!-- header -->   <!-- header -->   <!-- footer-->    <!-- /footer-->        
 
-2 Element no children: <div class="dropdown-menu__button">   
+2 Element no children: <li class="header-lang__item header-lang__item_selected">   
 
 3 Element no children: <ul class="dropdown-menu__list">    
-
-4 Element no children: <ul class="dropdown-menu__list">    
-
-5 Element no children: <ul class="dropdown-menu__list">    
-
-6 Element no children: <div class="section__col__image__item__wrap">  
-
-7 Element no children: <div class="align_center">   
-
-8 Element no children: <div class="section__slider__description">    
-
-9 Element no children: <div class="section__slider__description">    
-
-10 Element no children: <div class="section__slider__description">    
-
-11 Element no children: <div class="section__slider__description">    
-
-12 Element no children: <div class="section__slider__description">    
-
-13 Element no children: <div class="section__slider__description">    
-
-14 Element no children: <div class="section__row">   
-
-15 Element no children: <div class="section__col section__col_description">   
-
-16 Element no children: <div class="section__img">  
-
-17 Element no children: <div class="section__slider slider_tools">    
-
-18 Element no children: <div class="section__slider__description section__slider__description_full">   
-
-19 Element no children: <div class="section__slider__description section__slider__description_full">   
-
-20 Element no children: <div class="section__slider__description section__slider__description_full">   
-
-21 Element no children: <p class="text__content">1. Sign up for free, select the perfect subdomain for your network and get free 14-days trial. No charges!2. Choose the template that best fits your community and customize your network's appearance with the Design Studio.3. Add some content and Get the word out! 
-
-22 Element no children: <div class="align_center">   
-
-23 Element no children: <div class="slider__info__description">    
-
-24 Element no children: <div class="slider__info__description">    
-
-25 Element no children: <div class="slider__info__description">    
-
-26 Element no children: <div class="slider__info__description">    
-
-27 Element no children: <div class="slider__info__description">    
-
-28 Element no children: <div class="slider__info__description">    
-
-29 Element no children: <div class="slider__info__description">    
-
-30 Element no children: <div class="align_center">    
-
-31 Element no children: <ul class="footer-menu__list">    
-
-32 Element no children: <ul class="footer-menu__list">    
-
-33 Element no children: <g fill-rule="nonzero" fill="#FFF">    
-
-34 Element no children: <nav class="footer-copy__nav">    
 
 
 
@@ -3596,22 +776,12 @@ nytimescom.html
 
 1 Element no children: <span class="message-content">   
 
-2 Element no children: <button class="button sections-button enable-a11y">  
-
-3 Element no children: <button class="button search-button">  
-
-4 Element no children: <button class="button notifications-button hidden">
-
-5 Element no children: <button class="button user-settings-button">  
-
-6 Element no children: <ul class="editions-menu">    
-
 
 
 ##############################################################################################################
 onecom.html
 
-1 Element no children: <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">   
+1 Element no children: <div class="no-language-container">   
 
 
 
@@ -3620,393 +790,73 @@ operacom.html
 
 1 Element no children: <ul class="hf--main-nav-items" role="menu">    
 
-2 Element no children: <ul class="hf--copyrights-items">    
+2 Element no children: <div class="hf--width-holder">   
 
 
 
 ##############################################################################################################
 ovhcom.html
 
-1 Element no children: <div class="col-m-10 col-s-12 col-s-center center">   
+1 Element no children: <div class="full" id="main">     
 
 2 Element no children: <div>   
 
-3 Element no children: <div>   
+3 Element no children: <div class="prPrice"> From&nbsp; 
 
 4 Element no children: <div class="col-s-6 col-m-3 center padProduct">   
-
-5 Element no children: <div class="col-s-6 col-m-3 center padProduct">   
-
-6 Element no children: <div class="col-s-6 col-m-3 center padProduct">   
-
-7 Element no children: <div class="row">   
-
-8 Element no children: <div class="clear">   
-
-9 Element no children: <div class="clear">   
-
-10 Element no children: <div class="clear">   
-
-11 Element no children: <div class="clear">   
-
-12 Element no children: <div class="borderDottedBottom lightBackground clear">   
-
-13 Element no children: <div class="borderDottedBottom lightBackground clear marginTop20">   
-
-14 Element no children: <div class="borderDottedBottom lightBackground clear marginTop20">   
-
-15 Element no children: <div class="borderDottedBottom lightBackground clear marginTop20">   
-
-16 Element no children: <div class="col-s-12">    
 
 
 
 ##############################################################################################################
 parallelscom.html
 
-1 Element no children: <ul class="prls-mainnav-dropdown-menu" role="menu">
-
-2 Element no children: <a href="https://account.parallels.com/"> 
-
-3 Element no children: <a> 
-
-4 Element no children: <form action="/search" autocomplete="off">
-
-5 Element no children: <div class="col-xs-12 col-md-6">   
-
-6 Element no children: <div class="splitted-btn">    
-
-7 Element no children: <div class="col-xs-12">   
-
-8 Element no children: <p class="lead">The fastest, easiest, and most powerful application for running Windows on Mac—without rebooting. Includes 30+ utilities to simplify everyday tasks on Mac and Windows.
-
-9 Element no children: <ul>   
-
-10 Element no children: <ul>   
-
-11 Element no children: <ul>   
-
-12 Element no children: <ul>   
-
-13 Element no children: <div class="col-md-3 col-sm-3 col-xs-12">   
+1 Element no children: <div class="navbar-header">   
 
 
 
 ##############################################################################################################
 paypalcom.html
 
-1 Element no children: <div>   
-
-2 Element no children: <div class="input-wrapper"> 
-
-3 Element no children: <div class="choice">    
-
-4 Element no children: <div class="choice">    
-
-5 Element no children: <div id="header-buttons" class="header-buttons">   
-
-6 Element no children: <div class="vertical-centered">    
-
-7 Element no children: <div class="message-content">   
-
-8 Element no children: <div class="center-block span8 col-sm-8">    
-
-9 Element no children: <div class="three-steps-container">    
-
-10 Element no children: <div class="span4 steps">   
-
-11 Element no children: <div class="span4 steps">   
-
-12 Element no children: <div class="span4 steps">   
-
-13 Element no children: <div class="three-steps-container">    
-
-14 Element no children: <div class="span4 steps">   
-
-15 Element no children: <div class="span4 steps">   
-
-16 Element no children: <div class="span4 steps">   
-
-17 Element no children: <div class="three-steps-container">    
-
-18 Element no children: <div class="span4 steps">   
-
-19 Element no children: <div class="span4 steps">   
-
-20 Element no children: <div class="span4 steps">   
-
-21 Element no children: <div class="three-steps-container">    
-
-22 Element no children: <div class="span4 steps">   
-
-23 Element no children: <div class="span4 steps">   
-
-24 Element no children: <div class="span4 steps">   
-
-25 Element no children: <div class="three-steps-container">    
-
-26 Element no children: <div class="span4 steps">   
-
-27 Element no children: <div class="span4 steps">   
-
-28 Element no children: <div class="span4 steps">   
-
-29 Element no children: <div class="cta-container">   
-
-30 Element no children: <div class="cta-container">   
-
-31 Element no children: <div class="cta-container">   
-
-32 Element no children: <div class="cta-container">   
-
-33 Element no children: <div class="cta-container">   
-
-34 Element no children: <div class="containerCentered container">    
-
-35 Element no children: <div class=" span4 col-sm-4">   
-
-36 Element no children: <div class=" span4 col-sm-4">   
-
-37 Element no children: <div class=" span4 col-sm-4">   
-
-38 Element no children: <div class="span8 center-block">   
+1 Element no children: <ul id="header-personal-menu" class="subnav list"> 
 
 
 
 ##############################################################################################################
 photobucketcom.html
 
-1 Element no children: <div class="banner_content">    
+1 Element no children: <header class="main_header clearfix">   
 
-2 Element no children: <div class="banner_search">   
+2 Element no children: <ul>  
 
-3 Element no children: <header class="section_header text-center">   
+3 Element no children: <div class="ind_blog_box">   
 
 4 Element no children: <div class="blog_box_text">   
 
-5 Element no children: <div class="blog_box_text">   
+5 Element no children: <div class="follow_us pull-right">   
 
-6 Element no children: <div class="pardon_dust">   
-
-7 Element no children: <div class="newsletter_form pull-left clearfix">   
-
-8 Element no children: <div class="modal-content">    
-
-9 Element no children: <div class="modal-header">   
-
-10 Element no children: <ul>
+6 Element no children: <div class="modal-header">   
 
 
 
 ##############################################################################################################
 phpbbcom.html
 
-1 Element no children: <a href="/downloads/">Download
-
-2 Element no children: <div id="top-social-icons">    
-
-3 Element no children: <li>   
-
-4 Element no children: <li>   
-
-5 Element no children: <li>   
-
-6 Element no children: <li class="last">   
-
-7 Element no children: <li>   
-
-8 Element no children: <li>   
-
-9 Element no children: <li>   
-
-10 Element no children: <li class="last">   
-
-11 Element no children: <ul>    
-
-12 Element no children: <li>   
-
-13 Element no children: <li>   
-
-14 Element no children: <li class="last">   
-
-15 Element no children: <ul>    
-
-16 Element no children: <li>   
-
-17 Element no children: <li>   
-
-18 Element no children: <li class="last">   
-
-19 Element no children: <li>    
-
-20 Element no children: <ul class="narrow-list">   
-
-21 Element no children: <li>   
-
-22 Element no children: <li class="last">   
-
-23 Element no children: <ul class="narrow-list">   
-
-24 Element no children: <li>   
-
-25 Element no children: <li class="last">   
-
-26 Element no children: <ul class="narrow-list">   
-
-27 Element no children: <li>   
-
-28 Element no children: <li>   
-
-29 Element no children: <ul>    
-
-30 Element no children: <li>   
-
-31 Element no children: <li>   
-
-32 Element no children: <li class="last">   
-
-33 Element no children: <ul>    
-
-34 Element no children: <li>   
-
-35 Element no children: <li>   
-
-36 Element no children: <li class="last">   
-
-37 Element no children: <li class="external" title="Opens an external link.">    
-
-38 Element no children: <ul class="narrow-list">   
-
-39 Element no children: <li class="external" title="Opens an external link.">   
-
-40 Element no children: <li class="last">   
-
-41 Element no children: <ul class="narrow-list">   
-
-42 Element no children: <li>   
-
-43 Element no children: <li class="external last" title="Opens an external link.">   
-
-44 Element no children: <li>   
-
-45 Element no children: <ul>    
-
-46 Element no children: <li>   
-
-47 Element no children: <li>   
-
-48 Element no children: <li class="last">   
-
-49 Element no children: <ul>    
-
-50 Element no children: <li>   
-
-51 Element no children: <li>   
-
-52 Element no children: <li class="external last" title="Opens an external link.">   
-
-53 Element no children: <p>phpBB is a free flat-forum bulletin board software solution that can be used to stay in touch with a group of people or can power your entire website. With an  and  containing hundreds of style and image packages to customise your board, you can create a very unique forum in minutes.
-
-54 Element no children: <p>No other bulletin board software offers a greater complement of features, while maintaining efficiency and ease of use. Best of all, phpBB is completely free. We welcome you to  for yourself today. If you have any questions please visit our  where our staff and members of the community will be happy to assist you with anything from configuring the software to modifying the code for individual needs. 
-
-55 Element no children: <dl class="extra-box rocket orange">   
-
-56 Element no children: <a href="/hosting/r/bluehost-frontpage/" rel="nofollow">… 
-
-57 Element no children: <dl class="extra-box shop light-blue">   
+1 Element no children: <div id="wrap">      
 
 
 
 ##############################################################################################################
 pinterestcom.html
 
-1 Element no children: <svg height="50" viewbox="-3 -3 82 82" width="50" data-reactid="13">
-
-2 Element no children: <form method="POST" novalidate data-reactid="20">
-
-3 Element no children: <div data-reactid="30">
-
-4 Element no children: <button aria-label="" class="FacebookConnectButton active" type="button" data-reactid="31">
-
-5 Element no children: <svg class="_mh _5e" height="24" width="24" viewbox="0 0 16 16" aria-label="facebook" role="img" data-reactid="32">
-
-6 Element no children: <span data-reactid="51">By continuing, you agree to Pinterest's , 
-
-7 Element no children: <svg height="50" viewbox="-3 -3 82 82" width="50" data-reactid="13">
-
-8 Element no children: <form method="POST" novalidate data-reactid="20">
-
-9 Element no children: <div data-reactid="30">
-
-10 Element no children: <button aria-label="" class="FacebookConnectButton active" type="button" data-reactid="31">
-
-11 Element no children: <svg class="_mh _5e" height="24" width="24" viewbox="0 0 16 16" aria-label="facebook" role="img" data-reactid="32">
-
-12 Element no children: <span data-reactid="51">By continuing, you agree to Pinterest's , 
-
-13 Element no children: <svg height="50" viewbox="-3 -3 82 82" width="50" data-reactid="13">
-
-14 Element no children: <form method="POST" novalidate data-reactid="20">
-
-15 Element no children: <div data-reactid="30">
-
-16 Element no children: <button aria-label="" class="FacebookConnectButton active" type="button" data-reactid="31">
-
-17 Element no children: <svg class="_mh _5e" height="24" width="24" viewbox="0 0 16 16" aria-label="facebook" role="img" data-reactid="32">
-
-18 Element no children: <span data-reactid="51">By continuing, you agree to Pinterest's , 
-
 
 
 ##############################################################################################################
 pleskcom.html
 
-1 Element no children: <noscript>   
-
-2 Element no children: <ul id="menu-topheader" class="menu">
-
-3 Element no children: <ul class="sub-menu ">
-
-4 Element no children: <div class="promagnifier">
-
-5 Element no children: <form action="#" autocomplete="off">   
-
-6 Element no children: <div class="asp_option">
-
-7 Element no children: <div class="option">  
-
-8 Element no children: <div class="asp_option">
-
-9 Element no children: <div class="option">  
-
-10 Element no children: <div class="asp_option">
-
-11 Element no children: <div class="option">  
-
-12 Element no children: <div class="asp_option">
-
-13 Element no children: <div class="option">  
-
-14 Element no children: <div class="asp_option">
-
-15 Element no children: <div class="option">  
-
-16 Element no children: <div class="option hiddend">  
-
-17 Element no children: <div class="option hiddend">  
-
-18 Element no children: <div class="mk-css-icon-menu">
-
 
 
 ##############################################################################################################
 prnewswirecom.html
-
-1 Element no children: <ul class="nav navbar-nav">    
-
-2 Element no children: <ul class="nav navbar-nav navbar-right">    
-
-3 Element no children: <ul class="nav navbar-nav">    
 
 
 
@@ -4015,174 +865,10 @@ redditcom.html
 
 1 Element no children: <li>
 
-2 Element no children: <li>
-
-3 Element no children: <li>
-
-4 Element no children: <li>
-
-5 Element no children: <li>
-
-6 Element no children: <li>
-
-7 Element no children: <li>
-
-8 Element no children: <li>
-
-9 Element no children: <li>
-
-10 Element no children: <li>
-
-11 Element no children: <li>
-
-12 Element no children: <li>
-
-13 Element no children: <li>
-
-14 Element no children: <li>
-
-15 Element no children: <li>
-
-16 Element no children: <li>
-
-17 Element no children: <li>
-
-18 Element no children: <li>
-
-19 Element no children: <li>
-
-20 Element no children: <li>
-
-21 Element no children: <li>
-
-22 Element no children: <li>
-
-23 Element no children: <li>
-
-24 Element no children: <li>
-
-25 Element no children: <li>
-
-26 Element no children: <li>
-
-27 Element no children: <li>
-
-28 Element no children: <li>
-
-29 Element no children: <li>
-
-30 Element no children: <li>
-
-31 Element no children: <li>
-
-32 Element no children: <li>
-
-33 Element no children: <li>
-
-34 Element no children: <li>
-
-35 Element no children: <li>
-
-36 Element no children: <li>
-
-37 Element no children: <li>
-
-38 Element no children: <li>
-
-39 Element no children: <li>
-
-40 Element no children: <li>
-
-41 Element no children: <li>
-
-42 Element no children: <li>
-
-43 Element no children: <li>
-
-44 Element no children: <li>
-
-45 Element no children: <li>
-
-46 Element no children: <li>
-
-47 Element no children: <li>
-
-48 Element no children: <li>
-
-49 Element no children: <li>
-
-50 Element no children: <li>
-
-51 Element no children: <li>
-
-52 Element no children: <div id="header-bottom-right">
-
-53 Element no children: <div id="remember-me">
-
-54 Element no children: <div class="submit">
-
-55 Element no children: <div class="morelink">
-
-56 Element no children: <div class="morelink">
-
-57 Element no children: <div class="progress">
-
-58 Element no children: <p class="buy-gold">Buy gold for yourself to gain access to  and . A month of gold pays for  of reddit server time!
-
-59 Element no children: <div class="history">
-
-60 Element no children: <div class="progress">
-
 
 
 ##############################################################################################################
 reuterscom.html
-
-1 Element no children: <div id="breakingNews" class="group wrap">
-
-2 Element no children: <div class="breaking-content">
-
-3 Element no children: <div class="container group">    
-
-4 Element no children: <div class="edition-container group">   
-
-5 Element no children: <div class="edition-selector">   
-
-6 Element no children: <a href="/home" class="nav-link-sec">   
-
-7 Element no children: <ul class="subnav-list">   
-
-8 Element no children: <ul class="subnav-list">   
-
-9 Element no children: <li class="nav-item" id="nav-item-7">   
-
-10 Element no children: <ul class="subnav-list">   
-
-11 Element no children: <li class="nav-item" id="nav-item-8">   
-
-12 Element no children: <ul class="subnav-list">   
-
-13 Element no children: <ul class="subnav-list">   
-
-14 Element no children: <a href="/news/pictures" class="nav-link-sec">   
-
-15 Element no children: <a href="/video" class="nav-link-sec">   
-
-16 Element no children: <li>   
-
-17 Element no children: <li>   
-
-18 Element no children: <li>   
-
-19 Element no children: <li>   
-
-20 Element no children: <li>   
-
-21 Element no children: <li>   
-
-22 Element no children: <li>   
-
-23 Element no children: <li>   
 
 
 

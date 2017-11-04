@@ -35,6 +35,7 @@ $(document).ready(function() {
             || e.key=="ArrowRight")){//Don't do anything when pressing any arrow.
             createTable();
             attributeTokenization();
+            elementTokenization();
         }
 	    });
   })();
@@ -45,25 +46,23 @@ $(document).ready(function() {
       var attributeList = [];
       var i=0;
       if(typeof( document.allAutoCompleteList)!="undefined"){
-         //  //Sorts array.
-         // document.allAutoCompleteList.sort(function(a,b){
-         //       return a.value < b.value;
-         // });
         for(var attString in document.allAutoCompleteList){
            attributeList[i++]  = attString + document.allAutoCompleteList[attString];
         }
       }
          //This does the auto-complete.
       callback(null, attributeList.map(function(word) {
-         var valueList = word.replace(/ Freq: [0-9]/g,"");
+         var listWord = word.replace(/ Freq: [0-9]/g,"");
          var freq = "";
          if(word.match(/Freq: [0-9]/g)!=null)
             freq = word.match(/Freq: [0-9]/g).toString();
-          word = valueList.replace(/</g,"");
+          word = listWord.replace(/</g,"");
+          var wscore = parseInt(freq.match(/[0-9]/g));
           return {
-              caption: valueList,
-              value: word,
-              meta: freq
+              caption: listWord,//the words it shows
+              value: word,//the words it writes if clicked
+              score: wscore,//score to rank them according to freq
+              meta: freq//the words frequency.
           };
       }));
     }
