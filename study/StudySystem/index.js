@@ -8,7 +8,6 @@
 	var count=0, filename;
 
 	global.lineNum = 0;
-
 	global.trainingData = new Map();//Contains the training data.
 	global.testingData = new Map();//Contains the testing data.
 	global.answers = new Map();//Contains the testing data.
@@ -22,16 +21,33 @@
 	});
 
 
-    var finished = false;
 /*	Adding the information to a map with key = name of html file
  *	and value = all the html code. The timeout is to make them
  *	run asynchronous.
- */ readFile('TestInputFiles/TrainingSet.text', global.trainingData);
+ */ var finished = false;
+ 	readFile('TestInputFiles/TrainingSet.text', global.trainingData);
     readFile('TestInputFiles/AttrTestingSet.text', global.testingData);
     finished = readFile('TestInputFiles/AttrAnswers.text', global.answers);
     if(finished)
-		var editor = require(__dirname+'/public/EditorCopy/javascriptFiles/RunEditor');
-	
+		require(__dirname+'/public/EditorCopy/javascriptFiles/RunEditor');
+
+
+	//Reads the file.
+	function readFile(filename, data){
+		var counter = 0;
+		fileList =  fs.readFileSync(filename).toString().split("\n");
+		for(var line of fileList){
+			if(line.includes("#########")){
+				counter++;
+			} if(counter>=0 && <=50){//To only test a range of doc.
+				saveSets(data, line);
+			} else{
+				global.lineNum = 0;
+				break;
+			}
+		}
+		return true;
+	}
 
 
 	//Takes each line and adds it to the global map.
@@ -57,23 +73,4 @@
 
 			set.set(filename, val + "\n"+line);
 		}
-	}
-
-	//Reads the file.
-	function readFile(filename, data){
-		var counter = 0;
-		fileList =  fs.readFileSync(filename).toString().split("\n");
-		for(var line of fileList){
-			if(line.includes("#########")){
-				counter++;
-			}
-			if(counter<10){
-				console.log(line);
-				saveSets(data, line);
-			} else{
-				global.lineNum = 0;
-				break;
-			}
-		}
-		return true;
 	}

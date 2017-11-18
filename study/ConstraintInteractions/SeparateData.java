@@ -49,7 +49,7 @@ public class SeparateData {
 				doc[i].select("[comment]").removeAttr("comment");
 				Elements body = doc[i].getElementsByTag("body");// Getting just the body of the html file.
 				Elements elements = body.select("*");// All elements on html file.
-				int elementToRemove = (int) (elements.size() / (elements.size() * .2));// 0.2 of elements(with their
+				int elementToRemove = (int) (elements.size() / (elements.size() * .3));// 0.2 of elements(with their
 																						// child) will be for testing.
 				// Adding the name of the html file to the training and testing data.
 				String filename = doc[i].baseUri().replaceAll(".*http", "");
@@ -65,18 +65,19 @@ public class SeparateData {
 				int elementCounter = 0;
 				for (Element element : elements) {
 					size = 0;
-					if(!element.tagName().equals("body"))
+					if(!element.tagName().equals("body")) {
 						size(element);// Gets the size of the element.
-					elementCounter += size;// Counts all elements.
-					if (elementCounter <= 800) {// Only up to 800 elements total (including children).
-						// To create the training set.
-						createTrainingSet(element);
-						if (elementCounter++ % elementToRemove == 0) {
-							if (maxChild(element)) {
-								// Creates testing set and answers for attributes.
-								createAttrTesting_AnswerSets(element);
-								// Creates testing set and answers for groups of elements.
-								createGroupTesting_AnswerSets(element);
+						if (elementCounter <= 500) {// Only up to 800 elements total (including children).
+							elementCounter += size;// Counts all elements.
+							// To create the training set.
+							createTrainingSet(element);
+							if (elementCounter++ % elementToRemove == 0) {
+								if (maxChild(element)) {
+									// Creates testing set and answers for attributes.
+									createAttrTesting_AnswerSets(element);
+									// Creates testing set and answers for groups of elements.
+									createGroupTesting_AnswerSets(element);
+								}
 							}
 						}
 					}
@@ -125,10 +126,10 @@ public class SeparateData {
 	 * Recursive function that makes sure every child of the element does not have
 	 * more than 8 children. This is to shorten the testing set data.
 	 */public boolean maxChild(Element elements) {
-		if (elements.children().size() > 9)
+		if (elements.children().size() > 10)
 			return false;
 		for (Element el : elements.children()) {
-			if (el.children().size() > 8)
+			if (el.children().size() > 10)
 				return false;
 			if (el.children().size() >= 1)
 				if (!maxChild(el))

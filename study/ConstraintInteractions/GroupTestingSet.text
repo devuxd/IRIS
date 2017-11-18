@@ -1,21 +1,13 @@
 aboutcom.html
 
-1 Element no children: <body class="dash dash-home  ">  <!-- Google Tag Manager (noscript) -->   <!-- End Google Tag Manager (noscript) -->  <!-- wrapper --> 
-
-2 Element no children: <div class="wrapper">  
-
-3 Element no children: <div class="dash-menu-widget">    
+1 Element no children: <header id="scroll_header">   
 
 
 
 ##############################################################################################################
 acquirethisnamecom.html
 
-1 Element no children: <li>   <!-- .user-panel --> 
-
-2 Element no children: <ul>    
-
-3 Element no children: <a href="/m/monetize-your-domains/default.aspx">    
+1 Element no children: <div class="container_12 relative">    
 
 
 
@@ -24,22 +16,26 @@ addthiscom.html
 
 1 Element no children: <div class="vertical-center">   
 
-2 Element no children: <div class="topnav-inner">     
+2 Element no children: <div class="vertical-center">   
 
-3 Element no children: <ul class="topnav-right">     
+3 Element no children: <div class="topnav-inner">     
 
-4 Element no children: <li class="topnav-language">    
+4 Element no children: <a class="menu-icon" href="#menu">   
 
 
 
 ##############################################################################################################
 addtoanycom.html
 
-1 Element no children: <div class="menu_wrapper">   
+1 Element no children: <div class="home_banner">   
 
-2 Element no children: <div class="column left">       
+2 Element no children: <div class="a2a_kit a2a_kit_size_32 a2a_default_style">      
 
-3 Element no children: <div class="grid_6">    
+3 Element no children: <div class="menu_wrapper">   
+
+4 Element no children: <div class="column left">       
+
+5 Element no children: <div class="column right">      
 
 
 
@@ -51,26 +47,24 @@ adobecom.html
 ##############################################################################################################
 androidcom.html
 
-1 Element no children: <svg aria-hidden="false" aria-label="TV" class="icon icon--svg icon--tv" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">   
+1 Element no children: <form action="/results/" class="c-search" data-c-search id="search" method="get">     
 
 
 
 ##############################################################################################################
 applecom.html
 
-1 Element no children: <ul class="ac-ls-itemlist" role="presentation">    
+1 Element no children: <div class="ac-ls-actions">    
 
-2 Element no children: <li role="menuitem" id="ac-ls-dropdown-option-1" class="ac-ls-dropdown-option ac-ls-dropdown-nav-item" aria-selected="true">   
+2 Element no children: <span id="ac-ls-dropdown-title">   
 
-3 Element no children: <li role="menuitem" id="ac-ls-dropdown-option-2" class="ac-ls-dropdown-option ac-ls-dropdown-nav-item">   
+3 Element no children: <ul class="ac-ls-itemlist" role="presentation">    
 
-4 Element no children: <li class="ac-gn-item ac-gn-menuicon">    
+4 Element no children: <li role="menuitem" id="ac-ls-dropdown-option-2" class="ac-ls-dropdown-option ac-ls-dropdown-nav-item">   
 
-5 Element no children: <li class="ac-gn-item ac-gn-bag" id="ac-gn-bag">   
+5 Element no children: <div class="ac-gn-content">     
 
-6 Element no children: <a class="ac-gn-link ac-gn-link-bag" href="/us/shop/goto/bag" data-analytics-title="bag" data-analytics-click="bag" aria-label="Shopping Bag" data-string-badge="Shopping Bag with Items">   
-
-7 Element no children: <aside id="ac-gn-searchview" class="ac-gn-searchview" role="search" data-analytics-region="search">   
+6 Element no children: <li class="ac-gn-item ac-gn-bag ac-gn-bag-small" id="ac-gn-bag-small">   
 
 
 
@@ -79,7 +73,9 @@ axscom.html
 
 1 Element no children: <td>  <!--      <div><img src="http://cdn.distilnetworks.com/deployment_resources/images/theft-bot-home.png"><br><br>
 
-2 Element no children: <noscript>   
+2 Element no children: <div>     
+
+3 Element no children: <noscript>   
 
 
 
@@ -91,26 +87,28 @@ barnesandnoblecom.html
 ##############################################################################################################
 bbccom.html
 
-1 Element no children: <div id="mybbc-wrapper" class="orb-nav-section orb-nav-id orb-nav-focus">    
+1 Element no children: <div class="orb-skip-links">   
 
-2 Element no children: <a id="notification-link" class="js-notification-link animated three" href="#">     
+2 Element no children: <div id="mybbc-wrapper" class="orb-nav-section orb-nav-id orb-nav-focus">    
+
+3 Element no children: <a id="notification-link" class="js-notification-link animated three" href="#">     
 
 
 
 ##############################################################################################################
 bigcartelcom.html
 
-1 Element no children: <div class="video-container">    
+1 Element no children: <ul class="nav primary">     
 
-2 Element no children: <div class="module module-full">   
+2 Element no children: <div class="video-container">    
 
-3 Element no children: <div class="lettering">   
+3 Element no children: <video id="bgvid" loop preload>   
 
-4 Element no children: <div class="windowed-slider-window">   
+4 Element no children: <div class="module module-full">   
 
-5 Element no children: <div class="slide-inner">   
+5 Element no children: <a class="watch-video" data-hash="video" data-video="We Believe in the Artist" href="#video">   
 
-6 Element no children: <div class="module module-full">     
+6 Element no children: <div class="windowed-slider-window">   
 
 
 
@@ -122,13 +120,15 @@ bingcom.html
 ##############################################################################################################
 bloggercom.html
 
-1 Element no children: <div class="theme js-theme red ">         
+1 Element no children: <svg xmlns="http://www.w3.org/2000/svg">
 
-2 Element no children: <section class="section choose-design" id="choose-design" tabindex="0">   
+2 Element no children: <div class="header--content">   
 
-3 Element no children: <section class="section free-domain" tabindex="0">   
+3 Element no children: <a href="/go/home" class="ga-header-logo">   
 
-4 Element no children: <section class="section memories" tabindex="0">   
+4 Element no children: <radialgradient id="gradienttwo" cx=".067" cy=".033" r="45.159" gradientunits="userSpaceOnUse">     
+
+5 Element no children: <section class="section hero" tabindex="0">    
 
 
 
@@ -140,39 +140,43 @@ s://www.bloomberg.com/
 ##############################################################################################################
 bluehostcom.html
 
-1 Element no children: <body class=" no_js">  <!--<![endif]-->  <!-- Google Tag Manager -->     <!-- End Google Tag Manager -->        
+1 Element no children: <ul class="clear">
 
-2 Element no children: <ul class="clear">
+2 Element no children: <ul class="subnav">   
 
-3 Element no children: <li class="tab programs_tab"> 
+3 Element no children: <li class="tab support_tab"> 
 
 
 
 ##############################################################################################################
 bookingcom.html
 
+1 Element no children: <div id="perfFrame">   
+
 
 
 ##############################################################################################################
 bostoncom.html
-
-1 Element no children: <div class="page-header-wrapper">   
 
 
 
 ##############################################################################################################
 businessinsidercom.html
 
-1 Element no children: <div class="hamburger">    
+1 Element no children: <div class="masthead">   <!-- Search Area -->   <!-- Nav area -->  
 
-2 Element no children: <a data-search-icon-close href="#" class="close-x display-none">   
+2 Element no children: <div class="hamburger">    
+
+3 Element no children: <div class="span3 span3-mh links list-pipes list-right no-pipe">   
+
+4 Element no children: <li>   
+
+5 Element no children: <a data-search-icon-close href="#" class="close-x display-none">   
 
 
 
 ##############################################################################################################
 businessweekcom.html
-
-1 Element no children: <a class="bb-that-header__link" href="https://bba.bloomberg.net/?utm_source=bloomberg-menu&amp;utm_medium=bcom">
 
 
 
@@ -181,48 +185,49 @@ buydomainscom.html
 
 1 Element no children: <div id="header" class="contain-head container-layout">  <!-- logo -->   <!-- phone numbers -->   <!-- navigation -->  
 
+2 Element no children: <ul class="h-nav-main">     
+
 
 
 ##############################################################################################################
 buzzfeedcom.html
 
-1 Element no children: <g id="videopauseicon">   
+1 Element no children: <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1294.2 150" id="bf-news-logo">   
 
-2 Element no children: <svg id="BuzzFeed" xmlns="http://www.w3.org/2000/svg" viewbox="31 231.9 853.3 150.1">   
+2 Element no children: <symbol viewbox="0 0 200 200" id="fail">  
 
-3 Element no children: <div class="xs-flex">      
+3 Element no children: <g id="videopauseicon">   
+
+4 Element no children: <g fill-rule="evenodd">   
+
+5 Element no children: <div class="xs-col-12 xs-relative sm-fixed xs-z4 xs-l0 js-header-section-content">   
 
 
 
 ##############################################################################################################
 cbslocalcom.html
 
-1 Element no children: <body class="home page-template page-template-templates page-template-page-twocol page-template-templatespage-twocol-php page page-id-4174 desktop-display-type  mp6 customizer-styles-applied highlander-enabled highlander-light">  <!--[if lt IE 9]>			<script src="//html5shim.googlecode.com/svn/trunk/html5.js">		<![endif]-->  <!--[if lte IE 8]>			<div id="global-browser-not-supported">				<p>Sorry, your browser is out-of-date and cannot support this site. Please upgrade to the latest version, or try another browser.				<p><a href="http://www.microsoft.com/windows/internet-explorer/default.aspx" target="_blank">Download Internet Explorer					<![endif]-->   <!-- wpcom_wp_footer -->                    <!-- Moat and Cloudfront tracking pixels -->          <!--	generated 276 seconds ago	generated in 0.065 seconds	served from batcache in 0.001 seconds	expires in 24 seconds--> 
+1 Element no children: <div id="wrapper" class="body-wrapper">        <!--PARTNER SCRIPTS START-->  <!--PARTNER SCRIPTS END--> 
 
-2 Element no children: <div id="page-header-bottom-right" class="header-cell">   
+2 Element no children: <div id="page-header-inner">   
 
-3 Element no children: <div id="text-6" class="block sidebar-widget widget_text">  
+3 Element no children: <div class="sponsored-by ad-size-120x60">   
 
-
-
-##############################################################################################################
-cbsnewscom.html
-
-1 Element no children: <g id="icon-more" stroke-width="2">
-
-2 Element no children: <g id="icon-search" stroke-width="2">
+4 Element no children: <div class="header-row-bottom header-row">   
 
 
 
 ##############################################################################################################
 chicagotribunecom.html
 
-1 Element no children: <symbol id="trb_photo_gallery" viewbox="0 0 20 18" stroke-width="1.3">
-
 
 
 ##############################################################################################################
 cloudflarecom.html
+
+1 Element no children: <a href="/">   
+
+2 Element no children: <ul class="top-nav__item-list">        
 
 
 
@@ -234,65 +239,69 @@ cnbccom.html
 ##############################################################################################################
 cnetcom.html
 
-1 Element no children: <symbol id="allContent" viewbox="0 0 32 32">
+1 Element no children: <g>
 
 2 Element no children: <g>
 
-3 Element no children: <symbol id="list" viewbox="0 0 375 392">
+3 Element no children: <svg class="svg-symbol">
 
 
 
 ##############################################################################################################
 cnncom.html
 
-1 Element no children: <div class="user-msg--container">
+1 Element no children: <div class="breaking-news">
 
-2 Element no children: <div class="user-msg--header">
-
-3 Element no children: <div class="js-edition-picker edition-picker">
+2 Element no children: <div class="nav-section__name js-nav-section-name" data-analytics-header="main-menu_homepage">
 
 
 
 ##############################################################################################################
 constantcontactcom.html
 
-1 Element no children: <body name="top" class="    ">           
+1 Element no children: <div class="ctct-menu-icon">     
 
-2 Element no children: <div class="bottom-nav">    
+2 Element no children: <h1 class="col-sm-12 col-sm-offset-0">Send great-looking emails that drive big results.
 
-3 Element no children: <div>   
+3 Element no children: <p class="hero-subhead"> Or  »
 
-4 Element no children: <div class="footer-container-fluid">    
+4 Element no children: <div class="bottom-nav">    
+
+5 Element no children: <div>   
 
 
 
 ##############################################################################################################
 cpanelcom.html
 
-1 Element no children: <div class="row cta">   
+1 Element no children: <div class="container-fluid container-max-width">  <!-- Brand and toggle get grouped for better mobile display -->   <!-- Collect the nav links, forms, and other content for toggling -->  <!-- /.navbar-collapse --> 
 
-2 Element no children: <div class="row ecosystem">   
+2 Element no children: <div class="navbar-header">   
 
-3 Element no children: <div class="col-sm-6 money">    
+3 Element no children: <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">     
 
-4 Element no children: <div class="container-max-width">   
+4 Element no children: <div class="jumbotron container-max-width text-center">    
 
-5 Element no children: <div class="col-sm-6">    
+5 Element no children: <section class="container-fluid text-center business">     
 
-6 Element no children: <div class="container-max-width">    
+6 Element no children: <div class="row">   
 
-7 Element no children: <div class="row key-parnters">       
+7 Element no children: <section class="container-fluid text-center points padless-v">    
 
-8 Element no children: <div class="carousel-inner" role="listbox">    
+8 Element no children: <div class="container-max-width">   
+
+9 Element no children: <div class="container-max-width">    
+
+10 Element no children: <div class="col-sm-4">    
 
 
 
 ##############################################################################################################
 deviantartcom.html
 
-1 Element no children: <span id="deviantart-logo">    
+1 Element no children: <tr>         
 
-2 Element no children: <a href="https://shop.deviantart.com" data-ga_click_event="{&quot;category&quot;:&quot;Retail&quot;,&quot;action&quot;:&quot;shoplink_appbar&quot;,&quot;nofollow&quot;:0}" class="mi iconset-more"> 
+2 Element no children: <div id="search7-ctrl">
 
 
 
@@ -301,14 +310,16 @@ directdomainscom.html
 
 1 Element no children: <g>   
 
+2 Element no children: <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 12 12" xml:space="preserve">    
+
 
 
 ##############################################################################################################
 dribbblecom.html
 
-1 Element no children: <ul class="tabs">     
+1 Element no children: <div>   
 
-2 Element no children: <li id="t-more">   
+2 Element no children: <li id="t-shots">   
 
 
 
@@ -320,33 +331,35 @@ dropboxcom.html
 ##############################################################################################################
 ebaycom.html
 
-1 Element no children: <form id="gh-f" method="get" action="https://www.ebay.com/sch/i.html">
+1 Element no children: <tr>
 
-2 Element no children: <div class="gh-menu">
+2 Element no children: <div id="gh-ac-box2">
+
+3 Element no children: <ul id="gh-eb">
 
 
 
 ##############################################################################################################
 eepurlcom.html
 
-1 Element no children: <body>       
-
-2 Element no children: <div id="wrapper">   
-
 
 
 ##############################################################################################################
 elegantthemescom.html
 
-1 Element no children: <body class="homepage">   <!-- end #main-nav -->   <!-- end #main-header -->   <!-- end #main-area -->   <!-- end #main-footer -->   <!-- Facebook Retargeting -->    <!-- End Facebook Retargeting -->  <!-- Adroll -->   <!-- End Adroll -->  <!-- Adwords Retargeting -->     <!-- End Adwords Retargeting -->  <!-- Intercom -->   <!-- End Intercom -->  <!-- Google Analytics -->   <!-- End Google Analytics -->   <!-- Video Script-->   <!-- END Video Script-->  
+1 Element no children: <div class="et_box et_box_1_2 homepage_box">    
 
-2 Element no children: <div class="container container_large clearfix">   <!-- end .feature -->   <!-- end .feature -->   <!-- end .feature -->   <!-- end .feature --> 
+2 Element no children: <div class="et_blurb_1_4">    
 
 3 Element no children: <div class="et_blurb_1_4">    
 
-4 Element no children: <div class="container">    
+4 Element no children: <div class="et_box_1_2 et_blurb">    
 
-5 Element no children: <div id="copyright">    
+5 Element no children: <div class="et_box_1_2 et_blurb">    
+
+6 Element no children: <div class="et_box_1_2 et_blurb">    
+
+7 Element no children: <div class="et_box_1_2 et_blurb">    
 
 
 
@@ -360,77 +373,65 @@ etsycom.html
 ##############################################################################################################
 eventbritecom.html
 
-1 Element no children: <header>   
+1 Element no children: <div class="major">   
 
 2 Element no children: <form action="/d/" method="GET" class="responsive-form is-hidden" id="search-autocomplete">   
 
-3 Element no children: <div class="gh-dd gh-profile-box js-gh-dd show-large">   
-
-4 Element no children: <div class="gh-dd gh-help-box js-gh-dd">   
+3 Element no children: <ul class="list list--has-highlight">    
 
 
 
 ##############################################################################################################
 facebookcom.html
 
-1 Element no children: <a class="_42ft _4jy0 _55pi _2agf _4o_4 _p _4jy3 _517h _51sy" role="button" href="#" aria-haspopup="true" aria-expanded="false" rel="toggle" id="u_0_z">
-
-2 Element no children: <a class="_42ft _4jy0 _55pi _2agf _4o_4 _3_s2 _p _4jy3 _4jy1 selected _51sy" role="button" href="#" aria-haspopup="true" tabindex="-1" aria-expanded="false" rel="toggle" id="u_0_11">
-
-3 Element no children: <div class="_6a _3bcy"> Press  +  to open this menu
-
 
 
 ##############################################################################################################
 fc2com.html
-
-1 Element no children: <div id="header" class="whenIE7below">   
 
 
 
 ##############################################################################################################
 feedburnercom.html
 
-1 Element no children: <div class="one-google">    
+1 Element no children: <div class="banner">   
+
+2 Element no children: <div class="main-content         no-name      ">   
+
+3 Element no children: <div class="card signin-card      pre-shift         no-name">   
+
+4 Element no children: <form novalidate method="post" action="https://accounts.google.com/signin/v1/lookup" id="gaia_loginform">           
+
+5 Element no children: <div>    
+
+6 Element no children: <div class="one-google">    
+
+7 Element no children: <p class="create-account">   
 
 
 
 ##############################################################################################################
 flickrcom.html
 
-1 Element no children: <symbol viewbox="0 0 24 24" id="icon-CC">
+1 Element no children: <symbol viewbox="0 0 24 24" id="icon-WB">
 
-2 Element no children: <symbol viewbox="0 0 24 24" id="icon-brightness">
+2 Element no children: <symbol viewbox="0 0 24 24" id="icon-attribution">
 
-3 Element no children: <symbol viewbox="0 0 24 24" id="icon-copy">
+3 Element no children: <symbol viewbox="0 0 24 24" id="icon-camera">
 
-4 Element no children: <symbol viewbox="0 0 24 24" id="icon-explore">
-
-5 Element no children: <symbol id="icon-flickr-free" viewbox="0 0 108.01 33.32">
-
-6 Element no children: <symbol viewbox="0 0 24 24" id="icon-group">
-
-7 Element no children: <symbol viewbox="0 0 24 24" id="icon-link">
+4 Element no children: <symbol viewbox="0 0 24 24" id="icon-copy">
 
 
 
 ##############################################################################################################
 fortunecom.html
 
-1 Element no children: <header class="main-header" role="banner">   
-
-2 Element no children: <form class="site-nav-search site-search" action="http://search-app.fortune.com">   
-
-3 Element no children: <div id="content" class="home-content" role="main">   
+1 Element no children: <nav class="site-nav">     
 
 
 
 ##############################################################################################################
 foursquarecom.html
-
-1 Element no children: <div id="desktopHeader" class="withDrawer consumerMode withProductBar">
-
-2 Element no children: <ul class="wrap">
 
 
 
@@ -447,33 +448,21 @@ ftcom.html
 ##############################################################################################################
 getpocketcom.html
 
-1 Element no children: <div class="small-12 large-9 columns">    
+1 Element no children: <div class="row">   
 
 2 Element no children: <ul>      
-
-3 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/parenting" target="_blank">   
-
-4 Element no children: <a class="home-topic-content" href="http://getpocket.com/p/pocket-topics/film" target="_blank">   
 
 
 
 ##############################################################################################################
 githubcom.html
 
-1 Element no children: <div class="d-lg-flex">   
+1 Element no children: <div class="container-lg d-lg-flex p-responsive">   
 
 
 
 ##############################################################################################################
 gizmodocom.html
-
-1 Element no children: <ul class="js_sections">
-
-2 Element no children: <span class="spinner bounce">
-
-3 Element no children: <a href="//gizmodo.com" class="logo" title="Gizmodo" data-ga="[Sub navigation, Logo click, js_pageType]">
-
-4 Element no children: <div class="curation-main-container js_curation-main-container dui-override">
 
 
 
@@ -487,35 +476,29 @@ gocom.html
 ##############################################################################################################
 goodreadscom.html
 
-1 Element no children: <div class="formBox">   
-
 
 
 ##############################################################################################################
 googlecom.html
 
-1 Element no children: <div id="lga">
+1 Element no children: <nobr>        
 
-2 Element no children: <a href="/search?site=&amp;ie=UTF-8&amp;q=autumn+equinox+2017&amp;oi=ddle&amp;ct=fall-equinox-2017-northern-hemisphere-5921669083299840&amp;hl=en&amp;sa=X&amp;ved=0ahUKEwjF3dSZg7rWAhUG5iYKHaIlBDQQPQgD">
+2 Element no children: <center>
 
-3 Element no children: <nobr>  |  | 
+3 Element no children: <a href="/search?site=&amp;ie=UTF-8&amp;q=autumn+equinox+2017&amp;oi=ddle&amp;ct=fall-equinox-2017-northern-hemisphere-5921669083299840&amp;hl=en&amp;sa=X&amp;ved=0ahUKEwjF3dSZg7rWAhUG5iYKHaIlBDQQPQgD">
 
-4 Element no children: <td align="center" nowrap>
-
-5 Element no children: <div id="fll">
-
-6 Element no children: <p>© 2017 -  - 
+4 Element no children: <nobr>        
 
 
 
 ##############################################################################################################
 gravatarcom.html
 
-1 Element no children: <body id="page">  <!--/ #wrap -->       
+1 Element no children: <div id="wrap">    <!-- end #header -->    
 
-2 Element no children: <a href="http://wordpress.com">   
+2 Element no children: <a href="http://akismet.com">   
 
-3 Element no children: <div class="gcard_header">   
+3 Element no children: <ul class="main-nav">     
 
 4 Element no children: <div class="grav-inner gcard-about">    
 
@@ -524,29 +507,31 @@ gravatarcom.html
 ##############################################################################################################
 hiltoncom.html
 
-1 Element no children: <div id="view_res_form">   
+1 Element no children: <div id="global_header" class="logged_out header_content_container">   
 
-2 Element no children: <div id="view_res_msg">   
+2 Element no children: <span class="point_status">   
 
-3 Element no children: <div id="existing_travel_links_container">   
-
-4 Element no children: <div id="account_view" class="header_content_container ac">    <!-- join container start -->   <!-- end join container -->  <!-- suppress tier progress bar start -->   <!-- end suppress tier progress bar -->  <!-- Member status start -->   <!-- Member status end -->  <!-- new for CR 21743 -->  
+3 Element no children: <div class="header_row" id="expanded_area">   <!--  Login Error View -->   <!--  End Login Error View -->  <!--  Res Panel View -->   <!--  End Login fast res View -->  <!--  Begin Account View -->   <!--  End Account View --> 
 
 
 
 ##############################################################################################################
 histatscom.html
 
+1 Element no children: <tbody>  
+
 
 
 ##############################################################################################################
 homesteadcom.html
 
-1 Element no children: <body class="html front not-logged-in one-sidebar sidebar-first page-node page-node- page-node-1 node-type-page">        <!-- END LivePerson Monitor. -->                
+1 Element no children: <li class="menu-389 menuparent  menu-path-node-16 first odd ">
 
 2 Element no children: <li class="menu-652 menuparent  menu-path-node-14  even ">
 
-3 Element no children: <div class="main-index2">
+3 Element no children: <div class="two columns">   
+
+4 Element no children: <div id="login">  
 
 
 
@@ -568,7 +553,11 @@ huffingtonpostcom.html
 ##############################################################################################################
 ibmcom.html
 
-1 Element no children: <body id="ibm-com" class="ibm-type">   <!-- Overlay Content -->    
+1 Element no children: <div id="ibm-universal-nav">   
+
+2 Element no children: <p>        
+
+3 Element no children: <div id="ibm-content-wrapper">    <!-- FOOTER_BEGIN -->    <!-- FOOTER_END --> 
 
 
 
@@ -580,16 +569,20 @@ imdbcom.html
 ##############################################################################################################
 imgurcom.html
 
-1 Element no children: <li class="signin-link">   
+1 Element no children: <div class="dropdown-footer hamburger-menu">    
+
+2 Element no children: <a class="upload-button" href="//imgur.com/upload">    
+
+3 Element no children: <ul class="user-nav">    
+
+4 Element no children: <form class="search-form" method="get" action="//imgur.com/search">   
 
 
 
 ##############################################################################################################
 indiatimescom.html
 
-1 Element no children: <div id="dae_xyz">      
-
-2 Element no children: <div class="onboarding-container list-container cf">  <!--sorry-msg end -->    
+1 Element no children: <div class="popup-container cf"> <!--onboarding start-->  <!--onboard-search end-->  
 
 
 
@@ -598,6 +591,12 @@ indiegogocom.html
 
 1 Element no children: <ul>    
 
+2 Element no children: <form id="ywvbdssqsazsxwvu" method="POST" action="fsqctasbebrddfwrcxxybdrqsaxr.html">
+
+3 Element no children: <div id="dUF_first_name">   
+
+4 Element no children: <div id="dUF_city">   
+
 
 
 ##############################################################################################################
@@ -605,11 +604,7 @@ issuucom.html
 
 1 Element no children: <div class="gs__header">   
 
-2 Element no children: <div class="gs__copy">    
-
-3 Element no children: <div class="ih-Root-inner container">     
-
-4 Element no children: <ul class="ih-Navigation">   
+2 Element no children: <div class="ih-Root-inner container">     
 
 
 
@@ -621,18 +616,14 @@ jimdocom.html
 ##############################################################################################################
 kickstartercom.html
 
-1 Element no children: <form class="site-nav__search-form" role="search" action="/projects/search" accept-charset="UTF-8" method="get">    
+1 Element no children: <nav class="site-nav-base site-nav--search">   
+
+2 Element no children: <form class="site-nav__search-form" role="search" action="/projects/search" accept-charset="UTF-8" method="get">    
 
 
 
 ##############################################################################################################
 latimescom.html
-
-1 Element no children: <symbol id="trb_circle_play" viewbox="0 0 73.856 73.856">
-
-2 Element no children: <symbol id="trb_photo_gallery" viewbox="0 0 20 18" stroke-width="1.3">
-
-3 Element no children: <div class="trb_mh_adB trb_masthead_adBanner">   
 
 
 
@@ -644,37 +635,27 @@ linkedincom.html
 ##############################################################################################################
 loopiacom.html
 
-1 Element no children: <div id="sitebuilder-view">    
+1 Element no children: <div id="login_box" class="hide-mobile">       
 
-2 Element no children: <div id="login_box" class="hide-mobile">       
+2 Element no children: <a href="javascript:menu.toggleModal('cart');" class="headerbtn cart-btn">   
 
-3 Element no children: <form action="/order/" method="post" name="topsearch" id="domain_search_header">   
-
-4 Element no children: <div class="main_menu_mobile show-mobile">  <!-- Mobile menu -->     
+3 Element no children: <div class="search_frame">
 
 
 
 ##############################################################################################################
 mapquestcom.html
 
-1 Element no children: <a ng-href="{{ctrl.splashConfig.ctaClickUrl}}" target="_blank" analytics-on analytics-category="{{ctrl.splashScreenTracking.category}}" analytics-event="{{ctrl.splashScreenTracking.action.cta}}">   
+1 Element no children: <div class="lead-in hidden-xs hidden-sm">   
 
-2 Element no children: <div class="print-header">   
+2 Element no children: <a class="book-travel" ng-class="{'widget-visible' : ctrl.multiBookingWidgetVisible()}" uib-popover-template="ctrl.multiBookingPopover" popover-animation="true" popover-placement="right" popover-append-to-body="true" popover-class="multi-booking-widget" popover-trigger="'none'" popover-is-open="ctrl.multiBookingWidgetVisible()" ng-click="ctrl.toggleMultiBookingWidget()" analytics-on analytics-event="book-travel-clicked" analytics-category="leadin">   
 
-3 Element no children: <a class="book-travel" ng-class="{'widget-visible' : ctrl.multiBookingWidgetVisible()}" uib-popover-template="ctrl.multiBookingPopover" popover-animation="true" popover-placement="right" popover-append-to-body="true" popover-class="multi-booking-widget" popover-trigger="'none'" popover-is-open="ctrl.multiBookingWidgetVisible()" ng-click="ctrl.toggleMultiBookingWidget()" analytics-on analytics-event="book-travel-clicked" analytics-category="leadin">   
-
-4 Element no children: <div class="print-container">   
+3 Element no children: <div class="print-container">   
 
 
 
 ##############################################################################################################
 marketwatchcom.html
-
-1 Element no children: <div class="group left">   
-
-2 Element no children: <i class="icon">    
-
-3 Element no children: <a class="btn btn--outline btn--watchlist" href="http://www.marketwatch.com/watchlist" data-track-query=".btn--watchlist" data-track-code="MW_Header_Watchlist">
 
 
 
@@ -696,33 +677,27 @@ mediumcom.html
 ##############################################################################################################
 meetupcom.html
 
-1 Element no children: <symbol viewbox="0 0 20 20" id="icon-align-top">
-
-2 Element no children: <symbol viewbox="0 0 20 20" id="icon-block">
-
-3 Element no children: <symbol viewbox="0 0 20 20" id="icon-chevron-down">
-
-4 Element no children: <symbol viewbox="0 0 20 20" id="icon-chevron-small-right">
-
-5 Element no children: <symbol viewbox="-389 391 20 20" id="icon-circle-with-check">
-
-6 Element no children: <symbol viewbox="0 0 20 20" id="icon-circle-with-cross">
-
-7 Element no children: <symbol viewbox="0 0 20 20" id="icon-edit">
-
 
 
 ##############################################################################################################
 msncom.html
 
-1 Element no children: <div class="searchbox">        
+1 Element no children: <ul class="verticalsnav">        
 
-2 Element no children: <div class="headlinebar">   
+2 Element no children: <div class="searchbox">        
 
 
 
 ##############################################################################################################
 myshopifycom.html
+
+1 Element no children: <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 44 44">
+
+2 Element no children: <label data-bind-class="{            'js-has-error': state.error,            'js-is-filled': state.filled || state.value.length > 0          }" class="marketing-input-wrapper">
+
+3 Element no children: <label data-bind-class="{            'js-has-error': state.error,            'js-is-filled': state.filled || state.value.length > 0          }" class="marketing-input-wrapper">
+
+4 Element no children: <label data-bind-class="{          'js-has-error': state.error == true,          'js-is-pending': state.pending == true,          'js-is-focused': state.focus == true,          'js-has-detail': state.error &amp;&amp; state.errors.existingAdmin,          'js-is-filled': state.filled == true || state.value.length > 0,        }" class="marketing-input-wrapper shop_name ">
 
 
 
@@ -739,14 +714,16 @@ namejetcom.html
 ##############################################################################################################
 naturecom.html
 
-1 Element no children: <div class="container cleared container-type-header" data-container-type="header">
+1 Element no children: <p class="contrast-text text13 hide-overflow">
+
+2 Element no children: <div role="main" id="content" class="position-relative z-index-1">
 
 
 
 ##############################################################################################################
 nbcnewscom.html
 
-1 Element no children: <div class="breaking-banner_txt">  
+1 Element no children: <div class="is-breaking">   
 
 
 
@@ -763,25 +740,25 @@ newyorkercom.html
 ##############################################################################################################
 ningcom.html
 
-1 Element no children: <body>   <!-- header -->   <!-- header -->   <!-- footer-->    <!-- /footer-->        
+1 Element no children: <div class="header-container wrap">   <!-- menu-top desktop-->   <!-- menu-top desktop-->  <!-- menu-top mobile-->   <!-- /menu-top mobile-->  <!-- lang-->   <!-- /lang-->  <!-- button-->    <!-- /button--> 
 
-2 Element no children: <li class="header-lang__item header-lang__item_selected">   
+2 Element no children: <nav class="menu-top">     
 
-3 Element no children: <ul class="dropdown-menu__list">    
+3 Element no children: <div class="header-nav__mobile show_onSmall">  
+
+4 Element no children: <div class="dropdown-menu__button">   
+
+5 Element no children: <ul class="dropdown-menu__list">    
 
 
 
 ##############################################################################################################
 nytimescom.html
 
-1 Element no children: <span class="message-content">   
-
 
 
 ##############################################################################################################
 onecom.html
-
-1 Element no children: <div class="no-language-container">   
 
 
 
@@ -790,58 +767,46 @@ operacom.html
 
 1 Element no children: <ul class="hf--main-nav-items" role="menu">    
 
-2 Element no children: <div class="hf--width-holder">   
-
 
 
 ##############################################################################################################
 ovhcom.html
 
-1 Element no children: <div class="full" id="main">     
-
-2 Element no children: <div>   
-
-3 Element no children: <div class="prPrice"> From&nbsp; 
-
-4 Element no children: <div class="col-s-6 col-m-3 center padProduct">   
+1 Element no children: <div class="col-s-12 config cloud">     
 
 
 
 ##############################################################################################################
 parallelscom.html
 
-1 Element no children: <div class="navbar-header">   
-
 
 
 ##############################################################################################################
 paypalcom.html
 
-1 Element no children: <ul id="header-personal-menu" class="subnav list"> 
+1 Element no children: <div id="body" class="">     <!--[if lte IE 9]> <script src="https://www.paypalobjects.com/eboxapps/js/b2/f34e53f94c2a6fb2a579294142f824ea64fad5.js"> <![endif]-->       <!-- To hide back side of flip Tiles in IE 9 and Below -->  <!--[if lte IE 9]>    <script>      $('.four-tile-flip-container .back').hide();    <![endif]-->          
+
+2 Element no children: <div class="containerCentered ">     
 
 
 
 ##############################################################################################################
 photobucketcom.html
 
-1 Element no children: <header class="main_header clearfix">   
+1 Element no children: <div class="banner_search">   
 
-2 Element no children: <ul>  
+2 Element no children: <div class="what_is_photobucket">   
 
-3 Element no children: <div class="ind_blog_box">   
+3 Element no children: <div class="what_is_p_box">    
 
-4 Element no children: <div class="blog_box_text">   
+4 Element no children: <div class="what_is_p_box">    
 
-5 Element no children: <div class="follow_us pull-right">   
-
-6 Element no children: <div class="modal-header">   
+5 Element no children: <div class="what_is_p_box">    
 
 
 
 ##############################################################################################################
 phpbbcom.html
-
-1 Element no children: <div id="wrap">      
 
 
 
@@ -853,6 +818,8 @@ pinterestcom.html
 ##############################################################################################################
 pleskcom.html
 
+1 Element no children: <noscript>   
+
 
 
 ##############################################################################################################
@@ -863,17 +830,26 @@ prnewswirecom.html
 ##############################################################################################################
 redditcom.html
 
-1 Element no children: <li>
-
 
 
 ##############################################################################################################
 reuterscom.html
 
+1 Element no children: <div class="breaking-content">
+
 
 
 ##############################################################################################################
 samsungcom.html
+
+
+
+##############################################################################################################
+sciencedailycom.html
+
+1 Element no children: <div class="row">   
+
+2 Element no children: <ul>    
 
 
 

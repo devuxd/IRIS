@@ -40,6 +40,7 @@ $( document ).ready(function editorjs() {
             document.editor.selection.moveCursorFileEnd();
             var Autocomplete = require("ace/autocomplete").Autocomplete;
             var util = require("ace/autocomplete/util");
+            
             /*
               * Snippet taken from ext-language_tools.js from Ace library to create an instance
               * of the editors autocomplete and get the ranked version of the autocomplete list.

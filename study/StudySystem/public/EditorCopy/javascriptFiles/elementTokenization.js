@@ -15,8 +15,8 @@ function elementTokenization(){
 			}else if(typeof(element)!="undefined" && typeof(element[0])!="undefined")
 				document.allAutoCompleteList["<"+element[0].nodeName.toLowerCase()] = ' Freq: '+ document.completeElementTable.get(element[0]);
 		}
-		console.log("All auto Complete list");
-		console.log(document.allAutoCompleteList);
+		// console.log("All auto Complete list");
+		// console.log(document.allAutoCompleteList);
 	}
 	groupTokenization();
 }
