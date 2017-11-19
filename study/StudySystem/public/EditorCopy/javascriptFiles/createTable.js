@@ -10,13 +10,7 @@ function createTable(){
 		document.elementTable = new Map();
 		document.completeElementTable = new Map();
 		for(let element of elements){
-			if(typeof(element) && element.attributes.length>0){
-				// for(let attr of element.attributes){  			 Changed these lines here
-				   for(var i=0; i<element.attributes.length; i++){// becauese jsdom does not 
-				   		var attr = element.attributes[i];         // have an iterator for children.
-						if(element.attributes[0].nodeName!="<"){
-							//In case it contains special char.
-							var tempTag = element.tagName.replace(/'/g,"\\'")
+			var tagName =  element.tagName.replace(/'/g,"\\'")
 														 .replace(/;/g,"\\;")
 														 .replace(/:/g,"\\:")
 														 .replace(/&/g,"\\&")
@@ -32,40 +26,33 @@ function createTable(){
 														 .replace(/\=/g,"\\=")
 														 .replace(/,/g,"\\,")
 														 .replace(/\*/g,"\\*");
+														 			// console.log(tagName);
+			if(typeof(element) && element.attributes.length>0){
+				// for(let attr of element.attributes){  			Changed these lines on the prilot testing
+				   for(var i=0; i<element.attributes.length; i++){//copy becauese jsdom does not 
+				   		var attr = element.attributes[i];         //have an iterator for children.
+					if(element.attributes[0].nodeName!="<"){
+						createElementTable(tagName, attr);
+					}
+					if(attr.nodeValue!=""){
+						if(attr.nodeValue=="title")
+							attrValName = attr.nodeName;
+						else//In case it contains multiple classes or special char.
+							attrValName = attr.nodeValue.replace(/\s+(?=[^\s+])/g,".").replace(/'/g,"\\'");
+						attrName = attr.nodeName.replace(/:/g,'\\\:');//In case we get : special char.
 
-							createElementTable(tempTag, attr);
+						if(attrValName=="We're.on.a.mission..Wanna.join?"){
+							console.log("here");
 						}
-						if(attr.nodeValue!=""){
-							if(attr.nodeValue=="title")
-								attrValName = attr.nodeName;
-							else//In case it contains multiple classes or special char.
-								attrValName = attr.nodeValue.replace(/\s+(?=[^\s+])/g,".")
-															.replace(/'/g,"\\'")
-															.replace(/;/g,"\\;")
-															.replace(/:/g,"\\:")
-															.replace(/&/g,"\\&")
-															.replace(/@/g,"\\@")
-															.replace(/!/g,"\\!")
-															.replace(/#/g,"\\#")
-															.replace(/%/g,"\\%")
-															.replace(/"/g,"\\\"")
-															.replace(/\\/g,"\\")
-															.replace(/>/g,"\\>")
-															.replace(/</g,"\\<")
-															.replace(/\=/g,"\\=")
-															.replace(/\$/g,"\\$")
-															.replace(/,/g,"\\,")
-															.replace(/\*/g,"\\*");
-							attrName = attr.nodeName.replace(/:/g,'\\\:');//In case we get : special char.
 
-							document.completeElementTable.set(
-								$("iframe#output").contents().find(tempTag.toLowerCase()+"["+attrName+"='"+attrValName+"']")[0],
-									$("iframe#output").contents().find(tempTag.toLowerCase()+"["+attrName+"='"+attrValName+"']").length);
-						}
+						document.completeElementTable.set(
+							$("iframe#output").contents().find(tagName.toLowerCase()+"["+attrName+"='"+attrValName+"']")[0],
+								$("iframe#output").contents().find(tagName.toLowerCase()+"["+attrName+"='"+attrValName+"']").length);
+					}
 				}
 			}else{
-				createElementTable(element.tagName, "undefined");
-				var allSameTag = document.completeElementTable.get($("iframe#output").contents().find(element.nodeName.toLowerCase()))
+				createElementTable(tagName, "undefined");
+				var allSameTag = document.completeElementTable.get($("iframe#output").contents().find(tagName.toLowerCase()))
 				if(typeof(allSameTag)!="undefined"){
 					for(let elem of allSameTag)
 						if(typeof(elem[0].attributes)=="undefined"){

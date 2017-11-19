@@ -39,12 +39,13 @@
 		for(var line of fileList){
 			if(line.includes("#########")){
 				counter++;
-			} if(counter>=0 && <=50){//To only test a range of doc.
+			} if(counter>=51 && counter<=100){//To only test a range of doc.
 				saveSets(data, line);
-			} else{
-				global.lineNum = 0;
-				break;
-			}
+			} 
+			// else{
+			// 	global.lineNum = 0;
+			// 	break;
+			// }
 		}
 		return true;
 	}

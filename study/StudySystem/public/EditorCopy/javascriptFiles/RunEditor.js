@@ -34,7 +34,7 @@
       console.timeEnd("Complete Process");
 
     //Writing answers to an csv file.
-    csvdata.write('./AttrOutput_.csv', attrOutput);
+    csvdata.write('./AttrOutput_50_100.csv', attrOutput);
     console.log(attrOutput);
     }, 5000);  
   });
