@@ -6,6 +6,8 @@
 	var readline = require('readline');
 	var app = express();
 	var count=0, filename;
+	var run = require(__dirname+'/public/EditorCopy/javascriptFiles/RunEditor');
+	var evaluate = require(__dirname+'/public/EditorCopy/javascriptFiles/EvaluateTest');
 
 	global.lineNum = 0;
 	global.trainingData = new Map();//Contains the training data.
@@ -24,12 +26,14 @@
 /*	Adding the information to a map with key = name of html file
  *	and value = all the html code. The timeout is to make them
  *	run asynchronous.
- */ var finished = false;
+ */ var finished = false, finishedTest = false;
  	readFile('TestInputFiles/TrainingSet.text', global.trainingData);
     readFile('TestInputFiles/AttrTestingSet.text', global.testingData);
     finished = readFile('TestInputFiles/AttrAnswers.text', global.answers);
-    if(finished)
-		require(__dirname+'/public/EditorCopy/javascriptFiles/RunEditor');
+ //    if(finished)
+	// 	finishedTest = run.runEditor();
+	// if(finishedTest)
+		evaluate.eval(__dirname +"/AttrOutput_1_50.csv");
 
 
 	//Reads the file.

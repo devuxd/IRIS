@@ -3,41 +3,45 @@
  * Using node.js to get the html file information that will be use
  * to test the editors performance.
 */
+module.exports = {
+  runEditor: function runEditor(){
+    const K = 20;
+    var fs = require('fs');
+    require('jsdom-global')();
+    const jsdom = require("jsdom");
+    var csvdata = require("csvdata");
+    var metric = require(__dirname+"/PrecisionRecall");
 
-  const K = 20;
-  var fs = require('fs');
-  require('jsdom-global')();
-  const jsdom = require("jsdom");
-  var csvdata = require("csvdata");
-  var metric = require(__dirname+"/PrecisionRecall");
+    var attrOutput = [];
+    var precisionMean = [];
 
-  var attrOutput = [];
-  var precisionMean = [];
+    const { JSDOM } = jsdom;
+    var htmlSource = fs.readFileSync(__dirname+"/../editor.html", "utf-8");
+    const dom = JSDOM.fromFile(__dirname+"/../editor.html", { resources: "usable", runScripts: "dangerously",
 
-  const { JSDOM } = jsdom;
-  var htmlSource = fs.readFileSync(__dirname+"/../editor.html", "utf-8");
-  const dom = JSDOM.fromFile(__dirname+"/../editor.html", { resources: "usable", runScripts: "dangerously",
+    //This executes the editor.
+    }).then(dom => {
+      setTimeout(function(){ //Timeout to wait for all the script to finish loading.
+        var fileTest = global.testingData.entries();
+        var answer = global.answers.entries();
 
-  //This executes the editor.
-  }).then(dom => {
-    setTimeout(function(){ //Timeout to wait for all the script to finish loading.
-      var fileTest = global.testingData.entries();
-      var answer = global.answers.entries();
+        console.time("Complete Process");
+        for(var fileTrain of global.trainingData){
+          console.time("Test Attr");
+          testAttributes(fileTrain, fileTest.next().value, answer.next().value, dom); //To test onlty the attributes.
+          console.timeEnd("Test Attr");
 
-      console.time("Complete Process");
-      for(var fileTrain of global.trainingData){
-        console.time("Test Attr");
-        testAttributes(fileTrain, fileTest.next().value, answer.next().value, dom); //To test onlty the attributes.
-        console.timeEnd("Test Attr");
+        }
+        console.timeEnd("Complete Process");
 
-      }
-      console.timeEnd("Complete Process");
-
-    //Writing answers to an csv file.
-    csvdata.write('./AttrOutput_50_100.csv', attrOutput);
-    console.log(attrOutput);
-    }, 5000);  
-  });
+      //Writing answers to an csv file.
+      csvdata.write('./AttrOutput.csv', attrOutput);
+      console.log(attrOutput);
+      }, 5000);  
+    });
+    return true;
+  }
+}
 
 /*
  * This function performs the attribute testing by comparing
