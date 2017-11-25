@@ -1,16 +1,14 @@
 module.exports = {
   eval: function eval(fileName){
   	var fs = require('fs');
-    var d3 = require("d3");
-    // const d3nLine = require('d3node-linechart');
-    var $ = require('jquery');
 
 	fileList =  fs.readFileSync(fileName).toString().split("\n");
 	var precisions = new Map();
 	var recall = new Map();
 	var firstLine = false;
 	var fileName;
-	var precisionAvg = [];
+	var precisionAvg = {};
+	var recallAvg = {};
 
 	for(var line of fileList){
 		var strLine = line.substring(line.indexOf(',')+1);
@@ -32,17 +30,108 @@ module.exports = {
 			recall.set(fileName + " " + input, strLine.split(",")); 
 		
 	}
-	var average = 0;
+	var averageprec = 0;
+	var prevTitle  = precisions.keys().next().value.split(" ")[0];
+	var titleCounter = 0;
 	for(var prec of precisions){
-		average = 0;
+		averageprec = 0;
+		var title = prec[0].split(" ")[0];
+		if(prevTitle==title)
+			titleCounter++;
+		else{
+			if(typeof(precisionAvg[prevTitle])=="undefined")
+				precisionAvg[prevTitle] = 0;
+			else
+				precisionAvg[prevTitle] = precisionAvg[prevTitle]/titleCounter;
+			titleCounter = 1;
+		}
 		for(var vals of prec[1]){
 			if(typeof(parseFloat(vals))=="number")
-		 		average+=parseFloat(vals);
+		 		averageprec+=parseFloat(vals);
 		}
-		average /= 20;
-		precisionAvg.push(average);
-	}
-	var y_ = [0.5,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50,0.55,0.60,0.65,0.70,0.75,0.80,0.85,0.90,0.95,1];
+		averageprec /= 20;
 
+		if(!isNaN(averageprec) && typeof(precisionAvg[title])=="undefined")
+			precisionAvg[title] = averageprec;
+		else if(!isNaN(averageprec))
+			precisionAvg[title] = precisionAvg[title]+averageprec;
+		prevTitle = title;
+	}
+
+	var averagerec = 0;
+	prevTitle  = recall.keys().next().value.split(" ")[0];
+	titleCounter = 0;
+	for(var rec of recall){
+		averagerec = 0;
+		var title = rec[0].split(" ")[0];
+		if(prevTitle==title)
+			titleCounter++;
+		else{
+			if(typeof(recallAvg[prevTitle])=="undefined")
+				recallAvg[prevTitle] = 0;
+			else
+				recallAvg[prevTitle] = recallAvg[prevTitle]/titleCounter;
+			titleCounter = 1;
+		}
+		for(var vals of rec[1]){
+			if(typeof(parseFloat(vals))=="number")
+		 		averagerec+=parseFloat(vals);
+		}
+		averagerec /= 20;
+
+		if(!isNaN(averagerec) && typeof(recallAvg[title])=="undefined")
+			recallAvg[title] = averagerec;
+		else if(!isNaN(averagerec))
+			recallAvg[title] = recallAvg[title]+averagerec;
+		prevTitle = title;
+	}
+
+	var xandy = [];
+	for(var i in recallAvg){
+		xandy.push({"x":precisionAvg[i], "y":recallAvg[i]});
+	}
+	var chartJsOptions = {
+	  "type": "line",
+	  "data": xandy,
+	  "options": {
+	      "scales": {
+	          "yAxes": [{
+	              "ticks": {
+	                  "beginAtZero": true
+	              }
+	          }]
+	      }
+	  }
+	}
+  
+	const ChartjsNode = require('chartjs-node');
+	// 600x600 canvas size
+	var chartNode = new ChartjsNode(600, 600);
+	return chartNode.drawChart(chartJsOptions)
+	.then(() => {
+	    // chart is created
+
+	    // get image as png buffer
+	    return chartNode.getImageBuffer('image/png');
+	})
+	.then(buffer => {
+	    Array.isArray(buffer) // => true
+	    // as a stream
+	    return chartNode.getImageStream('image/png');
+	})
+	.then(streamResult => {
+	    // using the length property you can do things like
+	    // directly upload the image to s3 by using the
+	    // stream and length properties
+	    streamResult.stream // => Stream object
+	    streamResult.length // => Integer length of stream
+	    // write to a file
+	    return chartNode.writeImageToFile('image/png', './testimage.png');
+	})
+	.then(() => {
+	    // chart is now written to the file path
+	    // ./testimage.png
+	});
   }
+
 }
