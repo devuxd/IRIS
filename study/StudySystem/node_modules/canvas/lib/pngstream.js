@@ -10,7 +10,8 @@
  * Module dependencies.
  */
 
-var Stream = require('stream').Stream;
+var Readable = require('stream').Readable;
+var util = require('util');
 
 /**
  * Initialize a `PNGStream` with the given `canvas`.
@@ -25,37 +26,42 @@ var Stream = require('stream').Stream;
  *     stream.pipe(out);
  *
  * @param {Canvas} canvas
- * @param {Boolean} sync
+ * @param {Object} options
+ * @param {Uint8ClampedArray} options.palette Provide for indexed PNG encoding.
+ *   entries should be R-G-B-A values.
+ * @param {Number} options.backgroundIndex Optional index of background color
+ *   for indexed PNGs. Defaults to 0.
  * @api public
  */
 
-var PNGStream = module.exports = function PNGStream(canvas, sync) {
-  var self = this
-    , method = sync
-      ? 'streamPNGSync'
-      : 'streamPNG';
-  this.sync = sync;
+var PNGStream = module.exports = function PNGStream(canvas, options) {
+  if (!(this instanceof PNGStream)) {
+    throw new TypeError("Class constructors cannot be invoked without 'new'");
+  }
+
+  Readable.call(this);
+
+  var self = this;
   this.canvas = canvas;
-  this.readable = true;
-  // TODO: implement async
-  if ('streamPNG' == method) method = 'streamPNGSync';
-  process.nextTick(function(){
-    canvas[method](function(err, chunk, len){
-      if (err) {
-        self.emit('error', err);
-        self.readable = false;
-      } else if (len) {
-        self.emit('data', chunk, len);
-      } else {
-        self.emit('end');
-        self.readable = false;
-      }
-    });
-  });
+  this.options = options || {};
 };
 
-/**
- * Inherit from `EventEmitter`.
- */
+util.inherits(PNGStream, Readable);
 
-PNGStream.prototype.__proto__ = Stream.prototype;
+function noop() {}
+
+PNGStream.prototype._read = function _read() {
+  // For now we're not controlling the c++ code's data emission, so we only
+  // call canvas.streamPNGSync once and let it emit data at will.
+  this._read = noop;
+  var self = this;
+  self.canvas.streamPNGSync(function(err, chunk, len){
+    if (err) {
+      self.emit('error', err);
+    } else if (len) {
+      self.push(chunk);
+    } else {
+      self.push(null);
+    }
+  }, self.options);
+};

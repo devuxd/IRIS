@@ -31,6 +31,7 @@ module.exports = {
       }
       //Adding results to the variable that will be use for the
       //scv output.
+      values = values.replace(/,/g, " ");
       attrOutput.push(["Precision:, "+values+","+tempPrecision]);
       attrOutput.push(["Recall:, "+values+","+tempRecall]);
 

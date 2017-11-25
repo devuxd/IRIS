@@ -5,6 +5,7 @@
 */
 module.exports = {
   runEditor: function runEditor(){
+    var finished = false;
     const K = 20;
     var fs = require('fs');
     require('jsdom-global')();
@@ -25,21 +26,22 @@ module.exports = {
         var fileTest = global.testingData.entries();
         var answer = global.answers.entries();
 
-        console.time("Complete Process");
+        console.time("Complete Process");//Takes about 1962818.904ms or 33 min to complete 50 html pages.
         for(var fileTrain of global.trainingData){
           console.time("Test Attr");
-          testAttributes(fileTrain, fileTest.next().value, answer.next().value, dom); //To test onlty the attributes.
+          attrOutput = testAttributes(fileTrain, fileTest.next().value, answer.next().value, dom, attrOutput, K, metric); //To test onlty the attributes.
           console.timeEnd("Test Attr");
 
         }
         console.timeEnd("Complete Process");
 
       //Writing answers to an csv file.
-      csvdata.write('./AttrOutput.csv', attrOutput);
       console.log(attrOutput);
+      csvdata.write('./AttrOutput_51_100_2.csv', attrOutput);
+      finished = true;
       }, 5000);  
     });
-    return true;
+    return finished;
   }
 }
 
@@ -49,7 +51,7 @@ module.exports = {
  * Inputs are and individual html train file, test file,
  * answer file, and the DOM of the editor instance. 
 */
-function testAttributes(fileTrain, fileTest, answers, dom){
+function testAttributes(fileTrain, fileTest, answers, dom, attrOutput, K, metric){
   //Getting all training and testing data.
     var linesTraining = fileTrain[1];
     var linesTesting = fileTest[1].split("\n");
@@ -101,5 +103,6 @@ function testAttributes(fileTrain, fileTest, answers, dom){
    console.time("Precision Recall");
    attrOutput = metric.precisionRecall(answer, editorAnswer, K, attrOutput);
    console.timeEnd("Precision Recall");
+   return attrOutput;
 }
 

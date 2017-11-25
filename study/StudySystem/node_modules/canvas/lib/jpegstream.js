@@ -10,7 +10,8 @@
  * Module dependencies.
  */
 
-var Stream = require('stream').Stream;
+var Readable = require('stream').Readable;
+var util = require('util');
 
 /**
  * Initialize a `JPEGStream` with the given `canvas`.
@@ -25,38 +26,41 @@ var Stream = require('stream').Stream;
  *     stream.pipe(out);
  *
  * @param {Canvas} canvas
- * @param {Boolean} sync
  * @api public
  */
 
-var JPEGStream = module.exports = function JPEGStream(canvas, options, sync) {
-  var self = this
-    , method = sync
-      ? 'streamJPEGSync'
-      : 'streamJPEG';
+var JPEGStream = module.exports = function JPEGStream(canvas, options) {
+  if (!(this instanceof JPEGStream)) {
+    throw new TypeError("Class constructors cannot be invoked without 'new'");
+  }
+
+  Readable.call(this);
+
+  var self = this;
   this.options = options;
-  this.sync = sync;
   this.canvas = canvas;
-  this.readable = true;
-  // TODO: implement async
-  if ('streamJPEG' == method) method = 'streamJPEGSync';
-  process.nextTick(function(){
-    canvas[method](options.bufsize, options.quality, options.progressive, function(err, chunk){
-      if (err) {
-        self.emit('error', err);
-        self.readable = false;
-      } else if (chunk) {
-        self.emit('data', chunk);
-      } else {
-        self.emit('end');
-        self.readable = false;
-      }
-    });
-  });
 };
 
-/**
- * Inherit from `EventEmitter`.
- */
+util.inherits(JPEGStream, Readable);
 
-JPEGStream.prototype.__proto__ = Stream.prototype;
+function noop() {}
+
+JPEGStream.prototype._read = function _read() {
+  // For now we're not controlling the c++ code's data emission, so we only
+  // call canvas.streamJPEGSync once and let it emit data at will.
+  this._read = noop;
+  var self = this;
+  var method = this.method;
+  var bufsize = this.options.bufsize;
+  var quality = this.options.quality;
+  var progressive = this.options.progressive;
+  self.canvas.streamJPEGSync(bufsize, quality, progressive, function(err, chunk){
+    if (err) {
+      self.emit('error', err);
+    } else if (chunk) {
+      self.push(chunk);
+    } else {
+      self.push(null);
+    }
+  });
+};

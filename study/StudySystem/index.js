@@ -9,6 +9,7 @@
 	var run = require(__dirname+'/public/EditorCopy/javascriptFiles/RunEditor');
 	var evaluate = require(__dirname+'/public/EditorCopy/javascriptFiles/EvaluateTest');
 
+
 	global.lineNum = 0;
 	global.trainingData = new Map();//Contains the training data.
 	global.testingData = new Map();//Contains the testing data.
@@ -30,10 +31,10 @@
  	readFile('TestInputFiles/TrainingSet.text', global.trainingData);
     readFile('TestInputFiles/AttrTestingSet.text', global.testingData);
     finished = readFile('TestInputFiles/AttrAnswers.text', global.answers);
- //    if(finished)
-	// 	finishedTest = run.runEditor();
-	// if(finishedTest)
-		evaluate.eval(__dirname +"/AttrOutput_1_50.csv");
+    if(finished)
+		finishedTest = run.runEditor();
+	if(finishedTest)
+		evaluate.eval(__dirname +"/AttrOutput_51_100_2.csv");
 
 
 	//Reads the file.
@@ -46,7 +47,7 @@
 			} if(counter>=51 && counter<=100){//To only test a range of doc.
 				saveSets(data, line);
 			} 
-			// else{
+			// else{//Need this to read starting at 0;
 			// 	global.lineNum = 0;
 			// 	break;
 			// }

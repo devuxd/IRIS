@@ -52,7 +52,7 @@ module.exports = class HTMLToDOM {
 
   _parseWithSax(html, fragment, element) {
     const SaxParser = this.parser.parser;
-    const parser = new SaxParser(/* strict = */true, { xmlns: true });
+    const parser = new SaxParser(/* strict = */true, { xmlns: true, strictEntities: true });
     parser.noscript = false;
     parser.looseCase = "toString";
     const openStack = [element];
@@ -60,6 +60,12 @@ module.exports = class HTMLToDOM {
       setChild(this.core, openStack[openStack.length - 1], {
         type: "text",
         data: text
+      });
+    };
+    parser.oncdata = cdata => {
+      setChild(this.core, openStack[openStack.length - 1], {
+        type: "cdata",
+        data: cdata
       });
     };
     parser.onopentag = arg => {
@@ -170,6 +176,10 @@ function setChild(core, parentImpl, node) {
     case "text":
       // HTML entities should already be decoded by the parser, so no need to decode them
       newNode = currentDocument.createTextNode(node.data);
+      break;
+
+    case "cdata":
+      newNode = currentDocument.createCDATASection(node.data);
       break;
 
     case "comment":

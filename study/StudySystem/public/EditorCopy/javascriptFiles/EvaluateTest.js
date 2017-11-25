@@ -90,23 +90,48 @@ module.exports = {
 	for(var i in recallAvg){
 		xandy.push({"x":precisionAvg[i], "y":recallAvg[i]});
 	}
-	var chartJsOptions = {
-	  "type": "line",
-	  "data": xandy,
-	  "options": {
-	      "scales": {
-	          "yAxes": [{
-	              "ticks": {
-	                  "beginAtZero": true
-	              }
-	          }]
-	      }
-	  }
+
+	var chartJsOptions =
+	{
+			type: 'scatter',
+		   	 data: {
+	      		datasets: [{
+		        label: "Precision vs Recall",
+		        data: xandy,
+		        borderColor : "#779",
+		        borderWidth : "2",
+		        hoverBorderColor : "#fff",
+	            backgroundColor: "rgba(54, 162, 235, 0.2)"
+	      }]
+	   	},
+	   	options: {
+		   	responsive: true
+		   	// ,title: {
+      //       display: true,
+      //       text: 'Precision vs Recall'
+	     //    },
+	     //    scales: {
+		    //     yAxes: [{
+		    //       scaleLabel: {
+		    //         display: true,
+		    //         labelString: 'Precision'
+		    //       }
+		    //     }],
+		    //      xAxes: [{
+		    //       scaleLabel: {
+		    //         display: true,
+		    //         labelString: 'Recall'
+		    //       }
+		    //     }]
+		    //  }
+	   }
+
 	}
+
   
 	const ChartjsNode = require('chartjs-node');
 	// 600x600 canvas size
-	var chartNode = new ChartjsNode(600, 600);
+	var chartNode = new ChartjsNode(1300, 800);
 	return chartNode.drawChart(chartJsOptions)
 	.then(() => {
 	    // chart is created
@@ -126,7 +151,7 @@ module.exports = {
 	    streamResult.stream // => Stream object
 	    streamResult.length // => Integer length of stream
 	    // write to a file
-	    return chartNode.writeImageToFile('image/png', './testimage.png');
+	    return chartNode.writeImageToFile('image/png', './testimage_51_100.png');
 	})
 	.then(() => {
 	    // chart is now written to the file path

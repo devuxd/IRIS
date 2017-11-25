@@ -10,106 +10,13 @@
  * Module dependencies.
  */
 
-var canvas = require('./bindings')
-  , Canvas = canvas.Canvas
-  , Image = canvas.Image
-  , cairoVersion = canvas.cairoVersion
-  , Context2d = require('./context2d')
-  , PNGStream = require('./pngstream')
-  , PDFStream = require('./pdfstream')
-  , JPEGStream = require('./jpegstream')
-  , FontFace = canvas.FontFace
-  , fs = require('fs')
-  , packageJson = require("../package.json")
-  , FORMATS = ['image/png', 'image/jpeg'];
-
-/**
- * Export `Canvas` as the module.
- */
-
-var Canvas = exports = module.exports = Canvas;
-
-/**
- * Library version.
- */
-
-exports.version = packageJson.version;
-
-/**
- * Cairo version.
- */
-
-exports.cairoVersion = cairoVersion;
-
-/**
- * jpeglib version.
- */
-
-if (canvas.jpegVersion) {
-  exports.jpegVersion = canvas.jpegVersion;
-}
-
-/**
- * gif_lib version.
- */
-
-if (canvas.gifVersion) {
-  exports.gifVersion = canvas.gifVersion.replace(/[^.\d]/g, '');
-}
-
-/**
- * freetype version.
- */
-
-if (canvas.freetypeVersion) {
-  exports.freetypeVersion = canvas.freetypeVersion;
-}
-
-/**
- * Expose constructors.
- */
-
-exports.Context2d = Context2d;
-exports.PNGStream = PNGStream;
-exports.PDFStream = PDFStream;
-exports.JPEGStream = JPEGStream;
-exports.Image = Image;
-exports.ImageData = canvas.ImageData;
-
-if (FontFace) {
-  var Font = function Font(name, path, idx) {
-    this.name = name;
-    this._faces = {};
-
-    this.addFace(path, 'normal', 'normal', idx);
-  };
-
-  Font.prototype.addFace = function(path, weight, style, idx) {
-    style = style || 'normal';
-    weight = weight || 'normal';
-
-    var face = new FontFace(path, idx || 0);
-    this._faces[weight + '-' + style] = face;
-  };
-
-  Font.prototype.getFace = function(weightStyle) {
-    return this._faces[weightStyle] || this._faces['normal-normal'];
-  };
-
-  exports.Font = Font;
-}
-
-/**
- * Context2d implementation.
- */
-
-require('./context2d');
-
-/**
- * Image implementation.
- */
-
-require('./image');
+const bindings = require('./bindings')
+const Canvas = module.exports = bindings.Canvas
+const Context2d = require('./context2d')
+const PNGStream = require('./pngstream')
+const PDFStream = require('./pdfstream')
+const JPEGStream = require('./jpegstream')
+const FORMATS = ['image/png', 'image/jpeg']
 
 /**
  * Inspect canvas.
@@ -125,14 +32,15 @@ Canvas.prototype.inspect = function(){
 /**
  * Get a context object.
  *
- * @param {String} contextId
+ * @param {String} contextType must be "2d"
+ * @param {Object {alpha: boolean, pixelFormat: PIXEL_FORMAT} } contextAttributes Optional
  * @return {Context2d}
  * @api public
  */
 
-Canvas.prototype.getContext = function(contextId){
-  if ('2d' == contextId) {
-    var ctx = this._context2d || (this._context2d = new Context2d(this));
+Canvas.prototype.getContext = function (contextType, contextAttributes) {
+  if ('2d' == contextType) {
+    var ctx = this._context2d || (this._context2d = new Context2d(this, contextAttributes));
     this.context = ctx;
     ctx.canvas = this;
     return ctx;
@@ -142,25 +50,18 @@ Canvas.prototype.getContext = function(contextId){
 /**
  * Create a `PNGStream` for `this` canvas.
  *
+ * @param {Object} options
+ * @param {Uint8ClampedArray} options.palette Provide for indexed PNG encoding.
+ *   entries should be R-G-B-A values.
+ * @param {Number} options.backgroundIndex Optional index of background color
+ *   for indexed PNGs. Defaults to 0.
  * @return {PNGStream}
  * @api public
  */
 
 Canvas.prototype.pngStream =
-Canvas.prototype.createPNGStream = function(){
-  return new PNGStream(this);
-};
-
-/**
- * Create a synchronous `PNGStream` for `this` canvas.
- *
- * @return {PNGStream}
- * @api public
- */
-
-Canvas.prototype.syncPNGStream =
-Canvas.prototype.createSyncPNGStream = function(){
-  return new PNGStream(this, true);
+Canvas.prototype.createPNGStream = function(options){
+  return new PNGStream(this, false, options);
 };
 
 /**
@@ -176,18 +77,6 @@ Canvas.prototype.createPDFStream = function(){
 };
 
 /**
- * Create a synchronous `PDFStream` for `this` canvas.
- *
- * @return {PDFStream}
- * @api public
- */
-
-Canvas.prototype.syncPDFStream =
-Canvas.prototype.createSyncPDFStream = function(){
-  return new PDFStream(this, true);
-};
-
-/**
  * Create a `JPEGStream` for `this` canvas.
  *
  * @param {Object} options
@@ -197,19 +86,6 @@ Canvas.prototype.createSyncPDFStream = function(){
 
 Canvas.prototype.jpegStream =
 Canvas.prototype.createJPEGStream = function(options){
-  return this.createSyncJPEGStream(options);
-};
-
-/**
- * Create a synchronous `JPEGStream` for `this` canvas.
- *
- * @param {Object} options
- * @return {JPEGStream}
- * @api public
- */
-
-Canvas.prototype.syncJPEGStream =
-Canvas.prototype.createSyncJPEGStream = function(options){
   options = options || {};
   // Don't allow the buffer size to exceed the size of the canvas (#674)
   var maxBufSize = this.width * this.height * 4;
