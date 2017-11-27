@@ -34,7 +34,7 @@
     if(finished)
 		finishedTest = run.runEditor();
 	if(finishedTest)
-		evaluate.eval(__dirname +"/AttrOutput_51_100_2.csv");
+		evaluate.eval(__dirname +"/AttrOutput_1_50_2.csv");
 
 
 	//Reads the file.

@@ -1,6 +1,9 @@
 module.exports = {
   eval: function eval(fileName){
   	var fs = require('fs');
+  	var csvdata = require("csvdata");
+  	var titles  = [];
+  	var values = [];
 
 	fileList =  fs.readFileSync(fileName).toString().split("\n");
 	var precisions = new Map();
@@ -61,12 +64,16 @@ module.exports = {
 	var averagerec = 0;
 	prevTitle  = recall.keys().next().value.split(" ")[0];
 	titleCounter = 0;
+	var counter = 1;
+	titles+=prevTitle;
 	for(var rec of recall){
 		averagerec = 0;
 		var title = rec[0].split(" ")[0];
 		if(prevTitle==title)
 			titleCounter++;
 		else{
+			counter++;
+			titles+=","+title;
 			if(typeof(recallAvg[prevTitle])=="undefined")
 				recallAvg[prevTitle] = 0;
 			else
@@ -86,52 +93,92 @@ module.exports = {
 		prevTitle = title;
 	}
 
-	var xandy = [];
+	var x1 = [];
+	var x2 = [];
+	var y = [];
+	var ycounter = 0;
 	for(var i in recallAvg){
-		xandy.push({"x":precisionAvg[i], "y":recallAvg[i]});
+		x1.push(precisionAvg[i]);
+		x2.push(recallAvg[i]);
+		if(counter==0)
+			values+=Number(precisionAvg[i].toFixed(5))+" - "+Number(recallAvg[i].toFixed(5));
+		else
+			values+=","+Number(precisionAvg[i].toFixed(5))+" - "+Number(recallAvg[i].toFixed(5));
+		ycounter+=0.01;
+		y.push(ycounter);
 	}
+	var tocvs = [];
+	tocvs.push([[titles]]);
+	tocvs.push([[values]]);
+	csvdata.write('./condencePrecisionRecall_51_100.csv', tocvs);
+
+	 var testPlugin = {
+        beforeDraw: function (chartInstance) {
+            var ctx = chartInstance.chart.ctx;
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, chartInstance.chart.width, chartInstance.chart.height);
+            ctx.font = '10px Georgia';
+            ctx.fillColor = 'black'
+            return true;
+        }
+    };
 
 	var chartJsOptions =
 	{
-			type: 'scatter',
-		   	 data: {
-	      		datasets: [{
-		        label: "Precision vs Recall",
-		        data: xandy,
-		        borderColor : "#779",
-		        borderWidth : "2",
-		        hoverBorderColor : "#fff",
-	            backgroundColor: "rgba(54, 162, 235, 0.2)"
-	      }]
+		type: 'line',
+	   	data: {
+	   		labels: y,
+      		datasets: [
+      		{
+		        label: "Precision",
+		        data: x1,
+		        borderColor : "red",
+		        borderWidth : "3",
+		        hoverBorderColor : "red",
+	      	},
+	      	{
+	      		label: "Recall",
+		        data: x2,
+		        borderColor : "blue",
+		        borderWidth : "3",
+		        hoverBorderColor : "#blue",
+	      	}
+	      ]
 	   	},
 	   	options: {
-		   	responsive: true
-		   	// ,title: {
-      //       display: true,
-      //       text: 'Precision vs Recall'
-	     //    },
-	     //    scales: {
-		    //     yAxes: [{
-		    //       scaleLabel: {
-		    //         display: true,
-		    //         labelString: 'Precision'
-		    //       }
-		    //     }],
-		    //      xAxes: [{
-		    //       scaleLabel: {
-		    //         display: true,
-		    //         labelString: 'Recall'
-		    //       }
-		    //     }]
-		    //  }
-	   }
+		   	responsive: true,
+		   	title: {
+	            display: true,
+	            text: 'Precision and Recall',
+	            fontSize: 25
+	        },
+	        scales: {
+		        xAxes: [{
+		          ticks: {
+                    fontColor: "black",
+                    fontSize: 18,
+                    stepSize: .05,
+                    beginAtZero: true
+                  }
+		        }],
+		        yAxes: [{
+		          ticks: {
+                    fontColor: "black",
+                    fontSize: 18,
+                    stepSize: .05,
+                    beginAtZero: true
+                  }
+		        }]
+		     }
+	   },
+	   plugins: [testPlugin]
 
-	}
+	};
 
   
 	const ChartjsNode = require('chartjs-node');
-	// 600x600 canvas size
-	var chartNode = new ChartjsNode(1300, 800);
+	var chartNode = new ChartjsNode(1400, 800);
+
 	return chartNode.drawChart(chartJsOptions)
 	.then(() => {
 	    // chart is created
@@ -151,7 +198,7 @@ module.exports = {
 	    streamResult.stream // => Stream object
 	    streamResult.length // => Integer length of stream
 	    // write to a file
-	    return chartNode.writeImageToFile('image/png', './testimage_51_100.png');
+	    return chartNode.writeImageToFile('image/png', './testimage_51_100_2.png');
 	})
 	.then(() => {
 	    // chart is now written to the file path
