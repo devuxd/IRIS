@@ -2,7 +2,7 @@ function createTable(){
 	//Getting the body of the programmers html code.
     document.body_.html(document.editor.getValue());	
 	var elements = document.body_.find("*");
-	var query;
+	var query, attrValName, attrName, tagName;
 	//Once the user starts writing an element, this
 	//starts collecting elements.
 	if(typeof(elements)!="undefined" && elements.length>0){
@@ -10,11 +10,27 @@ function createTable(){
 		document.elementTable = new Map();
 		document.completeElementTable = new Map();
 		for(let element of elements){
+			tagName =  element.tagName.replace(/'/g,"\\'")
+									  .replace(/;/g,"\\;")
+									  .replace(/:/g,"\\:")
+									  .replace(/&/g,"\\&")
+									  .replace(/@/g,"\\@")
+									  .replace(/!/g,"\\!")
+									  .replace(/#/g,"\\#")
+									  .replace(/%/g,"\\%")
+									  .replace(/"/g,"\\\"")
+									  .replace(/\\/g,"\\")
+									  .replace(/>/g,"\\>")
+									  .replace(/</g,"\\<")
+									  .replace(/\$/g,"\\$")
+									  .replace(/\=/g,"\\=")
+									  .replace(/,/g,"\\,")
+									  .replace(/\*/g,"\\*");
 			if(typeof(element) && element.attributes.length>0){
-				for(var i=0; i<element.attributes.length; i++){//copy becauese jsdom does not 
-				   	var attr = element.attributes[i];         //have an iterator for children.
+				   for(var i=0; i<element.attributes.length; i++){
+				   		var attr = element.attributes[i];         
 					if(element.attributes[0].nodeName!="<"){
-						createElementTable(element.tagName, attr);
+						createElementTable(tagName, attr);
 					}
 					if(attr.nodeValue!=""){
 						if(attr.nodeValue=="title")
@@ -23,18 +39,14 @@ function createTable(){
 							attrValName = attr.nodeValue.replace(/\s+(?=[^\s+])/g,".").replace(/'/g,"\\'");
 						attrName = attr.nodeName.replace(/:/g,'\\\:');//In case we get : special char.
 
-						if(attrValName=="We're.on.a.mission..Wanna.join?"){
-							console.log("here");
-						}
-
 						document.completeElementTable.set(
-							$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attrName+"='"+attrValName+"']")[0],
-								$("iframe#output").contents().find(element.nodeName.toLowerCase()+"["+attrName+"='"+attrValName+"']").length);
+							$("iframe#output").contents().find(tagName.toLowerCase()+"["+attrName+"='"+attrValName+"']")[0],
+								$("iframe#output").contents().find(tagName.toLowerCase()+"["+attrName+"='"+attrValName+"']").length);
 					}
 				}
 			}else{
-				createElementTable(element.tagName, "undefined");
-				var allSameTag = document.completeElementTable.get($("iframe#output").contents().find(element.nodeName.toLowerCase()))
+				createElementTable(tagName, "undefined");
+				var allSameTag = document.completeElementTable.get($("iframe#output").contents().find(tagName.toLowerCase()))
 				if(typeof(allSameTag)!="undefined"){
 					for(let elem of allSameTag)
 						if(typeof(elem[0].attributes)=="undefined"){

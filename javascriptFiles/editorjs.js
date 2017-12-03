@@ -33,9 +33,10 @@ $(document).ready(function() {
 	    $(this).keyup(function(e) {   
          if(!(e.key=="ArrowUp" || e.key=="ArrowDown"|| e.key=="ArrowLeft" 
             || e.key=="ArrowRight")){//Don't do anything when pressing any arrow.
-            createTable();
-            attributeTokenization();
-            elementTokenization();
+            associationRule();
+            // createTable();
+            // attributeTokenization();
+            // elementTokenization();
         }
 	    });
   })();

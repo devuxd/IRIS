@@ -31,10 +31,10 @@
  	readFile('TestInputFiles/TrainingSet.text', global.trainingData);
     readFile('TestInputFiles/AttrTestingSet.text', global.testingData);
     finished = readFile('TestInputFiles/AttrAnswers.text', global.answers);
-    if(finished)
-		finishedTest = run.runEditor();
-	if(finishedTest)
-		evaluate.eval(__dirname +"/AttrOutput_1_50_2.csv");
+ //    if(finished)
+	// 	finishedTest = run.runEditor();
+	// if(finishedTest)//Need to run it separetly
+		evaluate.eval(__dirname +"/AttrOutput_51_100_3.csv");
 
 
 	//Reads the file.
@@ -44,13 +44,13 @@
 		for(var line of fileList){
 			if(line.includes("#########")){
 				counter++;
-			} if(counter>=51 && counter<=100){//To only test a range of doc.
+			} if(counter>=0 && counter<=50){//To only test a range of doc.
 				saveSets(data, line);
 			} 
-			// else{//Need this to read starting at 0;
-			// 	global.lineNum = 0;
-			// 	break;
-			// }
+			else{//Need this to read starting at 0;
+				global.lineNum = 0;
+				break;
+			}
 		}
 		return true;
 	}

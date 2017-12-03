@@ -18,29 +18,38 @@ module.exports = {
 
     const { JSDOM } = jsdom;
     var htmlSource = fs.readFileSync(__dirname+"/../editor.html", "utf-8");
-    const dom = JSDOM.fromFile(__dirname+"/../editor.html", { resources: "usable", runScripts: "dangerously",
 
-    //This executes the editor.
-    }).then(dom => {
-      setTimeout(function(){ //Timeout to wait for all the script to finish loading.
-        var fileTest = global.testingData.entries();
-        var answer = global.answers.entries();
+    try{
+          const dom = JSDOM.fromFile(__dirname+"/../editor.html", { resources: "usable", runScripts: "dangerously",
 
-        console.time("Complete Process");//Takes about 1962818.904ms or 33 min to complete 50 html pages.
-        for(var fileTrain of global.trainingData){
-          console.time("Test Attr");
-          attrOutput = testAttributes(fileTrain, fileTest.next().value, answer.next().value, dom, attrOutput, K, metric); //To test onlty the attributes.
-          console.timeEnd("Test Attr");
+          //This executes the editor.
+          }).then(dom => {
+            // setTimeout(function(){ //Timeout to wait for all the script to finish loading.
+              setTimeout(() => { 
+                            var fileTest = global.testingData.entries();
+                            var answer = global.answers.entries();
 
-        }
-        console.timeEnd("Complete Process");
+                            console.time("Complete Process");//Takes about 1962818.904ms or 33 min to complete 50 html pages.
+                            for(var fileTrain of global.trainingData){
+                              console.time("Test Attr");
+                              attrOutput = testAttributes(fileTrain, fileTest.next().value, answer.next().value, dom, attrOutput, K, metric); //To test onlty the attributes.
+                              console.timeEnd("Test Attr");
 
-      //Writing answers to an csv file.
-      console.log(attrOutput);
-      csvdata.write('./AttrOutput_51_100_2.csv', attrOutput);
-      finished = true;
-      }, 5000);  
-    });
+                            }
+                            console.timeEnd("Complete Process");
+
+                            //Writing answers to an csv file.
+                            console.log(attrOutput);
+                            csvdata.write('./AttrOutput_51_100_3.csv', attrOutput);
+                            finished = true;
+
+              }, 5000);  
+    }).catch(function(e) {
+        console.log(e); // "oh, no!"
+      });
+    }catch(e){
+      console.log(e);
+    }
     return finished;
   }
 }
@@ -105,4 +114,3 @@ function testAttributes(fileTrain, fileTest, answers, dom, attrOutput, K, metric
    console.timeEnd("Precision Recall");
    return attrOutput;
 }
-

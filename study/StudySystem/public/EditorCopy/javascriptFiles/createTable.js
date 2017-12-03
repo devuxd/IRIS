@@ -2,7 +2,7 @@ function createTable(){
 	//Getting the body of the programmers html code.
     document.body_.html(document.editor.getValue());	
 	var elements = document.body_.find("*");
-	var query, attrValName, attrName;
+	var query, attrValName, attrName, tagName;
 	//Once the user starts writing an element, this
 	//starts collecting elements.
 	if(typeof(elements)!="undefined" && elements.length>0){
@@ -10,27 +10,25 @@ function createTable(){
 		document.elementTable = new Map();
 		document.completeElementTable = new Map();
 		for(let element of elements){
-			var tagName =  element.tagName.replace(/'/g,"\\'")
-														 .replace(/;/g,"\\;")
-														 .replace(/:/g,"\\:")
-														 .replace(/&/g,"\\&")
-														 .replace(/@/g,"\\@")
-														 .replace(/!/g,"\\!")
-														 .replace(/#/g,"\\#")
-														 .replace(/%/g,"\\%")
-														 .replace(/"/g,"\\\"")
-														 .replace(/\\/g,"\\")
-														 .replace(/>/g,"\\>")
-														 .replace(/</g,"\\<")
-														 .replace(/\$/g,"\\$")
-														 .replace(/\=/g,"\\=")
-														 .replace(/,/g,"\\,")
-														 .replace(/\*/g,"\\*");
-														 			// console.log(tagName);
+			tagName =  element.tagName.replace(/'/g,"\\'")
+									  .replace(/;/g,"\\;")
+									  .replace(/:/g,"\\:")
+									  .replace(/&/g,"\\&")
+									  .replace(/@/g,"\\@")
+									  .replace(/!/g,"\\!")
+									  .replace(/#/g,"\\#")
+									  .replace(/%/g,"\\%")
+									  .replace(/"/g,"\\\"")
+									  .replace(/\\/g,"\\")
+									  .replace(/>/g,"\\>")
+									  .replace(/</g,"\\<")
+									  .replace(/\$/g,"\\$")
+									  .replace(/\=/g,"\\=")
+									  .replace(/,/g,"\\,")
+									  .replace(/\*/g,"\\*");
 			if(typeof(element) && element.attributes.length>0){
-				// for(let attr of element.attributes){  			Changed these lines on the prilot testing
-				   for(var i=0; i<element.attributes.length; i++){//copy becauese jsdom does not 
-				   		var attr = element.attributes[i];         //have an iterator for children.
+				   for(var i=0; i<element.attributes.length; i++){
+				   		var attr = element.attributes[i];         
 					if(element.attributes[0].nodeName!="<"){
 						createElementTable(tagName, attr);
 					}
@@ -40,10 +38,6 @@ function createTable(){
 						else//In case it contains multiple classes or special char.
 							attrValName = attr.nodeValue.replace(/\s+(?=[^\s+])/g,".").replace(/'/g,"\\'");
 						attrName = attr.nodeName.replace(/:/g,'\\\:');//In case we get : special char.
-
-						if(attrValName=="We're.on.a.mission..Wanna.join?"){
-							console.log("here");
-						}
 
 						document.completeElementTable.set(
 							$("iframe#output").contents().find(tagName.toLowerCase()+"["+attrName+"='"+attrValName+"']")[0],

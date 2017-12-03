@@ -110,7 +110,7 @@ module.exports = {
 	var tocvs = [];
 	tocvs.push([[titles]]);
 	tocvs.push([[values]]);
-	csvdata.write('./condencePrecisionRecall_51_100.csv', tocvs);
+	csvdata.write('./condencePrecisionRecall_51_100_3.csv', tocvs);
 
 	 var testPlugin = {
         beforeDraw: function (chartInstance) {
@@ -198,7 +198,7 @@ module.exports = {
 	    streamResult.stream // => Stream object
 	    streamResult.length // => Integer length of stream
 	    // write to a file
-	    return chartNode.writeImageToFile('image/png', './testimage_51_100_2.png');
+	    return chartNode.writeImageToFile('image/png', './testimage_51_100_3.png');
 	})
 	.then(() => {
 	    // chart is now written to the file path
