@@ -1,7 +1,8 @@
 /*
- *	Using node.js to load the testing and training data to the server
- *	in order to be able to perform a test of the editor's performance.
- */ var express = require('express');
+ *	USING NODE.JS TO LOAD THE TESTING AND TRAINING DATA TO THE SERVER
+ *	IN ORDER TO BE ABLE TO PERFORM A TEST OF THE EDITOR'S PERFORMANCE.
+ */
+ var express = require('express');
 	var fs = require('fs');
 	var readline = require('readline');
 	var app = express();
@@ -24,30 +25,38 @@
 	});
 
 
-/*	Adding the information to a map with key = name of html file
- *	and value = all the html code. The timeout is to make them
- *	run asynchronous.
- */ var finished = false, finishedTest = false;
- 	readFile('TestInputFiles/TrainingSet.text', global.trainingData);
-    readFile('TestInputFiles/AttrTestingSet.text', global.testingData);
-    finished = readFile('TestInputFiles/AttrAnswers.text', global.answers);
- //    if(finished)
-	// 	finishedTest = run.runEditor();
-	// if(finishedTest)//Need to run it separetly
-		evaluate.eval(__dirname +"/AttrOutput_51_100_3.csv");
+/*	
+ *  ADDING THE INFORMATION TO A MAP WITH KEY = NAME OF HTML FILE
+ *	AND VALUE = ALL THE HTML CODE. THE TIMEOUT IS TO MAKE THEM
+ *	RUN ASYNCHRONOUS.
+ // */
+   var finished = false, finishedTest = false;
+   var start = 0, end = 0;//Make it easier to test different ranges
+ 	readFile('TestInputFiles/TrainingSet.text', global.trainingData, start, end);
+    readFile('TestInputFiles/AttrTestingSet.text', global.testingData, start, end);
+    finished = readFile('TestInputFiles/AttrAnswers.text', global.answers, start, end);
+    if(finished)
+    	//The parameter is the name of the csv output file.
+		finishedTest = run.runEditor("test.csv");
+	if(finishedTest)//MIGHT NEED TO RUN THIS SEPARATLY BECAUSE IF THE HANDLING ERROR ISSUE ON RunEditor.
+		//The parameter are:
+		//	 the name of the file that we want to test,
+		//	 the name of the file that will only contain the precision and recall.
+		//   the name of the output graph.
+		evaluate.eval("test.csv", "test_small.csv", "testingGraph.png");
 
 
 	//Reads the file.
-	function readFile(filename, data){
+	function readFile(filename, data, start, end){
 		var counter = 0;
 		fileList =  fs.readFileSync(filename).toString().split("\n");
 		for(var line of fileList){
 			if(line.includes("#########")){
 				counter++;
-			} if(counter>=0 && counter<=50){//To only test a range of doc.
+			} if(counter>=start && counter<=end){//To only test a range of doc.
 				saveSets(data, line);
 			} 
-			else{//Need this to read starting at 0;
+			else if(end!=100){
 				global.lineNum = 0;
 				break;
 			}

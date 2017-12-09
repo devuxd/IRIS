@@ -1,3 +1,24 @@
+/*
+ * THESE TWO FUNCTIONS CREATE TWO MAPS:
+ *		- DOCUMENT.ELEMENTTABLE:
+ *			CONTAINS THE TAG NAME AS A KEY
+ *			AND AN ARRAY AS A VALUE.
+ *			THE ARRAY CONTAINS THE LINE # OF
+ *			WHERE THE ELEMENT IS AND ANOTHER
+ *			MAP CONTAINING AN ARRAY OF ALL 
+ *			THE ATTRIBUTES OF THE ELEMENT.
+ *			ALL THE ATTRIBUTES ARE THE KEY
+ *			AND THE VALUE IS ANOTHER MAP WITH
+ *			THE VALUES OF THE ATTRIBUTES.
+ *			THE VALUES OF THE ATTRIBUTES ARE THE 
+ *			KEY OF THE MAP AND THE FREQUENCY
+ *			OF THE VALUES ARE THE MAP VALUE.
+ *			TAG->ARRAY(LINE#, MAP(ARRAY(ATTR->MAP(VALUE->FREQUENCY))))
+ * 		- DOCUMENT.COMPLETEELEMENTTABLE:
+ *			CONTAINS A MAP WITH ALL ELEMENTS 
+ *			WITH THEIR ATTRIBUTES AS A KEY
+ *			AND THEIR FREQUENCY AS A VALUE.
+*/
 function createTable(){
 	//Getting the body of the programmers html code.
     document.body_.html(document.editor.getValue());	
@@ -9,6 +30,7 @@ function createTable(){
 		//To update the table on every keyup.
 		document.elementTable = new Map();
 		document.completeElementTable = new Map();
+		document.allAutoCompleteList = [];
 		for(let element of elements){
 			tagName =  element.tagName.replace(/'/g,"\\'")
 									  .replace(/;/g,"\\;")
@@ -40,8 +62,8 @@ function createTable(){
 						attrName = attr.nodeName.replace(/:/g,'\\\:');//In case we get : special char.
 
 						document.completeElementTable.set(
-							$("iframe#output").contents().find(tagName.toLowerCase()+"["+attrName+"='"+attrValName+"']")[0],
-								$("iframe#output").contents().find(tagName.toLowerCase()+"["+attrName+"='"+attrValName+"']").length);
+							$("iframe#output").contents().find(tagName.toLowerCase()+"["+attrName+"='"+attrValName.replace("."," ")+"']")[0],
+								$("iframe#output").contents().find(tagName.toLowerCase()+"["+attrName+"='"+attrValName.replace("."," ")+"']").length);
 					}
 				}
 			}else{

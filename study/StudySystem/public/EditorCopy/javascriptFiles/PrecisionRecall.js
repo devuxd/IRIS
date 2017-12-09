@@ -1,11 +1,10 @@
 /*
- * Computes precision and recall at K = 20.
- * formula used is p = # relevant words / # of words up to k
- *                 r = # relevant words / # of all words
- * More details about this metric can be found on the
- * readme file of this directory.
+ * COMPUTES PRECISION AND RECALL AT K = 20.
+ * FORMULA USED IS P = # RELEVANT WORDS / # OF WORDS UP TO K
+ *                 R = # RELEVANT WORDS / # OF ALL WORDS
+ * MORE DETAILS ABOUT THIS METRIC CAN BE FOUND ON THE
+ * README FILE OF THIS DIRECTORY.
 */
-
 module.exports = {
   precisionRecall: function precisionRecall(realValue, editorAnswer, K, attrOutput){
     var tempRecall = "", tempPrecision = "";

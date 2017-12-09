@@ -1,3 +1,11 @@
+/*
+ * ON PROCESS OF COMPETING THIS ONE.
+ * THIS WILL USE THE ASSOCIATION RULE
+ * TO CREATE RULES THAT WILL HELP
+ * POPULATE THE AUTOCOMPLETE.
+ * Currently working on thi one
+ * does not work as intended yet.
+*/
 function associationRule(){
 	//Getting the body of the programmers html code.
     document.body_.html(document.editor.getValue());	
@@ -7,7 +15,7 @@ function associationRule(){
 	var frequent = [];
 	var elementList = [];
 	for(var element of elements)
-		elementList.push(element.tagName);
+		elementList.push(element.tagName);//Will only start working with tags.
 
 	hierarchySearch(elementList, support, total, minsup, frequent, 1)
 }
@@ -34,6 +42,6 @@ function hierarchySearch(elementList, support, total, minsup, frequent, nth){
 
 function ithPath(element, current, ith, path){
 	if(current==ith) return;
-	path.push(element.tagName);
-	ithPath(element.firstChild, current++, ith, path);
+	// path.push(element.tagName);
+	// ithPath(element.firstChild, current++, ith, path);
 }

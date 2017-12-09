@@ -1,8 +1,8 @@
-
+/* THIS CREATES A LIST FOR THE EDITORS AUTO-COMPLETE.
+ * THE LIST CONTAINS ALL ATTRIBUTE=VALUE OF ELEMENTS 
+ * THAT THE USER HAS ALREADY WRITTEN.
+ */
 function attributeTokenization(){
-	//This creates a list for the editors auto-complete.
-	//The list contains all attribute=value of elements 
-	//that the user has already written.
 	if(typeof(document.elementTable)!="undefined"){
 		document.list = [];
 		if(document.elementTable.size>0){
@@ -37,5 +37,5 @@ function attributeTokenization(){
 			document.allAutoCompleteList[attr] = " Freq: "+document.list[attr];
 		console.log(document.allAutoCompleteList);
 		elementTokenization();
-	}			
+	}		
 }

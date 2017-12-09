@@ -1,5 +1,13 @@
+/*
+  THIS FUNCTION PERFORMS AN EVALUATION OF THE STUDY.
+  IT COLLECTS ALL THE PRECISIONS AN RECALL AND 
+  CALCULATES THE AVERAGE OF ALL OF THEM ACCORDING 
+  TO THEIR HTML SOURCE FILE.
+  IT THEN CREATE A GRAPH THAT ALLOWS VISUALIZATION
+  OF THE RESULTED AVERAGES.
+*/
 module.exports = {
-  eval: function eval(fileName){
+  eval: function eval(fileName, test_small, testingGraph){
   	var fs = require('fs');
   	var csvdata = require("csvdata");
   	var titles  = [];
@@ -13,6 +21,9 @@ module.exports = {
 	var precisionAvg = {};
 	var recallAvg = {};
 
+    //Adding precision and recall of each attribute tested to a map.
+    //The map contains the file name and attribute as a key and all 
+    //of thier precisions or recalls as a value.  
 	for(var line of fileList){
 		var strLine = line.substring(line.indexOf(',')+1);
 		strLine = strLine.substring(strLine.indexOf(',')+1);
@@ -36,6 +47,8 @@ module.exports = {
 	var averageprec = 0;
 	var prevTitle  = precisions.keys().next().value.split(" ")[0];
 	var titleCounter = 0;
+
+	//This performs the average calculation of precision.
 	for(var prec of precisions){
 		averageprec = 0;
 		var title = prec[0].split(" ")[0];
@@ -61,6 +74,7 @@ module.exports = {
 		prevTitle = title;
 	}
 
+	//This performs the average calculation of recall.
 	var averagerec = 0;
 	prevTitle  = recall.keys().next().value.split(" ")[0];
 	titleCounter = 0;
@@ -93,6 +107,8 @@ module.exports = {
 		prevTitle = title;
 	}
 
+	//These creates the graph.
+
 	var x1 = [];
 	var x2 = [];
 	var y = [];
@@ -110,7 +126,7 @@ module.exports = {
 	var tocvs = [];
 	tocvs.push([[titles]]);
 	tocvs.push([[values]]);
-	csvdata.write('./condencePrecisionRecall_51_100_3.csv', tocvs);
+	csvdata.write(test_small, tocvs);//This writes only the filename and preicision & recall.
 
 	 var testPlugin = {
         beforeDraw: function (chartInstance) {
@@ -198,7 +214,7 @@ module.exports = {
 	    streamResult.stream // => Stream object
 	    streamResult.length // => Integer length of stream
 	    // write to a file
-	    return chartNode.writeImageToFile('image/png', './testimage_51_100_3.png');
+	    return chartNode.writeImageToFile('image/png', testingGraph);
 	})
 	.then(() => {
 	    // chart is now written to the file path

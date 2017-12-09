@@ -1,4 +1,11 @@
-
+/*
+ * THIS CREATES THE EDITOR USING THE 
+ * ACE LIBRARY AND CALLS THE FUNCTIONS
+ * THAT CREATES DIFFERENT AUTOCOMPLETES.
+ * THIS FUNCTION HAS SOME DIFFERENCES
+ * TO THE ORIGINAL ONE USED TO RUN
+ * THE EDITOR. 
+*/
 $( document ).ready(function editorjs() {
   //Added for pilot test
   document.editorSelector = $("div#editor");

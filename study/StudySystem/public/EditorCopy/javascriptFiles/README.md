@@ -15,5 +15,8 @@
 |														|								     								|
 |RunEditor.js 											| This uses Node.js and jsdom to run the editor on the backend and perform the study of the editor to test its performance. Currently, it only test attributes using the function testAttributes(fileTrain, fileTest, answers, dom).
 |								     					|																	|
+|testAttributes.js  									| This performs the attribute testing by comparting the attrbute testing set with the attribute answer file.
+|								     					|																	|
 |PrecisionRecall.js  									| This contains the function that evaluates the performance of the editor using the metric Precision and Recall at K. Precision is defined as fraction of retrieved documents that are relevant, Recall is defined as fraction of relevant documents that are successfully retrieved. Precision and Recall at K are used to evaluate systems that work with ordered ranked items (in this case, the autocompletes). The formula used to calculate the Recision and Recall at K are the following: <br />&emsp;&emsp; - p = # relevant words / # of words up to k <br />&emsp;&emsp; - r = # relevant words / # of all words <br />More information about precision and recall can be found here:<br />&emsp;&emsp; - https://en.wikipedia.org/wiki/Precision_and_recall <br />More information about precision and recall at K can be found here:<br />&emsp;&emsp; - http://sdsawtelle.github.io/blog/output/mean-average-precision-MAP-for-recommender-systems.html <br />&emsp;&emsp; - https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html.
-
+|								     					|																	|
+|EvaluateTest.js  									    | This performs the evaluation of the study by collecting all the precisions and recall and calculating their average according to the html source file they belong to. It also creates a graph with the resulting data.

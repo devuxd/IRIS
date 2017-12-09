@@ -1,4 +1,8 @@
-
+/*
+ * THIS CREATES THE EDITOR USING THE 
+ * ACE LIBRARY AND CALLS THE FUNCTIONS
+ * THAT CREATES DIFFERENT AUTOCOMPLETES.
+*/ 
 $(document).ready(function() {
 
   //Using ace to get the editor.	
@@ -17,7 +21,6 @@ $(document).ready(function() {
   document.elementTable = new Map(); 
   document.completeElementTable = new Map();
   document.allAutoCompleteList = [];
-  // document.elementFreq = [];
 
   //This shows the html body code on the iframe.
   //This saves the content of the html doc that is going to be created on an iframe. 
@@ -33,10 +36,13 @@ $(document).ready(function() {
 	    $(this).keyup(function(e) {   
          if(!(e.key=="ArrowUp" || e.key=="ArrowDown"|| e.key=="ArrowLeft" 
             || e.key=="ArrowRight")){//Don't do anything when pressing any arrow.
-            associationRule();
-            // createTable();
-            // attributeTokenization();
-            // elementTokenization();
+
+          // HERE WE CAN ADD DIFFERENT FUNCTIONS TO POPULATE THE AUTOPLETE LIST. //
+            
+            // associationRule();//Working on this one.
+            createTable();
+            attributeTokenization();
+            elementTokenization();
         }
 	    });
   })();
