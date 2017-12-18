@@ -52,7 +52,7 @@ module.exports = {
 
                             //DOTO Find out why csvdata is not writing to file.//
                             console.log(attrOutput);
-                            csvdata.write(outputFileName_csv, 'a,b,c\nd,e,f');
+                            csvdata.write(outputFileName_csv, attrOutput);
 
                             //The parameter are:
                             //   the name of the file that we want to test,
