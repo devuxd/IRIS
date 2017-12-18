@@ -6,7 +6,6 @@
 */
 module.exports = {
   runEditor: function runEditor(outputFileName_csv){
-    var finished = false;
     const K = 20;
     var fs = require('fs');
     require('jsdom-global')();
@@ -14,6 +13,7 @@ module.exports = {
     var csvdata = require("csvdata");
     var metric = require(__dirname+"/PrecisionRecall");
     var testAttr = require(__dirname+"/testAttributes");
+    var evaluate = require(__dirname+'/EvaluateTest');
 
     var attrOutput = [];
     var precisionMean = [];
@@ -21,19 +21,16 @@ module.exports = {
     const { JSDOM } = jsdom;
     var htmlSource = fs.readFileSync(__dirname+"/../editor.html", "utf-8");
 
+
     try{
           const virtualConsole = new jsdom.VirtualConsole();
           virtualConsole.on("error", () => { return finished;});//GETTING ERROR AT THE END OF THE EXECUTION OF THE EDITOR.
                                                                 //THE ERROR IS ON THE CODE THAT IS BEING PUT IN TO THE EDITOR.
-                                                                //BUT THE CONSOLE IS NOT HANDLING THE ISSUE, SO NEED TO STOP
-                                                                //THE EXECUTION MANUALLY WHEN THE EDITOR WRITES DATA TO THE 
-                                                                //CSV FILE.
           const dom = JSDOM.fromFile(__dirname+"/../editor.html", {virtualConsole, resources: "usable", runScripts: "dangerously",
 
           //This executes the editor.
           }).then(dom => {
-            // setTimeout(function(){ //Timeout to wait for all the script to finish loading.
-              setTimeout(() => { 
+              setTimeout(() => { //Timeout to wait for all the script to finish loading.
                             var fileTest = global.testingData.entries();
                             var answer = global.answers.entries();
 
@@ -52,9 +49,19 @@ module.exports = {
                             console.timeEnd("Complete Process");
 
                             //Writing answers to an csv file.
+
+                            //DOTO Find out why csvdata is not writing to file.//
                             console.log(attrOutput);
-                            csvdata.write(outputFileName_csv, attrOutput);
-                            finished = true;
+                            csvdata.write(outputFileName_csv, 'a,b,c\nd,e,f');
+
+                            //The parameter are:
+                            //   the name of the file that we want to test,
+                            //   the name of the file that will only contain the precision and recall.
+                            //   the name of the output graph.
+                            evaluate.eval(__dirname + "/../../../OutputFiles/"+outputFileName_csv,
+                                          __dirname + "/../../../OutputFiles/"+"test_small.csv",
+                                          __dirname + "/../../../OutputFiles/"+ "testingGraph.png");
+  
               }, 5000);  
     }).catch(function(e) {
         console.log(e); 
@@ -62,6 +69,5 @@ module.exports = {
     }catch(e){
       console.log(e);
     }
-    return finished;
   }
 }

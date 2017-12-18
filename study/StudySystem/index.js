@@ -8,7 +8,6 @@
 	var app = express();
 	var count=0, filename;
 	var run = require(__dirname+'/public/EditorCopy/javascriptFiles/RunEditor');
-	var evaluate = require(__dirname+'/public/EditorCopy/javascriptFiles/EvaluateTest');
 
 
 	global.lineNum = 0;
@@ -30,20 +29,15 @@
  *	AND VALUE = ALL THE HTML CODE. THE TIMEOUT IS TO MAKE THEM
  *	RUN ASYNCHRONOUS.
  // */
-   var finished = false, finishedTest = false;
+   var finished = false;
    var start = 0, end = 0;//Make it easier to test different ranges
  	readFile('TestInputFiles/TrainingSet.text', global.trainingData, start, end);
     readFile('TestInputFiles/AttrTestingSet.text', global.testingData, start, end);
     finished = readFile('TestInputFiles/AttrAnswers.text', global.answers, start, end);
     if(finished)
     	//The parameter is the name of the csv output file.
-		finishedTest = run.runEditor("test.csv");
-	if(finishedTest)//MIGHT NEED TO RUN THIS SEPARATLY BECAUSE IF THE HANDLING ERROR ISSUE ON RunEditor.
-		//The parameter are:
-		//	 the name of the file that we want to test,
-		//	 the name of the file that will only contain the precision and recall.
-		//   the name of the output graph.
-		evaluate.eval("test.csv", "test_small.csv", "testingGraph.png");
+		 run.runEditor("test1.csv");
+
 
 
 	//Reads the file.
