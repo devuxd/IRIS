@@ -1,78 +1,79 @@
 /*
- * THIS CREATES THE EDITOR USING THE 
+ * THIS CREATES THE EDITOR USING THE
  * ACE LIBRARY AND CALLS THE FUNCTIONS
  * THAT CREATES DIFFERENT AUTOCOMPLETES.
-*/ 
+*/
 $(document).ready(function() {
 
-  //Using ace to get the editor.	
-  document.editor = ace.edit("editor");
-  document.editor.setTheme("ace/theme/monokai");
-  document.editor.getSession().setMode("ace/mode/html");
-  document.editor.setOptions({
-        enableBasicAutocompletion: true,
-        enableSnippets: true,
-        enableLiveAutocompletion: true
-      });
-  var langTools = ace.require("ace/ext/language_tools");
+	//Using ace to get the editor.
+	document.editor = ace.edit("editor");
+	document.editor.setTheme("ace/theme/monokai");
+	document.editor.getSession().setMode("ace/mode/html");
+	document.editor.setOptions(
+		{
+			enableBasicAutocompletion: true,
+			enableSnippets: true,
+			enableLiveAutocompletion: true
+		});
+	var langTools = ace.require("ace/ext/language_tools");
 
-  //To have easy access to them in all .js files.
-  document.html; 
-  document.elementTable = new Map(); 
-  document.completeElementTable = new Map();
-  document.allAutoCompleteList = [];
+	//To have easy access to them in all .js files.
+	document.html;
+	document.elementTable = new Map();
+	document.completeElementTable = new Map();
+	document.allAutoCompleteList = [];
 
-  //This shows the html body code on the iframe.
-  //This saves the content of the html doc that is going to be created on an iframe. 
-  var frame = $('#output'),
-    contents = frame.contents(),
-    styleTag = contents.find('head')
-    .append('<style></style>')//For CSS code.
-    .children('style');
-    document.body_ = contents.find('body');
+	//This shows the html body code on the iframe.
+	//This saves the content of the html doc that is going to be created on an iframe.
+	var frame = $('#output'),
+		contents = frame.contents(),
+		styleTag = contents.find('head')
+			.append('<style></style>')//For CSS code.
+			.children('style');
+	document.body_ = contents.find('body');
 
-  //This outputs the text editor content everytime something is written.
-  document.editor.on('focus', function(event, editors) {
-	    $(this).keyup(function(e) {   
-         if(!(e.key=="ArrowUp" || e.key=="ArrowDown"|| e.key=="ArrowLeft" 
-            || e.key=="ArrowRight")){//Don't do anything when pressing any arrow.
+	//This outputs the text editor content everytime something is written.
+	document.editor.on('focus', function (event, editors) {
+		$(this).keyup(function (e) {
+			if (!(e.key == "ArrowUp" || e.key == "ArrowDown" || e.key == "ArrowLeft"
+				|| e.key == "ArrowRight")) {//Don't do anything when pressing any arrow.
 
-          // HERE WE CAN ADD DIFFERENT FUNCTIONS TO POPULATE THE AUTOPLETE LIST. //
-            
-            // associationRule();//Working on this one.
-            createTable();
-            attributeTokenization();
-            elementTokenization();
-        }
-	    });
-  })();
+				// HERE WE CAN ADD DIFFERENT FUNCTIONS TO POPULATE THE AUTOPLETE LIST. //
 
-  //Custom autocomplete.
-  var staticWordCompleter = {
-    getCompletions: function(editor, session, pos, prefix, callback) {
-      var attributeList = [];
-      var i=0;
-      if(typeof( document.allAutoCompleteList)!="undefined"){
-        for(var attString in document.allAutoCompleteList){
-           attributeList[i++]  = attString + document.allAutoCompleteList[attString];
-        }
-      }
-         //This does the auto-complete.
-      callback(null, attributeList.map(function(word) {
-         var listWord = word.replace(/ Freq: [0-9]/g,"");
-         var freq = "";
-         if(word.match(/Freq: [0-9]/g)!=null)
-            freq = word.match(/Freq: [0-9]/g).toString();
-          word = listWord.replace(/</g,"");
-          var wscore = parseInt(freq.match(/[0-9]/g));
-          return {
-              caption: listWord,//the words it shows
-              value: word,//the words it writes if clicked
-              score: wscore,//score to rank them according to freq
-              meta: freq//the words frequency.
-          };
-      }));
-    }
-  }
+				// associationRule();//Working on this one.
+				createTable();
+				attributeTokenization();
+				elementTokenization();
+			}
+		});
+	})();
+
+	//Custom autocomplete.
+	var staticWordCompleter = {
+		getCompletions: function (editor, session, pos, prefix, callback) {
+			var attributeList = [];
+			var i = 0;
+			if (typeof (document.allAutoCompleteList) != "undefined") {
+				for (var attString in document.allAutoCompleteList) {
+					attributeList[i++] = attString + document.allAutoCompleteList[attString];
+				}
+			}
+			//This does the auto-complete.
+			callback(null, attributeList.map(function (word) {
+				var listWord = word.replace(/ Freq: [0-9]/g, "");
+				var freq = "";
+				if (word.match(/Freq: [0-9]/g) != null)
+					freq = word.match(/Freq: [0-9]/g).toString();
+				word = listWord.replace(/</g, "");
+				var wscore = parseInt(freq.match(/[0-9]/g));
+				return {
+					caption: listWord,//the words it shows
+					value: word,//the words it writes if clicked
+					score: wscore,//score to rank them according to freq
+					meta: freq//the words frequency.
+				};
+			}));
+		}
+	}
 	langTools.setCompleters([staticWordCompleter]);
 });
