@@ -1,8 +1,11 @@
-/* THIS CREATES A LIST FOR THE EDITORS AUTO-COMPLETE.
- * THE LIST CONTAINS ALL ATTRIBUTE=VALUE OF ELEMENTS
- * THAT THE USER HAS ALREADY WRITTEN.
+/**
+ *	Creates an array for the editor's auto-complete. The array contains all of
+ *	the elements that the user has already written in attribute=value format.
+ *	@returns {array} The list of all of the attribute=value pairs
  */
 function attributeTokenization() {
+
+	// TODO: Break up these nested conditionals and loops!
 	if(typeof(document.elementTable)!= "undefined") {
 		document.list = [];
 		if (document.elementTable.size > 0) {
@@ -12,7 +15,7 @@ function attributeTokenization() {
 						for(let attribute of attributes[1]) {
 							if(attribute[0] != "") {
 								var values = attribute[0].split(" ");
-								if(values.length > 1)//In case we have multiple values
+								if(values.length > 1) // In case we have multiple values
 									for (var value of values) {
 										if (typeof (document.list[attributes[0] + ' = "' + value.trim() + '"']) == "undefined")
 											document.list[attributes[0] + ' = "' + value.trim() + '"'] = attribute[1];

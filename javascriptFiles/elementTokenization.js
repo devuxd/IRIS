@@ -1,11 +1,9 @@
-/*
- *	THIS FUNCTION ADDS TO THE EDITORS AUTO-COMPLETE LIST.
- *	IT ADDS EACH TAG WITH ALL THEIR ATTRIBUTES AND
- *  EACH TAG WITH THEIR ATTRIBUTES SEPARATED.
- *  THIS GOES THROUGH THE DOCUMENT.COMPLETEELEMENTTABLE AND
- *  COLLECTS EACH ELEMENT AND THEIR FREQUENCY BEFORE ADDING
- *  THEM TO THE LIST.
-*/
+/**
+ * Adds to the editor's auto-complete list. Adds each tag with all of their
+ * attributes separated. This goes through the document.completeElementTable and
+ * collects each element and their frequency before adding them to the list.
+ * @return {void}
+ */
 function elementTokenization() {
 	if (typeof (document.completeElementTable) != "undefined") {
 		for (let element of document.completeElementTable) {

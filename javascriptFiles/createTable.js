@@ -20,14 +20,14 @@
  *			AND THEIR FREQUENCY AS A VALUE.
 */
 function createTable() {
-	//Getting the body of the programmers html code.
+	// Getting the body of the programmers html code.
 	document.body_.html(document.editor.getValue());
 	var elements = document.body_.find("*");
 	var query, attrValName, attrName, tagName;
-	//Once the user starts writing an element, this
-	//starts collecting elements.
+	// Once the user starts writing an element, this
+	// starts collecting elements.
 	if (typeof (elements) != "undefined" && elements.length > 0) {
-		//To update the table on every keyup.
+		// To update the table on every keyup.
 		document.elementTable = new Map();
 		document.completeElementTable = new Map();
 		document.allAutoCompleteList = [];
@@ -86,8 +86,12 @@ function createTable() {
 	}
 }
 
-//Organizes each element in a table format to keep
-//track of the frequency of each element and thier attributes.
+
+/**
+ * Organizes each element in a table format to keep track of the frequency of
+ * each element and their attributes.
+ * @returns {void}
+ */
 function createElementTable(tag, attribute) {
 	if (typeof (document.elementTable.get(tag)) == "undefined") {//Adding the tag
 		document.elementTable.set(tag, [1, ""]);

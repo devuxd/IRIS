@@ -1,4 +1,6 @@
-
+/**
+ * TODO: Figure out what this is
+ */
 function groupTokenization() {
 	// if (typeof (document.completeElementTable) != "undefined") {
 	// 	var allTags = "";
