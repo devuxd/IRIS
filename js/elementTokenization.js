@@ -12,15 +12,15 @@ function elementTokenization() {
 					var strAttr = "";
 					for (var attribute = 0; attribute < element[0].attributes.length; attribute++) {
 						document.allAutoCompleteList["<" + element[0].nodeName.toLowerCase() + " " +
-							element[0].attributes[attribute].nodeName + ' = "' +
+							element[0].attributes[attribute].nodeName + '="' +
 							element[0].attributes[attribute].nodeValue + '"'] =
 							' Freq: ' + document.completeElementTable.get(element[0]);
 
 						if (attribute == 0)
-							strAttr += element[0].attributes[attribute].nodeName + ' = "' +
+							strAttr += element[0].attributes[attribute].nodeName + '="' +
 								element[0].attributes[attribute].nodeValue + '"' + "";
 						else
-							strAttr += " " + element[0].attributes[attribute].nodeName + ' = "' +
+							strAttr += " " + element[0].attributes[attribute].nodeName + '="' +
 								element[0].attributes[attribute].nodeValue + '"' + "";
 					}
 					if (element[0].attributes.length > 1) {

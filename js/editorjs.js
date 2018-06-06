@@ -7,10 +7,10 @@
  */
 $(document).ready(function() {
 	// Using Ace to initialize an editor
-	document.editor = ace.edit("editor");
-	document.editor.setTheme("ace/theme/monokai");
-	document.editor.getSession().setMode("ace/mode/html");
-	document.editor.setOptions(
+	page.codeEditor = ace.edit("editor");
+	page.codeEditor.setTheme("ace/theme/monokai");
+	page.codeEditor.getSession().setMode("ace/mode/html");
+	page.codeEditor.setOptions(
 		{
 			enableBasicAutocompletion: true,
 			enableSnippets: true,
@@ -29,12 +29,12 @@ $(document).ready(function() {
 	// iframe.
 	var frame = $('#output'),
 		contents = frame.contents();
-	DOM.codePreviewFrame = $('#output');
-	DOM.codePreviewContent
-	DOM.codePreviewBody = DOM.codePreviewFrame.contents().find('body');
+	page.codePreviewFrame = $('#output');
+	page.codePreviewContent
+	page.codePreviewBody = page.codePreviewFrame.contents().find('body');
 
 	// This updates the text editor content every time something is changed
-	document.editor.on('focus', function (event, editors) {
+	page.codeEditor.on('focus', function (event, editors) {
 		$(this).keyup(function (e) {
 			if (!(e.key == "ArrowUp" || e.key == "ArrowDown" || e.key == "ArrowLeft"
 				|| e.key == "ArrowRight")) { // Don't do anything when pressing any arrow.

@@ -21,8 +21,8 @@
 */
 function createTable() {
 	// Getting the body of the programmers html code.
-	DOM.codePreviewBody.html(document.editor.getValue());
-	var elements = DOM.codePreviewBody.find("*");
+	page.codePreviewBody.html(page.codeEditor.getValue());
+	var elements = page.codePreviewBody.find("*");
 	var query, attrValName, attrName, tagName;
 	// Once the user starts writing an element, this
 	// starts collecting elements.
@@ -104,7 +104,7 @@ function createElementTable(tag, attribute) {
 			var attrType = new Map();
 			var valueFreq = new Map();
 			attrType.set(attribute.nodeName, valueFreq.set(attribute.nodeValue, 1));
-			document.elementTable.set(tag, [DOM.codePreviewBody.find(tag).length, attrType]);
+			document.elementTable.set(tag, [page.codePreviewBody.find(tag).length, attrType]);
 		}
 		else if (typeof (document.elementTable.get(tag)[1].get(attribute.nodeName)) == "undefined") {//Adding new attributes/values
 			var valueFreq = new Map();

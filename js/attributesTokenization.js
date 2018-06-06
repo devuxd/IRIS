@@ -17,18 +17,18 @@ function attributeTokenization() {
 								var values = attribute[0].split(" ");
 								if (values.length > 1) // In case we have multiple values
 									for (var value of values) {
-										if (typeof (document.list[attributes[0] + ' = "' + value.trim() + '"']) == "undefined")
-											document.list[attributes[0] + ' = "' + value.trim() + '"'] = attribute[1];
+										if (typeof (document.list[attributes[0] + '="' + value.trim() + '"']) == "undefined")
+											document.list[attributes[0] + '="' + value.trim() + '"'] = attribute[1];
 										else
-											document.list[attributes[0] + ' = "' + value.trim() + '"'] =
-												document.list[attributes[0] + ' = "' + value.trim() + '"'] + attribute[1];
+											document.list[attributes[0] + '="' + value.trim() + '"'] =
+												document.list[attributes[0] + '="' + value.trim() + '"'] + attribute[1];
 									}
 
-								if (typeof (document.list[attributes[0] + ' = "' + attribute[0].trim() + '"']) == "undefined")
-									document.list[attributes[0] + ' = "' + attribute[0].trim() + '"'] = attribute[1];
+								if (typeof (document.list[attributes[0] + '="' + attribute[0].trim() + '"']) == "undefined")
+									document.list[attributes[0] + '="' + attribute[0].trim() + '"'] = attribute[1];
 								else
-									document.list[attributes[0] + ' = "' + attribute[0].trim() + '"'] =
-										document.list[attributes[0] + ' = "' + attribute[0].trim() + '"'] + attribute[1];
+									document.list[attributes[0] + '="' + attribute[0].trim() + '"'] =
+										document.list[attributes[0] + '="' + attribute[0].trim() + '"'] + attribute[1];
 							}
 						}
 					}

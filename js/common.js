@@ -1,2 +1,2 @@
-DOM = { // An object to store references to HTML elements
+page = { // An object to store references to HTML elements
 }
