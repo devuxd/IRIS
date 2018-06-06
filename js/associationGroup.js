@@ -6,8 +6,8 @@
  */
 function associationRule() {
 	//Getting the body of the programmers html code.
-	document.body_.html(document.editor.getValue());
-	var elements = document.body_.find("*");
+	DOM.codePreviewBody.html(document.editor.getValue());
+	var elements = DOM.codePreviewBody.find("*");
 	var support, total = elements.length;
 	const minsup = 0.5;
 	var frequent = [];

@@ -2,10 +2,10 @@
 
 /**
  * Uses the Ace library {@link https://ace.c9.io/} to create a code editor and
- * calls functions to initialize the auto-complete features.
+ * calls functions to initialize the auto-complete features. Runs when the page
+ * has loaded to initialize everything.
  */
 $(document).ready(function() {
-
 	// Using Ace to initialize an editor
 	document.editor = ace.edit("editor");
 	document.editor.setTheme("ace/theme/monokai");
@@ -20,7 +20,6 @@ $(document).ready(function() {
 
 	// To have easy access to them in all .js files.
 	// TODO: Clean this up
-	document.html;
 	document.elementTable = new Map();
 	document.completeElementTable = new Map();
 	document.allAutoCompleteList = [];
@@ -29,11 +28,10 @@ $(document).ready(function() {
 	// This saves the content of the html doc that is going to be created in an
 	// iframe.
 	var frame = $('#output'),
-		contents = frame.contents(),
-		styleTag = contents.find('head')
-			.append('<style></style>') // For CSS code. // TODO: Is this necessary?
-			.children('style');
-	document.body_ = contents.find('body');
+		contents = frame.contents();
+	DOM.codePreviewFrame = $('#output');
+	DOM.codePreviewContent
+	DOM.codePreviewBody = DOM.codePreviewFrame.contents().find('body');
 
 	// This updates the text editor content every time something is changed
 	document.editor.on('focus', function (event, editors) {
