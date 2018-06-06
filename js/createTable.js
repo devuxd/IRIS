@@ -20,14 +20,14 @@
  *			AND THEIR FREQUENCY AS A VALUE.
 */
 function createTable() {
-	//Getting the body of the programmers html code.
-	document.body_.html(document.editor.getValue());
-	var elements = document.body_.find("*");
+	// Getting the body of the programmers html code.
+	DOM.codePreviewBody.html(document.editor.getValue());
+	var elements = DOM.codePreviewBody.find("*");
 	var query, attrValName, attrName, tagName;
-	//Once the user starts writing an element, this
-	//starts collecting elements.
+	// Once the user starts writing an element, this
+	// starts collecting elements.
 	if (typeof (elements) != "undefined" && elements.length > 0) {
-		//To update the table on every keyup.
+		// To update the table on every keyup.
 		document.elementTable = new Map();
 		document.completeElementTable = new Map();
 		document.allAutoCompleteList = [];
@@ -86,10 +86,14 @@ function createTable() {
 	}
 }
 
-//Organizes each element in a table format to keep
-//track of the frequency of each element and thier attributes.
+
+/**
+ * Organizes each element in a table format to keep track of the frequency of
+ * each element and their attributes.
+ * @returns {void}
+ */
 function createElementTable(tag, attribute) {
-	if (typeof (document.elementTable.get(tag)) == "undefined") {//Adding the tag
+	if (typeof (document.elementTable.get(tag)) == "undefined") { // Adding the tag
 		document.elementTable.set(tag, [1, ""]);
 	}
 	else if (typeof (document.elementTable.get(tag)) != "undefined" && attribute == "undefined") {
@@ -100,7 +104,7 @@ function createElementTable(tag, attribute) {
 			var attrType = new Map();
 			var valueFreq = new Map();
 			attrType.set(attribute.nodeName, valueFreq.set(attribute.nodeValue, 1));
-			document.elementTable.set(tag, [document.body_.find(tag).length, attrType]);
+			document.elementTable.set(tag, [DOM.codePreviewBody.find(tag).length, attrType]);
 		}
 		else if (typeof (document.elementTable.get(tag)[1].get(attribute.nodeName)) == "undefined") {//Adding new attributes/values
 			var valueFreq = new Map();

@@ -1,15 +1,13 @@
-/*
- * ON PROCESS OF COMPETING THIS ONE.
- * THIS WILL USE THE ASSOCIATION RULE
- * TO CREATE RULES THAT WILL HELP
- * POPULATE THE AUTOCOMPLETE.
- * Currently working on thi one
- * does not work as intended yet.
-*/
+/**
+ * Currently working on this one. Does not work as intended yet. This will use
+ * the association rule to create rules that will help populate the
+ * auto-complete.
+ * @return {void}
+ */
 function associationRule() {
 	//Getting the body of the programmers html code.
-	document.body_.html(document.editor.getValue());
-	var elements = document.body_.find("*");
+	DOM.codePreviewBody.html(document.editor.getValue());
+	var elements = DOM.codePreviewBody.find("*");
 	var support, total = elements.length;
 	const minsup = 0.5;
 	var frequent = [];
@@ -21,6 +19,18 @@ function associationRule() {
 	hierarchySearch(elementList, support, total, minsup, frequent, 1);
 }
 
+
+/**
+ * TODO: Figure out what this does and fill in this documentation. Possibly
+ * refactor to use less arguments, if possible.
+ * @param elementList {}
+ * @param support {}
+ * @param total {}
+ * @param minsup {}
+ * @param frequent {}
+ * @param nth {}
+ * @return {void}
+ */
 function hierarchySearch(elementList, support, total, minsup, frequent, nth) {
 	var hierachy, current = 0, ith = 0, path = [];
 	for (var element of elementList) {
@@ -41,6 +51,11 @@ function hierarchySearch(elementList, support, total, minsup, frequent, nth) {
 	}
 }
 
+
+/**
+ * TODO: Figure out what this does and document it. If it's not used, delete it.
+ * @return {void}
+ */
 function ithPath(element, current, ith, path) {
 	if (current == ith) return;
 	// path.push(element.tagName);
