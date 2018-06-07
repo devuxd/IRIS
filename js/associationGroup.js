@@ -5,9 +5,9 @@
  * @return {void}
  */
 function associationRule() {
-	//Getting the body of the programmers html code.
-	DOM.codePreviewBody.html(document.editor.getValue());
-	var elements = DOM.codePreviewBody.find("*");
+	// Getting the body of the programmers html code.
+	page.codePreviewBody.html(page.codeEditor.getValue());
+	var elements = page.codePreviewBody.find("*");
 	var support, total = elements.length;
 	const minsup = 0.5;
 	var frequent = [];

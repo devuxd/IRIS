@@ -5,23 +5,23 @@
  *			AND AN ARRAY AS A VALUE.
  *			THE ARRAY CONTAINS THE LINE # OF
  *			WHERE THE ELEMENT IS AND ANOTHER
- *			MAP CONTAINING AN ARRAY OF ALL 
+ *			MAP CONTAINING AN ARRAY OF ALL
  *			THE ATTRIBUTES OF THE ELEMENT.
  *			ALL THE ATTRIBUTES ARE THE KEY
  *			AND THE VALUE IS ANOTHER MAP WITH
  *			THE VALUES OF THE ATTRIBUTES.
- *			THE VALUES OF THE ATTRIBUTES ARE THE 
+ *			THE VALUES OF THE ATTRIBUTES ARE THE
  *			KEY OF THE MAP AND THE FREQUENCY
  *			OF THE VALUES ARE THE MAP VALUE.
  *			TAG->ARRAY(LINE#, MAP(ARRAY(ATTR->MAP(VALUE->FREQUENCY))))
  * 		- DOCUMENT.COMPLETEELEMENTTABLE:
- *			CONTAINS A MAP WITH ALL ELEMENTS 
+ *			CONTAINS A MAP WITH ALL ELEMENTS
  *			WITH THEIR ATTRIBUTES AS A KEY
  *			AND THEIR FREQUENCY AS A VALUE.
 */
 function createTable(){
 	//Getting the body of the programmers html code.
-    document.body_.html(document.editor.getValue());	
+    document.body_.html(page.codeEditor.getValue());
 	var elements = document.body_.find("*");
 	var query, attrValName, attrName, tagName;
 	//Once the user starts writing an element, this
@@ -50,7 +50,7 @@ function createTable(){
 									  .replace(/\*/g,"\\*");
 			if(typeof(element) && element.attributes.length>0){
 				   for(var i=0; i<element.attributes.length; i++){
-				   		var attr = element.attributes[i];         
+				   		var attr = element.attributes[i];
 					if(element.attributes[0].nodeName!="<"){
 						createElementTable(tagName, attr);
 					}
@@ -78,7 +78,7 @@ function createTable(){
 				}
 				else
 					document.completeElementTable.set(element, 1);
-				
+
 			}
 		}
 	}

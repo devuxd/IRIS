@@ -21,8 +21,8 @@
 */
 function createTable() {
 	// Getting the body of the programmers html code.
-	DOM.codePreviewBody.html(document.editor.getValue());
-	var elements = DOM.codePreviewBody.find("*");
+	page.codePreviewBody.html(page.codeEditor.getValue());
+	var elements = page.codePreviewBody.find("*");
 	var query, attrValName, attrName, tagName;
 	// Once the user starts writing an element, this
 	// starts collecting elements.
@@ -58,9 +58,9 @@ function createTable() {
 					if (attr.nodeValue != "") {
 						if (attr.nodeValue == "title")
 							attrValName = attr.nodeName;
-						else//In case it contains multiple classes or special char.
+						else // In case it contains multiple classes or special char.
 							attrValName = attr.nodeValue.replace(/\s+(?=[^\s+])/g, ".").replace(/'/g, "\\'");
-						attrName = attr.nodeName.replace(/:/g, '\\\:');//In case we get : special char.
+						attrName = attr.nodeName.replace(/:/g, '\\\:'); // In case we get : special char.
 
 						document.completeElementTable.set(
 							$("iframe#output").contents().find(tagName.toLowerCase() + "[" + attrName + "='" + attrValName.replace(".", " ") + "']")[0],
@@ -100,21 +100,21 @@ function createElementTable(tag, attribute) {
 		document.elementTable.set(tag, [$("iframe#output").contents().find(tag.toLowerCase()).length, document.elementTable.get(tag)[1]]);
 	}
 	if (attribute != "undefined") {
-		if (document.elementTable.get(tag)[1] == "") {//Adding first attribute/value
+		if (document.elementTable.get(tag)[1] == "") { // Adding first attribute/value
 			var attrType = new Map();
 			var valueFreq = new Map();
 			attrType.set(attribute.nodeName, valueFreq.set(attribute.nodeValue, 1));
-			document.elementTable.set(tag, [DOM.codePreviewBody.find(tag).length, attrType]);
+			document.elementTable.set(tag, [page.codePreviewBody.find(tag).length, attrType]);
 		}
-		else if (typeof (document.elementTable.get(tag)[1].get(attribute.nodeName)) == "undefined") {//Adding new attributes/values
+		else if (typeof (document.elementTable.get(tag)[1].get(attribute.nodeName)) == "undefined") { // Adding new attributes/values
 			var valueFreq = new Map();
 			valueFreq.set(attribute.nodeValue, 1)
 			document.elementTable.get(tag)[1].set(attribute.nodeName, valueFreq);
 		}
-		else if (typeof (document.elementTable.get(tag)[1].get(attribute.nodeName).get(attribute.nodeValue)) == "undefined") {//Adding new values
+		else if (typeof (document.elementTable.get(tag)[1].get(attribute.nodeName).get(attribute.nodeValue)) == "undefined") { // Adding new values
 			document.elementTable.get(tag)[1].get(attribute.nodeName).set(attribute.nodeValue, 1);
 		}
-		else if (typeof (document.elementTable.get(tag)[1].get(attribute.nodeName).get(attribute.nodeValue)) != "undefined") {//Changing the attribute/value freq
+		else if (typeof (document.elementTable.get(tag)[1].get(attribute.nodeName).get(attribute.nodeValue)) != "undefined") { // Changing the attribute/value freq
 			var attCount = document.elementTable.get(tag)[1].get(attribute.nodeName).get(attribute.nodeValue) + 1;
 			document.elementTable.get(tag)[1].get(attribute.nodeName).set(attribute.nodeValue, attCount);
 		}
