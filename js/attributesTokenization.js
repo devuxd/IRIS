@@ -4,7 +4,6 @@
  *	@returns {array} The list of all of the attribute=value pairs
  */
 function attributeTokenization() {
-
 	// TODO: Break up these nested conditionals and loops!
 	if (typeof (document.elementTable) != "undefined") {
 		document.list = [];
