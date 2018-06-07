@@ -4,6 +4,7 @@ tokenizdHTML {
 	]
 }
 
+
 tokenTypes = Object.freeze({
 	"emptySpace": 0,
 	"script": 1,
@@ -17,14 +18,15 @@ tokenTypes = Object.freeze({
 	"ampersandSymbol": 17 // special symbols in the form of &___;
 });
 
+
 /**
  * Creates a 'token' object which is structured as follows:
  *   token: { type: tokenTypes, value: string }
- * @param tokenType The type of the HTML token as defined by the tokenTypes
- *   enum.
- * @param tokenValue The plain text of the original token from the HTML. If a
- *   token is created to add extra information, it should have an empty string
- *   as its value.
+ * @param {tokenTypes} tokenType The type of the HTML token as defined by the
+ *   tokenTypes enum.
+ * @param {string} tokenValue The plain text of the original token from the
+ *   HTML. If a token is created to add extra information, it should have an
+ *   empty string as its value.
  * @returns Initialized token object
  */
 function token(tokenType, tokenValue) {
@@ -34,12 +36,13 @@ function token(tokenType, tokenValue) {
 
 
 /**
- * Creates a 'coeLine' object representing a line of code broken up into tokens.
+ * Creates a 'codeLine' object representing a line of code broken up into tokens.
  */
 function codeLine() {
 	// Array of 'token' objects
 	this.tokens = [];
 }
+
 
 /**
  * Adds a 'token' to the end of the line
@@ -49,11 +52,30 @@ codeLine.prototype.addToken = function(token) {
 };
 
 
-function tokenizedHTML() {
+function tokenizedFile() {
 	// Array of 'codeLine' objects
 	this.lines = [];
 }
 
-tokenizedHTML.prototype.addLine = function() {
+
+tokenizedFile.prototype.addLine = function() {
 	this.lines.push(new codeLine());
+}
+
+
+/**
+ * Reads code and populates the 'tokenizedFile' object with the tokenized form
+ * of the file.
+ * @param {string} code The content of the file as text
+ * @param {string} language The language of the file (HTML, Javascript, etc.)
+ * @returns {void}
+ */
+tokenizedFile.prototype.initialize = function(code, language) {
+	if (language.toLowerCase() == "html") {
+		var lines = code.split("\n");
+		var state = ;
+		for (var i = 0; i < lines.length; i++) {
+			if ()
+		}
+	}
 }
