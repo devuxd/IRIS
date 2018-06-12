@@ -9,13 +9,27 @@ tokenTypes = Object.freeze({
 	"emptySpace": 0,
 	"script": 1,
 	"css" : 2,
-	"elementStart": 11,
-	"elementEnd": 12,
-	"elementName": 13,
-	"attributeName": 14,
-	"attributeAssigner": 15, // the equal sign in an attribute
-	"attributeValue": 16,
-	"ampersandSymbol": 17 // special symbols in the form of &___;
+	"elementStart": 11, // <
+	"elementEnd": 12, // >
+	"elementClose": 13, // /
+	"elementName": 14, // The name of a tag
+	"attributeName": 15,
+	"attributeAssigner": 16, // the equal sign in an attribute
+	"attributeValue": 17,
+	"ampersandSymbol": 18 // special symbols in the form of &___;
+});
+
+
+/**
+ * These states are intended to roughly (but not perfectly) match the states
+ * defined by {@link https://www.w3.org/TR/2011/WD-html5-20110113/tokenization.html}
+ */
+tokenizerStates = Object.freeze({
+	"data": 0,
+	"characterReferenceInData": 1,
+	"tagOpen": 2,
+	"tagClose": 3,
+
 });
 
 
@@ -72,10 +86,56 @@ tokenizedFile.prototype.addLine = function() {
  */
 tokenizedFile.prototype.initialize = function(code, language) {
 	if (language.toLowerCase() == "html") {
-		var lines = code.split("\n");
-		var state = ;
-		for (var i = 0; i < lines.length; i++) {
-			if ()
+		var linesText = code.split("\n");
+		var state = tokenizerStates.data;
+		for (var lineIndex = 0; lineIndex < linesText.length; lineIndex++) {
+			this.lines.addLine();
+			// Used to keep track of tokens that are multiple characters long
+			var currentToken = "";
+			for (var letterIndex = 0; letterIndex < linesText[lineIndex].length; letterIndex++) {
+				var currentChar = linesText[lineIndex].substring(letterIndex, 1);
+				var currentLine = this.lines.length - 1;
+				switch (state) {
+					case tokenizerStates.data:
+						if (currentChar == "&") {
+							currentToken += "&";
+							state = tokenizerStates.characterReferenceInData;
+
+						}
+						else if (currentChar == "<") {
+							this.lines[currentLine].addToken(new token(tokenTypes.elementStart, "<"));
+							state = tokenizerStates.tagOpen;
+							currentToken = "";
+						}
+						break;
+					case tokenizerStates.characterReferenceInData:
+						// TODO: Finish this after finishing tags
+						break;
+					case tokenizerStates.tagOpen:
+						if (currentChar == "/") {
+							this.lines[currentLine].addToken(new token(tokenTypes.elementClose, "/"));
+							state = tokenizerStates.elementName;
+							currentToken = "";
+						}
+						break;
+					case tokenizerStates.tagClose:
+
+						break;
+					case tokenizerStates.elementName:
+							if (currentChar == ">") {
+								this.lines[currentLine].addToken(new token(tokenTypes.elementClose));
+								state = tokenizerStates.tagClose;
+								currentToken = "";
+							}
+							// Alphanumeric
+							else if (/^[a-z0-9]+$/i.test(currentChar)) {
+								currentToken += currentChar;
+
+							}
+							if (currentChar != " ")
+						break;
+				}
+			}
 		}
 	}
 }
