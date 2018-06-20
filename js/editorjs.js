@@ -40,6 +40,15 @@ $(document).ready(function() {
 				|| e.key == "ArrowRight")) { // Don't do anything when pressing any arrow.
 
 				// HERE WE CAN ADD DIFFERENT FUNCTIONS TO POPULATE THE AUTOPLETE LIST. //
+				console.log("Boi");
+				file = new tokenizedFile();
+				file.initialize(ace.edit("editor").getValue(), "HTML");
+				console.log("Boi 2");
+				var brokenUp = file.getString().split("\n");
+				for (var i = 0; i < brokenUp.length; i++) {
+					console.log(brokenUp[i]);
+				}
+				console.log("Boi 3");
 
 				// associationRule(); // Working on this one.
 				createTable();

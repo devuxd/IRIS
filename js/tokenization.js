@@ -1,10 +1,3 @@
-tokenizdHTML {
-	lines: [
-		[{token}, {token}, {token}]
-	]
-}
-
-
 tokenTypes = Object.freeze({
 	"emptySpace": 0,
 	"script": 1,
@@ -16,7 +9,8 @@ tokenTypes = Object.freeze({
 	"attributeName": 15,
 	"attributeAssigner": 16, // the equal sign in an attribute
 	"attributeValue": 17,
-	"ampersandSymbol": 18 // special symbols in the form of &___;
+	"ampersandSymbol": 18, // special symbols in the form of &___;
+	"textNode": 19
 });
 
 
@@ -29,7 +23,11 @@ tokenizerStates = Object.freeze({
 	"characterReferenceInData": 1,
 	"tagOpen": 2,
 	"tagClose": 3,
-
+	"tagTerminate": 4,
+	"elementName": 5,
+	"spaceAfterElementName": 6,
+	"attributeName": 7,
+	"attributeValue": 8
 });
 
 
@@ -85,57 +83,133 @@ tokenizedFile.prototype.addLine = function() {
  * @returns {void}
  */
 tokenizedFile.prototype.initialize = function(code, language) {
+	console.log("About to tokenize");
 	if (language.toLowerCase() == "html") {
 		var linesText = code.split("\n");
 		var state = tokenizerStates.data;
 		for (var lineIndex = 0; lineIndex < linesText.length; lineIndex++) {
-			this.lines.addLine();
+			console.log(state);
+			this.addLine();
 			// Used to keep track of tokens that are multiple characters long
 			var currentToken = "";
 			for (var letterIndex = 0; letterIndex < linesText[lineIndex].length; letterIndex++) {
-				var currentChar = linesText[lineIndex].substring(letterIndex, 1);
+				var currentChar = linesText[lineIndex].substring(letterIndex, letterIndex + 1);
 				var currentLine = this.lines.length - 1;
 				switch (state) {
+
 					case tokenizerStates.data:
 						if (currentChar == "&") {
+							if (currentToken.length > 0) {
+								this.lines[currentLine].addToken(new token(tokenTypes.textNode, currentToken));
+								currentToken = "";
+							}
 							currentToken += "&";
 							state = tokenizerStates.characterReferenceInData;
-
 						}
 						else if (currentChar == "<") {
+							if (currentToken.length > 0) {
+								this.lines[currentLine].addToken(new token(tokenTypes.textNode, currentToken));
+								currentToken = "";
+							}
 							this.lines[currentLine].addToken(new token(tokenTypes.elementStart, "<"));
 							state = tokenizerStates.tagOpen;
 							currentToken = "";
 						}
+						else {
+							currentToken += currentChar;
+						}
 						break;
+
 					case tokenizerStates.characterReferenceInData:
 						// TODO: Finish this after finishing tags
 						break;
+
 					case tokenizerStates.tagOpen:
 						if (currentChar == "/") {
 							this.lines[currentLine].addToken(new token(tokenTypes.elementClose, "/"));
 							state = tokenizerStates.elementName;
 							currentToken = "";
 						}
+						else {
+							currentToken = currentChar;
+							state = tokenizerStates.elementName;
+						}
 						break;
-					case tokenizerStates.tagClose:
 
+					case tokenizerStates.tagClose:
+						this.lines[currentLine].addToken(new token(tokenTypes.elementClose, ">"));
+						currentToken = "";
+						// TODO
+						state = tokenizerStates.data;
 						break;
+
 					case tokenizerStates.elementName:
-							if (currentChar == ">") {
-								this.lines[currentLine].addToken(new token(tokenTypes.elementClose));
+						// Alphanumeric
+						if (/^[a-z0-9]+$/i.test(currentChar)) {
+							currentToken += currentChar;
+
+						}
+						else if (currentChar == ">") {
+							if (currentToken.length > 0) {
+								this.lines[currentLine].addToken(new token(tokenTypes.elementName, currentToken));
+							}
+							this.lines[currentLine].addToken(new token(tokenTypes.elementClose, ">"));
+							state = tokenizerStates.data;
+							currentToken = "";
+						}
+						else if (currentChar == " ") {
+							if (currentToken.length > 0) {
+								this.lines[currentLine].addToken(new token(tokenTypes.elementName, currentToken));
+								currentToken = "";
+								state = tokenizerStates.spaceAfterElementName;
+							}
+						}
+						if (currentChar != " ")
+						break;
+
+					case tokenizerStates.spaceAfterElementName:
+						// Alphanumeric
+						if (/^[a-z0-9]+$/i.test(currentChar)) {
+							currentToken += currentChar;
+							state = tokenizerStates.attributeName;
+						}
+						break;
+
+					case tokenizerStates.attributeName:
+						if (/^[a-z0-9:\-]+$/i.test(currentChar)) {
+							currentToken += currentChar;
+						}
+						else {
+							this.lines[currentLine].addToken(new token(tokenTypes.attributeName, currentToken));
+							currentToken = "";
+							if (currentChar == " ") {
+								state = tokenizerStates.spaceAfterElementName;
+								currentToken = " ";
+							}
+							else if (currentChar == "/") {
 								state = tokenizerStates.tagClose;
+								currentToken = "/";
+							}
+							else if (currentChar == ">") {
+								this.lines[currentLine].addToken(new token(tokenTypes.elementClose, ">"));
+								state = tokenizerStates.data;
 								currentToken = "";
 							}
-							// Alphanumeric
-							else if (/^[a-z0-9]+$/i.test(currentChar)) {
-								currentToken += currentChar;
-
-							}
-							if (currentChar != " ")
+						}
 						break;
 				}
 			}
 		}
 	}
+}
+
+tokenizedFile.prototype.getString = function() {
+	var stringForm = "";
+	for (var i = 0; i < this.lines.length; i++) {
+		for (var j = 0; j < this.lines[i].tokens.length; j++) {
+			stringForm += "[" + this.lines[i].tokens[j].type + ":" + this.lines[i].tokens[j].value + "] ";
+		}
+		stringForm += "\n";
+	}
+	return stringForm;
 }
