@@ -86,7 +86,6 @@ function createTable() {
 	}
 }
 
-//TO DO: Create function that populates training set, and gets the current element from new tokenizer.
 /**
 *Build desicion tree model, and stores prediction for next element
 * training: training set, array of the elements' features.
@@ -94,6 +93,12 @@ function createTable() {
 * samples: current element's features, used to predict the value of the class
 *   ->{'tag':'h2', 'attrKey':'class', 'parentTag':'', 'parentAttr/Val':''};
 */
+var features = ['tag', 'attrKey', 'parentTag', 'parentAttr/Val'];
+var training = [];
+var sample = {};
+//TO DO: Create function that populates training set, and gets the current element from new tokenizer.
+
+training = _(training);
 function id3tree(){
 	if (training.length != 0){
 		document.tree = id3(training,'value',features);
