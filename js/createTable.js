@@ -86,7 +86,7 @@ function createTable() {
 	}
 }
 
-//TO DO: Create function that populates training set from new tokenizer
+//TO DO: Create function that populates training set, and gets the current element from new tokenizer.
 /**
 *Build desicion tree model, and stores prediction for next element
 * training: training set, array of the elements' features.
