@@ -23,6 +23,7 @@ $(document).ready(function() {
 	document.elementTable = new Map();
 	document.completeElementTable = new Map();
 	document.allAutoCompleteList = [];
+	var predictions;
 
 	// This shows the html body code in an iframe.
 	// This saves the content of the html doc that is going to be created in an
@@ -42,6 +43,7 @@ $(document).ready(function() {
 				// HERE WE CAN ADD DIFFERENT FUNCTIONS TO POPULATE THE AUTOPLETE LIST. //
 
 				// associationRule(); // Working on this one.
+				id3tree();
 				createTable();
 				attributeTokenization();
 				elementTokenization();
