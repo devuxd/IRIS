@@ -38,7 +38,7 @@ function attributeTokenization() {
 		for (var attr in document.list)
 			document.allAutoCompleteList[attr] = " Freq: " + document.list[attr];
 		if (typeof (predictions) != "undefined"){
-			document.allAutoCompleteList[predictions] = " Freq: 1";
+			document.allAutoCompleteList[predictions] = " ";
 		}
 		console.log(document.allAutoCompleteList);
 		elementTokenization();
