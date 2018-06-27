@@ -1,10 +1,8 @@
 tokenTypes = Object.freeze({
 	"emptySpace": 0,
-	"script": 1,
-	"css" : 2,
 	"elementStart": 11, // <
 	"elementEnd": 12, // >
-	"elementClose": 13, // /
+	"elementCloseSlash": 13, // /
 	"elementName": 14, // The name of a tag
 	"attributeName": 15,
 	"attributeAssigner": 16, // the equal sign in an attribute
@@ -20,14 +18,14 @@ tokenTypes = Object.freeze({
  */
 tokenizerStates = Object.freeze({
 	"data": 0,
-	"characterReferenceInData": 1,
-	"tagOpen": 2,
-	"tagClose": 3,
-	"tagTerminate": 4,
-	"elementName": 5,
-	"spaceAfterElementName": 6,
-	"attributeName": 7,
-	"attributeValue": 8
+	"tagOpen": 1,
+	"tagClose": 2,
+	"tagTerminate": 3,
+	"elementName": 4,
+	"spaceAfterElementName": 5,
+	"attributeName": 6,
+	"attributeValue": 7,
+	"text": 8
 });
 
 
@@ -87,6 +85,9 @@ tokenizedFile.prototype.initialize = function(code, language) {
 	if (language.toLowerCase() == "html") {
 		var linesText = code.split("\n");
 		var state = tokenizerStates.data;
+		var currentTagName = "";
+		var isCurrentTagClosing = false;
+		var nonHTMLScope = false; // Used if we're inside a <script> or <style>
 		for (var lineIndex = 0; lineIndex < linesText.length; lineIndex++) {
 			console.log(state);
 			this.addLine();
@@ -94,19 +95,18 @@ tokenizedFile.prototype.initialize = function(code, language) {
 			var currentToken = "";
 			for (var letterIndex = 0; letterIndex < linesText[lineIndex].length; letterIndex++) {
 				var currentChar = linesText[lineIndex].substring(letterIndex, letterIndex + 1);
+				var nextChar = linesText[lineIndex].substring(letterIndex + 1, letterIndex + 2);
+				var previousChar = linesText[lineIndex].substring(letterIndex - 1, letterIndex);
+				var prevpreviousChar = linesText[lineIndex].substring(letterIndex - 2, letterIndex - 1);
 				var currentLine = this.lines.length - 1;
+				// This handles most cases. But it will break if the user types
+				// a '/' more than 3 times in a row. Need a more complex method
+				// to determine this
+				var isCurrentCharEscaped = (previousChar == "\\" && prevpreviousChar != "\\");
 				switch (state) {
 
 					case tokenizerStates.data:
-						if (currentChar == "&") {
-							if (currentToken.length > 0) {
-								this.lines[currentLine].addToken(new token(tokenTypes.textNode, currentToken));
-								currentToken = "";
-							}
-							currentToken += "&";
-							state = tokenizerStates.characterReferenceInData;
-						}
-						else if (currentChar == "<") {
+						if (currentChar == "<" && !isCurrentCharEscaped) {
 							if (currentToken.length > 0) {
 								this.lines[currentLine].addToken(new token(tokenTypes.textNode, currentToken));
 								currentToken = "";
@@ -120,13 +120,9 @@ tokenizedFile.prototype.initialize = function(code, language) {
 						}
 						break;
 
-					case tokenizerStates.characterReferenceInData:
-						// TODO: Finish this after finishing tags
-						break;
-
 					case tokenizerStates.tagOpen:
 						if (currentChar == "/") {
-							this.lines[currentLine].addToken(new token(tokenTypes.elementClose, "/"));
+							this.lines[currentLine].addToken(new token(tokenTypes.elementCloseSlash, "/"));
 							state = tokenizerStates.elementName;
 							currentToken = "";
 						}
@@ -137,7 +133,7 @@ tokenizedFile.prototype.initialize = function(code, language) {
 						break;
 
 					case tokenizerStates.tagClose:
-						this.lines[currentLine].addToken(new token(tokenTypes.elementClose, ">"));
+						this.lines[currentLine].addToken(new token(tokenTypes.elementEnd, ">"));
 						currentToken = "";
 						// TODO
 						state = tokenizerStates.data;
@@ -152,19 +148,29 @@ tokenizedFile.prototype.initialize = function(code, language) {
 						else if (currentChar == ">") {
 							if (currentToken.length > 0) {
 								this.lines[currentLine].addToken(new token(tokenTypes.elementName, currentToken));
+								currentTagName = currentToken;
 							}
-							this.lines[currentLine].addToken(new token(tokenTypes.elementClose, ">"));
+							this.lines[currentLine].addToken(new token(tokenTypes.elementEnd, ">"));
 							state = tokenizerStates.data;
 							currentToken = "";
 						}
 						else if (currentChar == " ") {
 							if (currentToken.length > 0) {
 								this.lines[currentLine].addToken(new token(tokenTypes.elementName, currentToken));
+								currentTagName = currentToken;
 								currentToken = "";
 								state = tokenizerStates.spaceAfterElementName;
 							}
 						}
-						if (currentChar != " ")
+						// Gracefully switch states if a new tag is suddenly started
+						else if (currentChar == "<" && !isCurrentCharEscaped) {
+							if (currentToken.length > 0) {
+								this.lines[currentLine].addToken(new token(tokenTypes.elementName, currentToken));
+								currentTagName = currentToken;
+							}
+							this.lines[currentLine].addToken(new token(tokenTypes.elementStart, "<"));
+							currentToken = "";
+						}
 						break;
 
 					case tokenizerStates.spaceAfterElementName:
@@ -175,7 +181,12 @@ tokenizedFile.prototype.initialize = function(code, language) {
 						}
 						break;
 
+					case tokenizerStates.text:
+
+						break;
+
 					case tokenizerStates.attributeName:
+						// Alphanumeric
 						if (/^[a-z0-9:\-]+$/i.test(currentChar)) {
 							currentToken += currentChar;
 						}
@@ -194,6 +205,54 @@ tokenizedFile.prototype.initialize = function(code, language) {
 								this.lines[currentLine].addToken(new token(tokenTypes.elementClose, ">"));
 								state = tokenizerStates.data;
 								currentToken = "";
+							}
+							else if (currentChar == "=") {
+								this.lines[currentLine].addToken(new token(tokenTypes.attributeAssigner, "="));
+								state = tokenizerStates.attributeValue;
+								nestedScope = false;
+								currentToken = "";
+							}
+						}
+						break;
+					case tokenizerStates.attributeValue:
+						// If the first quote of the attribute name is not already
+						// detected
+						if (!nestedScope) {
+							if (currentChar == " ")
+								currentToken += " ";
+							else if (currentChar == "\"") {
+								if (currentToken.length != 0) {
+									this.lines[currentLine].addToken(new token(tokenTypes.emptySpace, currentToken));
+									nestedScope = true;
+									currentToken = "";
+								}
+							}
+							else if (currentChar == "/") {
+								state = tokenizerStates.tagClose;
+								currentToken = "/";
+							}
+							else if (currentChar == ">") {
+								this.lines[currentLine].addToken(new token(tokenTypes.elementClose, ">"));
+								state = tokenizerStates.data;
+								currentToken = "";
+							}
+							else {
+								currentToken = currentChar;
+								state = tokenizerStates.attributeName;
+							}
+						}
+						// The first quote already appeared
+						else {
+							if (currentChar == "\"") {
+								if (previousChar != "\\" || (previousChar == "\\" && prevpreviousChar == "\\")) {
+									nestedScope = false;
+									currentToken += currentChar;
+									this.lines[currentLine].addToken(new token(tokenTypes.attributeValue, currentToken));
+									state = tokenizerStates.spaceAfterElementName;
+								}
+							}
+							else {
+								currentToken += currentChar;
 							}
 						}
 						break;
