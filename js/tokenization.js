@@ -272,3 +272,39 @@ tokenizedFile.prototype.getString = function() {
 	}
 	return stringForm;
 }
+
+/**
+ * Returns the token right before where the cursor is. Use the 'getCursorPosition'
+ * function built in to the Ace editor to get these values.
+ * @param {Integer} row The line number of the cursor.
+ * @param {Integer} column The column of the cursor measured by characters from
+ * 	the left edge of the editor.
+ * @returns {token} The token that is relevant to providing the current context.
+ * 	Returns null if the token can't be found for any reason.
+ */
+tokenizedFile.prototype.getActiveTokenAt(row, column) {
+	var curLine = this.lines[row]; // The current line of cursor
+	var index = 0;
+	for (var i = 0; i < line.length; i++) {
+		// If the cursor is between two tokens, return the token before
+		if (index + curLine.tokens[i].value.length == column) {
+			return curLine.tokens[i];
+		}
+		// If the cursor is inside a token
+		else if (index + curLine.tokens[i].value.length > column) {
+			// If the token isnt the zero-th one
+			if (i > 0) {
+				// Return the token right before
+				return curLine.tokens[i - 1];
+			}
+			// If the row isn't the zero-th one
+			else if (row > 0) {
+				// Return the last token of the previous line
+				return this.lines[row - 1]
+					.tokens[this.lines[row - 1].tokens.length - 1];
+			}
+		}
+		index += curLine[i].value.length;
+	}
+	return null;
+}
