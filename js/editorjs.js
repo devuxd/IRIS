@@ -1,4 +1,3 @@
-// TODO: This is a really big function. Could possibly be refactored.
 
 /**
  * Uses the Ace library {@link https://ace.c9.io/} to create a code editor and
@@ -18,11 +17,9 @@ $(document).ready(function() {
 		});
 	var langTools = ace.require("ace/ext/language_tools");
 
-	// To have easy access to them in all .js files.
-	// TODO: Clean this up
-	document.elementTable = new Map();
-	document.completeElementTable = new Map();
-	document.allAutoCompleteList = [];
+	// document.elementTable = new Map();
+	// document.completeElementTable = new Map();
+	document.allAutoCompleteList = ["hello"];
 
 	// This shows the html body code in an iframe.
 	// This saves the content of the html doc that is going to be created in an
@@ -40,20 +37,9 @@ $(document).ready(function() {
 				|| e.key == "ArrowRight")) { // Don't do anything when pressing any arrow.
 
 				// HERE WE CAN ADD DIFFERENT FUNCTIONS TO POPULATE THE AUTOPLETE LIST. //
-				console.log("Boi");
-				file = new tokenizedFile();
-				file.initialize(ace.edit("editor").getValue(), "HTML");
-				console.log("Boi 2");
-				var brokenUp = file.getString().split("\n");
-				for (var i = 0; i < brokenUp.length; i++) {
-					console.log(brokenUp[i]);
-				}
-				console.log("Boi 3");
-
-				// associationRule(); // Working on this one.
-				createTable();
-				attributeTokenization();
-				elementTokenization();
+				let file = new codeFile();
+				file.update(ace.edit("editor").getValue());
+				file.analyze();
 			}
 		});
 	})();
