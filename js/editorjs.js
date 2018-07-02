@@ -19,13 +19,11 @@ $(document).ready(function() {
 
 	// document.elementTable = new Map();
 	// document.completeElementTable = new Map();
-	document.allAutoCompleteList = ["hello"];
+	document.allAutoCompleteList = [];
 
 	// This shows the html body code in an iframe.
-	// This saves the content of the html doc that is going to be created in an
-	// iframe.
-	var frame = $('#output'),
-		contents = frame.contents();
+	// This saves the content of the html doc that is going to be created in an iframe
+	var frame = $('#output'), contents = frame.contents();
 	page.codePreviewFrame = $('#output');
 	page.codePreviewContent
 	page.codePreviewBody = page.codePreviewFrame.contents().find('body');
@@ -40,6 +38,11 @@ $(document).ready(function() {
 				let file = new codeFile();
 				file.update(ace.edit("editor").getValue());
 				file.analyze();
+
+				if (predict != PREDICT.NONE) {
+                    buildtree(file);
+                    extractFeatures();
+				}
 			}
 		});
 	})();

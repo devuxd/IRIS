@@ -1,4 +1,4 @@
-let PREDICT = Object.freeze({
+var PREDICT = Object.freeze({
     "TAG": "tag",
     "ATTRIBUTE": "attribute",
     "VALUE_ASSIGN_SPACE": " = \"value\"",
@@ -12,6 +12,10 @@ var predict = PREDICT.NONE;
 
 function codeFile() {}
 
+codeFile.prototype.locateStarter = function(text) {
+    this.starter = text.lastIndexOf("<"); // TODO : Make this more flexible?
+};
+
 codeFile.prototype.update = function(code) {
     this.code = code;
     this.position = page.codeEditor.getCursorPosition();
@@ -22,7 +26,7 @@ codeFile.prototype.analyze = function() {
 
     let tokens = [];
     let i = 0;
-    while (i < text.length) {
+    while (i < this.position.column) {
         let token = null;
         let s = text.substring(i, i+1);
         switch(s) {
@@ -33,7 +37,7 @@ codeFile.prototype.analyze = function() {
                 token = new Token(TYPE.TAG_OPEN);
                 predict = PREDICT.TAG;
                 break;
-            case ">":   // NULLIFIED Close bracket --> predict nothing
+            case ">":
                 token = new Token(TYPE.TAG_CLOSE);
                 //predict = PREDICT.NONE;
                 break;
@@ -50,7 +54,13 @@ codeFile.prototype.analyze = function() {
         i++;
     }
     if (tokens.length === 0) predict = PREDICT.NONE;   // No tokens --> predict nothing
-    console.log(predict);
+    // NOTE: FOLLOWING CODE IS QUICK FIX FOR CONVENIENCE. CANNOT BE PERMANENT
+    if (predict == PREDICT.VALUE_ASSIGN_SPACE || predict == PREDICT.VALUE_QUOTES ||
+        predict == PREDICT.VALUE_QUOTES_SPACE) {
+        predict = PREDICT.VALUE;
+    }
+    console.log("PREDICTING: " + predict);
+    this.locateStarter(text);
 };
 
 function addToken(tokens, token) {
@@ -144,5 +154,5 @@ function Token(type) {
 }
 
 Token.prototype.toString = function() {
-	return this.type;
-}
+    return this.type;
+};
