@@ -1,0 +1,39 @@
+{
+    "name": "Root1",
+    "nodeNo": 0,
+    "value": 1,
+    "status": "In",
+    "type": "MainNode",
+    "mainRoot": "Root1",
+    "nodeBefore": "null",
+    "linkWidth": 0,
+    "children": [{
+        "name": "Node1",
+        "nodeNo": 1,
+        "value": 5,
+        "status": "In",
+        "type": "Small",
+        "mainRoot": "Root1",
+        "nodeBefore": "Node1",
+        "linkWidth": 10
+        }, {
+        "name": "Node2",
+        "nodeNo": 2,
+        "value": 10,
+        "status": "In",
+        "type": "Medium",
+        "mainRoot": "Root1",
+        "nodeBefore": "Node2",
+        "linkWidth": 15
+        }, {
+        "name": "Node3",
+        "nodeNo": 3,
+        "value": 5,
+        "status": "Out",
+        "type": "Large",
+        "mainRoot": "Root1",
+        "nodeBefore": "Node3",
+        "linkWidth": 50
+        }
+    ]
+}
