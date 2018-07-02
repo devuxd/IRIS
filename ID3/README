@@ -1,13 +1,4 @@
-ID3.js 
-
-This is an example implementation of the ID3 decision tree algorithm
-http://en.wikipedia.org/wiki/ID3_algorithm
-
-In the example the tree is only doing binary classification
-but is also capable of handling n-ary classification, as well an non-binary feature values.
-
-main.html gives a visualization of the output tree
-
-See the project at: http://willkurt.github.com/ID3-Decision-Tree/
-
-This project is licensed under The MIT License http://opensource.org/licenses/MIT
+Given an input of the feature table (training, features, target, and samples) in the following format below,
+the IntelAutocomplete.html file uses ID3.js to construct a decision tree.
+We are currently working on joining these 2 steps by converting the feature table to the training, features,
+and samples variables.
