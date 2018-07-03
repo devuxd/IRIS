@@ -1,24 +1,41 @@
 /**
-*Build desicion tree model, and stores prediction for next element
-* training: training set, array of the elements' features.
-* 	->[{'tag':'div', 'attrKey':'class', 'parentTag':'div', 'parentAttr/Val':'class=home_banner', 'value':'sample_button'},...];
-* samples: current element's features, used to predict the value of the class
-*   ->{'tag':'h2', 'attrKey':'class', 'parentTag':'', 'parentAttr/Val':''};
+*Build desicion tree model, and stores prediction for next tag/attribute/value.
 */
 
 
 function id3tree(){
-	var features = ['tag', 'attrKey', 'parentTag', 'parentAttr/Val'];
-	var training = [];
-	var samples = {};
-	//TO DO: Create function that populates training set, and gets the current element from new tokenizer.
-  
-	training = _(training);
-	if (training.length != 0){
-		document.tree = id3(training,'value',features);
+	var features = [];
+	//console.log(training);
+	//console.log(document.sample);
+	if (typeof (training) != "undefined" && training.length > 0 && typeof (document.sample) != "undefined" && document.sample != {}){
+		training = _(training);
+		if (predict == PREDICT.ATTRIBUTE){
+			predictAttr();
+		} else if (predict == PREDICT.VALUE){
+			predictValue();
+		} else if (predict == PREDICT.TAG){
+			predictTag();
+		}
+		console.log("PREDICTION " + prediction);
+		document.complete = prediction;
 	}
-	if ( typeof (document.tree) != "undefined" && typeof (samples) != "undefined"){
-		predictions = predict(document.tree, samples);
-		
-	}
+}
+
+
+function predictTag(){
+	features = ['parentTag', 'parentAttr/Val'];
+	var tree = id3(training,'tag',features);
+	prediction = predicts(tree, document.sample);
+}
+
+function predictAttr(){
+	features = ['tag', 'parentTag', 'parentAttr/Val'];
+	var tree = id3(training,'attr',features);
+	prediction = predicts(tree, document.sample);
+}
+
+function predictValue(){
+	features = ['tag', 'attr', 'parentTag', 'parentAttr/Val'];
+	var tree = id3(training,'val',features);
+	prediction = predicts(tree, document.sample);
 }
