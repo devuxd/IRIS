@@ -1,4 +1,3 @@
-// TODO: This is a really big function. Could possibly be refactored.
 
 /**
  * Uses the Ace library {@link https://ace.c9.io/} to create a code editor and
@@ -18,18 +17,16 @@ $(document).ready(function() {
 		});
 	var langTools = ace.require("ace/ext/language_tools");
 
-	// To have easy access to them in all .js files.
-	// TODO: Clean this up
 	document.elementTable = new Map();
 	document.completeElementTable = new Map();
 	document.allAutoCompleteList = [];
-	var predictions;
+	document.sample;
+	document.complete;
+	
 
 	// This shows the html body code in an iframe.
-	// This saves the content of the html doc that is going to be created in an
-	// iframe.
-	var frame = $('#output'),
-		contents = frame.contents();
+	// This saves the content of the html doc that is going to be created in an iframe
+	var frame = $('#output'), contents = frame.contents();
 	page.codePreviewFrame = $('#output');
 	page.codePreviewContent
 	page.codePreviewBody = page.codePreviewFrame.contents().find('body');
@@ -41,9 +38,17 @@ $(document).ready(function() {
 				|| e.key == "ArrowRight")) { // Don't do anything when pressing any arrow.
 
 				// HERE WE CAN ADD DIFFERENT FUNCTIONS TO POPULATE THE AUTOPLETE LIST. //
-
-				// associationRule(); // Working on this one.
-				id3tree();
+				let file = new codeFile();
+				file.update(ace.edit("editor").getValue());
+				file.analyze();
+				document.complete = "";
+				if (predict != PREDICT.NONE) {
+					var training = [];
+					var json = "";	
+                    buildtree(file);
+                    var sample = extractFeatures();
+					id3tree();
+				}
 				createTable();
 				attributeTokenization();
 				elementTokenization();
