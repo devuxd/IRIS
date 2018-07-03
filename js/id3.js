@@ -6,22 +6,22 @@
 var id3 = function(_s,target,features){
     var targets = _.unique(_s.pluck(target));
     if (targets.length == 1){
-	console.log("end node! "+targets[0]);
+	//console.log("end node! "+targets[0]);
 	return {type:"result", val: targets[0], name: targets[0],alias:targets[0]+randomTag() }; 
     }
     if(features.length == 0){
-	console.log("returning the most dominate feature!!!");
+	//console.log("returning the most dominate feature!!!");
 	var topTarget = mostCommon(_s.pluck(target));
 	return {type:"result", val: topTarget, name: topTarget, alias: topTarget+randomTag()};
     }
     var bestFeature = maxGain(_s,target,features);
     var remainingFeatures = _.without(features,bestFeature);
     var possibleValues = _.unique(_s.pluck(bestFeature));
-    console.log("node for "+bestFeature);
+    //console.log("node for "+bestFeature);
     var node = {name: bestFeature,alias: bestFeature+randomTag()};
     node.type = "feature";
     node.vals = _.map(possibleValues,function(v){
-	console.log("creating a branch for "+v);
+	//console.log("creating a branch for "+v);
 	var _newS = _(_s.filter(function(x) {return x[bestFeature] == v}));
 	var child_node = {name:v,alias:v+randomTag(),type: "feature_value"};
 	child_node.child =  id3(_newS,target,remainingFeatures);
@@ -31,7 +31,7 @@ var id3 = function(_s,target,features){
     return node;
 }
 
-var predict = function(id3Model,sample) {
+var predicts = function(id3Model,sample) {
     var root = id3Model;
     while(root.type != "result"){
 	var attr = root.name;
@@ -138,7 +138,7 @@ var addEdges = function(node,g){
 var renderSamples = function(samples,$el,model,target,features){
     _.each(samples,function(s){
 	var features_for_sample = _.map(features,function(x){return s[x]});
-	$el.append("<tr><td>"+features_for_sample.join('</td><td>')+"</td><td><b>"+predict(model,s)+"</b></td><td>actual: "+s[target]+"</td></tr>");
+	$el.append("<tr><td>"+features_for_sample.join('</td><td>')+"</td><td><b>"+predicts(model,s)+"</b></td><td>actual: "+s[target]+"</td></tr>");
     })
 }
 
@@ -153,7 +153,7 @@ var calcError = function(samples,model,target){
     var correct = 0;
     _.each(samples,function(s){
 	total++;
-	var pred = predict(model,s);
+	var pred = predicts(model,s);
 	var actual = s[target];
 	if(pred == actual){
 	    correct++;
