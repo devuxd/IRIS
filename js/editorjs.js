@@ -17,8 +17,8 @@ $(document).ready(function() {
 		});
 	var langTools = ace.require("ace/ext/language_tools");
 
-	document.elementTable = new Map();
-	document.completeElementTable = new Map();
+	//document.elementTable = new Map();
+	//document.completeElementTable = new Map();
 	document.allAutoCompleteList = [];
 	document.sample;
 	document.complete;
@@ -45,13 +45,14 @@ $(document).ready(function() {
 				if (predict !== PREDICT.NONE) {
 					var training = [];
 					var json = "";	
-                    buildtree(file);
-                    var sample = extractFeatures();
+                    			buildtree(file);
+                    			var sample = extractFeatures();
 					id3tree();
 				}
-				//createTable();
-				attributeTokenization();
-				/*elementTokenization();*/
+				createTable();
+				//attributeTokenization();
+				//elementTokenization();
+				document.allAutoCompleteList[document.complete] = "";
 			}
 		});
 	})();
