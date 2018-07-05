@@ -5,14 +5,14 @@
 
 var id3 = function(_s,target,features){
     var targets = _.unique(_s.pluck(target));
-    if (targets.length == 1){
-	//console.log("end node! "+targets[0]);
-	return {type:"result", val: targets[0], name: targets[0],alias:targets[0]+randomTag() }; 
+    if (targets.length === 1){
+        //console.log("end node! "+targets[0]);
+        return {type:"result", val: targets[0], name: targets[0],alias:targets[0]+randomTag() };
     }
-    if(features.length == 0){
-	//console.log("returning the most dominate feature!!!");
-	var topTarget = mostCommon(_s.pluck(target));
-	return {type:"result", val: topTarget, name: topTarget, alias: topTarget+randomTag()};
+    if(features.length === 0){
+        //console.log("returning the most dominate feature!!!");
+        var topTarget = mostCommon(_s.pluck(target));
+        return {type:"result", val: topTarget, name: topTarget, alias: topTarget+randomTag()};
     }
     var bestFeature = maxGain(_s,target,features);
     var remainingFeatures = _.without(features,bestFeature);
@@ -29,7 +29,7 @@ var id3 = function(_s,target,features){
 	
     });
     return node;
-}
+};
 
 var predicts = function(id3Model,sample) {
     var root = id3Model;
@@ -40,7 +40,7 @@ var predicts = function(id3Model,sample) {
 	root = childNode.child;
     }
     return root.val;
-}
+};
 
 
 
@@ -51,7 +51,7 @@ var entropy = function(vals){
     var probs = uniqueVals.map(function(x){return prob(x,vals)});
     var logVals = probs.map(function(p){return -p*log2(p) });
     return logVals.reduce(function(a,b){return a+b},0);
-}
+};
 
 var gain = function(_s,target,feature){
     var attrVals = _.unique(_s.pluck(feature));
@@ -63,41 +63,41 @@ var gain = function(_s,target,feature){
     });
     var sumOfEntropies =  entropies.reduce(function(a,b){return a+b},0);
     return setEntropy - sumOfEntropies;
-}
+};
 
 var maxGain = function(_s,target,features){
     return _.max(features,function(e){return gain(_s,target,e)});
-}
+};
 
 var prob = function(val,vals){
     var instances = _.filter(vals,function(x) {return x === val}).length;
     var total = vals.length;
     return instances/total;
-}
+};
 
 var log2 = function(n){
     return Math.log(n)/Math.log(2);
-}
+};
 
 
 var mostCommon = function(l){
    return  _.sortBy(l,function(a){
 	return count(a,l);
     }).reverse()[0];
-}
+};
 
 var count = function(a,l){
     return _.filter(l,function(b) { return b === a}).length
-}
+};
 
 var randomTag = function(){
     return "_r"+Math.round(Math.random()*1000000).toString();
-}
+};
 
 //Display logic
 
 var drawGraph = function(id3Model,divId){
-    var g = new Array();
+    var g = [];
     g = addEdges(id3Model,g).reverse();
     window.g = g;
     var data = google.visualization.arrayToDataTable(g.concat(g));
@@ -113,7 +113,7 @@ var drawGraph = function(id3Model,divId){
     });
     chart.draw(data, {allowHtml: true});
 
-}
+};
 
 var addEdges = function(node,g){
     if(node.type == 'feature'){
@@ -132,7 +132,7 @@ var addEdges = function(node,g){
 	return g;
     }
     return g;
-}
+};
 
 
 var renderSamples = function(samples,$el,model,target,features){
@@ -140,24 +140,24 @@ var renderSamples = function(samples,$el,model,target,features){
 	var features_for_sample = _.map(features,function(x){return s[x]});
 	$el.append("<tr><td>"+features_for_sample.join('</td><td>')+"</td><td><b>"+predicts(model,s)+"</b></td><td>actual: "+s[target]+"</td></tr>");
     })
-}
+};
 
 var renderTrainingData = function(_training,$el,target,features){
     _training.each(function(s){
 	$el.append("<tr><td>"+_.map(features,function(x){return s[x]}).join('</td><td>')+"</td><td>"+s[target]+"</td></tr>");
     })
-}
+};
 
 var calcError = function(samples,model,target){
     var total = 0;
     var correct = 0;
     _.each(samples,function(s){
-	total++;
-	var pred = predicts(model,s);
-	var actual = s[target];
-	if(pred == actual){
-	    correct++;
-	}
+        total++;
+        var pred = predicts(model,s);
+        var actual = s[target];
+        if(pred == actual){
+            correct++;
+        }
     });
     return correct/total;
 }

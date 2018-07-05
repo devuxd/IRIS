@@ -23,7 +23,7 @@ codeFile.prototype.update = function(code) {
 
 codeFile.prototype.analyze = function() {
     let text = this.code.split("\n")[this.position.row];
-
+    this.locateStarter(text);
     let tokens = [];
     let i = 0;
     while (i < this.position.column) {
@@ -59,8 +59,7 @@ codeFile.prototype.analyze = function() {
         predict == PREDICT.VALUE_QUOTES_SPACE) {
         predict = PREDICT.VALUE;
     }
-    console.log("PREDICTING: " + predict);
-    this.locateStarter(text);
+    //console.log("PREDICTING: " + predict);
 };
 
 function addToken(tokens, token) {

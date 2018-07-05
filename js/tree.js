@@ -6,7 +6,7 @@
 function id3tree(){
 	var features = [];
 	//console.log(training);
-	//console.log(document.sample);
+	console.log(document.sample);
 	if (typeof (training) != "undefined" && training.length > 0 && typeof (document.sample) != "undefined" && document.sample != {}){
 		training = _(training);
 		if (predict == PREDICT.ATTRIBUTE){

@@ -27,31 +27,31 @@ $(document).ready(function() {
 	// This shows the html body code in an iframe.
 	// This saves the content of the html doc that is going to be created in an iframe
 	var frame = $('#output'), contents = frame.contents();
-	page.codePreviewFrame = $('#output');
+	page.codePreviewFrame = frame;
 	page.codePreviewContent
 	page.codePreviewBody = page.codePreviewFrame.contents().find('body');
 
 	// This updates the text editor content every time something is changed
 	page.codeEditor.on('focus', function (event, editors) {
 		$(this).keyup(function (e) {
-			if (!(e.key == "ArrowUp" || e.key == "ArrowDown" || e.key == "ArrowLeft"
-				|| e.key == "ArrowRight")) { // Don't do anything when pressing any arrow.
+			if (!(e.key === "ArrowUp" || e.key === "ArrowDown" || e.key === "ArrowLeft"
+				|| e.key === "ArrowRight")) { // Don't do anything when pressing any arrow.
 
 				// HERE WE CAN ADD DIFFERENT FUNCTIONS TO POPULATE THE AUTOPLETE LIST. //
 				let file = new codeFile();
 				file.update(ace.edit("editor").getValue());
 				file.analyze();
 				document.complete = "";
-				if (predict != PREDICT.NONE) {
+				if (predict !== PREDICT.NONE) {
 					var training = [];
 					var json = "";	
                     buildtree(file);
                     var sample = extractFeatures();
 					id3tree();
 				}
-				createTable();
+				//createTable();
 				attributeTokenization();
-				elementTokenization();
+				/*elementTokenization();*/
 			}
 		});
 	})();
@@ -61,7 +61,7 @@ $(document).ready(function() {
 		getCompletions: function (editor, session, pos, prefix, callback) {
 			var attributeList = [];
 			var i = 0;
-			if (typeof (document.allAutoCompleteList) != "undefined") {
+			if (typeof (document.allAutoCompleteList) !== "undefined") {
 				for (var attString in document.allAutoCompleteList) {
 					attributeList[i++] = attString + document.allAutoCompleteList[attString];
 				}
