@@ -2,21 +2,20 @@ var training = [];
 var json = "";
 var str = "";
 
+/**
+*Builds AST
+*/
 function buildtree(codeFile) {
 	training = [];
-    const html = clean(codeFile);
-	//console.log(html);
-    json = himalaya.parse(html);
+	const html = clean(codeFile);
+	json = himalaya.parse(html);
 	json = removeWhitespace(json);
-	//console.log(json);
 }
 
 function extractFeatures() {
     for (let node of json) {
         extract(node, predict, '', '', '');
     }
-    //console.log("FEATURE TABLE");
-    //console.log(training);
 }
 
 function clean(codeFile) {
@@ -24,13 +23,14 @@ function clean(codeFile) {
     let lines = code.split("\n");
     let text = lines[codeFile.position.row];
     let newText = text.substring(0, codeFile.starter) + text.substring(codeFile.position.column);   // without < to cursor
-	//str = text.slice(newText.length).slice(1);
-	//console.log("str " + str);
     str = text.substring(codeFile.starter+1, codeFile.position.column);
     lines[codeFile.position.row] = newText + "<>";  // gets rid of incomplete, adds branding to end of line
     return lines.join("\n");
 }
 
+/**
+*Gets the features needed to make a prediction
+*/
 function getsample(predict, parentTag, parentAttr, parentVal){
 	var parentAttrVal = parentAttr + "=" + parentVal;
 	if (parentAttrVal === '=') parentAttrVal = '';
@@ -47,6 +47,10 @@ function getsample(predict, parentTag, parentAttr, parentVal){
 	
 }
 
+/**
+*Depending on the scenario, it gets all the information necessary
+*from the AST to build the training set for the decision tree
+*/
 function extract(node, predict, parentTag, parentAttr, parentVal) {
 	if (typeof (node['content']) !== "undefined" && node['content'].includes("<>")){
 		getsample(predict, parentTag, parentAttr, parentVal);
