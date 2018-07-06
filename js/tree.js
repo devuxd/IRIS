@@ -1,13 +1,12 @@
 /**
 *Build desicion tree model, and stores prediction for next tag/attribute/value.
+*Dependind on the scenario, it creates the respective decision tree and prediction.
 */
 
 
 function id3tree(){
 	var features = [];
-	//console.log(training);
 	console.log(document.sample);
-	//console.log(document.sample);
 	if (training.length > 0 && document.sample != {}){
 		training = _(training);
 		if (predict == PREDICT.ATTRIBUTE){
@@ -17,7 +16,7 @@ function id3tree(){
 		} else if (predict == PREDICT.TAG){
 			predictTag();
 		}
-		//console.log("PREDICTION " + prediction);
+		console.log("PREDICTION: " + prediction);
 		document.complete = prediction;
 	}
 }
@@ -26,20 +25,17 @@ function id3tree(){
 function predictTag(){
 	features = ['parentTag', 'parentAttr/Val'];
 	var tree = id3(training,'tag',features);
-	//console.log((JSON.stringify(tree)));
 	prediction = predicts(tree, document.sample);
 }
 
 function predictAttr(){
 	features = ['tag', 'parentTag', 'parentAttr/Val'];
 	var tree = id3(training,'attr',features);
-    //console.log((JSON.stringify(tree)));
 	prediction = predicts(tree, document.sample);
 }
 
 function predictValue(){
 	features = ['tag', 'attr', 'parentTag', 'parentAttr/Val'];
 	var tree = id3(training,'val',features);
-    //console.log((JSON.stringify(tree)));
 	prediction = predicts(tree, document.sample);
 }
