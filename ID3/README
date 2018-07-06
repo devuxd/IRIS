@@ -1,0 +1,4 @@
+Given an input of the feature table (training, features, target, and samples) in the following format below,
+the IntelAutocomplete.html file uses ID3.js to construct a decision tree.
+We are currently working on joining these 2 steps by converting the feature table to the training, features,
+and samples variables.
