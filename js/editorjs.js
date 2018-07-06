@@ -1,4 +1,3 @@
-
 /**
  * Uses the Ace library {@link https://ace.c9.io/} to create a code editor and
  * calls functions to initialize the auto-complete features. Runs when the page
@@ -17,13 +16,10 @@ $(document).ready(function() {
 		});
 	var langTools = ace.require("ace/ext/language_tools");
 
-	//document.elementTable = new Map();
-	//document.completeElementTable = new Map();
-	document.allAutoCompleteList = [];
+	document.allAutoCompleteList;
 	document.sample;
 	document.complete;
 	
-
 	// This shows the html body code in an iframe.
 	// This saves the content of the html doc that is going to be created in an iframe
 	var frame = $('#output'), contents = frame.contents();
@@ -36,25 +32,26 @@ $(document).ready(function() {
 		$(this).keyup(function (e) {
 			if (!(e.key === "ArrowUp" || e.key === "ArrowDown" || e.key === "ArrowLeft"
 				|| e.key === "ArrowRight")) { // Don't do anything when pressing any arrow.
-
+				page.codePreviewBody.html(page.codeEditor.getValue());
+				
+				
 				// HERE WE CAN ADD DIFFERENT FUNCTIONS TO POPULATE THE AUTOPLETE LIST. //
+				
+				
 				let file = new codeFile();
 				file.update(ace.edit("editor").getValue());
 				file.analyze();
 				document.complete = "";
+				//make a prediction if needed
 				if (predict !== PREDICT.NONE) {
 					var training = [];
 					var json = "";	
-                    buildtree(file);
-                    var sample = extractFeatures();
-					id3tree();
+                    			buildtree(file); //Abstract Syntax Tree
+                    			var sample = extractFeatures();
+					id3tree(); //Decision tree + prediction
 				}
-				createTable();
-				//attributeTokenization();
-                document.allAutoCompleteList = [];
-                document.allAutoCompleteList[document.complete] = "";
-				//elementTokenization();
-
+               			document.allAutoCompleteList = [];
+                		document.allAutoCompleteList[document.complete] = "";
 			}
 		});
 	})();
