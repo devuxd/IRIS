@@ -7,7 +7,7 @@ var id3 = function(_s,target,features){
     var targets = _.unique(_s.pluck(target));
     if (targets.length === 1){
         //console.log("end node! "+targets[0]);
-        return {type:"result", val: targets[0], name: targets[0],alias:targets[0]+randomTag() };
+        return {type:"result", val: targets[0], name: targets[0], alias:targets[0]+randomTag() };
     }
     if(features.length === 0){
         //console.log("returning the most dominate feature!!!");
@@ -18,26 +18,29 @@ var id3 = function(_s,target,features){
     var remainingFeatures = _.without(features,bestFeature);
     var possibleValues = _.unique(_s.pluck(bestFeature));
     //console.log("node for "+bestFeature);
-    var node = {name: bestFeature,alias: bestFeature+randomTag()};
+    var node = {name: bestFeature, alias: bestFeature + randomTag()};
     node.type = "feature";
-    node.vals = _.map(possibleValues,function(v){
-	//console.log("creating a branch for "+v);
-	var _newS = _(_s.filter(function(x) {return x[bestFeature] == v}));
-	var child_node = {name:v,alias:v+randomTag(),type: "feature_value"};
-	child_node.child =  id3(_newS,target,remainingFeatures);
-	return child_node;
-	
+    node.vals = _.map(possibleValues, function(v) {
+        //console.log("creating a branch for "+v);
+        var _newS = _(_s.filter(function(x) {return x[bestFeature] === v}));
+        var child_node = {name:v,alias:v+randomTag(),type: "feature_value"};
+        child_node.child =  id3(_newS, target, remainingFeatures);
+        return child_node;
     });
     return node;
 };
 
 var predicts = function(id3Model,sample) {
     var root = id3Model;
-    while(root.type != "result"){
-	var attr = root.name;
-	var sampleVal = sample[attr];
-	var childNode = _.detect(root.vals,function(x){return x.name == sampleVal});
-	root = childNode.child;
+    while(root.type !== "result") {
+        var attr = root.name;
+        var sampleVal = sample[attr];
+        var childNode = _.detect(root.vals,function(x){return x.name === sampleVal});
+        if (childNode === undefined) {
+            console.log("No prediction possible");
+            return;
+        }
+        root = childNode.child;
     }
     return root.val;
 };
@@ -79,7 +82,6 @@ var log2 = function(n){
     return Math.log(n)/Math.log(2);
 };
 
-
 var mostCommon = function(l){
    return  _.sortBy(l,function(a){
 	return count(a,l);
@@ -116,17 +118,17 @@ var drawGraph = function(id3Model,divId){
 };
 
 var addEdges = function(node,g){
-    if(node.type == 'feature'){
+    if(node.type === 'feature'){
 	_.each(node.vals,function(m){
 	    g.push([m.alias,node.alias,'']);
 	    g = addEdges(m,g);
 	});
 	return g;
     }
-    if(node.type == 'feature_value'){
+    if(node.type === 'feature_value'){
 
 	g.push([node.child.alias,node.alias,'']);
-	if(node.child.type != 'result'){
+	if(node.child.type !== 'result'){
 	    g = addEdges(node.child,g);
 	}
 	return g;
@@ -155,7 +157,7 @@ var calcError = function(samples,model,target){
         total++;
         var pred = predicts(model,s);
         var actual = s[target];
-        if(pred == actual){
+        if(pred === actual){
             correct++;
         }
     });
