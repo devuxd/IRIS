@@ -18,7 +18,7 @@
   top: 0;
   display: block;
   height: 100%;
-  width: 50vw;
+  width: 35vw;
 }
 
 #outputContainer {
@@ -26,9 +26,20 @@
   right: 0;
   top: 0;
   display: block;
-  height: 100vh;
-  width: 50vw;
+  height: 50vh;
+  width: 65vw;
   border: 0;
+}
+
+#interactContainer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  display: block;
+  height: 50vh;
+  width: 65vw;
+  border: 0;
+  background-color: #eee;
 }
 
 #output {
@@ -38,6 +49,8 @@
   height: 100%;
   overflow: auto;
 }
+
+#
 
 body,
 html {

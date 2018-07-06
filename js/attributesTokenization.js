@@ -35,9 +35,10 @@ function attributeTokenization() {
 			}
 		}
 		document.allAutoCompleteList = [];
-		for (var attr in document.list)
-			document.allAutoCompleteList[attr] = " Freq: " + document.list[attr];
-		console.log(document.allAutoCompleteList);
+		//for (var attr in document.list)
+			//document.allAutoCompleteList[attr] = " Freq: " + document.list[attr];
+		document.allAutoCompleteList[document.complete] = " ";
+		//console.log(document.allAutoCompleteList);
 		elementTokenization();
 	}
 }
