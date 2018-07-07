@@ -1,85 +1,80 @@
-var training = [];
-var json = "";
-var str = "";
+/*
+Builds an Abstract Syntax Tree by 'cleaning' the code
+of the user's incomplete fragments, branding the fragment section,
+parsing HTML --> JSON and removing whitespace.
 
-function buildtree(codeFile) {
-	training = [];
-    const html = clean(codeFile);
-	//console.log(html);
-    json = himalaya.parse(html);
-	json = removeWhitespace(json);
-	//console.log(json);
+@param {CodeFile} codeFile - An object that includes the editor code and cursor position
+@returns {JSON} AST - The Abstract Syntax Tree
+
+ */
+function getAST(codeFile) {
+	return removeWhitespace(himalaya.parse(clean(codeFile)));
 }
 
-function extractFeatures() {
-    for (let node of json) {
-        extract(node, predict, '', '', '');
+function extractFeatures(syntaxTree) {
+    for (let node of syntaxTree) {
+        extract(node, '', '', '');
     }
-    //console.log("FEATURE TABLE");
-    //console.log(training);
 }
 
-function clean(codeFile) {
-    let code = codeFile.code;
-    let lines = code.split("\n");
-    let text = lines[codeFile.position.row];
-    let newText = text.substring(0, codeFile.starter) + text.substring(codeFile.position.column);   // without < to cursor
-	//str = text.slice(newText.length).slice(1);
-	//console.log("str " + str);
-    str = text.substring(codeFile.starter+1, codeFile.position.column);
-    lines[codeFile.position.row] = newText + "<>";  // gets rid of incomplete, adds branding to end of line
-    return lines.join("\n");
-}
-
-function getsample(predict, parentTag, parentAttr, parentVal){
-	var parentAttrVal = parentAttr + "=" + parentVal;
-	if (parentAttrVal === '=') parentAttrVal = '';
-	if (predict === PREDICT.ATTRIBUTE) {
-		var tag = str.split(" ")[0];
-		document.sample = {'tag': tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal};
-	} else if (predict === PREDICT.VALUE){
-		var tag = str.split(" ")[0];
-		var attr = str.split(" ")[1].split('=')[0];
-		document.sample = {'tag': tag, 'attr': attr, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal};
-	} else if (predict === PREDICT.TAG){
-		document.sample = {'parentTag':parentTag, 'parentAttr/Val':parentAttrVal};
-	}
-	
-}
-
-function extract(node, predict, parentTag, parentAttr, parentVal) {
-	if (typeof (node['content']) !== "undefined" && node['content'].includes("<>")){
-		getsample(predict, parentTag, parentAttr, parentVal);
-	}
-	
-    if (node.type !== 'element') return;
+function extract(node, parentTag, parentAttr, parentVal) {
+    
+    if (node.type === 'text') {
+        if (node.content.includes('<>')) extractSample(parentTag, parentAttr, parentVal);
+        return;
+    }
 
     let tag = node.tagName;
-    let parentAttrVal = parentAttr + "=" + parentVal;
+    let parentAttrVal = parentAttr + '=' + parentVal;
     if (parentAttrVal === '=') parentAttrVal = '';
     let attr = (node.attributes.length > 0) ? node.attributes[0].key : '';
     let val = (node.attributes.length > 0) ? node.attributes[0].value : '';   // TODO : Empty attribute fix
 
-    if (predict == PREDICT.ATTRIBUTE || predict == PREDICT.VALUE) {
-        if (predict == PREDICT.VALUE) {
-            store_val(tag, attr, val, parentTag, parentAttrVal);
-        } else {
-            store_attr(tag, attr, parentTag, parentAttrVal);
-        }
-    } else {
-        store_tag(tag, parentTag, parentAttrVal);
+    if (storage.predictionCase === PREDICTION_CASE.TAG) {
+        storage.trainingTable.push({'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
+    } else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE) {
+        storage.trainingTable.push({'tag':tag, 'attr':attr, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
+    } else if (storage.predictionCase === PREDICTION_CASE.VALUE) {
+        storage.trainingTable.push({'tag':tag, 'attr':attr, 'val':val, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
     }
-    for (let child of node.children) extract(child, predict, tag, attr, val);
+
+    for (let child of node.children) extract(child, tag, attr, val);
 }
 
-function store_tag(tag, parentTag, parentAttrVal) {
-    training.push({'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
+function clean(codeFile) {
+    let lines = codeFile.code.split("\n");
+    let text = lines[codeFile.position.row];
+    let newText = text.substring(0, codeFile.starter) + text.substring(codeFile.position.column);   // without < to cursor
+    storage.fragment = text.substring(codeFile.starter+1, codeFile.position.column);
+    lines[codeFile.position.row] = newText + "<>";  // gets rid of incomplete, adds branding to end of line
+    return lines.join("\n");
 }
 
-function store_attr(tag, attr, parentTag, parentAttrVal) {
-    training.push({'tag':tag, 'attr':attr, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
-}
+/*
+Retrieves/stores the input features for the DT, necessary to make a prediction.
+@param parentTag The tag of the parent node of the element being typed
+@param parentAttr The attribute of the parent node of the element being typed
+@param parentVal The value of the parent node of the element being typed
+ */
+function extractSample(parentTag, parentAttr, parentVal) {
 
-function store_val(tag, attr, val, parentTag, parentAttrVal) {
-    training.push({'tag':tag, 'attr':attr, 'val':val, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
+    let parentAttrVal = parentAttr + "=" + parentVal;
+    if (parentAttrVal === '=') parentAttrVal = '';
+
+    if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE) {
+
+        let tag = storage.fragment.split(" ")[0];
+        storage.sampleFeatures = {'tag': tag, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
+
+    } else if (storage.predictionCase === PREDICTION_CASE.VALUE) {
+
+        let tag = storage.fragment.split(" ")[0];
+        let attr = storage.fragment.split(" ")[1].split('=')[0];
+        storage.sampleFeatures = {'tag': tag, 'attr': attr, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
+
+    } else if (storage.predictionCase === PREDICTION_CASE.TAG) {
+
+        storage.sampleFeatures = {'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
+    }
+
 }

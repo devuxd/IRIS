@@ -1,16 +1,10 @@
-#editor {
-  height: 100%;
-  width: 100%;
-  position: relative;
-}
-
-#mainContainer {
-  position: relative;
-  display: block;
-  height: 100%;
-  width: 100%;
-  float: left;
-}
+/*#mainContainer {*/
+  /*position: relative;*/
+  /*display: block;*/
+  /*height: 100%;*/
+  /*width: 100%;*/
+  /*float: left;*/
+/*}*/
 
 #editorContainer {
   position: fixed;
@@ -18,7 +12,13 @@
   top: 0;
   display: block;
   height: 100%;
-  width: 35vw;
+  width: 40vw;
+}
+
+#editor {
+  height: 100%;
+  width: 100%;
+  position: relative;
 }
 
 #outputContainer {
@@ -27,8 +27,16 @@
   top: 0;
   display: block;
   height: 50vh;
-  width: 65vw;
+  width: 60vw;
   border: 0;
+}
+
+#outputFrame {
+  position: relative;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
 #interactContainer {
@@ -37,25 +45,7 @@
   bottom: 0;
   display: block;
   height: 50vh;
-  width: 65vw;
+  width: 60vw;
   border: 0;
   background-color: #eee;
-}
-
-#output {
-  position: relative;
-  border: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-}
-
-#
-
-body,
-html {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  padding: 0;
 }

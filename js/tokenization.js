@@ -1,4 +1,4 @@
-var PREDICT = Object.freeze({
+var PREDICTION_CASE = Object.freeze({
     "TAG": "tag",
     "ATTRIBUTE": "attribute",
     "VALUE_ASSIGN_SPACE": " = \"value\"",
@@ -8,22 +8,17 @@ var PREDICT = Object.freeze({
     "NONE": "none",
 });
 
-var predict = PREDICT.NONE;
-
-function codeFile() {}
-
-codeFile.prototype.locateStarter = function(text) {
-    this.starter = text.lastIndexOf("<"); // TODO : Make this more flexible?
-};
-
-codeFile.prototype.update = function(code) {
+function CodeFile(code, position) {
     this.code = code;
-    this.position = page.codeEditor.getCursorPosition();
-};
+    this.position = position;
+    this.findStarter = function(text) {
+        this.starter = text.lastIndexOf("<"); // TODO : Make this more flexible?
+    }
+}
 
-codeFile.prototype.analyze = function() {
+CodeFile.prototype.tokenize = function() {
     let text = this.code.split("\n")[this.position.row];
-    this.locateStarter(text);
+    this.findStarter(text);
     let tokens = [];
     let i = 0;
     while (i < this.position.column) {
@@ -31,35 +26,37 @@ codeFile.prototype.analyze = function() {
         let s = text.substring(i, i+1);
         switch(s) {
             case " ":
-                token = new Token(TYPE.SPACE);
+                token = new Token(TOKEN_TYPE.SPACE);
                 break;
             case "<":   // Open bracket --> predict tag
-                token = new Token(TYPE.TAG_OPEN);
-                predict = PREDICT.TAG;
+                token = new Token(TOKEN_TYPE.TAG_OPEN);
+                storage.predictionCase = PREDICTION_CASE.TAG;
                 break;
-            case ">":
-                token = new Token(TYPE.TAG_CLOSE);
-                predict = PREDICT.NONE;
+            case ">":   // Close bracket --> predict nothing
+                token = new Token(TOKEN_TYPE.TAG_CLOSE);
+                storage.predictionCase = PREDICTION_CASE.NONE;
                 break;
             case "=":
-                token = new Token(TYPE.ASSIGN);
+                token = new Token(TOKEN_TYPE.ASSIGN);
                 break;
             case "\"":
-                token = new Token(TYPE.QUOTES);
+                token = new Token(TOKEN_TYPE.QUOTES);
                 break;
             default:
-                token = new Token(TYPE.TEXT);
+                token = new Token(TOKEN_TYPE.TEXT);
         }
         addToken(tokens, token);
         i++;
     }
-    if (tokens.length === 0) predict = PREDICT.NONE;   // No tokens --> predict nothing
-    // NOTE: FOLLOWING CODE IS QUICK FIX FOR CONVENIENCE. CANNOT BE PERMANENT
-    if (predict == PREDICT.VALUE_ASSIGN_SPACE || predict == PREDICT.VALUE_QUOTES ||
-        predict == PREDICT.VALUE_QUOTES_SPACE) {
-        predict = PREDICT.VALUE;
+    if (tokens.length === 0) storage.predictionCase = PREDICTION_CASE.NONE;   // No tokens --> predict nothing
+
+    // NOTE: FOLLOWING CODE IS QUICK FIX FOR CONVENIENCE. SHOULD NOT BE PERMANENT
+    if (storage.predictionCase == PREDICTION_CASE.VALUE_ASSIGN_SPACE ||
+        storage.predictionCase == PREDICTION_CASE.VALUE_QUOTES ||
+        storage.predictionCase == PREDICTION_CASE.VALUE_QUOTES_SPACE) {
+
+        storage.predictionCase = PREDICTION_CASE.VALUE;
     }
-    //console.log("PREDICTING: " + predict);
 };
 
 function addToken(tokens, token) {
@@ -68,75 +65,75 @@ function addToken(tokens, token) {
     if (tokens.length >= 1) {
         top = tokens[tokens.length - 1];
 
-        if (top.type == TYPE.SPACE && token.type == TYPE.SPACE) {   // Space + space --> space
+        if (top.type == TOKEN_TYPE.SPACE && token.type == TOKEN_TYPE.SPACE) {   // Space + space --> space
             return;
         }
-        if (top.type == TYPE.TEXT && token.type == TYPE.TEXT) { // Text + text --> text
+        if (top.type == TOKEN_TYPE.TEXT && token.type == TOKEN_TYPE.TEXT) { // Text + text --> text
             return;
         }
 
-        if (predict == PREDICT.TAG) {   // Predicting tag
-            if (token.type == TYPE.SPACE) { // Types space
-                if (top.type == TYPE.TEXT) {    // Typed <tag --> predict attribute
-                    top.type = TYPE.TAG;
-                    predict = PREDICT.ATTRIBUTE;
-                } else if (top.type == TYPE.TAG_OPEN) { // Typed < --> predict nothing
-                    predict = PREDICT.NONE;
+        if (storage.predictionCase == PREDICTION_CASE.TAG) {   // Predicting tag
+            if (token.type == TOKEN_TYPE.SPACE) { // Types space
+                if (top.type == TOKEN_TYPE.TEXT) {    // Typed <tag --> predict attribute
+                    top.type = TOKEN_TYPE.TAG;
+                    storage.predictionCase = PREDICTION_CASE.ATTRIBUTE;
+                } else if (top.type == TOKEN_TYPE.TAG_OPEN) { // Typed < --> predict nothing
+                    storage.predictionCase = PREDICTION_CASE.NONE;
                 }
-            } else if (token.type == TYPE.TAG_CLOSE) {  // Types > --> predict none
-                top.type = TYPE.TAG;
-                predict = PREDICT.NONE;
+            } /*            else if (token.type == TOKEN_TYPE.TAG_CLOSE) {  // Types > --> predict none
+                top.type = TOKEN_TYPE.TAG;
+                storage.predictionCase = PREDICTION_CASE.NONE;
+            }*/
+        }
+
+        else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE) {    // Predicting attribute
+            if (token.type == TOKEN_TYPE.SPACE) { // Types space --> predict = "value"
+                top.type = TOKEN_TYPE.ATTRIBUTE;
+                storage.predictionCase = PREDICTION_CASE.VALUE_ASSIGN_SPACE;
+            } else if (token.type == TOKEN_TYPE.ASSIGN) { // Types = --> predict "value"
+                top.type = TOKEN_TYPE.ATTRIBUTE;
+                storage.predictionCase = PREDICTION_CASE.VALUE_QUOTES;
             }
         }
 
-        else if (predict == PREDICT.ATTRIBUTE) {    // Predicting attribute
-            if (token.type == TYPE.SPACE) { // Types space --> predict = "value"
-                top.type = TYPE.ATTRIBUTE;
-                predict = PREDICT.VALUE_ASSIGN_SPACE;
-            } else if (token.type == TYPE.ASSIGN) { // Types = --> predict "value"
-                top.type = TYPE.ATTRIBUTE;
-                predict = PREDICT.VALUE_QUOTES;
+        else if (storage.predictionCase == PREDICTION_CASE.VALUE_ASSIGN_SPACE) {   // Predicting = "value"
+            if (token.type == TOKEN_TYPE.ASSIGN) {    // Types = --> predict "value"
+                storage.predictionCase = PREDICTION_CASE.VALUE_QUOTES_SPACE;
             }
         }
 
-        else if (predict == PREDICT.VALUE_ASSIGN_SPACE) {   // Predicting = "value"
-            if (token.type == TYPE.ASSIGN) {    // Types = --> predict "value"
-                predict = PREDICT.VALUE_QUOTES_SPACE;
+        else if (storage.predictionCase == PREDICTION_CASE.VALUE_QUOTES_SPACE) {   // Predicting _"value"
+            if (token.type == TOKEN_TYPE.SPACE) { // Types space --> predict "value"
+                storage.predictionCase = PREDICTION_CASE.VALUE_QUOTES;
+            } else if (token.type == TOKEN_TYPE.QUOTES) { // Types " --> predict value
+                storage.predictionCase = PREDICTION_CASE.VALUE;
             }
         }
 
-        else if (predict == PREDICT.VALUE_QUOTES_SPACE) {   // Predicting _"value"
-            if (token.type == TYPE.SPACE) { // Types space --> predict "value"
-                predict = PREDICT.VALUE_QUOTES;
-            } else if (token.type == TYPE.QUOTES) { // Types " --> predict value
-                predict = PREDICT.VALUE;
+        else if (storage.predictionCase == PREDICTION_CASE.VALUE_QUOTES) { // Predicting "value"
+            if (token.type == TOKEN_TYPE.QUOTES) {    // Types " --> predict value
+                storage.predictionCase = PREDICTION_CASE.VALUE;
             }
         }
 
-        else if (predict == PREDICT.VALUE_QUOTES) { // Predicting "value"
-            if (token.type == TYPE.QUOTES) {    // Types " --> predict value
-                predict = PREDICT.VALUE;
-            }
-        }
-
-        else if (predict == PREDICT.VALUE) {    // Predicting value
-            if (token.type == TYPE.SPACE) { // Types space
-                if (top.type == TYPE.QUOTES) {  // ..after the end quote --> predict attribute
-                    tokens[tokens.length - 2].type = TYPE.VALUE;
-                    predict = PREDICT.ATTRIBUTE;
-                } else if (top.type == TYPE.TEXT) { // ..after the value text --> predict nothing
-                    predict = PREDICT.NONE;
+        else if (storage.predictionCase == PREDICTION_CASE.VALUE) {    // Predicting value
+            if (token.type == TOKEN_TYPE.SPACE) { // Types space
+                if (top.type == TOKEN_TYPE.QUOTES) {  // ..after the end quote --> predict attribute
+                    tokens[tokens.length - 2].type = TOKEN_TYPE.VALUE;
+                    storage.predictionCase = PREDICTION_CASE.ATTRIBUTE;
+                } else if (top.type == TOKEN_TYPE.TEXT) { // ..after the value text --> predict nothing
+                    storage.predictionCase = PREDICTION_CASE.NONE;
                 }
-            } else if (token.type == TYPE.TAG_CLOSE) {  // Types > --> predict none
-                tokens[tokens.length - 2].type = TYPE.VALUE;
-                predict = PREDICT.NONE;
-            }
+            } /*else if (token.type == TOKEN_TYPE.TAG_CLOSE) {  // Types > --> predict none
+                tokens[tokens.length - 2].type = TOKEN_TYPE.VALUE;
+                storage.predictionCase = PREDICTION_CASE.NONE;
+            }*/
         }
     }
     tokens.push(token);
 }
 
-let TYPE = Object.freeze({
+let TOKEN_TYPE = Object.freeze({
     "TAG_OPEN": 0,
     "TAG": 1,
     "SPACE": 2,
