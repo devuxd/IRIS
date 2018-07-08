@@ -66,9 +66,24 @@ $(document).ready(function() {
                 let decisionTree = getDT();
 
                 console.log("Making Prediction");
-                let prediction = predicts(decisionTree, storage.sampleFeatures);
-                storage.predictionList.push(prediction);
-                console.log("PREDICTION: " + prediction);
+                let prediction = predicts(decisionTree, storage.sampleFeatures)
+
+				/*
+					This checks whether ID3 returned multiple predictions
+					(sorted by probability), and if so, pushes each one.
+				 */
+                if (prediction.includes(" // ")) {
+                	let predictions = prediction.split(" // ");
+                	for (let pred of predictions) {
+                		if (!storage.predictionList.includes(pred)) {
+                            storage.predictionList.push(pred);
+                            console.log("PREDICTION: " + pred);
+                        }
+					}
+				} else {
+                    storage.predictionList.push(prediction);
+                    console.log("PREDICTION: " + prediction);
+				}
 
             }
 		}
@@ -79,11 +94,13 @@ $(document).ready(function() {
 
     let staticWordCompleter = {
         getCompletions: function (editor, session, pos, prefix, callback) {
+        	let rank = storage.predictionList.length;
             callback(null, storage.predictionList.map(function (word) {
+            	rank--;
                 return {
                     caption: word, // completion displayed
                     value: word, // completion performed
-                    score: 0, // ordering
+                    score: rank, // ordering
                     meta: storage.predictionCase // description displayed
                 };
             }));

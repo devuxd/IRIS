@@ -11,7 +11,7 @@ var id3 = function(_s,target,features){
     }
     if(features.length === 0){
         //console.log("returning the most dominate feature!!!");
-        var topTarget = mostCommon(_s.pluck(target));
+        var topTarget = mostCommon(_s.pluck(target)).join(" // ");  // Combines multiple predictions into a string
         return {type:"result", val: topTarget, name: topTarget, alias: topTarget+randomTag()};
     }
     var bestFeature = maxGain(_s,target,features);
@@ -61,8 +61,8 @@ var gain = function(_s,target,feature){
     var setEntropy = entropy(_s.pluck(target));
     var setSize = _s.size();
     var entropies = attrVals.map(function(n){
-	var subset = _s.filter(function(x){return x[feature] === n});
-	return (subset.length/setSize)*entropy(_.pluck(subset,target));
+        var subset = _s.filter(function(x){return x[feature] === n});
+        return (subset.length/setSize)*entropy(_.pluck(subset,target));
     });
     var sumOfEntropies =  entropies.reduce(function(a,b){return a+b},0);
     return setEntropy - sumOfEntropies;
@@ -82,10 +82,14 @@ var log2 = function(n){
     return Math.log(n)/Math.log(2);
 };
 
+/*
+MODIFIED to return the array, instead of just the first element.
+This lets us display multiple predictions, sorted by probability.
+ */
 var mostCommon = function(l){
    return  _.sortBy(l,function(a){
 	return count(a,l);
-    }).reverse()[0];
+    }).reverse();
 };
 
 var count = function(a,l){
