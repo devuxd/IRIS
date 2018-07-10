@@ -5,40 +5,55 @@ parsing HTML --> JSON and removing whitespace.
 
 @param {CodeFile} codeFile - An object that includes the editor code and cursor position
 @returns {JSON} AST - The Abstract Syntax Tree
-
  */
 function getAST(codeFile) {
 	return removeWhitespace(himalaya.parse(clean(codeFile)));
 }
 
 function extractFeatures(syntaxTree) {
-    for (let node of syntaxTree) {
-        extract(node, '', '', '');
-    }
+    for (let node of syntaxTree) extract(node, '', '', '');
 }
 
 function extract(node, parentTag, parentAttr, parentVal) {
+
+    let parentAttrVal = parentAttr + '=' + parentVal;
+    if (parentAttrVal === '=') parentAttrVal = '';
     
-    if (node.type === 'text') {
-        if (node.content.includes('<>')) extractSample(parentTag, parentAttr, parentVal);
+    if (node.type === 'text' && node.content.includes('<>')) {
+        extractSample(parentTag, parentAttrVal);
         return;
     }
 
     let tag = node.tagName;
-    let parentAttrVal = parentAttr + '=' + parentVal;
-    if (parentAttrVal === '=') parentAttrVal = '';
-    let attr = (node.attributes.length > 0) ? node.attributes[0].key : '';
-    let val = (node.attributes.length > 0) ? node.attributes[0].value : '';   // TODO : Empty attribute fix
+    let attr, val;
 
-    if (storage.predictionCase === PREDICTION_CASE.TAG) {
-        storage.trainingTable.push({'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
-    } else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE) {
-        storage.trainingTable.push({'tag':tag, 'attr':attr, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
-    } else if (storage.predictionCase === PREDICTION_CASE.VALUE) {
-        storage.trainingTable.push({'tag':tag, 'attr':attr, 'val':val, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
+    if (node.attributes.length > 0) {
+        for (let attribute of node.attributes) {
+            attr = attribute.key;
+            val = attribute.value;  // TODO: Empty attribute fix
+            addTraining(tag, parentTag, parentAttrVal, attr, val);
+        }
+    } else {
+        attr = '';
+        val = '';
+        addTraining(tag, parentTag, parentAttrVal, attr, val);
     }
 
     for (let child of node.children) extract(child, tag, attr, val);
+}
+
+function addTraining(tag, parentTag, parentAttrVal, attr, val) {
+    switch (storage.predictionCase) {
+        case PREDICTION_CASE.TAG:
+            storage.trainingTable.push({'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
+            break;
+        case PREDICTION_CASE.ATTRIBUTE:
+            storage.trainingTable.push({'tag':tag, 'attr':attr, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
+            break;
+        case PREDICTION_CASE.VALUE:
+            storage.trainingTable.push({'tag':tag, 'attr':attr, 'val':val, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
+            break;
+    }
 }
 
 function clean(codeFile) {
@@ -56,10 +71,8 @@ Retrieves/stores the input features for the DT, necessary to make a prediction.
 @param parentAttr The attribute of the parent node of the element being typed
 @param parentVal The value of the parent node of the element being typed
  */
-function extractSample(parentTag, parentAttr, parentVal) {
-
-    let parentAttrVal = parentAttr + "=" + parentVal;
-    if (parentAttrVal === '=') parentAttrVal = '';
+// FIX
+function extractSample(parentTag, parentAttrVal) {
 
     if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE) {
 

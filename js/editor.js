@@ -70,7 +70,7 @@ $(document).ready(function() {
 
 				/*
 					This checks whether ID3 returned multiple predictions
-					(sorted by probability), and if so, pushes each one.
+					(sorted by probability), and if so, adds each one.
 				 */
                 if (prediction.includes(" // ")) {
                 	let predictions = prediction.split(" // ");

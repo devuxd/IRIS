@@ -39,6 +39,7 @@ CodeFile.prototype.tokenize = function() {
             case "=":
                 token = new Token(TOKEN_TYPE.ASSIGN);
                 break;
+            case "'":
             case "\"":
                 token = new Token(TOKEN_TYPE.QUOTES);
                 break;
@@ -80,7 +81,7 @@ function addToken(tokens, token) {
                 } else if (top.type == TOKEN_TYPE.TAG_OPEN) { // Typed < --> predict nothing
                     storage.predictionCase = PREDICTION_CASE.NONE;
                 }
-            } /*            else if (token.type == TOKEN_TYPE.TAG_CLOSE) {  // Types > --> predict none
+            } /*  else if (token.type == TOKEN_TYPE.TAG_CLOSE) {  // Types > --> predict none
                 top.type = TOKEN_TYPE.TAG;
                 storage.predictionCase = PREDICTION_CASE.NONE;
             }*/
