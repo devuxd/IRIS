@@ -21,7 +21,8 @@
 		<script type="text/javascript" src="js/ast.js"></script>
 		<script type="text/javascript" src="js/id3.js"></script>
 		<script type="text/javascript" src="js/dt.js"></script>
-		
+		<script type="text/javascript" src="js/validation.js"></script>
+
 	</head>
 
 	<body>
@@ -36,7 +37,9 @@
 			</div>
 
 			<div id="interactContainer">
-				<h1 style="text-align:center">User Interaction</h1>
+				<h1 style="text-align:center">Validator</h1>
+				<input type="file" id="fileUpload" onchange="handleFiles(event)" webkitdirectory mozdirectory msdirectory odirectory directory multiple />
+
 			</div>
 
 		</div>

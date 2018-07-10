@@ -5,6 +5,7 @@ var storage = {
 	sampleFeatures: {},	// Features to input into DT to get prediction
     predictionList: [],	// Predictions from DT (currently just one)
     tagBlacklist: [],   // Tags that should not be shown as predictions
+    aceEditor: {},  // Ace code editor
 };
 
 
@@ -15,7 +16,7 @@ var storage = {
  */
 $(document).ready(function() {
 
-	let aceEditor = setupEditor();
+	storage.aceEditor = setupEditor();
 
 	function setupEditor() {
 		let aceEditor = ace.edit("editor");
@@ -34,9 +35,9 @@ $(document).ready(function() {
         return aceEditor;
 	}
 
-	function updateOutputFrame() {
+/*	function updateOutputFrame() {
         $('#outputFrame').contents().find('body').html(aceEditor.getValue());
-	}
+	}*/
 
 	function handleKey(e) {
 
@@ -44,7 +45,7 @@ $(document).ready(function() {
 		console.log("KEY: " + e.key);
 
 		console.log("Tokenizing");
-		let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
+		let codeFile = new CodeFile(storage.aceEditor.getValue(), storage.aceEditor.getCursorPosition());
         codeFile.tokenize();
         console.log("PREDICTION CASE: " + storage.predictionCase);
 		
@@ -90,7 +91,7 @@ $(document).ready(function() {
 		}
 
         console.log('---------------------------');
-        updateOutputFrame();
+        //updateOutputFrame();
 	}
 
     let staticWordCompleter = {
@@ -98,11 +99,10 @@ $(document).ready(function() {
         	let rank = storage.predictionList.length;
             callback(null, storage.predictionList.map(function (word) {
                 if (storage.tagBlacklist.includes(word)) return;
-            	rank--;
                 return {
                     caption: word, // completion displayed
                     value: word, // completion performed
-                    score: rank, // ordering
+                    score: 0, // ordering
                     meta: storage.predictionCase // description displayed
                 };
             }));
