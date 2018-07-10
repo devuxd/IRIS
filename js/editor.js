@@ -4,6 +4,7 @@ var storage = {
     trainingTable: [],	// AST Features for making DT
 	sampleFeatures: {},	// Features to input into DT to get prediction
     predictionList: [],	// Predictions from DT (currently just one)
+    tagBlacklist: [],   // Tags that should not be shown as predictions
 };
 
 
@@ -96,6 +97,7 @@ $(document).ready(function() {
         getCompletions: function (editor, session, pos, prefix, callback) {
         	let rank = storage.predictionList.length;
             callback(null, storage.predictionList.map(function (word) {
+                if (storage.tagBlacklist.includes(word)) return;
             	rank--;
                 return {
                     caption: word, // completion displayed
