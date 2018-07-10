@@ -19,7 +19,7 @@ function extract(node, parentTag, parentAttr, parentVal) {
     let parentAttrVal = parentAttr + '=' + parentVal;
     if (parentAttrVal === '=') parentAttrVal = '';
     
-    if (node.type === 'text') {
+    if (node.type !== 'element') {
         if (node.content.includes('<>')) extractSample(parentTag, parentAttrVal);
         return;
     }
