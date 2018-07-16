@@ -30,7 +30,8 @@ function extract(node, parentTag, parentAttr, parentVal) {
     if (node.attributes.length > 0) {
         for (let attribute of node.attributes) {
             attr = attribute.key;
-            val = attribute.value;  // TODO: Empty attribute fix
+            val = attribute.value;
+            val = val === null ? '' : val;
             addTraining(tag, parentTag, parentAttrVal, attr, val);
         }
     } else {
