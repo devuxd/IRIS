@@ -22,6 +22,7 @@ $(document).ready(function() {
 		let aceEditor = ace.edit("editor");
 		aceEditor.setTheme("ace/theme/monokai");
 		aceEditor.getSession().setMode("ace/mode/html");
+        aceEditor.$blockScrolling = Infinity;
 		aceEditor.setOptions({
 			enableBasicAutocompletion: true,
 			enableSnippets: true,
@@ -29,69 +30,10 @@ $(document).ready(function() {
 		});
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
-                handleKey(e);
+                handleKey(e.key);
             });
         })();
         return aceEditor;
-	}
-
-/*	function updateOutputFrame() {
-        $('#outputFrame').contents().find('body').html(aceEditor.getValue());
-	}*/
-
-	function handleKey(e) {
-
-		if (e.key.includes('Arrow') || e.key === 'Shift') return;
-		console.log("KEY: " + e.key);
-
-		console.log("Tokenizing");
-		let codeFile = new CodeFile(storage.aceEditor.getValue(), storage.aceEditor.getCursorPosition());
-        codeFile.tokenize();
-        console.log("PREDICTION CASE: " + storage.predictionCase);
-		
-        storage.fragment = {};
-        storage.trainingTable = [];
-        storage.sampleFeatures = {};
-		storage.predictionList = [];
-
-		if (storage.predictionCase !== PREDICTION_CASE.NONE) {
-
-			console.log("Building AST");
-			let syntaxTree = getAST(codeFile);
-
-            console.log("Converting to Training Table");
-			extractFeatures(syntaxTree);
-
-			if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
-
-                console.log("Building DT");
-                let decisionTree = getDT();
-
-                console.log("Making Prediction");
-                let prediction = predicts(decisionTree, storage.sampleFeatures)
-
-				/*
-					This checks whether ID3 returned multiple predictions
-					(sorted by probability), and if so, adds each one.
-				 */
-                if (prediction.includes(" // ")) {
-                	let predictions = prediction.split(" // ");
-                	for (let pred of predictions) {
-                		if (!storage.predictionList.includes(pred)) {
-                            storage.predictionList.push(pred);
-                            console.log("PREDICTION: " + pred);
-                        }
-					}
-				} else {
-                    storage.predictionList.push(prediction);
-                    console.log("PREDICTION: " + prediction);
-				}
-
-            }
-		}
-
-        console.log('---------------------------');
-        //updateOutputFrame();
 	}
 
     let staticWordCompleter = {
@@ -113,3 +55,62 @@ $(document).ready(function() {
     langTools.setCompleters([staticWordCompleter]);
 
 });
+
+function updateOutputFrame() {
+    $('#outputFrame').contents().find('body').html(storage.aceEditor.getValue());
+}
+
+function handleKey(key) {
+
+    if (key.includes('Arrow') || key === 'Shift') return;
+    //console.log("KEY: " + key);
+
+    //console.log("Tokenizing");
+    let codeFile = new CodeFile(storage.aceEditor.getValue(), storage.aceEditor.getCursorPosition());
+    codeFile.tokenize();
+    //console.log("PREDICTION CASE: " + storage.predictionCase);
+
+    storage.fragment = {};
+    storage.trainingTable = [];
+    storage.sampleFeatures = {};
+    storage.predictionList = [];
+
+    if (storage.predictionCase !== PREDICTION_CASE.NONE) {
+
+        //console.log("Building AST");
+        let syntaxTree = getAST(codeFile);
+
+        //console.log("Converting to Training Table");
+        extractFeatures(syntaxTree);
+
+        if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
+
+            //console.log("Building DT");
+            let decisionTree = getDT();
+
+            //console.log("Making Prediction");
+            let prediction = predicts(decisionTree, storage.sampleFeatures)
+
+            /*
+                This checks whether ID3 returned multiple predictions
+                (sorted by probability), and if so, adds each one.
+             */
+            if (prediction.includes(" // ")) {
+                let predictions = prediction.split(" // ");
+                for (let pred of predictions) {
+                    if (!storage.predictionList.includes(pred)) {
+                        storage.predictionList.push(pred);
+                        console.log("PREDICTION: " + pred);
+                    }
+                }
+            } else {
+                storage.predictionList.push(prediction);
+                console.log("PREDICTION: " + prediction);
+            }
+
+        }
+    }
+
+    //console.log('---------------------------');
+    //updateOutputFrame();
+}

@@ -61,6 +61,7 @@ function updateTagBlacklist(tag) {
     for (let checkTag of ['html','head','body']) if (tag === checkTag) storage.tagBlacklist.push(tag);
 }
 
+// LOOK INTO EXCLUSITIVITY?
 function clean(codeFile) {
     let lines = codeFile.code.split("\n");
     let text = lines[codeFile.position.row];
@@ -94,5 +95,6 @@ function extractSample(parentTag, parentAttrVal) {
 
         storage.sampleFeatures = {'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
     }
+
 
 }
