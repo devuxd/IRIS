@@ -64,9 +64,9 @@ function updateTagBlacklist(tag) {
 function clean(codeFile) {
     let lines = codeFile.code.split("\n");
     let text = lines[codeFile.position.row];
-    let newText = text.substring(0, codeFile.starter) + text.substring(codeFile.position.column);   // without < to cursor
-    storage.fragment = text.substring(codeFile.starter+1, codeFile.position.column);
-    lines[codeFile.position.row] = newText + "<>";  // gets rid of incomplete, adds branding to end of line
+    let newText = text.substring(0, codeFile.fragmentStart) + '<>' + text.substring(codeFile.position.column);   // without < to cursor
+    storage.fragment = text.substring(codeFile.fragmentStart+1, codeFile.position.column);
+    lines[codeFile.position.row] = newText;
     return lines.join("\n");
 }
 
@@ -76,7 +76,7 @@ Retrieves/stores the input features for the DT, necessary to make a prediction.
 @param parentAttr The attribute of the parent node of the element being typed
 @param parentVal The value of the parent node of the element being typed
  */
-// FIX
+
 function extractSample(parentTag, parentAttrVal) {
 
     if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE) {

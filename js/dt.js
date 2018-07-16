@@ -7,11 +7,11 @@
 */
 function getDT() {
     storage.trainingTable = _(storage.trainingTable);
-    if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
+    if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
         return id3(storage.trainingTable,'attr',['tag', 'parentTag', 'parentAttr/Val']);
-    } else if (storage.predictionCase == PREDICTION_CASE.VALUE){
+    } else if (storage.predictionCase === PREDICTION_CASE.VALUE){
         return id3(storage.trainingTable,'val',['tag', 'attr', 'parentTag', 'parentAttr/Val']);
-    } else if (storage.predictionCase == PREDICTION_CASE.TAG){
+    } else if (storage.predictionCase === PREDICTION_CASE.TAG){
         return id3(storage.trainingTable,'tag',['parentTag', 'parentAttr/Val']);
     }
 }

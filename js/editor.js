@@ -21,6 +21,7 @@ $(document).ready(function() {
 		let aceEditor = ace.edit("editor");
 		aceEditor.setTheme("ace/theme/monokai");
 		aceEditor.getSession().setMode("ace/mode/html");
+        aceEditor.$blockScrolling = Infinity;
 		aceEditor.setOptions({
 			enableBasicAutocompletion: true,
 			enableSnippets: true,
@@ -28,7 +29,7 @@ $(document).ready(function() {
 		});
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
-                handleKey(e);
+                handleKey(e.key);
             });
         })();
         return aceEditor;
@@ -38,10 +39,10 @@ $(document).ready(function() {
         $('#outputFrame').contents().find('body').html(aceEditor.getValue());
 	}
 
-	function handleKey(e) {
+	function handleKey(key) {
 
-		if (e.key.includes('Arrow') || e.key === 'Shift') return;
-		console.log("KEY: " + e.key);
+		if (key.includes('Arrow') || key === 'Shift') return;
+		console.log("KEY: " + key);
 
 		console.log("Tokenizing");
 		let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
@@ -76,14 +77,16 @@ $(document).ready(function() {
                 if (prediction.includes(" // ")) {
                 	let predictions = prediction.split(" // ");
                 	for (let pred of predictions) {
-                		if (!storage.predictionList.includes(pred)) {
+                		if (!storage.predictionList.includes(pred) && !storage.tagBlacklist.includes(pred)) {
                             storage.predictionList.push(pred);
                             console.log("PREDICTION: " + pred);
                         }
 					}
 				} else {
-                    storage.predictionList.push(prediction);
-                    console.log("PREDICTION: " + prediction);
+                    if (!storage.tagBlacklist.includes(prediction)) {
+                        storage.predictionList.push(prediction);
+                        console.log("PREDICTION: " + prediction);
+                    }
 				}
 
             }
@@ -97,7 +100,6 @@ $(document).ready(function() {
         getCompletions: function (editor, session, pos, prefix, callback) {
         	let rank = storage.predictionList.length;
             callback(null, storage.predictionList.map(function (word) {
-                if (storage.tagBlacklist.includes(word)) return;
             	rank--;
                 return {
                     caption: word, // completion displayed
