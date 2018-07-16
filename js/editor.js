@@ -40,11 +40,11 @@ $(document).ready(function() {
         getCompletions: function (editor, session, pos, prefix, callback) {
         	let rank = storage.predictionList.length;
             callback(null, storage.predictionList.map(function (word) {
-                if (storage.tagBlacklist.includes(word)) return;
+                rank--;
                 return {
                     caption: word, // completion displayed
                     value: word, // completion performed
-                    score: 0, // ordering
+                    score: rank, // ordering
                     meta: storage.predictionCase // description displayed
                 };
             }));
@@ -98,14 +98,16 @@ function handleKey(key) {
             if (prediction.includes(" // ")) {
                 let predictions = prediction.split(" // ");
                 for (let pred of predictions) {
-                    if (!storage.predictionList.includes(pred)) {
+                    if (!storage.predictionList.includes(pred) && !storage.tagBlacklist.includes(pred)) {
                         storage.predictionList.push(pred);
                         console.log("PREDICTION: " + pred);
                     }
                 }
             } else {
-                storage.predictionList.push(prediction);
-                console.log("PREDICTION: " + prediction);
+                if (!storage.tagBlacklist.includes(prediction)) {
+                    storage.predictionList.push(prediction);
+                    console.log("PREDICTION: " + prediction);
+                }
             }
 
         }

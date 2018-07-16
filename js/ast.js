@@ -30,7 +30,8 @@ function extract(node, parentTag, parentAttr, parentVal) {
     if (node.attributes.length > 0) {
         for (let attribute of node.attributes) {
             attr = attribute.key;
-            val = attribute.value;  // TODO: Empty attribute fix
+            val = attribute.value;
+            val = val === null ? '' : val;
             addTraining(tag, parentTag, parentAttrVal, attr, val);
         }
     } else {
@@ -61,13 +62,12 @@ function updateTagBlacklist(tag) {
     for (let checkTag of ['html','head','body']) if (tag === checkTag) storage.tagBlacklist.push(tag);
 }
 
-// LOOK INTO EXCLUSITIVITY?
 function clean(codeFile) {
     let lines = codeFile.code.split("\n");
     let text = lines[codeFile.position.row];
-    let newText = text.substring(0, codeFile.starter) + text.substring(codeFile.position.column);   // without < to cursor
-    storage.fragment = text.substring(codeFile.starter+1, codeFile.position.column);
-    lines[codeFile.position.row] = newText + "<>";  // gets rid of incomplete, adds branding to end of line
+    let newText = text.substring(0, codeFile.fragmentStart) + '<>' + text.substring(codeFile.position.column);   // without < to cursor
+    storage.fragment = text.substring(codeFile.fragmentStart+1, codeFile.position.column);
+    lines[codeFile.position.row] = newText;
     return lines.join("\n");
 }
 
@@ -77,7 +77,7 @@ Retrieves/stores the input features for the DT, necessary to make a prediction.
 @param parentAttr The attribute of the parent node of the element being typed
 @param parentVal The value of the parent node of the element being typed
  */
-// FIX
+
 function extractSample(parentTag, parentAttrVal) {
 
     if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE) {
@@ -95,6 +95,5 @@ function extractSample(parentTag, parentAttrVal) {
 
         storage.sampleFeatures = {'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
     }
-
 
 }

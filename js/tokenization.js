@@ -11,14 +11,15 @@ var PREDICTION_CASE = Object.freeze({
 function CodeFile(code, position) {
     this.code = code;
     this.position = position;
-    this.findStarter = function(text) {
-        this.starter = text.lastIndexOf("<"); // TODO : Make this more flexible?
+    this.findFragmentStart = function(text) {
+        // "<" most close to the cursor from the left
+        this.fragmentStart = text.substring(0, position.column).lastIndexOf("<");
     }
 }
 
 CodeFile.prototype.tokenize = function() {
     let text = this.code.split("\n")[this.position.row];
-    this.findStarter(text);
+    this.findFragmentStart(text);
     let tokens = [];
     let i = 0;
     while (i < this.position.column) {
@@ -52,9 +53,9 @@ CodeFile.prototype.tokenize = function() {
     if (tokens.length === 0) storage.predictionCase = PREDICTION_CASE.NONE;   // No tokens --> predict nothing
 
     // NOTE: FOLLOWING CODE IS QUICK FIX FOR CONVENIENCE. SHOULD NOT BE PERMANENT
-    if (storage.predictionCase == PREDICTION_CASE.VALUE_ASSIGN_SPACE ||
-        storage.predictionCase == PREDICTION_CASE.VALUE_QUOTES ||
-        storage.predictionCase == PREDICTION_CASE.VALUE_QUOTES_SPACE) {
+    if (storage.predictionCase === PREDICTION_CASE.VALUE_ASSIGN_SPACE ||
+        storage.predictionCase === PREDICTION_CASE.VALUE_QUOTES ||
+        storage.predictionCase === PREDICTION_CASE.VALUE_QUOTES_SPACE) {
 
         storage.predictionCase = PREDICTION_CASE.VALUE;
     }
@@ -66,19 +67,19 @@ function addToken(tokens, token) {
     if (tokens.length >= 1) {
         top = tokens[tokens.length - 1];
 
-        if (top.type == TOKEN_TYPE.SPACE && token.type == TOKEN_TYPE.SPACE) {   // Space + space --> space
+        if (top.type === TOKEN_TYPE.SPACE && token.type === TOKEN_TYPE.SPACE) {   // Space + space --> space
             return;
         }
-        if (top.type == TOKEN_TYPE.TEXT && token.type == TOKEN_TYPE.TEXT) { // Text + text --> text
+        if (top.type === TOKEN_TYPE.TEXT && token.type === TOKEN_TYPE.TEXT) { // Text + text --> text
             return;
         }
 
-        if (storage.predictionCase == PREDICTION_CASE.TAG) {   // Predicting tag
-            if (token.type == TOKEN_TYPE.SPACE) { // Types space
-                if (top.type == TOKEN_TYPE.TEXT) {    // Typed <tag --> predict attribute
+        if (storage.predictionCase === PREDICTION_CASE.TAG) {   // Predicting tag
+            if (token.type === TOKEN_TYPE.SPACE) { // Types space
+                if (top.type === TOKEN_TYPE.TEXT) {    // Typed <tag --> predict attribute
                     top.type = TOKEN_TYPE.TAG;
                     storage.predictionCase = PREDICTION_CASE.ATTRIBUTE;
-                } else if (top.type == TOKEN_TYPE.TAG_OPEN) { // Typed < --> predict nothing
+                } else if (top.type === TOKEN_TYPE.TAG_OPEN) { // Typed < --> predict nothing
                     storage.predictionCase = PREDICTION_CASE.NONE;
                 }
             } /*  else if (token.type == TOKEN_TYPE.TAG_CLOSE) {  // Types > --> predict none
@@ -87,42 +88,42 @@ function addToken(tokens, token) {
             }*/
         }
 
-        else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE) {    // Predicting attribute
-            if (token.type == TOKEN_TYPE.SPACE) { // Types space --> predict = "value"
+        else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE) {    // Predicting attribute
+            if (token.type === TOKEN_TYPE.SPACE) { // Types space --> predict = "value"
                 top.type = TOKEN_TYPE.ATTRIBUTE;
                 storage.predictionCase = PREDICTION_CASE.VALUE_ASSIGN_SPACE;
-            } else if (token.type == TOKEN_TYPE.ASSIGN) { // Types = --> predict "value"
+            } else if (token.type === TOKEN_TYPE.ASSIGN) { // Types = --> predict "value"
                 top.type = TOKEN_TYPE.ATTRIBUTE;
                 storage.predictionCase = PREDICTION_CASE.VALUE_QUOTES;
             }
         }
 
-        else if (storage.predictionCase == PREDICTION_CASE.VALUE_ASSIGN_SPACE) {   // Predicting = "value"
-            if (token.type == TOKEN_TYPE.ASSIGN) {    // Types = --> predict "value"
+        else if (storage.predictionCase === PREDICTION_CASE.VALUE_ASSIGN_SPACE) {   // Predicting = "value"
+            if (token.type === TOKEN_TYPE.ASSIGN) {    // Types = --> predict "value"
                 storage.predictionCase = PREDICTION_CASE.VALUE_QUOTES_SPACE;
             }
         }
 
-        else if (storage.predictionCase == PREDICTION_CASE.VALUE_QUOTES_SPACE) {   // Predicting _"value"
-            if (token.type == TOKEN_TYPE.SPACE) { // Types space --> predict "value"
+        else if (storage.predictionCase === PREDICTION_CASE.VALUE_QUOTES_SPACE) {   // Predicting _"value"
+            if (token.type === TOKEN_TYPE.SPACE) { // Types space --> predict "value"
                 storage.predictionCase = PREDICTION_CASE.VALUE_QUOTES;
-            } else if (token.type == TOKEN_TYPE.QUOTES) { // Types " --> predict value
+            } else if (token.type === TOKEN_TYPE.QUOTES) { // Types " --> predict value
                 storage.predictionCase = PREDICTION_CASE.VALUE;
             }
         }
 
-        else if (storage.predictionCase == PREDICTION_CASE.VALUE_QUOTES) { // Predicting "value"
-            if (token.type == TOKEN_TYPE.QUOTES) {    // Types " --> predict value
+        else if (storage.predictionCase === PREDICTION_CASE.VALUE_QUOTES) { // Predicting "value"
+            if (token.type === TOKEN_TYPE.QUOTES) {    // Types " --> predict value
                 storage.predictionCase = PREDICTION_CASE.VALUE;
             }
         }
 
-        else if (storage.predictionCase == PREDICTION_CASE.VALUE) {    // Predicting value
-            if (token.type == TOKEN_TYPE.SPACE) { // Types space
-                if (top.type == TOKEN_TYPE.QUOTES) {  // ..after the end quote --> predict attribute
+        else if (storage.predictionCase === PREDICTION_CASE.VALUE) {    // Predicting value
+            if (token.type === TOKEN_TYPE.SPACE) { // Types space
+                if (top.type === TOKEN_TYPE.QUOTES) {  // ..after the end quote --> predict attribute
                     tokens[tokens.length - 2].type = TOKEN_TYPE.VALUE;
                     storage.predictionCase = PREDICTION_CASE.ATTRIBUTE;
-                } else if (top.type == TOKEN_TYPE.TEXT) { // ..after the value text --> predict nothing
+                } else if (top.type === TOKEN_TYPE.TEXT) { // ..after the value text --> predict nothing
                     storage.predictionCase = PREDICTION_CASE.NONE;
                 }
             } /*else if (token.type == TOKEN_TYPE.TAG_CLOSE) {  // Types > --> predict none
