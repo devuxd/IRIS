@@ -4,16 +4,15 @@
 * Shows the top rule for the current prediction to the user. 
 */
 function currentPred(){
-	console.log(storage.sampleFeatures);
-	document.getElementById("button1").style.display = "block";
-	document.getElementById("button2").style.display = "block";
 	let sample;
 	let featureStr;
 	let predStr;
-	if (storage.predictionList[0] == ""){
-		document.getElementById("button1").style.display = "none";
-		document.getElementById("button2").style.display = "none";
+	if (storage.predictionList.length === 0){
+		$("#features").html("");
+		$("#prediction").html("");
+		return;
 	}
+	
 	if (storage.predictionCase == PREDICTION_CASE.VALUE){
 		sample = storage.sampleFeatures;
 		for (var x = 0; x < sample.length; x++){
@@ -47,10 +46,24 @@ function currentPred(){
 	}
 	$("#features").html(featureStr);
 	$("#prediction").html(predStr);
-	document.getElementById("main menu").style.display = "none";
-	document.getElementById("current prediction").style.display = "block";
 }
 
+
+/**
+* Lets the user edit the current prediction
+*/
+function editCurrent(){
+	console.log(storage.sampleFeatures);
+	document.getElementById("button1").style.display = "block";
+	document.getElementById("button2").style.display = "block";
+	document.getElementById("current prediction").style.display = "block";
+	document.getElementById("options").style.display = "none";
+	if (storage.predictionList[0] == ""){
+		document.getElementById("button1").style.display = "none";
+		document.getElementById("button2").style.display = "none";
+	}
+	
+}
 /**
 * If the user likes a rule, the user can add it to the respective array to use it as a priority.
 * Does not add repeated rules.
@@ -181,10 +194,12 @@ function updateCurrent(){
 *Display the main menu
 */
 function mainMenu(){
+	currentPred();
 	document.getElementById("current prediction").style.display = "none";
 	document.getElementById("existing rules").style.display = "none";
 	document.getElementById("add new rule").style.display = "none";
 	document.getElementById("main menu").style.display = "block";
+	document.getElementById("options").style.display = "block";
 }
 
 /**
@@ -300,7 +315,7 @@ function addNew(){
 		document.getElementById("3").style.display = "block";
 		document.getElementById("4").style.display = "block";
 		document.getElementById("5").style.display = "none";
-	} else if (target == "val"){
+	} else if (target == "value"){
 		document.getElementById("1").style.display = "block";
 		document.getElementById("2").style.display = "block";
 		document.getElementById("3").style.display = "block";
