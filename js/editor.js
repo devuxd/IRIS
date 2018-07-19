@@ -4,48 +4,9 @@ var storage = {
     trainingTable: [],	// AST Features for making DT
 	sampleFeatures: {},	// Features to input into DT to get prediction
     predictionList: [],	// Predictions from DT (currently just one)
-	
-	dontUse: [], // List of entries/rules the user doesn't want to use
-	alwaysTag: [], // Rules for predicting tags 
- 	alwaysAttr: [], // Rules for predicting attributes 
-	alwaysValue: [], // Rules for predicting values
-	justTable: false
+    tagBlacklist: [],   // Tags that should not be shown as predictions
 };
 
-/**
-*create ace Editor
-*/
-function setupEditor() {
-	let aceEditor = ace.edit("editor");
-	aceEditor.setTheme("ace/theme/monokai");
-	aceEditor.getSession().setMode("ace/mode/html");
-	aceEditor.setOptions({
-		enableBasicAutocompletion: true,
-		enableSnippets: true,
-		enableLiveAutocompletion: true
-	});
-	return aceEditor;
-}
-
-/*
-This checks whether ID3 returned multiple predictions
-(sorted by probability), and if so, pushes each one.
-*/
-function multiplePred(prediction){
-	if (prediction.includes(" // ")) {
-		let predictions = prediction.split(" // ");
-		for (let pred of predictions) {
-			if (!storage.predictionList.includes(pred)) {
-				storage.predictionList.push(pred);
-				console.log("PREDICTION: " + pred);
-			}
-		}
-	} else {
-		storage.predictionList.push(prediction);
-
-		console.log("PREDICTION: " + prediction);
-	}
-}
 
 /**
  * Uses the Ace library {@link https://ace.c9.io/} to create a code editor and
@@ -60,6 +21,7 @@ $(document).ready(function() {
 		let aceEditor = ace.edit("editor");
 		aceEditor.setTheme("ace/theme/monokai");
 		aceEditor.getSession().setMode("ace/mode/html");
+        aceEditor.$blockScrolling = Infinity;
 		aceEditor.setOptions({
 			enableBasicAutocompletion: true,
 			enableSnippets: true,
@@ -67,22 +29,20 @@ $(document).ready(function() {
 		});
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
-                handleKey(e);
+                handleKey(e.key);
             });
         })();
         return aceEditor;
 	}
-	
+
 	function updateOutputFrame() {
         $('#outputFrame').contents().find('body').html(aceEditor.getValue());
 	}
-	
-	mainMenu();
-	
-	function handleKey(e) {
 
-		if (e.key.includes('Arrow') || e.key === 'Shift') return;
-		console.log("KEY: " + e.key);
+	function handleKey(key) {
+
+		if (key.includes('Arrow') || key === 'Shift') return;
+		console.log("KEY: " + key);
 
 		console.log("Tokenizing");
 		let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
@@ -95,54 +55,41 @@ $(document).ready(function() {
 		storage.predictionList = [];
 
 		if (storage.predictionCase !== PREDICTION_CASE.NONE) {
-			
-			
+
 			console.log("Building AST");
 			let syntaxTree = getAST(codeFile);
+
+            console.log("Converting to Training Table");
 			extractFeatures(syntaxTree);
-			let firstPred = false;
-			// Try to make a prediction based on the rules set by the user first
-			if (storage.predictionCase == PREDICTION_CASE.VALUE){
-				storage.trainingTable = storage.alwaysValue;
-			} else if (storage.predictionCase == PREDICTION_CASE.TAG){
-				console.log("here");
-				storage.trainingTable = storage.alwaysTag;
-			} else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
-				storage.trainingTable = storage.alwaysAttr;
-			}
-			console.log(storage.trainingTable);
+
 			if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
-				
+
                 console.log("Building DT");
                 let decisionTree = getDT();
+
                 console.log("Making Prediction");
-				console.log(storage.sampleFeatures);
-				
-                let prediction = predicts(decisionTree, storage.sampleFeatures);
-				if (prediction != ""){ //prediction possible
-					firstPred = true;
-					multiplePred(prediction);
-				}
-			}
-			if (firstPred == false){ // Try to make prediction now with the existing document
-				console.log("Converting to Training Table");
-				storage.trainingTable = [];
-				extractFeatures(syntaxTree);
-				console.log(storage.trainingTable);
-				
-				if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
-					
-					console.log("Building DT");
-					let decisionTree = getDT();
+                let prediction = predicts(decisionTree, storage.sampleFeatures)
 
-					console.log("Making Prediction");
-					console.log(storage.sampleFeatures);
-					let prediction = predicts(decisionTree, storage.sampleFeatures);
-					
-					multiplePred(prediction);
-
+				/*
+					This checks whether ID3 returned multiple predictions
+					(sorted by probability), and if so, adds each one.
+				 */
+                if (prediction.includes(" // ")) {
+                	let predictions = prediction.split(" // ");
+                	for (let pred of predictions) {
+                		if (!storage.predictionList.includes(pred) && !storage.tagBlacklist.includes(pred)) {
+                            storage.predictionList.push(pred);
+                            console.log("PREDICTION: " + pred);
+                        }
+					}
+				} else {
+                    if (!storage.tagBlacklist.includes(prediction)) {
+                        storage.predictionList.push(prediction);
+                        console.log("PREDICTION: " + prediction);
+                    }
 				}
-			}
+
+            }
 		}
 
         console.log('---------------------------');
