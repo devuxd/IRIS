@@ -93,24 +93,22 @@ $(document).ready(function() {
         storage.trainingTable = [];
         storage.sampleFeatures = {};
 		storage.predictionList = [];
-
+		
+		console.log("always tag");
+		console.log(storage.alwaysTag);
+		
 		if (storage.predictionCase !== PREDICTION_CASE.NONE) {
 			
-			
-			console.log("Building AST");
-			let syntaxTree = getAST(codeFile);
-			extractFeatures(syntaxTree);
 			let firstPred = false;
 			// Try to make a prediction based on the rules set by the user first
 			if (storage.predictionCase == PREDICTION_CASE.VALUE){
-				storage.trainingTable = storage.alwaysValue;
+				storage.trainingTable = storage.alwaysValue.slice();
 			} else if (storage.predictionCase == PREDICTION_CASE.TAG){
-				console.log("here");
-				storage.trainingTable = storage.alwaysTag;
+				storage.trainingTable = storage.alwaysTag.slice();
 			} else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
-				storage.trainingTable = storage.alwaysAttr;
+				storage.trainingTable = storage.alwaysAttr.slice();
 			}
-			console.log(storage.trainingTable);
+			
 			if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
 				
                 console.log("Building DT");
@@ -123,13 +121,17 @@ $(document).ready(function() {
 					firstPred = true;
 					multiplePred(prediction);
 				}
+				
 			}
 			if (firstPred == false){ // Try to make prediction now with the existing document
+				console.log("Building AST");
+				let syntaxTree = getAST(codeFile);
 				console.log("Converting to Training Table");
-				storage.trainingTable = [];
 				extractFeatures(syntaxTree);
-				console.log(storage.trainingTable);
 				
+				console.log(syntaxTree);
+				console.log(storage.trainingTable);
+				console.log(storage.sampleFeatures);
 				if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
 					
 					console.log("Building DT");
@@ -138,11 +140,11 @@ $(document).ready(function() {
 					console.log("Making Prediction");
 					console.log(storage.sampleFeatures);
 					let prediction = predicts(decisionTree, storage.sampleFeatures);
-					
 					multiplePred(prediction);
 
 				}
 			}
+			firstPred = false;
 		}
 
         console.log('---------------------------');
