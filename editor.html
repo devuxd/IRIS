@@ -40,24 +40,28 @@
 				<h1 style="text-align:center">User Interaction</h1>
 				
 				<div id ="main menu">
-					<button id="button" onclick="currentPred()">Look at current prediction </button><br/><br/>
-					Look and edit existing rules for:
-					<select id="existingRules">
-						<option value="tag">Tag</option>
-						<option value="attr">Attribute</option>
-						<option value="val">Value</option>
-					</select> <button id="rulesButton" onclick="existingRules()">Go</button><br/><br/>
-					Add a new rule for:
-					<select id="addNewRule">
-						<option value="tag">Tag</option>
-						<option value="attr">Attribute</option>
-						<option value="value">Value</option>
-					</select> <button id="addButton" onclick="addNew()">Go</button>
+					<div id="pred">
+						<p id="features" style="text-align:center"></p>
+						<p id="prediction" style="text-align:center"></p>
+					</div>
+					<div id="options">
+						<button id="button" onclick="editCurrent()">Look at current prediction </button><br/><br/>
+						Look and edit existing rules for:
+						<select id="existingRules">
+							<option value="tag">Tag</option>
+							<option value="attr">Attribute</option>
+							<option value="val">Value</option>
+						</select> <button id="rulesButton" onclick="existingRules()">Go</button><br/><br/>
+						Add a new rule for:
+						<select id="addNewRule">
+							<option value="tag">Tag</option>
+							<option value="attr">Attribute</option>
+							<option value="value">Value</option>
+						</select> <button id="addButton" onclick="addNew()">Go</button>
+					</div>
 				</div>
 				
 				<div id ="current prediction">
-					<p id="features" style="text-align:center"></p>
-					<p id="prediction" style="text-align:center"></p>
 					<button id="button1" onclick="include()">Keep using this rule for predictions</button><br/><br/>
 					<button id="button2" onclick="notInclude()">Don't use this rule for future predictions</button><br/><br/>
 					Change the prediction for this rule to: <input id="updateCurrent" type="text"> <button id="updateButton" onclick="updateCurrent()">Update</button><br/><br/>
