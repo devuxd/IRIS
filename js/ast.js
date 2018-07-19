@@ -2,10 +2,8 @@
 Builds an Abstract Syntax Tree by 'cleaning' the code
 of the user's incomplete fragments, branding the fragment section,
 parsing HTML --> JSON and removing whitespace.
-
 @param {CodeFile} codeFile - An object that includes the editor code and cursor position
 @returns {JSON} AST - The Abstract Syntax Tree
-
  */
 function getAST(codeFile) {
 	return removeWhitespace(himalaya.parse(clean(codeFile)));
@@ -16,54 +14,54 @@ function extractFeatures(syntaxTree) {
 }
 
 function extract(node, parentTag, parentAttr, parentVal) {
+
+    let parentAttrVal = parentAttr + '=' + parentVal;
+    if (parentAttrVal === '=') parentAttrVal = '';
     
-	let parentAttrVal = parentAttr + '=' + parentVal;
-	if (parentAttrVal === '=') parentAttrVal = '';
-	
-    if (node.type === 'text') {
-        if (node.content.includes('<>')) extractSample(parentTag, parentAttr, parentVal);
+    if (node.type !== 'element') {
+        if (node.content.includes('<>')) extractSample(parentTag, parentAttrVal);
         return;
     }
 
     let tag = node.tagName;
     let attr, val;
-	
-	if (node.attributes.length > 0){
-		for (let attribute of node.attributes){
-			attr = attribute.key;
-			val = attribute.value;
-			val = val === null ? '' : val;
-			addTraining(tag, parentTag, parentAttrVal, attr, val);
-		}
-	} else {
-		attr = ''
-		val = '';
-		addTraining(tag, parentTag, parentAttrVal, attr, val);
-	}
-	
-	updateTagBlacklist(tag);
+
+    if (node.attributes.length > 0) {
+        for (let attribute of node.attributes) {
+            attr = attribute.key;
+            val = attribute.value;
+            val = val === null ? '' : val;
+            addTraining(tag, parentTag, parentAttrVal, attr, val);
+        }
+    } else {
+        attr = '';
+        val = '';
+        addTraining(tag, parentTag, parentAttrVal, attr, val);
+    }
+
+    updateTagBlacklist(tag);
     for (let child of node.children) extract(child, tag, attr, val);
 }
 
-function addTraining(tag, parentTag, parentAttrVal, attr, val){
-	let entry;
-	switch (storage.predictionCase){
-		case PREDICTION_CASE.TAG:
-			entry = {'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'tag':tag}
-			break;
-		case PREDICTION_CASE.ATTRIBUTE:
-			entry = {'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'attr':attr}
-			break;
-		case PREDICTION_CASE.VALUE:
-			entry = {'tag':tag, 'attr':attr, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'val':val}
-			break;
-	}
-	if (typeof (entry) != "undefined" && !contains(entry, storage.dontUse)){ //Checks that the entry is not in the dontUse array before adding it to the training set
+function addTraining(tag, parentTag, parentAttrVal, attr, val) {
+    let entry;
+	switch (storage.predictionCase) {
+        case PREDICTION_CASE.TAG:
+			entry = {'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'tag':tag};
+            break;
+        case PREDICTION_CASE.ATTRIBUTE:
+			entry = {'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'attr':attr};
+            break;
+        case PREDICTION_CASE.VALUE:
+			entry = {'tag':tag, 'attr':attr, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'val':val};
+            break;
+    }
+	if (typeof (entry) != "undefined" && !contains(entry, storage.dontUse)){
 		storage.trainingTable.push(entry);
 	}
 }
 
-function updateTagBlacklist(tag){
+function updateTagBlacklist(tag) {
     for (let checkTag of ['html','head','body']) if (tag === checkTag) storage.dontUse.push(tag);
 }
 
@@ -94,14 +92,15 @@ function contains(x, list){
 function clean(codeFile) {
     let lines = codeFile.code.split("\n");
     let text = lines[codeFile.position.row];
-    storage.fragment = text.substring(codeFile.starter+1, codeFile.position.column);
 	let newText;
-	if (storage.justTable){ //no prediction needed, to display all rules only
-		newText = text.substring(0, codeFile.starter) + text.substring(codeFile.position.column);
+	if (storage.justTable == true){
+		console.log("here");
+		newText = text.substring(0, codeFile.fragmentStart) + text.substring(codeFile.position.column);   // without < to cursor
 	} else{
-		newText = text.substring(0, codeFile.starter) + '<>' + text.substring(codeFile.position.column);
-	}
-	lines[codeFile.position.row] = newText;
+		newText = text.substring(0, codeFile.fragmentStart) + '<>' + text.substring(codeFile.position.column);   // without < to cursor
+    }
+	storage.fragment = text.substring(codeFile.fragmentStart+1, codeFile.position.column);
+    lines[codeFile.position.row] = newText;
     return lines.join("\n");
 }
 
@@ -111,10 +110,8 @@ Retrieves/stores the input features for the DT, necessary to make a prediction.
 @param parentAttr The attribute of the parent node of the element being typed
 @param parentVal The value of the parent node of the element being typed
  */
-function extractSample(parentTag, parentAttr, parentVal) {
 
-    let parentAttrVal = parentAttr + "=" + parentVal;
-    if (parentAttrVal === '=') parentAttrVal = '';
+function extractSample(parentTag, parentAttrVal) {
 
     if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE) {
 
