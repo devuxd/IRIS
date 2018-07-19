@@ -11,15 +11,15 @@ var PREDICTION_CASE = Object.freeze({
 function CodeFile(code, position) {
     this.code = code;
     this.position = position;
-    this.findFragmentStart = function(text) {
-        // "<" most close to the cursor from the left
-        this.fragmentStart = text.substring(0, position.column).lastIndexOf("<");
+    this.findFragmentStarter = function(text) {
+		this.fragmentStart = text.substring(0, position.column).lastIndexOf("<");
+        //this.starter = text.lastIndexOf("<"); // TODO : Make this more flexible?
     }
 }
 
 CodeFile.prototype.tokenize = function() {
     let text = this.code.split("\n")[this.position.row];
-    this.findFragmentStart(text);
+    this.findFragmentStarter(text);
     let tokens = [];
     let i = 0;
     while (i < this.position.column) {
@@ -40,7 +40,7 @@ CodeFile.prototype.tokenize = function() {
             case "=":
                 token = new Token(TOKEN_TYPE.ASSIGN);
                 break;
-            case "'":
+			case"'":
             case "\"":
                 token = new Token(TOKEN_TYPE.QUOTES);
                 break;
@@ -82,7 +82,7 @@ function addToken(tokens, token) {
                 } else if (top.type === TOKEN_TYPE.TAG_OPEN) { // Typed < --> predict nothing
                     storage.predictionCase = PREDICTION_CASE.NONE;
                 }
-            } /*  else if (token.type == TOKEN_TYPE.TAG_CLOSE) {  // Types > --> predict none
+            } /*            else if (token.type == TOKEN_TYPE.TAG_CLOSE) {  // Types > --> predict none
                 top.type = TOKEN_TYPE.TAG;
                 storage.predictionCase = PREDICTION_CASE.NONE;
             }*/
