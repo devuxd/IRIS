@@ -6,6 +6,7 @@ var storage = {
     predictionList: [],	// Predictions from DT (currently just one)
 	
 	dontUse: [], // List of entries/rules the user doesn't want to use
+	blackList: [],
 	alwaysTag: [], // Rules for predicting tags 
  	alwaysAttr: [], // Rules for predicting attributes 
 	alwaysValue: [], // Rules for predicting values
@@ -83,7 +84,7 @@ $(document).ready(function() {
 
 		if (e.key.includes('Arrow') || e.key === 'Shift') return;
 		console.log("KEY: " + e.key);
-
+		
 		console.log("Tokenizing");
 		let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
         codeFile.tokenize();
@@ -94,10 +95,13 @@ $(document).ready(function() {
         storage.sampleFeatures = {};
 		storage.predictionList = [];
 		
-		console.log("always tag");
-		console.log(storage.alwaysTag);
-		
 		if (storage.predictionCase !== PREDICTION_CASE.NONE) {
+			console.log(storage.dontUse);
+			
+			console.log("Building AST");
+			let syntaxTree = getAST(codeFile);
+			console.log("Converting to Training Table");
+			extractFeatures(syntaxTree);
 			
 			let firstPred = false;
 			// Try to make a prediction based on the rules set by the user first
@@ -117,19 +121,19 @@ $(document).ready(function() {
 				console.log(storage.sampleFeatures);
 				
                 let prediction = predicts(decisionTree, storage.sampleFeatures);
+				console.log(prediction);
 				if (prediction != ""){ //prediction possible
+					console.log("here");
 					firstPred = true;
 					multiplePred(prediction);
 				}
 				
 			}
-			if (firstPred == false){ // Try to make prediction now with the existing document
-				console.log("Building AST");
-				let syntaxTree = getAST(codeFile);
-				console.log("Converting to Training Table");
+			if (firstPred === false){ // Try to make prediction now with the existing document
+				storage.trainingTable = [];
 				extractFeatures(syntaxTree);
 				
-				console.log(syntaxTree);
+				
 				console.log(storage.trainingTable);
 				console.log(storage.sampleFeatures);
 				if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
@@ -144,9 +148,8 @@ $(document).ready(function() {
 
 				}
 			}
-			firstPred = false;
 		}
-
+		currentPred();
         console.log('---------------------------');
         updateOutputFrame();
 	}
