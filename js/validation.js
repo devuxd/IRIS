@@ -1,13 +1,3 @@
-function handleFiles(e) {
-    storage.aceEditor.focus();
-    let file = e.target.files[1];
-    let reader = new FileReader();
-    reader.addEventListener('load', function (e) {
-        handleFileText(e.target.result);
-    });
-    reader.readAsText(file);
-}
-
 const PERCENT = 1.0;
 const seed = 42;
 let RNG = function (s) {
@@ -17,41 +7,87 @@ let RNG = function (s) {
     };
 };
 let rng = RNG(seed);
+let acc, fileText, flexibleAST;
+let iter, files;
+let logContent = [];
 
-let strict = 0;
-let total = 0;
-let partial = 0;
+function resetVars() {
+    acc = {
+        predTotal:0,
+        strictTag:0,
+        partialTag:0,
+        wholeTotal:0,
+    };
+    fileText = '';
+    flexibleAST = {};
+}
 
-let fileText = '';
-let flexibleAST = {};
+function log(content) {
+    console.log(content);
+    logContent.push(content);
+    logContent.push('\r\n');
+}
+
+function read(e) {
+    resetVars();
+    handleFileText(e.target.result);
+    log('============');
+    log('============');
+    log('FINISHED ' + iter);
+    log(JSON.stringify(acc));
+    log('Predicts Correctly: ' + acc.strictTag/acc.wholeTotal);
+    log('Suggests Correctly: ' + acc.partialTag/acc.wholeTotal);
+    log('Predictions Correct: ' + acc.strictTag/acc.predTotal);
+    log('Suggestions Correct: ' + acc.partialTag/acc.predTotal);
+    log('============');
+    log('============');
+    if (iter === files.length-1) {
+        let a = document.getElementById("downloadLink");
+        let logFile = new Blob(logContent, {type: 'text/plain'});
+        a.href = URL.createObjectURL(logFile);
+        a.download = new Date().toLocaleString();
+    }
+    else {
+        iter++;
+        let reader = new FileReader();
+        reader.addEventListener('load', read);
+        reader.readAsText(files[iter]);
+    }
+}
+
+function handleFiles(e) {
+    files = e.target.files;
+    iter = 0;
+    let reader = new FileReader();
+    reader.addEventListener('load', read);
+    reader.readAsText(files[iter]);
+}
 
 function handleFileText(text) {
+    storage.aceEditor.focus();
     himalaya.parseDefaults.includePositions = true;
     fileText = himalaya.stringify(himalaya.parse(text));
     flexibleAST = himalaya.parse(fileText);
     storage.aceEditor.setValue(fileText, -1);
     for (let node of flexibleAST) handleNode(node, flexibleAST);
-
-    console.log(strict + " " + partial + " " + total);
 }
 
 function handleNode(node, parent) {
     if (node.type !== 'element') return;
-    if (rng() < PERCENT) testNode(node, parent);
+    testNode(node, parent);
     for (let child of node.children) handleNode(child, node);
 }
 
 function testNode(node, parent) {
     let info = extractInfo(node, parent);
     testPrediction(node, parent, info.row, info.col);
-    console.log("INFO: " + JSON.stringify(info));
-    if (info.tag === storage.predictionList[0]) strict++;   // doesn't account for basic removal
-    if (storage.predictionList.includes(info.tag)) partial++;
-    if (info.parentTag !== storage.sampleFeatures.parentTag) {
-        console.log("Incorrect sampling: " + storage.sampleFeatures.parentTag);
-    }
-    total++;
-    console.log('---------------------------');
+    log("INFO: " + JSON.stringify(info));
+    if (info.tag === Array.from(storage.predictionSet)[0]) acc.strictTag++;
+    if (storage.predictionSet.has(info.tag)) acc.partialTag++;
+    if (info.parentTag !== storage.sampleFeatures.parentTag) log("Incorrect sampling: " + storage.sampleFeatures.parentTag);
+    acc.wholeTotal++;
+    if (!storage.predictionSet.has('')) acc.predTotal++;
+    log('---------------------------');
 }
 
 function extractInfo(node, parent) {

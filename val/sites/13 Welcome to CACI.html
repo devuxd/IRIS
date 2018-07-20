@@ -1,0 +1,779 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="keywords" content="CACI INFORMATION DEPLOYED SOLUTIONS ADVANCED MISSIONS ACCOMPLISHED">
+    <meta name="description" content="CACI provides information solutions and services in support of national security missions and government transformation for Intelligence, Defense, and Federal Civilian customers. CACI is a member of the Fortune 1000 Largest Companies, the Russell 2000 Index, and the S&P SmallCap600 Index. CACI's sustained commitment to ethics and integrity defines its corporate culture and drives its success. With approximately 18,600 employees worldwide, CACI provides dynamic career opportunities for military veterans and industry professionals to support the nation's most critical missions. Join us!">
+
+    <title>Welcome to CACI</title>
+
+    <link rel="stylesheet" href="/include/main-demo1d.css" type="text/css">
+    <link rel="stylesheet" href="/Stylesheets/jqsimplemenu.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/stylesheets/fonts.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/stylesheets/slider-demo1e-a1.css" type="text/css" media="screen" />
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' type='text/css'>
+		
+	<!-- jquery cdn link 1/17 - anshul -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/jqsimplemenu.js"></script>
+    <script type="text/javascript" src="/include/uberlinks.js"></script>
+	<script type="text/javascript" src="/js/jssor.slider-26.9.0.min.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('.menu').jqsimplemenu();
+			
+			var jssor_1_SlideshowTransitions = [
+			  {$Duration:800,$Opacity:2}
+			];
+			var jssor_1_options = {
+			  $AutoPlay: 1,
+			  $Idle: 7000,
+			  $Cols: 1,
+			  $Align: 0,
+			  $SlideshowOptions: {
+				$Class: $JssorSlideshowRunner$,
+				$Transitions: jssor_1_SlideshowTransitions,
+				$TransitionsOrder: 1
+			  },
+			  $BulletNavigatorOptions: {
+				$Class: $JssorBulletNavigator$
+			  }
+			};
+			
+			var jssor_slider1_options = {
+			  $ArrowNavigatorOptions: {
+				$Class: $JssorArrowNavigator$
+			  }
+			};
+			
+			var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+			var small_banner_slider = new $JssorSlider$("slider1_container", jssor_slider1_options);
+
+			/*
+				Stock Price
+			*/
+			$.get( "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=caci&interval=5min&outputsize=compact&apikey=JG2WU40S5NBNITQQ", function( data ) {
+				var myJSON = JSON.stringify(data);
+				var temp = myJSON.split(",");
+				var finalString = temp[9];
+				var stockArray = finalString.split('"');
+				var num = stockArray[3];
+				var anshul = parseFloat(num);
+				var stockPrice = anshul.toFixed(2);
+				
+				$( "#stockPrice" ).html("CACI: "+ stockPrice);
+			});
+
+		});
+
+	</script>
+
+	<style>
+		.jssora051 {display:block;position:absolute;cursor:pointer;}
+		.jssora051 .a {fill:none;stroke:#fff;stroke-width:360;stroke-miterlimit:10;}
+		.jssora051:hover {opacity:.9;}
+		.jssora051.jssora051dn {opacity:.5;}
+		.jssora051.jssora051ds {opacity:.3;pointer-events:none;}
+	</style>
+
+    <link rel="icon" href="../ico/favicon.ico">
+	
+</head>
+<body>
+    <div id="wrapper">
+        <header><div class="headerdetails"><a href="/Partnership/index.shtml">Small Business</a>  |   <a href="https://supplier.caci.com" target="_blank">Suppliers</a>  |  <a href="/certs.shtml">Appraisals & Certifications</a></div></header>
+        <div id="content_new">
+            <div id="body">
+			<!-- Dev site menu file homeheader-demo1f.shtml -->
+			<script type="text/javascript">
+$.get( "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=caci&interval=5min&outputsize=compact&apikey=JG2WU40S5NBNITQQ", function( data ) {
+	var myJSON = JSON.stringify(data);
+	var temp = myJSON.split(",");
+	var finalString = temp[9];
+	var stockArray = finalString.split('"');
+	var num = stockArray[3];
+	var anshul = parseFloat(num);
+	var stockPrice = anshul.toFixed(2);
+	$( "#stockPrice" ).html("CACI: "+ stockPrice);
+});
+</script>
+
+<div id="logoheader">
+  <div><a href="/index.shtml"><img src="/images/CACIlogo.png" width="129" height="71" class="logo" alt="CACI website"/></a></div>
+  <div class="CACImotto"><span class="redcolor">INFORMATION</span> DEPLOYED.&nbsp;&nbsp; <span class="redcolor">SOLUTIONS</span> ADVANCED.&nbsp;&nbsp; <span class="redcolor">MISSIONS</span> ACCOMPLISHED.</div>
+    <!--STOCKPRICE-->
+	<div class="stockprice" id="stockPrice" style="color: #777676; font-weight: bold; font-size:small;"></div>
+</div>
+<div class="navwrapper"> <!-- nav -->
+  <div id="secondnav">
+    <form method="get" name="searcher" action="http://search.caci.com/search?site=CACIV2_Frontend">
+      <input type="text" name="q" maxlength="128" value="" class="mainsearchtext" onfocus="{q.text='';return false;}" />
+      <input type="image" name="mainsearchbutton" id="mainsearchbutton" src="/images/graphic_searcharrow.png" alt="Search" onclick="if( !mainsearchbutton_ClientClick() ) { return false; };" onMouseOver="MM_swapImage('mainsearchbutton','','/images/graphic_searcharrow.png',1)" onMouseOut="MM_swapImgRestore()"  />
+      <input type="hidden" name="site" value="CACI_Search" />
+      <input type="hidden" name="client" value="CACIV2_Frontend" />
+      <input type="hidden" name="output" value="xml_no_dtd" />
+      <input type="hidden" name="proxystylesheet" value="CACIV2_Frontend" />
+      <input type="hidden" name="filter" value="p" />
+      <input type="hidden" name="getfields" value="*" />
+    </form>
+  </div>
+  <div id="firstnav">
+    <ul class="menu">
+      <li><a href="/about.shtml">ABOUT US</a>&nbsp;<span><img src="/images/vertical_bar.gif" width="1" height="13" alt="" class="imgalign"/></span>&nbsp;
+        <ul>
+          <li ><a href="/about/profile.shtml">Profile</a></li>
+          <li><a href="/about/customer.shtml">Our Commitment</a></li>
+          <li><a href="/main_faq.shtml">FAQs</a></li>
+          <li><a href="/about/award.shtml">Awards/Recognition</a></li>
+          <li><a href="/about/management.shtml">Directors/Officers</a></li>
+          <li><a href="http://investor.caci.com/corporate_governance">Corporate Governance</a></li>
+          <li><a href="http://investor.caci.com/hotline_program/Index?KeyGenPage=1073752295">Ethics & Compliance</a></li>
+          <li><a href="/locations.shtml">Locations</a></li>
+          <li><a href="/about/partner/partners_menu.shtml">Partners</a></li>
+          <li><a href="/about/hist.shtml">CACI History</a></li>
+          <li><a href="/about/p_e_plus.shtml">Excellence+ Program</a></li>
+          <li><a href="/CaciCares/index.shtml">CACI Cares</a></li>
+		  <!-- archive am 04/10/2018 -->
+          <!-- <li><a href="/speeches/speeches_menu.shtml">Senior Executive Speeches</a></li> -->
+          <li><a href="../character/">Character</a></li>
+		  <!-- archive am 04/10/2018 -->
+          <!-- <li><a href="/iraq/iraq_news.shtml">CACI in Iraq</a></li> -->
+          <li><a href="/goingreen/index.shtml">Going Green</a></li>
+        </ul>
+      </li>
+      <li><a href="/whatwedo.shtml">WHAT WE DO</a>&nbsp;<img src="/images/vertical_bar.gif" width="1" height="13" alt="" class="imgalign"/>&nbsp;
+        <ul>
+          <li ><a href="/Business_Systems/">Business Systems</a></li>
+          <li ><a href="/command_control/">Command and Control</a></li>
+          <li><a href="/communications/">Communications</a></li>
+          <li><a href="/cyber_security/">Cyber Security</a></li>
+		  <!-- <li><a href="/electronic_warfare/">Electronic Warfare</a></li> -->
+          <li><a href="/enterprise_it/">Enterprise IT</a></li>
+          <li><a href="/health/">Health</a></li>
+          <li><a href="/intelligence_services/">Intelligence Services</a></li>
+          <li><a href="/intelligence_systems/">Intelligence Systems and Support</a></li>
+          <li><a href="/investigation_litigation/">Investigation and Litigation Support </a></li>
+          <li><a href="/logistics_material_readiness/">Logistics and Material Readiness</a></li>
+          <li><a href="/space/">Space Operations and Resiliency</a></li>
+          <li><a href="/surveillance_reconnaissance/">Surveillance and Reconnaissance</a></li>
+          <li><a href="/solutionsfinder.shtml">Solutions Finder</a></li>
+        </ul>
+      </li>
+      <li><a href="#">NEWS & EVENTS</a>&nbsp;<img src="/images/vertical_bar.gif" width="1" height="13" alt="" class="imgalign"/>&nbsp;
+        <ul>
+          <li ><a href="/news_main.shtml">Newsroom</a></li>
+          <li><a href="http://investor.caci.com/news_events">Press Releases</a></li>
+          <li><a href="../trending/index.shtml">Trending at CACI</a></li>
+          <li><a href="/socialmedia/index.shtml">Social Media</a></li>
+          <li><a href="/announcement/announce_menu.shtml">Special Announcements</a></li>
+          <li><a href="#">Events</a>
+            <ul>
+              <li><a href="/symposia/asymmetric_threat.shtml">Asymmetric Threat Symposia</a></li>
+              <!-- <li><a href="/connect/tradeshow.shtml">Tradeshows</a></li> -->
+			  <li><a href="/connect/tradeshow.shtml">Tradeshows & Speaking Engagements</a></li>
+              <li><a href="http://careers.caci.com/page/show/events">Recruiting</a></li>
+              <li><a href="http://investor.caci.com/news_events">Investor Relations</a>
+            </ul>
+          </li>
+          <li><a href="../media_contacts.shtml">Media Contacts</a></li>
+        </ul>
+      </li>
+      <li><a href="http://investor.caci.com">INVESTOR RELATIONS</a>&nbsp;<img src="/images/vertical_bar.gif" width="1" height="13" alt="" class="imgalign"/>&nbsp;
+        <ul>
+          <li ><a href="http://investor.caci.com">Investor Relations Home</a></li>
+        <li><a href="http://investor.caci.com/corporate_governance">Corporate Governance</a></li>
+        <li><a href="http://investor.caci.com/filings_financials">Filings & Financials</a></li>
+        <li><a href="http://investor.caci.com/stock_information">Stock Information</a></li>
+        <li><a href="http://investor.caci.com/news_events">News & Events</a></li>
+        <li><a href="http://investor.caci.com/contact_resources">Contact & Resources</a></li>
+        </ul>
+      </li>
+      <li><a href="http://careers.caci.com/">CAREERS</a>&nbsp;<img src="/images/vertical_bar.gif" width="1" height="13" alt="" class="imgalign"/>&nbsp;
+        <ul>
+         <li ><a href="http://careers.caci.com/page/show/featured">Featured Careers</a></li>
+          <li ><a href="http://careers.caci.com/page/show/culture">Our Culture</a></li>
+          <li><a href="http://careers.caci.com/page/show/benefits">Benefits</a></li>
+          <li><a href="http://careers.caci.com/page/show/experienced">Experienced Hiring</a></li>
+          <li><a href="http://careers.caci.com/page/show/college">College Hiring</a></li>
+          <li><a href="http://careers.caci.com/page/show/veterans">Veteran Hiring</a></li>
+          <li><a href="http://careers.caci.com/page/show/alumni">Alumni Hiring</a></li>
+          <li><a href="http://careers.caci.com/page/show/events">Events</a></li>
+          <li><a href="http://careers.caci.com/page/show/faq">FAQs</a></li>
+          <li><a href="http://careers.caci.com/List/Custom/">Job Search</a></li>
+        </ul>
+      </li>
+      <li><a href="/contracts.shtml">CONTRACTS</a>&nbsp;<img src="/images/vertical_bar.gif" width="1" height="13" alt="" class="imgalign"/>
+        <ul>
+          <li><a href="../Contracts/IDIQ.shtml">ID/IQ</a></li>
+          <li><a href="../Contracts/GSA.shtml">GSA</a></li>
+          <li><a href="../Contracts/Others.shtml">Other</a></li>
+        </ul>
+      </li>
+      <li><a href="/connect.shtml">CONTACT US</a>
+        <ul>
+          <li ><a href="/connect/contact.shtml">Key Contacts List</a></li>
+          <li ><a href="/caciapps/contactform/contactform.aspx">Request a Contact Form</a></li>
+          <li><a href="http://investor.caci.com/contact_resources">Request Investor Info Form</a></li>
+          <li><a href="/webapp/Apps/Feedback.aspx">Website Feedback</a></li>
+          <li><a href="/connect/tradeshow.shtml">Tradeshows/Events</a></li>
+          
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- nav wrapper-->
+
+			<div id="mainbody">
+			  <div class="row" style="margin-left: 0px; width: 1140px;">              
+					<section style="margin-top:0px; width: 1140px;">					
+							<div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:1140px; height:409px;overflow:visible;visibility:hidden;">
+							<div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:1140px;height:409px;overflow:hidden;">
+								
+								<div data-p="170.00">
+									<a href="trending/artificial_intelligence_solutions.shtml" title="Making Artificial Intelligence Solutions as Easy to Use as a Smart Phone App" >
+										<img data-u="image" src="img/banner/Trending_AI.jpg" />
+									</a>
+								</div>
+								
+								<div data-p="170.00">
+									<a href="http://www.caci.com/dhits18/" title="CACI at Defense Health IT Symposium (DHITS) 2018">
+										<img data-u="image" src="img/banner/2018_DHITS.jpg" />
+									</a>
+								</div>
+								
+								<div data-p="170.00">
+									<a href="http://investor.caci.com/file/Index?KeyFile=394164331" title="CACI Opens Dr. J.P. (Jack) London Shared Services Center in Oklahoma City">
+										<img data-u="image" src="img/banner/SSC_opens_OK.jpg" />
+									</a>
+								</div>
+										<div data-p="170.00">
+									<img src="img/banner/LatestNews_20180716.jpg" usemap="#image-map1" alt="" />
+										<map name="image-map1">
+											<area alt="Latest News" title="Latest News" href="http://investor.caci.com/news_events" shape="rect" coords="0,0,285,286" target="_self" />
+																						
+											<area alt="CACI to Hold FY18 Q4 and Year-End Results Webcast at 8:30 a.m. ET August 16 " title="CACI to Hold FY18 Q4 and Year-End Results Webcast at 8:30 a.m. ET August 16 " href="http://investor.caci.com/file/Index?KeyFile=394227340" shape="rect" 
+											coords="0,286,285,409" target="_self" />
+											
+											<area alt="CACI Achieves Premier Consulting Partner Status in the Amazon Web Services Partner Network" title="CACI Achieves Premier Consulting Partner Status in the Amazon Web Services Partner Network" href="http://investor.caci.com/file/Index?KeyFile=393955183" shape="rect" coords="285,0,1139,409"  target="_self" />
+										</map>
+								</div>
+														
+								<div data-p="170.00">
+									<a href="trending/electronic_warfare_062918.shtml" title="Answering the Challenge of Today’s Modern Battlespace: Controlling the Electromagnetic Spectrum " >
+										<img data-u="image" src="img/banner/TrendingEW.JPG" />
+									</a>
+								</div>
+															
+								<div data-p="170.00">
+									<a href="http://investor.caci.com/file/Index?KeyFile=394001025" title="CACI Named a Washington Post Top Workplace for Fourth Consecutive Year" >
+										<img data-u="image" src="img/banner/DCTopWorkplace_20180625.jpg" />
+									</a>
+								</div>
+								
+								
+								
+								<!--<div data-p="170.00">
+									<a href="/trending/cloud-native_development.shtml" title="Cloud-Native Development">
+										<img data-u="image" src="img/banner/TrendingCloud_v3.jpg" />
+									</a>
+								</div>-->
+								
+								<div data-p="170.00">
+									<a href="http://www.youtube.com/watch_popup?v=l7ZwcY7qnTA" allow="autoplay; encrypted-media allowfullscreen" title="CACI Careers" target="_blank">
+										<img data-u="image" src="img/banner/Recruiting_Video_cacicom_v2.jpg" />
+									</a>
+								</div>
+								
+								<div data-p="170.00">
+									<a href="https://www.wildbilldonovan.org/caci/" title="Apply Now to Win Donovan or Other Great Prizes" target="_blank">
+										<img data-u="image" src="img/banner/DonovanCar_v2.jpg" />
+									</a>
+								</div>
+								
+								<!--<div data-p="170.00">
+									<a href="http://investor.caci.com/file/Index?KeyFile=393804459" title="CACI to Demonstrate Secure Cloud-Based Solutions at Amazon Web Services Public Sector Summit ">
+										<img data-u="image" src="img/banner/2018_AWS_cacicom.jpg" />
+									</a>
+								</div>-->
+								
+								<!--<div data-p="170.00">
+									<a href="announcement/2018/2018_Washington_Technology100.shtml" title="CACI Ranked in Top 10 of Washington Technology Top 100 Federal Prime Contractors List for Third Consecutive Year">
+										<img data-u="image" src="img/banner/2018_WashTech100.jpg" />
+									</a>
+								</div>-->
+								
+								
+								<!--<div data-p="170.00">
+									<img src="img/banner/LatestNews_20180607.jpg" usemap="#image-map1" alt="" />
+										<map name="image-map1">
+											<area alt="Latest News" title="Latest News" href="http://investor.caci.com/news_events" shape="rect" coords="0,0,285,286" target="_self" />
+																			
+											<area alt="CACI Awarded $407 Million Task Order to Bolster Cyber Defense at Department of Homeland Security Agencies" title="CACI Awarded $407 Million Task Order to Bolster Cyber Defense at Department of Homeland Security Agencies" href="http://investor.caci.com/file/Index?KeyFile=393769934" shape="rect" coords="0,286,285,409" target="_self" />
+											
+											<area alt="CACI Awarded Prime Position on $920M Multi-Award Contract by NGA" title="CACI Awarded Prime Position on $920M Multi-Award Contract by NGA" href="http://investor.caci.com/file/Index?KeyFile=393787594" shape="rect" coords="285,0,1139,409"  target="_self" />
+										</map>
+								</div>-->
+								
+								<!--<div data-p="170.00">
+									<img src="img/banner/LatestNews_20180605.jpg" usemap="#image-map1" alt="" />
+										<map name="image-map1">
+											<area alt="Latest News" title="Latest News" href="http://investor.caci.com/news_events" shape="rect" coords="0,0,285,286" target="_self" />
+									
+											
+											<area alt="CACI Awarded $407 Million Task Order to Bolster Cyber Defense at Department of Homeland Security Agencies" title="CACI Awarded $407 Million Task Order to Bolster Cyber Defense at Department of Homeland Security Agencies" href="http://investor.caci.com/file/Index?KeyFile=393769934" shape="rect" coords="0,286,285,350" target="_self" />
+											
+											<area alt="CACI Observes Midway Anniversary" title="CACI Observes Midway Anniversary" href="/announcement/2018/CACI_Observes_Midway_Anniversary.shtml" shape="rect" coords="0,351,285,409"  target="_self" />
+											
+											<area alt="CACI Awarded Prime Position on $920M Multi-Award Contract by NGA" title="CACI Awarded Prime Position on $920M Multi-Award Contract by NGA" href="http://investor.caci.com/file/Index?KeyFile=393787594" shape="rect" coords="285,0,1139,409"  target="_self" />
+										</map>
+								</div>-->
+								<!--<div data-p="170.00">
+									<img src="img/banner/LatestNews_20180604.jpg" usemap="#image-map1" alt="" />
+										<map name="image-map1">
+											<area alt="Latest News" title="Latest News" href="http://investor.caci.com/news_events" shape="rect" coords="0,0,285,286" target="_self" />
+									
+											
+											<area alt="CACI Observes Midway Anniversary" title="CACI Observes Midway Anniversary" href="/announcement/2018/CACI_Observes_Midway_Anniversary.shtml" shape="rect" coords="0,286,285,350" target="_self" />
+											
+											<area alt="Asymmetric Symposium X Report Now Available" title="CACI Asymmetric Symposium X Report Now Available" href="https://www.asymmetricthreat.net/" shape="rect" coords="0,351,285,409"  target="_blank" />
+											
+											<area alt="CACI Awarded $407 Million Task Order to Bolster Cyber Defense at Department of Homeland Security Agencies" title="CACI Awarded $407 Million Task Order to Bolster Cyber Defense at Department of Homeland Security Agencies" href="http://investor.caci.com/file/Index?KeyFile=393769934" shape="rect" coords="285,0,1139,409"  target="_self" />
+										</map>
+								</div>-->
+								
+									
+									<!--<div data-p="170.00">
+									<a href="announcement/2018/CACI_Observes_Midway_Anniversary.shtml" title="CACI Observes Midway Anniversary">
+										<img data-u="image" src="img/banner/Midway_cacicom.jpg" />
+									</a>
+								</div>-->
+								
+								<!--<div data-p="170.00">
+									<img src="img/banner/LatestNews_20180524.jpg" usemap="#image-map1" alt="" />
+										<map name="image-map1">
+											<area alt="Latest News" title="Latest News" href="http://investor.caci.com/news_events" shape="rect" coords="0,0,285,286" target="_self" />
+									
+											
+											<area alt="CACI to Release FY19 Annual Guidance After Market Close on June 20, 2018" title="CACI to Release FY19 Annual Guidance After Market Close on June 20, 2018" href="http://investor.caci.com/file/Index?KeyFile=393632915" shape="rect" coords="0,286,285,350" target="_self" />
+											
+											<area alt="Asymmetric Symposium X Report Now Available" title="CACI Asymmetric Symposium X Report Now Available" href="https://www.asymmetricthreat.net/" shape="rect" coords="0,351,285,409"  target="_blank" />
+											
+											<area  alt="CACI President of U.S. Operations DeEtte Gray Appointed Chair of AFCEA International Board of Directors" title="CACI President of U.S. Operations DeEtte Gray Appointed Chair of AFCEA International Board of Directors" href="http://investor.caci.com/file/Index?KeyFile=393497250" shape="rect" coords="285,0,1139,409"  target="_self" />
+										</map>
+								</div>-->
+								
+								<!--<div data-p="170.00">
+									<img src="img/banner/LatestNews_20180515_AFCEA_DeEtte_Release.jpg" usemap="#image-map1" alt="" />
+										<map name="image-map1">
+											<area  alt="Latest News" title="Latest News" href="http://investor.caci.com/news_events" shape="rect" coords="0,0,285,285" target="_self" />
+											
+											<area alt="CACI to Demonstrate Solutions for a Decisive Mission Advantage at 2018 Special Operations Forces Industry Conference" title="CACI to Demonstrate Solutions for a Decisive Mission Advantage at 2018 Special Operations Forces Industry Conference" href="http://investor.caci.com/file/Index?KeyFile=393518232" shape="rect" coords="0,286,285,350" target="_self" />
+											
+											<area alt="Asymmetric Symposium X Report Now Available" title="CACI Asymmetric Symposium X Report Now Available" href="https://www.asymmetricthreat.net/" shape="rect" coords="0,351,285,409"  target="_blank" />
+											
+											<area  alt="CACI President of U.S. Operations DeEtte Gray Appointed Chair of AFCEA International Board of Directors" title="CACI President of U.S. Operations DeEtte Gray Appointed Chair of AFCEA International Board of Directors" href="http://investor.caci.com/file/Index?KeyFile=393497250" shape="rect" coords="285,0,1139,409"  target="_self" />
+										</map>
+								</div>-->
+							
+								
+								<!--<div data-p="170.00">
+									<img src="img/banner/LatestNews_20180515_AFCEA_DeEtte_Release.jpg" usemap="#image-map1" alt="" />
+										<map name="image-map1">
+											<area  alt="Latest News" title="Latest News" href="http://investor.caci.com/news_events" shape="rect" coords="0,0,285,285" target="_self" />
+											
+											<area alt="CACI to Demonstrate Solutions for a Decisive Mission Advantage at 2018 Special Operations Forces Industry Conference" title="CACI to Demonstrate Solutions for a Decisive Mission Advantage at 2018 Special Operations Forces Industry Conference" href="http://investor.caci.com/file/Index?KeyFile=393518232" shape="rect" coords="0,286,285,350" target="_self" />
+											
+											<area alt="Asymmetric Symposium X Report Now Available" title="CACI Asymmetric Symposium X Report Now Available" href="https://www.asymmetricthreat.net/" shape="rect" coords="0,351,285,409"  target="_blank" />
+											
+											<area  alt="CACI President of U.S. Operations DeEtte Gray Appointed Chair of AFCEA International Board of Directors" title="CACI President of U.S. Operations DeEtte Gray Appointed Chair of AFCEA International Board of Directors" href="http://investor.caci.com/file/Index?KeyFile=393497250" shape="rect" coords="285,0,1139,409"  target="_self" />
+										</map>
+								</div>-->
+								
+								<!--<div data-p="170.00">
+									<img src="img/banner/Recruiting_cacicom_youtube3.jpg" usemap="#image-map1" alt="" />
+										<map name="image-map1">
+											<area alt="Watch CACI Careers video" title="Watch CACI Careers video" href="http://www.youtube.com/watch_popup?v=l7ZwcY7qnTA" allow="autoplay; encrypted-media allowfullscreen" shape="rect" coords="1,1,723,409" target="_blank" />
+											
+											<area alt="CACI Careers" title="CACI Careers" href="http://careers.caci.com" shape="rect" coords="724,0,1139,409" target="_self" />
+										</map>-->
+									
+									
+									
+									<!--<a href="http://www.youtube.com/watch_popup?v=l7ZwcY7qnTA" frameborder="0" allow="autoplay; encrypted-media allowfullscreen" title="CACI Careers" target="_blank"/>
+										<img data-u="image" src="img/banner/Recruiting_cacicom_youtube2.jpg">
+									</a>
+								</div>-->
+								
+								<!-- <div data-p="170.00">
+									 									
+									<a href="http://careers.caci.com/" title="CACI Careers">
+										<img data-u="image" src="img/banner/Recruiting_cacicom_radiospots4.gif" /></a>
+           							 
+									<a title="Hear more about what it’s like to work at CACI" class="radio1" onclick="aud_play_pause(this)">
+										<i class="control icon-play"></i>
+									 <audio id="radioad1" class="radioad">
+										   <source src="media/audio/021418_CACI_radio1.mp3.mp3" type="audio/mp3">
+								     </audio>
+										 <button style="display: block; z-index: 2; position: absolute; top: 130px; left: 250px; width: 120px; height: 123px; color: transparent;  background-color: transparent; border-color: transparent;" onclick="aud_play_pause()">Play/Pause</button>
+									</a>
+									 
+									
+									<a title="Hear more about what it’s like to work at CACI" class="radio2" onclick="aud_play_pause(this)">
+									 	<i class="control icon-play"></i>
+										
+									<audio id="radioad2" class="radioad">
+										   <source src="media/audio/021418_CACI_radio2.mp3.mp3" type="audio/mp3">
+								    </audio>
+										 <button style="display: block; z-index: 2; position: absolute; top: 0px; left: 500px; width: 120px; height: 140px; color: transparent;  background-color: transparent; border-color: transparent;" onclick="aud_play_pause()">Play/Pause</button> 
+									</a> 
+									
+									
+           							 <a title="Hear more about what it’s like to work at CACI" class="radio3" onclick="aud_play_pause(this)">>
+									 	<i class="control icon-play"></i>
+										 <audio id="radioad3" class="radioad">
+										   <source src="media/audio/021418_CACI_radio3.mp3.mp3" type="audio/mp3">
+								     </audio>
+										 <button style="display: block; z-index: 2; position:absolute;top:240px;left:600px;width:120px;height:140px; color: transparent;  background-color: transparent; border-color: transparent;" onclick="aud_play_pause()">Play/Pause</button> 
+										 
+									</a>
+									<script>
+    									function aud_play_pause(object) {
+											var myAudio = object.querySelector(".radioad");
+											var myIcon = object.querySelector(".control");
+											if (myAudio.paused){
+												myIcon.className = "control icon-pause";
+												myAudio.play();} else {
+												myIcon.className = "control icon-play";
+												myAudio.pause();}
+										}
+									</script>
+									<!--<a id="radioad3" title="Click to listen to CACI radio Ad#3" style="display:block;  z-index: 2; position:absolute;top:240px;left:600px;width:120px;height:140px;">
+									<audio controls> <source src="media/audio/021418_CACI_radio2.mp3.MP3"></audio></a>-->
+						
+								<!--</div>-->	
+								
+								<!--<div data-p="170.00">
+									<a href="http://www.caci.com/sofic18/" title="CACI at SOFIC 2018" target="_blank">
+										<img data-u="image" src="img/banner/2018_SOFIC.jpg" />
+									</a>
+								</div>-->
+								
+								<!--<div data-p="170.00">
+									<a href="https://recruit.smashfly.com/SmashFlyMedia/Docs/12332/12332_8884_VeteransInfographics_1804.pdf" title="CACI Veterans Support Initiatives" target="_blank">
+										<img data-u="image" src="img/banner/MilAppMonth.jpg" />
+									</a>
+								</div>-->
+								
+								<!--<div data-p="170.00">
+									<a href="/trending/digital_twin_design.shtml" title="Trending at CACI - Digital Twin Design: Precision Modeling Saves Costs and Shrinks Delivery Timelines">
+										<img data-u="image" src="img/banner/trending_digitaltwin2.jpg" />
+									</a>
+								</div>-->
+								
+								<!--
+								<div data-p="170.00">
+									<a href="http://investor.caci.com/file/Index?KeyFile=393247082" title="CACI Executive Chairman and Chairman of the Board Dr. J.P. (Jack) London Named National Association of Corporate Directors Governance Fellow"/>
+										<img data-u="image" src="img/banner/JPL_NACD.jpg" />
+									</a>
+								</div>
+								-->
+								<!--<div data-p="170.00">
+									<a href="http://careers.caci.com/page/show/SS" title="CACI is Hiring In Oklahoma">
+										<img data-u="image" src="img/banner/Oklahoma_v8.jpg" />
+									</a>
+								</div>-->
+								
+								<!-- ar archive taken over by 2nd banner
+								<div data-p="170.00">
+									<a href="http://investor.caci.com/news_events" title="CACI Latest News"/>
+										<img data-u="image" src="img/banner/LatestNews_generic2.jpg" />
+									</a>
+								</div>
+								-->
+								<!-- am archive 04/30/2018
+								<div data-p="170.00">
+									<a href="http://careers.caci.com/page/show/SS" title="CACI is Hiring In Oklahoma!"/>
+										<img data-u="image" src="img/banner/OklahomaJobFair.jpg" />
+									</a>
+								</div>
+								-->
+								<!-- am archive 05/02/2018 10:00 AM before webcast link before earning release with webcast
+								<div data-p="170.00">
+									<img src="img/banner/LatestNews_20180501.jpg" usemap="#image-map1" alt="" />
+										<map name="image-map1">
+											<area  alt="Latest News" title="Latest News" href="http://investor.caci.com/news_events" shape="rect" coords="1,1,284,304" target="_self" />
+											
+											<area alt="CACI’s Mike Basla Receives AFCEA International Chair’s Award" title="CACI’s Mike Basla Receives AFCEA International Chair’s Award" href="/announcement/2018/caci-michael-basla-afcea-award.shtml" shape="rect" coords="1,305,283,352"  target="_self" />
+											
+											<area alt="U.S. Sen. Jim Inhofe (R-Okla.) Meets With Ken Asbury" title="U.S. Sen. Jim Inhofe (R-Okla.) Meets With Ken Asbury" href=" https://www.inhofe.senate.gov/newsroom/press-releases/inhofe-meets-with-caci-ceo-ken-asbury" shape="rect" coords="0,353,283,409"  target="_self" />
+											
+											<area  alt="CACI to Release 3rd Quarter FY18 Results May 2" title="CACI to Release 3rd Quarter FY18 Results May 2" href="http://investor.caci.com/file/Index?KeyFile=392770433" shape="rect" coords="283,0,1139,409"  target="_self" />
+										</map>
+								</div>
+								-->
+								<!-- am archive 05/02/2018 10:00 AM before webcast link 1st phase
+								<div data-p="170.00">
+									<img src="img/banner/LatestNews_20180502a.jpg" usemap="#image-map1" alt="" />
+										<map name="image-map1">
+											<area  alt="Latest News" title="Latest News" href="http://investor.caci.com/news_events" shape="rect" coords="0,1,284,304" target="_self" />
+											
+											<area alt="CACI’s Mike Basla Receives AFCEA International Chair’s Award" title="CACI’s Mike Basla Receives AFCEA International Chair’s Award" href="/announcement/2018/caci-michael-basla-afcea-award.shtml" shape="rect" coords="0,305,283,352"  target="_self" />
+											
+											<area alt="U.S. Sen. Jim Inhofe (R-Okla.) Meets With Ken Asbury" title="U.S. Sen. Jim Inhofe (R-Okla.) Meets With Ken Asbury" href=" https://www.inhofe.senate.gov/newsroom/press-releases/inhofe-meets-with-caci-ceo-ken-asbury" shape="rect" coords="0,353,283,409"  target="_self" />
+											
+											<area  alt="CACI to Release 3rd Quarter FY18 Results May 2" title="CACI to Release 3rd Quarter FY18 Results May 2" href="https://services.choruscall.com/links/caci180503.html" shape="rect" coords="283,0,1139,409"  target="_self" />
+										</map>
+								</div>
+								-->
+								
+								<!-- am archive 05/02/2018 10:00 AM before webcast link 2nd phase
+								<div data-p="170.00">
+									<img src="img/banner/LatestNews_20180502b.jpg" usemap="#image-map1" alt="" />
+										<map name="image-map1">
+											<area  alt="Latest News" title="Latest News" href="http://investor.caci.com/news_events" shape="rect" coords="0,0,284,285" target="_self" />
+																						
+											<area alt="CACI Reports Results for FY18 Q3" title="CACI Reports Results for FY18 Q3" href="http://investor.caci.com/file/Index?KeyFile=393306332" shape="rect" coords="0,285,284,333"  target="_self" />
+											
+											<area alt="CACI’s Mike Basla Receives AFCEA International Chair’s Award" title="CACI’s Mike Basla Receives AFCEA International Chair’s Award" href="/announcement/2018/caci-michael-basla-afcea-award.shtml" shape="rect" coords="0,335,284,409"  target="_self" />
+											
+											<area  alt="CACI to Release 3rd Quarter FY18 Results May 2" title="CACI to Release 3rd Quarter FY18 Results May 2" href="https://services.choruscall.com/links/caci180503.html" shape="rect" coords="284,0,1139,409"  target="_self" />
+										</map>
+								</div>
+								-->
+								<!-- am archive 05/02/2018 10:00 AM before webcast link 3rd phase -->
+								<!-- 
+								<div data-p="170.00">
+									<img src="img/banner/LatestNews_20180502c.jpg" usemap="#image-map1" alt="" />
+										<map name="image-map1">
+											<area  alt="Latest News" title="Latest News" href="http://investor.caci.com/news_events" shape="rect" coords="0,0,284,285" target="_self" />
+																						
+											<area alt="CACI’s Mike Basla Receives AFCEA International Chair’s Award" title="CACI’s Mike Basla Receives AFCEA International Chair’s Award" href="/announcement/2018/caci-michael-basla-afcea-award.shtml" shape="rect" coords="0,287,284,350"  target="_self" />
+											
+											<area alt="U.S. Sen. Jim Inhofe (R-Okla.) Meets With Ken Asbury" title="U.S. Sen. Jim Inhofe (R-Okla.) Meets With Ken Asbury" href=" https://www.inhofe.senate.gov/newsroom/press-releases/inhofe-meets-with-caci-ceo-ken-asbury" shape="rect" coords="0,351,284,409"  target="_self" />
+											
+											<area  alt="CACI Reports Results Fiscal 2018 Third Quarter" title="CACI Reports Results Fiscal 2018 Third Quarter" href="http://investor.caci.com/file/Index?KeyFile=393306332" shape="rect" coords="284,0,1139,409"  target="_self" />
+										</map>
+								</div>
+								-->
+								<!--<div data-p="170.00">
+									<a href="/trending/electronic_warfare.shtml" title="CACI - Cyber Security Overview"/>
+										<img data-u="image" src="img/banner/EW_cacicom.jpg" />
+									</a>
+								</div>-->
+								<!--
+								<div data-p="170.00">
+									<a href="/announcement/2018/CACI_Named_Colorado_Top_Workplace_2018.shtml" title="CACI Named a Colorado Top Workplace!"/>
+										<img data-u="image" src="img/banner/COTopWorkplace_cacicom.jpg" />
+									</a>
+								</div>
+								-->
+								
+								<div data-p="170.00">
+									<a href="http://www.caci.com/job/opm_job_opps.shtml" title="OPM Background Investigations">
+										<img data-u="image" src="img/banner/opm_bi_2560x920.jpg" />
+									</a>
+								</div>
+
+								
+								<div data-p="170.00">
+									<a href="/Skytracker/" title="SkyTracker">
+										<img data-u="image" src="img/banner/SkyTracker-05-02-2018.jpg" />
+									</a>
+								</div>
+				  
+				  
+				  
+								<!-- archive ar 04/25/2018
+																<div data-p="170.00">
+									<img src="img/banner/LatestNews_20180424.jpg" usemap="#image-map1" alt="" />
+										<map name="image-map1">
+											<area alt="CACI Awarded $145 Million Task Order to Support U.S. Army Intelligence and Security Command Counter Insurgency Targeting Program" title="CACI Awarded $145 Million Task Order to Support U.S. Army" href="http://investor.caci.com/file/Index?KeyFile=393167565" coords="1,1,284,410" shape="rect">
+											<area alt="CACI to Release 3rd Quarter FY18 Results May 2" title="CACI to Release 3rd Quarter FY18 Results May 2" href="http://investor.caci.com/file/Index?KeyFile=392770433" coords="283,0,1139,409" shape="rect">
+										</map>
+
+								</div>
+								<div data-p="170.00">
+									<a href="/geoint18/" title="Visit CACI at GEOINT 2018!"/>
+										<img data-u="image" src="img/banner/2018_GEOINT_cacicom.jpg" />
+									</a>
+								</div>-->
+			
+								<!-- archive am 04/25 
+								<div data-p="170.00">
+									<img src="img/banner/LatestNews_20180419.jpg" usemap="#image-map1" alt="" />
+										<map name="image-map1">
+											<area  alt="Latest News" title="Latest News" href="http://investor.caci.com/news_events" shape="rect" coords="0,0,285,304" target="_self" />
+											<area  alt="CACI at GEOINT Symposium April 22-25" title="CACI at GEOINT Symposium April 22-25" href="http://investor.caci.com/file/Index?KeyFile=393106752" shape="rect" coords="0,306,283,352"  target="_self" />
+											<area  alt="CACI to Provide Engineering Support for Army CBTA Program" title="CACI to Provide Engineering Support for Army CBTA Program" href="http://investor.caci.com/file/Index?KeyFile=392964593" shape="rect" coords="0,354,283,408"  target="_self" />
+											<area  alt="CACI to Release 3rd Quarter FY18 Results May 2" title="CACI to Release 3rd Quarter FY18 Results May 2" href="http://investor.caci.com/file/Index?KeyFile=392770433" shape="rect" coords="286,0,1140,410"  target="_self" />
+										</map>
+
+								</div>
+								-->
+				  
+				
+								<!-- archive ar 04/11/2018
+								<div data-p="170.00">
+									<a href="/sas18/" title="CACI will showcase its innovative, integrated solutions for increased Naval power at Sea-Air-Space 2018"/>
+										<img data-u="image" src="img/banner/2018_SeaAirSpace_cacicom.jpg" />
+									</a>
+								</div>-->
+								
+								<!-- archive am 03/15/2018
+								<div data-p="170.00">
+									<a href="https://vimeo.com/257376394" style="text-decoration: none !important;" 
+									title="CACI's Amanda Christian Discusses What Government Contractors Want the Government to Know" target="_blank"/>
+										
+										<img src="img/banner/LatestNews_DISA_ENCORE_III_20180315.jpg" usemap="#image-map">
+
+										<map name="image-map">
+											<area target="_self" alt="CACI Latest News " title="CACI Latest News" href="http://investor.caci.com/news/" coords="1,1,286,410" shape="rect">
+											<area target="_blank" alt="CACI Latest News " title="CACI Awarded Prime Position on $17.5 Billion Multiple-Award Defense Information Systems Agency ENCORE III Contract" href="http://investor.caci.com/file/Index?KeyFile=392611795"  coords="284,409,1139,0" shape="rect">
+										</map>
+										
+									</a>
+								</div>
+								-->
+
+								<!-- archive ar 04/25/2018
+								<div data-p="170.00">
+									<a href="http://investor.caci.com/file/Index?KeyFile=391855177" title="CACI Ranked as a Fortune World's Most Admired Company">
+										<img data-u="image" src="img/banner/Round2_MainBanner_MostAdmired.jpg" />
+									</a>
+								</div>-->
+
+							</div>
+
+							<div data-u="navigator" class="jssorb21">
+								<div data-u="prototype"></div>
+							</div>
+						
+						</div>
+					</section>
+				</div>
+			<!-- CACI to Release 3rd Quarter FY18 Results, May 2nd, 8:30 A.M. EST -->
+			<!-- hidden in 3rd phase of quarterly reporting
+            <div class="row" style="margin:8px; font-family:Oswald;">
+                <div class="col-md-12">
+                 	 <div class="section-title">
+						<strong>Latest News: CACI FY18 Q3 Earnings Webcast, May 3rd, 8:30 a.m. ET. <a href="https://services.choruscall.com/links/caci180503.html"> Click here </a>to join the Webcast. </strong>
+					  <br>				
+					</div>
+                </div>
+            </div>
+			-->
+	
+				<!--<div class="row" style="margin:8px; font-family:Oswald;">
+                <div class="col-md-12">
+                 	 <div class="section-title">
+						<strong>Join the <a href="http://investor.caci.com/news/#upcomingevent" title="CACI FY19 Annual Guidance Webcast" >CACI FY19 Annual Guidance Webcast</a> June 21 at 8:30 a.m. ET.</strong>
+					  <br>				
+				  </div>
+                </div>
+            </div>-->
+				<!--<div class="row" style="margin:8px; font-family:Oswald;">
+                <div class="col-md-12">
+                 	 <div class="section-title">
+						<strong><a href="https://govmatters.tv/caci-president-gives-overview-of-federal-marketplace/" title="CACI  President and CEO Ken Asbury Featured on Government Matters TV Discussing  Company Strategy and Industry Outlook">
+			      		CACI  President and CEO Ken Asbury Featured on Government Matters TV Discussing  Company Strategy and Industry Outlook</a></strong>
+					</div>
+                </div>
+            </div>-->
+				
+				<div class="row" style="margin-top: 8px; margin-left:0px;">
+                    <div id="rotator" style="margin-top: 3px;"> 
+						
+						<div id="slider1_container" style="position: relative;top: 0px;left: 0px;width: 1140px;height: 204px;overflow: hidden;">
+							<div data-u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1155px; height: 204px; overflow: hidden;">
+								<div>
+									<a href="/Business_Systems/">
+										<img src="img/small_banner/01_BSS.jpg" title="Business Systems" style="width: 284px;" />
+									</a>
+									<a href="/Command_Control/">
+										<img src="img/small_banner/02_C2.jpg" title="Command and Control" style="width: 284px;" />
+									</a>
+									<a href="/Communications/">
+										<img src="img/small_banner/03_Comms.jpg" title="Communications" style="width: 284px;" />
+									</a>
+									<a href="/cyber_security/">
+										<img src="img/small_banner/04_Cyber.jpg" title="Cyber Security" style="width: 284px;" />
+									</a>
+								</div>
+
+								<div>
+									<a href="/enterprise_it/">
+										<img src="img/small_banner/05_EIT.jpg" title="Enterprise IT" style="width: 284px;" />
+									</a>
+									<a href="/health/">
+										<img src="img/small_banner/06_Health.jpg" title="Health" style="width: 284px;" />
+									</a>
+									<a href="/intelligence_services/">
+										<img src="img/small_banner/07_IS.jpg" title="Intelligence Services" style="width: 284px;" />
+									</a>
+									<a href="/intelligence_systems/">
+										<img src="img/small_banner/08_ISS.jpg" title="Intelligence Systems and Support" style="width: 284px;" />
+									</a>
+								</div>
+
+								<div>
+									<a href="/investigation_litigation/">
+										<img src="img/small_banner/09_ILS.jpg" title="Investigation and Litigation Support" style="width: 284px;" />
+									</a>
+									<a href="/logistics_material_readiness/">
+										<img src="img/small_banner/10_LMR.jpg" title="Logistics and Material Readiness" style="width: 284px;" />
+									</a>
+									<a href="/space/">
+										<img src="img/small_banner/11_SOR.jpg" title="Space Operations and Resiliency" style="width: 284px;" />
+									</a>
+									<a href="/surveillance_reconnaissance/">
+										<img src="img/small_banner/12_SR.jpg" title="Surveillance and Reconnaissance" style="width: 284px;" />
+									</a>
+								</div>
+								
+							</div>
+						   <div data-u="arrowleft" class="jssora051" style="width:55px;height:55px;top:0px;left:25px;" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
+					<svg viewBox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+						<polyline class="a" points="11040,1920 4960,8000 11040,14080 "></polyline>
+					</svg>
+				</div>
+				<div data-u="arrowright" class="jssora051" style="width:55px;height:55px;top:0px;right:25px;" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
+					<svg viewBox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+						<polyline class="a" points="4960,1920 11040,8000 4960,14080 "></polyline>
+					</svg>
+				</div>
+							
+							
+						</div>
+						<div class="commonfooter">
+<br />
+<a href="https://www.facebook.com/pages/CACI-International-Inc/119012761493211?sk=wall " target="_blank"><img border="0" src="/images/temp/fb.png" class="imgalign" alt="CACI Facebook"></a>
+&nbsp;
+<a href="http://www.linkedin.com/company/caci-international-inc/" target="_blank"><img border="0" src="/images/temp/li.png" class="imgalign" alt="CACI LinkedIn"></a>
+&nbsp;
+<a href="http://twitter.com/CACIIntl" target="_blank"><img src="/images/temp/tw.png" class="imgalign" border="0" alt="CACI Twitter"></a>
+&nbsp;
+<a href="http://www.youtube.com/user/CACIInternational" target="_blank"><img src="/images/temp/yt.png" class="imgalign" border="0" alt="CACI YouTube"></a>
+<br />
+<br />
+Copyright &#169; CACI International Inc | <a href="/legalinfo.shtml">Terms of Use</a> | <a href="/solutionsfinder.shtml">Solutions Finder</a>
+</div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- footer -->
+        <footer></footer>
+    </div>
+    <!--- wrapper -->
+	<div>
+		<p>&nbsp;</p>
+	</div>
+</div>
+</body>
+</html>

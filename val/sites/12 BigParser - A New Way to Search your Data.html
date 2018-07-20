@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="bigparser">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <base href="/">
+    <title ng-bind="pageTitle"></title>
+    <meta charset="UTF-8">
+    <!--<meta name="referrer" content="no-referrer" />-->
+    <meta name="keywords" content="spreadsheets, xls, xlsx, csv, xml, parse, search, grid, datagrid, paste url, google, connector, join, dropbox">
+    <meta name="description" content="A New Way to Search, Share and Connect your Data, so it is at your fingertips – anytime, anywhere. BigParser is also a rapidly growing community trying to connect the world’s data ">
+
+    <!-- Mobile viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!--[if lte IE 8]>
+        <link rel="shortcut icon" href="app/assets/images/fav.ico" type="image/x-icon" />
+    <![endif]-->
+    <!-- iPhone 1x and 2x -->
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="app/assets/images/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="app/assets/images/favicons/apple-touch-icon-114x114.png" />
+
+    <!-- iPad 1x and 2x -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="app/assets/images/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="app/assets/images/favicons/apple-touch-icon-144x144.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="app/assets/images/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="app/assets/images/favicons/favicon-16x16.png" sizes="16x16" />
+
+    <meta name="application-name" content="BigParser" />
+    <meta name="msapplication-TileColor" content="#92c7e4" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#92c7e4">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#92c7e4">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#92c7e4">
+
+
+    <!--[if lte IE 8]>
+      <script>window.location.href =location.protocol + "//" + location.host + "/browser"</script>
+      <link rel="stylesheet" href="app/core/styles/IE8.css">
+    <![endif]-->
+    <!-- THESE TAGS ARE FOR USEMIN -->
+    <link rel="stylesheet" href="app/styles/styles.css"/>
+    <!-- OneDrive File API -->
+
+    <script type="text/javascript" src="https://js.live.net/v7.2/OneDrive.js"></script>
+    <!--<link rel="stylesheet" href="app/assets/css/ui-bootstrap-custom-1.3.3-csp.css">-->
+    <!-- END:HEAD -->
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+</head>
+<body ng-app="bigparser" ng-class="{'grid-active': $state.current.name === 'grid-view'}" ng-click="bordClickEvnt($event)" class="grid-large {{currentLocation.pathname === '/' ? 'bigparser-home' : ''}}" ng-cloak bp-left-side-nav-open-close-on-swipe>
+    <chat-bot-launcher></chat-bot-launcher>
+    <bp-left-side-nav></bp-left-side-nav>
+    <div ng-class="{'bp-container-white': authUser, 'bp-container': !authUser}">
+        <div id="mainheader" ng-hide="vm.showNav()" ng-include="'app/core/views/navbar.view.html'" ng-controller="NavbarCtrl as vm"></div>
+        <ui-view>
+        </ui-view>
+        <bp-footer></bp-footer>
+        <!--[if lt IE 9]>
+        <script src="bower_components/es5-shim/es5-shim.js"></script>
+        <script src="bower_components/json3/lib/json3.min.js"></script>
+        <![endif]-->
+        <!-- BODY -->
+        <!-- This block will be vendor-full.js in the built version - includes resources required for full version of app -->
+        <script src="vendor-full.js"></script>
+        <script src="app/assets/js/copy2clipboard.js" type="text/javascript"></script>
+        <script src="app/assets/js/jquery.mCustomScrollbar.js" type="text/javascript"></script>
+        <script src="app/assets/js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="app/assets/js/jquery.magnific-popup.min.js" type="text/javascript"></script>
+        <!--     <script src="app/assets/js/ui-bootstrap-custom-tpls-1.3.3.min.js" type="text/javascript"></script>
+            <script src="app/assets/js/ui-bootstrap-custom-1.3.3.min.js" type="text/javascript"></script> -->
+        <!-- vendor:js -->
+        <!-- endinject -->
+        <!-- This block will be app-full.js in the built version - includes resources required for full version of app -->
+        <script src="app-full.js"></script>
+        <!-- This block will be core-full.js in the built version - includes resources required for full version of app -->
+        <script src="core-full.js"></script>
+        <!-- This block will be modules-full.js in the built version - includes resources required for full version of app -->
+        <script src="modules-full.js"></script>
+<script src="templates.js"></script>
+
+        <!-- inject:js -->
+        <!-- endinject -->
+        <!--For Connectors, this needs to be moved to gulp vendor.js -->
+        <script src="//apis.google.com/js/client.js"></script>
+        <script src="//apis.google.com/js/api.js"></script>
+
+        <!-- END:BODY -->
+    </div>
+    <iframe id="iframe1" src="" style="display:none"></iframe>
+    <bp-global-overlays></bp-global-overlays>
+    <bp-show-more-apps-overlay></bp-show-more-apps-overlay>
+</body>
+</html>

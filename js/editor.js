@@ -3,11 +3,9 @@ var storage = {
     predictionCase: {}, // Tokenizer-determined prediction scenario
     trainingTable: [],	// AST Features for making DT
 	sampleFeatures: {},	// Features to input into DT to get prediction
-    predictionList: [],	// Predictions from DT (currently just one)
-    tagBlacklist: [],   // Tags that should not be shown as predictions
+    predictionSet: new Set(),	// Predictions from DT (currently just one)
     aceEditor: {},  // Ace code editor
 };
-
 
 /**
  * Uses the Ace library {@link https://ace.c9.io/} to create a code editor and
@@ -38,8 +36,8 @@ $(document).ready(function() {
 
     let staticWordCompleter = {
         getCompletions: function (editor, session, pos, prefix, callback) {
-        	let rank = storage.predictionList.length;
-            callback(null, storage.predictionList.map(function (word) {
+        	let rank = storage.predictionSet.size;
+            callback(null, Array.from(storage.predictionSet).map(function (word) {
                 rank--;
                 return {
                     caption: word, // completion displayed
@@ -73,7 +71,7 @@ function handleKey(key) {
     storage.fragment = {};
     storage.trainingTable = [];
     storage.sampleFeatures = {};
-    storage.predictionList = [];
+    storage.predictionSet = new Set();
 
     if (storage.predictionCase !== PREDICTION_CASE.NONE) {
 
@@ -89,25 +87,19 @@ function handleKey(key) {
             let decisionTree = getDT();
 
             //console.log("Making Prediction");
-            let prediction = predicts(decisionTree, storage.sampleFeatures)
+            let prediction = predicts(decisionTree, storage.sampleFeatures);
 
             /*
                 This checks whether ID3 returned multiple predictions
                 (sorted by probability), and if so, adds each one.
              */
             if (prediction.includes(" // ")) {
-                let predictions = prediction.split(" // ");
-                for (let pred of predictions) {
-                    if (!storage.predictionList.includes(pred) && !storage.tagBlacklist.includes(pred)) {
-                        storage.predictionList.push(pred);
-                        console.log("PREDICTION: " + pred);
-                    }
-                }
+                let predictions = new Set(prediction.split(" // "));
+                for (let pred of predictions) storage.predictionSet.add(pred);
+                log("PREDICTION: " + Array.from(storage.predictionSet));
             } else {
-                if (!storage.tagBlacklist.includes(prediction)) {
-                    storage.predictionList.push(prediction);
-                    console.log("PREDICTION: " + prediction);
-                }
+                storage.predictionSet.add(prediction);
+                log("PREDICTION: " + prediction);
             }
 
         }

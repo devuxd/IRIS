@@ -37,8 +37,8 @@ var predicts = function(id3Model,sample) {
         var sampleVal = sample[attr];
         var childNode = _.detect(root.vals,function(x){return x.name === sampleVal});
         if (childNode === undefined) {
-            //console.log("No prediction possible");
-            return "";
+            log("ID3: No branch possible");
+            return '';
         }
         root = childNode.child;
     }
