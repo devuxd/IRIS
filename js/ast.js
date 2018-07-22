@@ -40,13 +40,13 @@ function extract(node, parentTag, parentAttr, parentVal) {
         addTraining(tag, parentTag, parentAttrVal, attr, val);
     }
 
-    updateTagBlacklist(tag);
     for (let child of node.children) extract(child, tag, attr, val);
 }
 
 function addTraining(tag, parentTag, parentAttrVal, attr, val) {
     switch (storage.predictionCase) {
         case PREDICTION_CASE.TAG:
+            if (['!doctype','html','head','body'].includes(tag)) break;
             storage.trainingTable.push({'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
             break;
         case PREDICTION_CASE.ATTRIBUTE:
@@ -56,10 +56,6 @@ function addTraining(tag, parentTag, parentAttrVal, attr, val) {
             storage.trainingTable.push({'tag':tag, 'attr':attr, 'val':val, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
             break;
     }
-}
-
-function updateTagBlacklist(tag) {
-    for (let checkTag of ['html','head','body']) if (tag === checkTag) storage.tagBlacklist.push(tag);
 }
 
 function clean(codeFile) {
