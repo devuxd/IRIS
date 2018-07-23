@@ -6,7 +6,6 @@ var storage = {
     predictionList: [],	// Predictions from DT (currently just one)
 	
 	dontUse: [], // List of entries/rules the user doesn't want to use
-	blackList: [],
 	alwaysTag: [], // Rules for predicting tags 
  	alwaysAttr: [], // Rules for predicting attributes 
 	alwaysValue: [], // Rules for predicting values
@@ -28,6 +27,22 @@ function setupEditor() {
 	return aceEditor;
 }
 
+
+/*
+Checks if a prediction is blacklisted based on the features of the sample
+*/
+function inBlackList(pred){
+	let sample = storage.sampleFeatures;
+	if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
+		sample['attr'] = pred;
+    } else if (storage.predictionCase == PREDICTION_CASE.VALUE){
+        sample['val'] = pred;
+    } else if (storage.predictionCase == PREDICTION_CASE.TAG){
+        sample['tag'] = pred;
+    }
+	return contains(sample, storage.dontUse);
+}
+
 /*
 This checks whether ID3 returned multiple predictions
 (sorted by probability), and if so, pushes each one.
@@ -36,14 +51,13 @@ function multiplePred(prediction){
 	if (prediction.includes(" // ")) {
 		let predictions = prediction.split(" // ");
 		for (let pred of predictions) {
-			if (!storage.predictionList.includes(pred)) {
+			if (!storage.predictionList.includes(pred) && !inBlackList(pred)) {
 				storage.predictionList.push(pred);
 				console.log("PREDICTION: " + pred);
 			}
 		}
-	} else {
+	} else if (!inBlackList(prediction)){
 		storage.predictionList.push(prediction);
-
 		console.log("PREDICTION: " + prediction);
 	}
 }
@@ -121,11 +135,9 @@ $(document).ready(function() {
 				console.log(storage.sampleFeatures);
 				
                 let prediction = predicts(decisionTree, storage.sampleFeatures);
-				console.log(prediction);
-				if (prediction != ""){ //prediction possible
-					console.log("here");
+				multiplePred(prediction);
+				if (storage.predictionList.length > 0){
 					firstPred = true;
-					multiplePred(prediction);
 				}
 				
 			}
@@ -135,7 +147,7 @@ $(document).ready(function() {
 				
 				
 				console.log(storage.trainingTable);
-				console.log(storage.sampleFeatures);
+				//console.log(storage.sampleFeatures);
 				if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
 					
 					console.log("Building DT");
