@@ -8,7 +8,7 @@ function currentPred(){
 	let featureStr;
 	let predStr;
 	if (storage.predictionList.length === 0){
-		$("#features").html("");
+		$("#features").html("no prediction can be made yet");
 		$("#prediction").html("");
 		return;
 	}
