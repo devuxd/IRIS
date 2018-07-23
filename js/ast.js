@@ -62,7 +62,11 @@ function addTraining(tag, parentTag, parentAttrVal, attr, val) {
 }
 
 function updateTagBlacklist(tag) {
-    for (let checkTag of ['html','head','body']) if (tag === checkTag) storage.dontUse.push(tag);
+    for (let checkTag of ['html','head','body']){
+		if (tag === checkTag && !contains(tag, storage.dontUse)){
+			storage.dontUse.push(tag);
+		}
+	}
 }
 
 function isEqual(entry1, entry2){
@@ -83,6 +87,7 @@ function isEqual(entry1, entry2){
 function contains(x, list){
 	for (var i = 0; i < list.length; i++ ){
 		if (isEqual(x, list[i])){
+			console.log(x + "--is equal to--" + list[i]);
 			return true;
 		}
 	}
