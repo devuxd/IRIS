@@ -78,13 +78,13 @@ function extractSample(parentTag, parentAttrVal) {
 
     if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE) {
 
-        let tag = storage.fragment.split(" ")[0];
+        let tag = storage.fragment.split(" ")[0].trim();
         storage.sampleFeatures = {'tag': tag, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
 
     } else if (storage.predictionCase === PREDICTION_CASE.VALUE) {
 
-        let tag = storage.fragment.split(" ")[0];
-        let attr = storage.fragment.split(" ")[1].split('=')[0];
+        let tag = storage.fragment.split(" ")[0].trim();
+        let attr = storage.fragment.split(" ")[1].split('=')[0].trim();
         storage.sampleFeatures = {'tag': tag, 'attr': attr, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
 
     } else if (storage.predictionCase === PREDICTION_CASE.TAG) {

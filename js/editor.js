@@ -96,7 +96,7 @@ function handleKey(key, aceEditor, outputFrame) {
              */
             if (prediction.includes(" // ")) {
                 let predictions = new Set(prediction.split(" // "));
-                for (let pred of predictions) storage.predictionSet.add(pred);
+                for (let pred of predictions) if (pred !== '') storage.predictionSet.add(pred);
                 console.log("PREDICTION: " + Array.from(storage.predictionSet));
             } else {
                 storage.predictionSet.add(prediction);
