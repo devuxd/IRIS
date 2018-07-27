@@ -3,8 +3,8 @@ var storage = {
     predictionCase: {}, // Tokenizer-determined prediction scenario
     trainingTable: [],	// AST Features for making DT
 	sampleFeatures: {},	// Features to input into DT to get prediction
-    predictionSet: new Set(),	// Predictions from DT (currently just one)
-    aceEditor: {},  // Ace code editor
+    predictionSet: new Set(),	// Predictions from DT
+    aceEditor: {},
 };
 
 /**
@@ -15,6 +15,9 @@ var storage = {
 $(document).ready(function() {
 
 	storage.aceEditor = setupEditor();
+    let staticWordCompleter = setupCompleter();
+    ace.require("ace/ext/language_tools").setCompleters([staticWordCompleter]);
+    let outputFrame = $('#outputFrame');
 
 	function setupEditor() {
 		let aceEditor = ace.edit("editor");
@@ -28,45 +31,45 @@ $(document).ready(function() {
 		});
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
-                handleKey(e.key);
+                handleKey(e.key, aceEditor, outputFrame);
             });
         })();
         return aceEditor;
 	}
 
-    let staticWordCompleter = {
-        getCompletions: function (editor, session, pos, prefix, callback) {
-        	let rank = storage.predictionSet.size;
-            callback(null, Array.from(storage.predictionSet).map(function (word) {
-                rank--;
-                return {
-                    caption: word, // completion displayed
-                    value: word, // completion performed
-                    score: rank, // ordering
-                    meta: storage.predictionCase // description displayed
-                };
-            }));
-        }
-    };
-
-    let langTools = ace.require("ace/ext/language_tools");
-    langTools.setCompleters([staticWordCompleter]);
+    function setupCompleter() {
+        return {
+            getCompletions: function (editor, session, pos, prefix, callback) {
+                let rank = storage.predictionSet.size;
+                callback(null, Array.from(storage.predictionSet).map(function (word) {
+                    rank--;
+                    return {
+                        caption: word, // completion displayed
+                        value: word, // completion performed
+                        score: rank, // ordering
+                        meta: storage.predictionCase // description displayed
+                    };
+                }));
+            }
+        };
+    }
 
 });
 
-function updateOutputFrame() {
-    $('#outputFrame').contents().find('body').html(storage.aceEditor.getValue());
+function updateOutputFrame(outputFrame, value) {
+    outputFrame.contents().find('body').html(value);
 }
 
-function handleKey(key) {
+function handleKey(key, aceEditor, outputFrame) {
 
-    if (key.includes('Arrow') || key === 'Shift') return;
+    if (['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft', 'Shift', 'CapsLock', 'Tab', 'Alt'].includes(key)) return;
     //console.log("KEY: " + key);
 
     //console.log("Tokenizing");
-    let codeFile = new CodeFile(storage.aceEditor.getValue(), storage.aceEditor.getCursorPosition());
+    let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
     codeFile.tokenize();
     //console.log("PREDICTION CASE: " + storage.predictionCase);
+
 
     storage.fragment = {};
     storage.trainingTable = [];
@@ -95,7 +98,7 @@ function handleKey(key) {
              */
             if (prediction.includes(" // ")) {
                 let predictions = new Set(prediction.split(" // "));
-                for (let pred of predictions) storage.predictionSet.add(pred);
+                for (let pred of predictions) if (pred !== '') storage.predictionSet.add(pred);
                 log("PREDICTION: " + Array.from(storage.predictionSet));
             } else {
                 storage.predictionSet.add(prediction);
@@ -106,5 +109,5 @@ function handleKey(key) {
     }
 
     //console.log('---------------------------');
-    //updateOutputFrame();
+    //updateOutputFrame(outputFrame, aceEditor.getValue());
 }
