@@ -7,40 +7,26 @@ function currentPred(){
 	let sample;
 	let featureStr;
 	let predStr;
-	if (storage.predictionList.length === 0){
+	console.log(storage.predictionList);
+	if (storage.predictionList[0] == ""){
 		$("#features").html("no prediction can be made yet");
 		$("#prediction").html("");
 		return;
 	}
-	
-	if (storage.predictionCase == PREDICTION_CASE.VALUE){
-		sample = storage.sampleFeatures;
-		for (var x = 0; x < sample.length; x++){
-			if (sample[x] == ""){
-				sample[x] = "none";
-			}
-			sample[x] = sample[x].toUpperCase();
+	sample = storage.sampleFeatures;
+	for (var key in sample){
+		if (sample[key] == ""){
+			sample[key] = "none";
 		}
+		sample[key] = sample[key].toUpperCase();
+	}
+	if (storage.predictionCase == PREDICTION_CASE.VALUE){
 		predStr = "Therefore, the top prediction for the next value is: " + storage.predictionList[0].toUpperCase();
 		featureStr = "The current tag is " + sample['tag'].toUpperCase() + ". The attribute is " + sample['attr'].toUpperCase() + ". The parent tag is " + sample['parentTag'].toUpperCase() + ". The attribute and value pair of the parent is " + sample['parentAttr/Val'].toUpperCase() + ".";
 	} else if (storage.predictionCase == PREDICTION_CASE.TAG){
-		sample = storage.sampleFeatures;
-		for (var x = 0; x < sample.length; x++){
-			if (sample[x] == ""){
-				sample[x] = "none";
-			}
-			sample[x] = sample[x].toUpperCase();
-		}
 		featureStr = "The parent tag is " + sample['parentTag'].toUpperCase() + ". The attribute and value pair of the parent is " + sample['parentAttr/Val'].toUpperCase() + ".";
 		predStr = "Therefore, the top prediction for the next tag is: " + storage.predictionList[0].toUpperCase();
 	} else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
-		sample = storage.sampleFeatures;
-		for (var x = 0; x < sample.length; x++){
-			if (sample[x] == ""){
-				sample[x] = "none";
-			}
-			sample[x] = sample[x].toUpperCase();
-		}
 		featureStr = "The current tag is " + sample['tag'].toUpperCase() + ", the parent tag is " + sample['parentTag'].toUpperCase() + ", and the attribute and value pair of the parent is " + sample['parentAttr/Val'].toUpperCase() + ".";
 		predStr = "Therefore, the top prediction for the next attribute is: " + storage.predictionList[0].toUpperCase();
 	}
