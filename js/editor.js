@@ -33,7 +33,7 @@ $(document).ready(function() {
                 handleKey(e.key, aceEditor, outputFrame);
             });
         })();
-        return aceEditor;
+
     }
 
     function setupCompleter() {
