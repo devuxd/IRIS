@@ -4,65 +4,35 @@
  * Shows the top rule for the current prediction to the user.
  */
 function currentPred(){
-<<<<<<< HEAD
-    let sample;
-    let featureStr;
-    let predStr;
-    console.log(storage.predictionList);
-    if (storage.predictionList[0] == ""){
-        $("#features").html("no prediction can be made yet");
+    if (Array.from(storage.predictionSet)[0] === ''){
+        $("#features").html("No code prediction can be made.");
         $("#prediction").html("");
         return;
     }
-    sample = storage.sampleFeatures;
-    for (var key in sample){
-        if (sample[key] == ""){
+
+    let sample = storage.sampleFeatures;
+    let featureStr;
+    let predStr;
+
+    for (let key of sample){
+        if (sample[key] === ""){
             sample[key] = "none";
         }
         sample[key] = sample[key].toUpperCase();
     }
-    if (storage.predictionCase == PREDICTION_CASE.VALUE){
-        predStr = "Therefore, the top prediction for the next value is: " + storage.predictionList[0].toUpperCase();
-        featureStr = "The current tag is " + sample['tag'].toUpperCase() + ". The attribute is " + sample['attr'].toUpperCase() + ". The parent tag is " + sample['parentTag'].toUpperCase() + ". The attribute and value pair of the parent is " + sample['parentAttr/Val'].toUpperCase() + ".";
-    } else if (storage.predictionCase == PREDICTION_CASE.TAG){
-        featureStr = "The parent tag is " + sample['parentTag'].toUpperCase() + ". The attribute and value pair of the parent is " + sample['parentAttr/Val'].toUpperCase() + ".";
-        predStr = "Therefore, the top prediction for the next tag is: " + storage.predictionList[0].toUpperCase();
-    } else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
+
+    if (storage.predictionCase === PREDICTION_CASE.VALUE){
+        predStr = "<b>Value Prediction: </b> " + Array.from(storage.predictionSet)[0].toUpperCase();
+        featureStr = "The current tag is " + sample['tag'].toUpperCase() + ". The attribute is " + sample['attr'].toUpperCase() + ". The parent tag is " + sample['parentTag'].toUpperCase() + ". The parent attribute-value pair is " + sample['parentAttr/Val'].toUpperCase() + ".";
+    } else if (storage.predictionCase === PREDICTION_CASE.TAG){
+        featureStr = "The parent tag is " + sample['parentTag'].toUpperCase() + ". The parent attribute-value pair is " + sample['parentAttr/Val'].toUpperCase() + ".";
+        predStr = "<b>Tag Prediction: </b> " + Array.from(storage.predictionSet)[0].toUpperCase();
+    } else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
         featureStr = "The current tag is " + sample['tag'].toUpperCase() + ", the parent tag is " + sample['parentTag'].toUpperCase() + ", and the attribute and value pair of the parent is " + sample['parentAttr/Val'].toUpperCase() + ".";
-        predStr = "Therefore, the top prediction for the next attribute is: " + storage.predictionList[0].toUpperCase();
+        predStr = "<b>Attribute Prediction: </b> " + Array.from(storage.predictionSet)[0].toUpperCase();
     }
     $("#features").html(featureStr);
     $("#prediction").html(predStr);
-=======
-	let sample;
-	let featureStr;
-	let predStr;
-	console.log(storage.predictionList);
-	if (storage.predictionList[0] == ""){
-		$("#features").html("no prediction can be made yet");
-		$("#prediction").html("");
-		return;
-	}
-	sample = storage.sampleFeatures;
-	for (var key in sample){
-		if (sample[key] == ""){
-			sample[key] = "none";
-		}
-		sample[key] = sample[key].toUpperCase();
-	}
-	if (storage.predictionCase == PREDICTION_CASE.VALUE){
-		predStr = "Therefore, the top prediction for the next value is: " + storage.predictionList[0].toUpperCase();
-		featureStr = "The current tag is " + sample['tag'].toUpperCase() + ". The attribute is " + sample['attr'].toUpperCase() + ". The parent tag is " + sample['parentTag'].toUpperCase() + ". The attribute and value pair of the parent is " + sample['parentAttr/Val'].toUpperCase() + ".";
-	} else if (storage.predictionCase == PREDICTION_CASE.TAG){
-		featureStr = "The parent tag is " + sample['parentTag'].toUpperCase() + ". The attribute and value pair of the parent is " + sample['parentAttr/Val'].toUpperCase() + ".";
-		predStr = "Therefore, the top prediction for the next tag is: " + storage.predictionList[0].toUpperCase();
-	} else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
-		featureStr = "The current tag is " + sample['tag'].toUpperCase() + ", the parent tag is " + sample['parentTag'].toUpperCase() + ", and the attribute and value pair of the parent is " + sample['parentAttr/Val'].toUpperCase() + ".";
-		predStr = "Therefore, the top prediction for the next attribute is: " + storage.predictionList[0].toUpperCase();
-	}
-	$("#features").html(featureStr);
-	$("#prediction").html(predStr);
->>>>>>> e64d6e953b916e4d502a3304ba84af83a51b3b0f
 }
 
 
@@ -75,7 +45,7 @@ function editCurrent(){
     document.getElementById("button2").style.display = "block";
     document.getElementById("current prediction").style.display = "block";
     document.getElementById("options").style.display = "none";
-    if (storage.predictionList[0] == ""){
+    if (Array.from(storage.predictionSet)[0] == ""){
         document.getElementById("button1").style.display = "none";
         document.getElementById("button2").style.display = "none";
     }
@@ -89,17 +59,17 @@ function editCurrent(){
 function include(){
     let sample = storage.sampleFeatures;
     if (storage.predictionCase == PREDICTION_CASE.VALUE){
-        sample['val'] = storage.predictionList[0];
+        sample['val'] = Array.from(storage.predictionSet);
         if (!contains(sample, storage.alwaysValue)){
             storage.alwaysValue.push(sample);
         }
     } else if (storage.predictionCase == PREDICTION_CASE.TAG){
-        sample['tag'] = storage.predictionList[0];
+        sample['tag'] = Array.from(storage.predictionSet);
         if (!contains(sample, storage.alwaysTag)){
             storage.alwaysTag.push(sample);
         }
     } else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
-        sample['attr'] = storage.predictionList[0];
+        sample['attr'] = Array.from(storage.predictionSet);
         if (!contains(sample, storage.alwaysAttr)){
             storage.alwaysAttr.push(sample);
         }
@@ -115,13 +85,13 @@ function include(){
 function notInclude(){
     let sample = storage.sampleFeatures;
     if (storage.predictionCase == PREDICTION_CASE.VALUE){
-        sample['val'] = storage.predictionList[0];
+        sample['val'] = Array.from(storage.predictionSet);
         deleteEntry(storage.alwaysValue, sample);
     } else if (storage.predictionCase == PREDICTION_CASE.TAG){
-        sample['tag'] = storage.predictionList[0];
+        sample['tag'] = Array.from(storage.predictionSet);
         deleteEntry(storage.alwaysTag, sample);
     } else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
-        sample['attr'] = storage.predictionList[0];
+        sample['attr'] = Array.from(storage.predictionSet);
         deleteEntry(storage.alwaysAttr, sample);
     }
     if (!contains(sample, storage.dontUse)){
@@ -229,7 +199,7 @@ function existingRules(){
     storage.trainingTable = [];
     let list = [];
     newList = [];
-    let aceEditor = setupEditor();
+    let aceEditor = storage.aceEditor;
     let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
     codeFile.tokenize();
     let pred = document.getElementById("existingRules").value;
