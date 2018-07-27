@@ -2,6 +2,7 @@
 Builds an Abstract Syntax Tree by 'cleaning' the code
 of the user's incomplete fragments, branding the fragment section,
 parsing HTML --> JSON and removing whitespace.
+
 @param {CodeFile} codeFile - An object that includes the editor code and cursor position
 @returns {JSON} AST - The Abstract Syntax Tree
  */
@@ -39,7 +40,6 @@ function extract(node, parentTag, parentAttr, parentVal) {
         addTraining(tag, parentTag, parentAttrVal, attr, val);
     }
 
-    updateTagBlacklist(tag);
     for (let child of node.children) extract(child, tag, attr, val);
 }
 
@@ -47,6 +47,7 @@ function addTraining(tag, parentTag, parentAttrVal, attr, val) {
     let entry;
 	switch (storage.predictionCase) {
         case PREDICTION_CASE.TAG:
+            if (['!doctype','html','head','body'].includes(tag)) break;
 			entry = {'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'tag':tag};
             break;
         case PREDICTION_CASE.ATTRIBUTE:
@@ -56,23 +57,15 @@ function addTraining(tag, parentTag, parentAttrVal, attr, val) {
 			entry = {'tag':tag, 'attr':attr, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'val':val};
             break;
     }
-	if (typeof (entry) != "undefined" && !contains(entry, storage.dontUse)){
+	if (entry !== undefined && !contains(entry, storage.dontUse)){
 		storage.trainingTable.push(entry);
-	}
-}
-
-function updateTagBlacklist(tag) {
-    for (let checkTag of ['html','head','body']){
-		if (tag === checkTag && !contains(tag, storage.dontUse)){
-			storage.dontUse.push(tag);
-		}
 	}
 }
 
 function isEqual(entry1, entry2){
 	var a = Object.getOwnPropertyNames(entry1);
     var b = Object.getOwnPropertyNames(entry2);
-    if (a.length != b.length) {
+    if (a.length !== b.length) {
         return false;
     }
     for (var i = 0; i < a.length; i++) {
@@ -98,8 +91,7 @@ function clean(codeFile) {
     let lines = codeFile.code.split("\n");
     let text = lines[codeFile.position.row];
 	let newText;
-	if (storage.justTable == true){
-		console.log("here");
+	if (storage.justTable === true){
 		newText = text.substring(0, codeFile.fragmentStart) + text.substring(codeFile.position.column);   // without < to cursor
 	} else{
 		newText = text.substring(0, codeFile.fragmentStart) + '<>' + text.substring(codeFile.position.column);   // without < to cursor
@@ -120,13 +112,13 @@ function extractSample(parentTag, parentAttrVal) {
 
     if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE) {
 
-        let tag = storage.fragment.split(" ")[0];
+        let tag = storage.fragment.split(" ")[0].trim();
         storage.sampleFeatures = {'tag': tag, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
 
     } else if (storage.predictionCase === PREDICTION_CASE.VALUE) {
 
-        let tag = storage.fragment.split(" ")[0];
-        let attr = storage.fragment.split(" ")[1].split('=')[0];
+        let tag = storage.fragment.split(" ")[0].trim();
+        let attr = storage.fragment.split(" ")[1].split('=')[0].trim();
         storage.sampleFeatures = {'tag': tag, 'attr': attr, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
 
     } else if (storage.predictionCase === PREDICTION_CASE.TAG) {

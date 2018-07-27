@@ -1,9 +1,10 @@
 var storage = {
-	fragment: {}, // Incomplete code currently being written
+    fragment: {}, // Incomplete code currently being written
     predictionCase: {}, // Tokenizer-determined prediction scenario
     trainingTable: [],	// AST Features for making DT
-	sampleFeatures: {},	// Features to input into DT to get prediction
-    predictionList: [],	// Predictions from DT (currently just one)
+    sampleFeatures: {},	// Features to input into DT to get prediction
+    predictionSet: new Set(),	// Predictions from DT
+    aceEditor: {},
 	
 	dontUse: [], // List of entries/rules the user doesn't want to use
 	alwaysTag: [], // Rules for predicting tags 
@@ -12,33 +13,17 @@ var storage = {
 	justTable: false
 };
 
-/**
-*create ace Editor
-*/
-function setupEditor() {
-	let aceEditor = ace.edit("editor");
-	aceEditor.setTheme("ace/theme/monokai");
-	aceEditor.getSession().setMode("ace/mode/html");
-	aceEditor.setOptions({
-		enableBasicAutocompletion: true,
-		enableSnippets: true,
-		enableLiveAutocompletion: true
-	});
-	return aceEditor;
-}
-
-
 /*
 Checks if a prediction is blacklisted based on the features of the sample
 */
 function inBlackList(pred){
 	let sample = storage.sampleFeatures;
-	if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
-		sample['attr'] = pred;
-    } else if (storage.predictionCase == PREDICTION_CASE.VALUE){
-        sample['val'] = pred;
-    } else if (storage.predictionCase == PREDICTION_CASE.TAG){
-        sample['tag'] = pred;
+	if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
+		sample.attr = pred;
+    } else if (storage.predictionCase === PREDICTION_CASE.VALUE){
+        sample.val = pred;
+    } else if (storage.predictionCase === PREDICTION_CASE.TAG){
+        sample.tag = pred;
     }
 	return contains(sample, storage.dontUse);
 }
@@ -49,16 +34,12 @@ This checks whether ID3 returned multiple predictions
 */
 function multiplePred(prediction){
 	if (prediction.includes(" // ")) {
-		let predictions = prediction.split(" // ");
-		for (let pred of predictions) {
-			if (!storage.predictionList.includes(pred) && !inBlackList(pred)) {
-				storage.predictionList.push(pred);
-				console.log("PREDICTION: " + pred);
-			}
-		}
+        let predictions = new Set(prediction.split(" // "));
+        for (let pred of predictions) if (pred !== '' && !inBlackList(pred)) storage.predictionSet.add(pred);
+        console.log("PREDICTION: " + Array.from(storage.predictionSet));
 	} else if (!inBlackList(prediction)){
-		storage.predictionList.push(prediction);
-		console.log("PREDICTION: " + prediction);
+        storage.predictionSet.add(prediction);
+        console.log("PREDICTION: " + prediction);
 	}
 }
 
@@ -69,12 +50,16 @@ function multiplePred(prediction){
  */
 $(document).ready(function() {
 
-	let aceEditor = setupEditor();
+    storage.aceEditor = setupEditor();
+    let staticWordCompleter = setupCompleter();
+    ace.require("ace/ext/language_tools").setCompleters([staticWordCompleter]);
+    let outputFrame = $('#outputFrame');
 
 	function setupEditor() {
 		let aceEditor = ace.edit("editor");
 		aceEditor.setTheme("ace/theme/monokai");
 		aceEditor.getSession().setMode("ace/mode/html");
+        aceEditor.$blockScrolling = Infinity;
 		aceEditor.setOptions({
 			enableBasicAutocompletion: true,
 			enableSnippets: true,
@@ -82,106 +67,103 @@ $(document).ready(function() {
 		});
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
-                handleKey(e);
+                handleKey(e.key, aceEditor, outputFrame);
             });
         })();
         return aceEditor;
-	}
-	
-	function updateOutputFrame() {
-        $('#outputFrame').contents().find('body').html(aceEditor.getValue());
-	}
+    }
+
+    function setupCompleter() {
+        return {
+            getCompletions: function (editor, session, pos, prefix, callback) {
+                let rank = storage.predictionSet.size;
+                callback(null, Array.from(storage.predictionSet).map(function (word) {
+                    rank--;
+                    return {
+                        caption: word, // completion displayed
+                        value: word, // completion performed
+                        score: rank, // ordering
+                        meta: storage.predictionCase // description displayed
+                    };
+                }));
+            }
+        };
+    }
 	
 	mainMenu();
-	
-	function handleKey(e) {
-
-		if (e.key.includes('Arrow') || e.key === 'Shift') return;
-		console.log("KEY: " + e.key);
-		
-		console.log("Tokenizing");
-		let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
-        codeFile.tokenize();
-        console.log("PREDICTION CASE: " + storage.predictionCase);
-		
-        storage.fragment = {};
-        storage.trainingTable = [];
-        storage.sampleFeatures = {};
-		storage.predictionList = [];
-		
-		if (storage.predictionCase !== PREDICTION_CASE.NONE) {
-			console.log(storage.dontUse);
-			
-			console.log("Building AST");
-			let syntaxTree = getAST(codeFile);
-			console.log("Converting to Training Table");
-			extractFeatures(syntaxTree);
-			
-			let firstPred = false;
-			// Try to make a prediction based on the rules set by the user first
-			if (storage.predictionCase == PREDICTION_CASE.VALUE){
-				storage.trainingTable = storage.alwaysValue.slice();
-			} else if (storage.predictionCase == PREDICTION_CASE.TAG){
-				storage.trainingTable = storage.alwaysTag.slice();
-			} else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
-				storage.trainingTable = storage.alwaysAttr.slice();
-			}
-			
-			if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
-				
-                console.log("Building DT");
-                let decisionTree = getDT();
-                console.log("Making Prediction");
-				console.log(storage.sampleFeatures);
-				
-                let prediction = predicts(decisionTree, storage.sampleFeatures);
-				multiplePred(prediction);
-				if (storage.predictionList.length > 0){
-					firstPred = true;
-				}
-				
-			}
-			if (firstPred === false){ // Try to make prediction now with the existing document
-				storage.trainingTable = [];
-				extractFeatures(syntaxTree);
-				
-				
-				console.log(storage.trainingTable);
-				//console.log(storage.sampleFeatures);
-				if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
-					
-					console.log("Building DT");
-					let decisionTree = getDT();
-
-					console.log("Making Prediction");
-					console.log(storage.sampleFeatures);
-					let prediction = predicts(decisionTree, storage.sampleFeatures);
-					multiplePred(prediction);
-
-				}
-			}
-		}
-		currentPred();
-        console.log('---------------------------');
-        updateOutputFrame();
-	}
-
-    let staticWordCompleter = {
-        getCompletions: function (editor, session, pos, prefix, callback) {
-        	let rank = storage.predictionList.length;
-            callback(null, storage.predictionList.map(function (word) {
-            	rank--;
-                return {
-                    caption: word, // completion displayed
-                    value: word, // completion performed
-                    score: rank, // ordering
-                    meta: storage.predictionCase // description displayed
-                };
-            }));
-        }
-    };
-
-    let langTools = ace.require("ace/ext/language_tools");
-    langTools.setCompleters([staticWordCompleter]);
 
 });
+
+function updateOutputFrame(outputFrame, value) {
+    outputFrame.contents().find('body').html(value);
+}
+
+function handleKey(key, aceEditor, outputFrame) {
+
+    if (['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft', 'Shift', 'CapsLock', 'Tab', 'Alt'].includes(key)) return;
+    console.log("KEY: " + key);
+
+    console.log("Tokenizing");
+    let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
+    codeFile.tokenize();
+    console.log("PREDICTION CASE: " + storage.predictionCase);
+
+    storage.fragment = {};
+    storage.trainingTable = [];
+    storage.sampleFeatures = {};
+    storage.predictionSet = new Set();
+
+    if (storage.predictionCase !== PREDICTION_CASE.NONE) {
+        console.log(storage.dontUse);	// DELTA
+
+        console.log("Building AST");
+        let syntaxTree = getAST(codeFile);
+
+        console.log("Converting to Training Table");
+        extractFeatures(syntaxTree);
+
+        // DELTA
+        let firstPred = false;
+        // Try to make a prediction based on the rules set by the user first
+        if (storage.predictionCase == PREDICTION_CASE.VALUE){
+            storage.trainingTable = storage.alwaysValue.slice();
+        } else if (storage.predictionCase == PREDICTION_CASE.TAG){
+            storage.trainingTable = storage.alwaysTag.slice();
+        } else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
+            storage.trainingTable = storage.alwaysAttr.slice();
+        }
+
+        if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
+
+            console.log("Building DT");
+            let decisionTree = getDT();
+
+            console.log("Making Prediction");
+            let prediction = predicts(decisionTree, storage.sampleFeatures);
+
+            multiplePred(prediction);
+            if (storage.predictionSet.size > 0){
+                firstPred = true;
+            }
+
+        }
+        if (firstPred === false){ // Try to make prediction now with the existing document
+            storage.trainingTable = [];
+            extractFeatures(syntaxTree);
+
+            if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
+
+                console.log("Building DT");
+                let decisionTree = getDT();
+
+                console.log("Making Prediction");
+                let prediction = predicts(decisionTree, storage.sampleFeatures);
+                multiplePred(prediction);
+
+            }
+        }
+    }
+    currentPred();
+    console.log('---------------------------');
+    updateOutputFrame(outputFrame, aceEditor.getValue());
+}
