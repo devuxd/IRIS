@@ -4,6 +4,7 @@
  * Shows the top rule for the current prediction to the user.
  */
 function currentPred(){
+<<<<<<< HEAD
     let sample;
     let featureStr;
     let predStr;
@@ -32,6 +33,36 @@ function currentPred(){
     }
     $("#features").html(featureStr);
     $("#prediction").html(predStr);
+=======
+	let sample;
+	let featureStr;
+	let predStr;
+	console.log(storage.predictionList);
+	if (storage.predictionList[0] == ""){
+		$("#features").html("no prediction can be made yet");
+		$("#prediction").html("");
+		return;
+	}
+	sample = storage.sampleFeatures;
+	for (var key in sample){
+		if (sample[key] == ""){
+			sample[key] = "none";
+		}
+		sample[key] = sample[key].toUpperCase();
+	}
+	if (storage.predictionCase == PREDICTION_CASE.VALUE){
+		predStr = "Therefore, the top prediction for the next value is: " + storage.predictionList[0].toUpperCase();
+		featureStr = "The current tag is " + sample['tag'].toUpperCase() + ". The attribute is " + sample['attr'].toUpperCase() + ". The parent tag is " + sample['parentTag'].toUpperCase() + ". The attribute and value pair of the parent is " + sample['parentAttr/Val'].toUpperCase() + ".";
+	} else if (storage.predictionCase == PREDICTION_CASE.TAG){
+		featureStr = "The parent tag is " + sample['parentTag'].toUpperCase() + ". The attribute and value pair of the parent is " + sample['parentAttr/Val'].toUpperCase() + ".";
+		predStr = "Therefore, the top prediction for the next tag is: " + storage.predictionList[0].toUpperCase();
+	} else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
+		featureStr = "The current tag is " + sample['tag'].toUpperCase() + ", the parent tag is " + sample['parentTag'].toUpperCase() + ", and the attribute and value pair of the parent is " + sample['parentAttr/Val'].toUpperCase() + ".";
+		predStr = "Therefore, the top prediction for the next attribute is: " + storage.predictionList[0].toUpperCase();
+	}
+	$("#features").html(featureStr);
+	$("#prediction").html(predStr);
+>>>>>>> e64d6e953b916e4d502a3304ba84af83a51b3b0f
 }
 
 
