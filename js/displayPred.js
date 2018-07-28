@@ -4,7 +4,7 @@
  * Shows the top rule for the current prediction to the user.
  */
 function currentPred(){
-    if (Array.from(storage.predictionSet)[0] === ''){
+    if (storage.predictionSet.size === 0 || Array.from(storage.predictionSet)[0] === ''){
         $("#features").html("No code prediction can be made.");
         $("#prediction").html("");
         return;
@@ -14,11 +14,13 @@ function currentPred(){
     let featureStr;
     let predStr;
 
-    for (let key of sample){
-        if (sample[key] === ""){
-            sample[key] = "none";
-        }
-        sample[key] = sample[key].toUpperCase();
+    for (let key in sample){
+        if (sample.hasOwnProperty(key)) {
+            if (sample[key] === ""){
+                sample[key] = "none";
+            }
+            sample[key] = sample[key].toString().toUpperCase();
+		}
     }
 
     if (storage.predictionCase === PREDICTION_CASE.VALUE){

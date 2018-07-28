@@ -51,9 +51,9 @@ function multiplePred(prediction){
 $(document).ready(function() {
 
     storage.aceEditor = setupEditor();
-    let staticWordCompleter = setupCompleter();
-    ace.require("ace/ext/language_tools").setCompleters([staticWordCompleter]);
     let outputFrame = $('#outputFrame');
+    autoComplete();
+    mainMenu();
 
 	function setupEditor() {
 		let aceEditor = ace.edit("editor");
@@ -68,10 +68,18 @@ $(document).ready(function() {
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
                 handleKey(e.key, aceEditor, outputFrame);
+                if (/[ \w\"]/.test(e.key) && storage.predictionCase !== PREDICTION_CASE.NONE) {
+                    aceEditor.commands.byName.startAutocomplete.exec(aceEditor);
+				}
             });
         })();
         return aceEditor;
     }
+
+    function autoComplete() {
+        let staticWordCompleter = setupCompleter();
+        ace.require("ace/ext/language_tools").setCompleters([staticWordCompleter]);
+	}
 
     function setupCompleter() {
         return {
@@ -89,8 +97,6 @@ $(document).ready(function() {
             }
         };
     }
-	
-	mainMenu();
 
 });
 

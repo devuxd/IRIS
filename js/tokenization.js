@@ -8,6 +8,28 @@ var PREDICTION_CASE = Object.freeze({
     "NONE": "none",
 });
 
+let TOKEN_TYPE = Object.freeze({
+    "TAG_OPEN": 0,
+    "TAG": 1,
+    "SPACE": 2,
+    "ATTRIBUTE": 3,
+    "ASSIGN": 4,
+    "QUOTES": 5,
+    "VALUE": 6,
+    "TAG_CLOSE": 7,
+    "TEXT": 8,
+});
+
+function Token(type) {
+    this.type = type;
+}
+
+Token.prototype.toString = function() {
+    return this.type;
+};
+
+const WHITESPACE = new Token(TOKEN_TYPE.SPACE);
+
 function CodeFile(code, position) {
     this.code = code;
     this.position = position;
@@ -50,14 +72,16 @@ CodeFile.prototype.tokenize = function() {
         addToken(tokens, token);
         i++;
     }
-    if (tokens.length === 0) storage.predictionCase = PREDICTION_CASE.NONE;   // No tokens --> predict nothing
+    // TODO: Implement more comprehensive fix to backspace
+    if (tokens.length === 0 || (tokens.length === 1 && tokens[0].type === TOKEN_TYPE.SPACE)) storage.predictionCase = PREDICTION_CASE.NONE;   // No real tokens --> predict nothing
 
     // NOTE: FOLLOWING CODE IS QUICK FIX FOR CONVENIENCE. SHOULD NOT BE PERMANENT
     if (storage.predictionCase === PREDICTION_CASE.VALUE_ASSIGN_SPACE ||
         storage.predictionCase === PREDICTION_CASE.VALUE_QUOTES ||
         storage.predictionCase === PREDICTION_CASE.VALUE_QUOTES_SPACE) {
 
-        storage.predictionCase = PREDICTION_CASE.VALUE;
+        /*storage.predictionCase = PREDICTION_CASE.VALUE;*/
+        storage.predictionCase = PREDICTION_CASE.NONE;
     }
 };
 
@@ -134,23 +158,3 @@ function addToken(tokens, token) {
     }
     tokens.push(token);
 }
-
-let TOKEN_TYPE = Object.freeze({
-    "TAG_OPEN": 0,
-    "TAG": 1,
-    "SPACE": 2,
-    "ATTRIBUTE": 3,
-    "ASSIGN": 4,
-    "QUOTES": 5,
-    "VALUE": 6,
-    "TAG_CLOSE": 7,
-    "TEXT": 8,
-});
-
-function Token(type) {
-    this.type = type;
-}
-
-Token.prototype.toString = function() {
-    return this.type;
-};
