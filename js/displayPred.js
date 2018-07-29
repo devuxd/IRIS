@@ -250,15 +250,16 @@ function fillTable(list, type, pred){
         for (let x = 0; x < list.length; x++){
             let row = table.insertRow(x);
             let cell = row.insertCell(0);
-            cell.innerHTML = x;
+            cell.innerHTML = x+1;
             let y = 1;
             for (let key in keys){
                 cell = row.insertCell(y);
                 cell.innerHTML = keys[key] + ": " + list[x][keys[key]];
                 y++;
             }
+            cell.innerHTML = '<b>' + cell.innerHTML + '</b>';
             cell = row.insertCell(y);
-            cell.innerHTML = '<button id="' + x + '" onclick="deleteRule(this)">do not use</butoon>';
+            cell.innerHTML = '<button id="' + x + '" onclick="deleteRule(this)">Do Not Use</butoon>';
         }
     }
 }
