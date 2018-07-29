@@ -25,12 +25,12 @@ function currentPred(){
 
     if (storage.predictionCase === PREDICTION_CASE.VALUE){
         predStr = "<b>Value Prediction: </b> " + Array.from(storage.predictionSet)[0].toUpperCase();
-        featureStr = "The current tag is " + sample['tag'].toUpperCase() + ". The attribute is " + sample['attr'].toUpperCase() + ". The parent tag is " + sample['parentTag'].toUpperCase() + ". The parent attribute-value pair is " + sample['parentAttr/Val'].toUpperCase() + ".";
+        featureStr = "The current tag is " + sample['tag'] + ". The attribute is " + sample['attr'] + ". The parent tag is " + sample['parentTag'] + ". The parent attribute-value pair is " + sample['parentAttr/Val'] + ".";
     } else if (storage.predictionCase === PREDICTION_CASE.TAG){
-        featureStr = "The parent tag is " + sample['parentTag'].toUpperCase() + ". The parent attribute-value pair is " + sample['parentAttr/Val'].toUpperCase() + ".";
+        featureStr = "The parent tag is " + sample['parentTag'] + ". The parent attribute-value pair is " + sample['parentAttr/Val'] + ".";
         predStr = "<b>Tag Prediction: </b> " + Array.from(storage.predictionSet)[0].toUpperCase();
     } else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
-        featureStr = "The current tag is " + sample['tag'].toUpperCase() + ", the parent tag is " + sample['parentTag'].toUpperCase() + ", and the parent attribute-value pair is " + sample['parentAttr/Val'].toUpperCase() + ".";
+        featureStr = "The current tag is " + sample['tag'] + ", the parent tag is " + sample['parentTag'] + ", and the parent attribute-value pair is " + sample['parentAttr/Val'] + ".";
         predStr = "<b>Attribute Prediction: </b> " + Array.from(storage.predictionSet)[0].toUpperCase();
     }
     $("#features").html(featureStr);
@@ -42,7 +42,6 @@ function currentPred(){
  * Lets the user edit the current prediction
  */
 function editCurrent(){
-    console.log(storage.sampleFeatures);
     document.getElementById("button1").style.display = "block";
     document.getElementById("button2").style.display = "block";
     document.getElementById("current prediction").style.display = "block";
@@ -61,17 +60,17 @@ function editCurrent(){
 function include(){
     let sample = storage.sampleFeatures;
     if (storage.predictionCase == PREDICTION_CASE.VALUE){
-        sample['val'] = Array.from(storage.predictionSet);
+        sample['val'] = Array.from(storage.predictionSet)[0];
         if (!contains(sample, storage.alwaysValue)){
             storage.alwaysValue.push(sample);
         }
     } else if (storage.predictionCase == PREDICTION_CASE.TAG){
-        sample['tag'] = Array.from(storage.predictionSet);
+        sample['tag'] = Array.from(storage.predictionSet)[0];
         if (!contains(sample, storage.alwaysTag)){
             storage.alwaysTag.push(sample);
         }
     } else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
-        sample['attr'] = Array.from(storage.predictionSet);
+        sample['attr'] = Array.from(storage.predictionSet)[0];
         if (!contains(sample, storage.alwaysAttr)){
             storage.alwaysAttr.push(sample);
         }
@@ -87,13 +86,13 @@ function include(){
 function notInclude(){
     let sample = storage.sampleFeatures;
     if (storage.predictionCase == PREDICTION_CASE.VALUE){
-        sample['val'] = Array.from(storage.predictionSet);
+        sample['val'] = Array.from(storage.predictionSet)[0];
         deleteEntry(storage.alwaysValue, sample);
     } else if (storage.predictionCase == PREDICTION_CASE.TAG){
-        sample['tag'] = Array.from(storage.predictionSet);
+        sample['tag'] = Array.from(storage.predictionSet)[0];
         deleteEntry(storage.alwaysTag, sample);
     } else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
-        sample['attr'] = Array.from(storage.predictionSet);
+        sample['attr'] = Array.from(storage.predictionSet)[0];
         deleteEntry(storage.alwaysAttr, sample);
     }
     if (!contains(sample, storage.dontUse)){
@@ -261,7 +260,8 @@ function fillTable(list, type, pred){
             cell = row.insertCell(y);
             cell.innerHTML = '<button id="' + x + '" onclick="deleteRule(this)">Do Not Use</butoon>';
         }
-    }
+    } else {
+	    $('#table1').empty();
 }
 
 function deleteRule(cell){
@@ -282,7 +282,7 @@ function deleteRule(cell){
         deleteEntry(storage.alwaysValue, sample);
     }
     storage.dontUse.push(sample);
-    console.log(storage.dontUse);
+	mainMenu();
 }
 
 /**
