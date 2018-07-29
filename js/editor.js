@@ -43,6 +43,13 @@ function multiplePred(prediction){
 	}
 }
 
+function insertDefaultCode() {
+    const def = '<!DOCTYPE html>\n<html>\n\t<head></head>\n\t<body>\n\t\t\n\t</body>\n</html>';
+    storage.aceEditor.setValue(def, -1);
+    storage.aceEditor.gotoLine(5, 2);
+    storage.aceEditor.focus();
+}
+
 /**
  * Uses the Ace library {@link https://ace.c9.io/} to create a code editor and
  * calls functions to initialize the auto-complete features. Runs when the page
@@ -52,6 +59,7 @@ $(document).ready(function() {
 
     storage.aceEditor = setupEditor();
     let outputFrame = $('#outputFrame');
+    insertDefaultCode();
     let staticWordCompleter = setupCompleter();
     ace.require("ace/ext/language_tools").setCompleters([staticWordCompleter]);
     mainMenu();
@@ -69,7 +77,7 @@ $(document).ready(function() {
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
                 handleKey(e.key, aceEditor, outputFrame);
-                if (e.key.length === 1 && /[ \w"<]/.test(e.key) && storage.predictionCase !== PREDICTION_CASE.NONE) {
+                if (((e.key.length === 1 && /[\w"'< ]/.test(e.key)) || e.key === 'Shift') && storage.predictionCase !== PREDICTION_CASE.NONE) {
                     aceEditor.commands.byName.startAutocomplete.exec(aceEditor);
 				}
             });

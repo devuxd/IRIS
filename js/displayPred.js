@@ -30,7 +30,7 @@ function currentPred(){
         featureStr = "The parent tag is " + sample['parentTag'].toUpperCase() + ". The parent attribute-value pair is " + sample['parentAttr/Val'].toUpperCase() + ".";
         predStr = "<b>Tag Prediction: </b> " + Array.from(storage.predictionSet)[0].toUpperCase();
     } else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
-        featureStr = "The current tag is " + sample['tag'].toUpperCase() + ", the parent tag is " + sample['parentTag'].toUpperCase() + ", and the attribute and value pair of the parent is " + sample['parentAttr/Val'].toUpperCase() + ".";
+        featureStr = "The current tag is " + sample['tag'].toUpperCase() + ", the parent tag is " + sample['parentTag'].toUpperCase() + ", and the parent attribute-value pair is " + sample['parentAttr/Val'].toUpperCase() + ".";
         predStr = "<b>Attribute Prediction: </b> " + Array.from(storage.predictionSet)[0].toUpperCase();
     }
     $("#features").html(featureStr);
