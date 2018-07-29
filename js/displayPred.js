@@ -262,6 +262,7 @@ function fillTable(list, type, pred){
         }
     } else {
 	    $('#table1').empty();
+    }
 }
 
 function deleteRule(cell){
