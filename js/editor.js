@@ -52,7 +52,8 @@ $(document).ready(function() {
 
     storage.aceEditor = setupEditor();
     let outputFrame = $('#outputFrame');
-    autoComplete();
+    let staticWordCompleter = setupCompleter();
+    ace.require("ace/ext/language_tools").setCompleters([staticWordCompleter]);
     mainMenu();
 
 	function setupEditor() {
@@ -68,18 +69,13 @@ $(document).ready(function() {
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
                 handleKey(e.key, aceEditor, outputFrame);
-                if (/[ \w\"]/.test(e.key) && storage.predictionCase !== PREDICTION_CASE.NONE) {
+                if (e.key.length === 1 && /[ \w"<]/.test(e.key) && storage.predictionCase !== PREDICTION_CASE.NONE) {
                     aceEditor.commands.byName.startAutocomplete.exec(aceEditor);
 				}
             });
         })();
         return aceEditor;
     }
-
-    function autoComplete() {
-        let staticWordCompleter = setupCompleter();
-        ace.require("ace/ext/language_tools").setCompleters([staticWordCompleter]);
-	}
 
     function setupCompleter() {
         return {
@@ -97,6 +93,7 @@ $(document).ready(function() {
             }
         };
     }
+
 
 });
 
@@ -120,7 +117,6 @@ function handleKey(key, aceEditor, outputFrame) {
     storage.predictionSet = new Set();
 
     if (storage.predictionCase !== PREDICTION_CASE.NONE) {
-        console.log(storage.dontUse);	// DELTA
 
         console.log("Building AST");
         let syntaxTree = getAST(codeFile);
@@ -128,14 +124,13 @@ function handleKey(key, aceEditor, outputFrame) {
         console.log("Converting to Training Table");
         extractFeatures(syntaxTree);
 
-        // DELTA
         let firstPred = false;
         // Try to make a prediction based on the rules set by the user first
-        if (storage.predictionCase == PREDICTION_CASE.VALUE){
+        if (storage.predictionCase === PREDICTION_CASE.VALUE){
             storage.trainingTable = storage.alwaysValue.slice();
-        } else if (storage.predictionCase == PREDICTION_CASE.TAG){
+        } else if (storage.predictionCase === PREDICTION_CASE.TAG){
             storage.trainingTable = storage.alwaysTag.slice();
-        } else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
+        } else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
             storage.trainingTable = storage.alwaysAttr.slice();
         }
 

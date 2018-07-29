@@ -36,23 +36,24 @@
 				<iframe id="outputFrame"></iframe>
 			</div>
 
-			<div id="interactContainer">
-				<h1 style="text-align:center">Rules Interface</h1>
+			<div id="interactContainer" style="font-family:Arial,sans-serif">
+				<h2 style="text-align:center">Interactive Rules Interface</h2>
 				
 				<div id ="main menu">
 					<div id="pred">
 						<p id="features" style="text-align:center"></p>
 						<p id="prediction" style="text-align:center"></p>
 					</div>
-					<div id="options">
-						<button id="button" onclick="editCurrent()">Look at current prediction </button><br/><br/>
-						Look and edit existing rules for:
+					<div id="options" style="padding-left: 3%">
+						<label for="button">Edit current prediction rule</label>
+						<button id="button" onclick="editCurrent()">Go</button><br/><br/>
+						<label for = "existingRules">View/edit prediction rules for:</label>
 						<select id="existingRules">
 							<option value="tag">Tag</option>
 							<option value="attr">Attribute</option>
 							<option value="val">Value</option>
 						</select> <button id="rulesButton" onclick="existingRules()">Go</button><br/><br/>
-						Add a new rule for:
+						<label for = "addNewRule">Add new prediction rule for:</label>
 						<select id="addNewRule">
 							<option value="tag">Tag</option>
 							<option value="attr">Attribute</option>
@@ -61,32 +62,32 @@
 					</div>
 				</div>
 				
-				<div id ="current prediction">
+				<div id ="current prediction" style="padding-left: 3%">
 					<button id="button1" onclick="include()">Prioritize this rule</button><br/><br/>
 					<button id="button2" onclick="notInclude()">Don't use this rule for future predictions</button><br/><br/>
-					Change the prediction for this rule to: <input id="updateCurrent" type="text"> <button id="updateButton" onclick="updateCurrent()">Update</button><br/><br/>
+					<label for="updateCurrent">Change the prediction for this rule to:</label> <input id="updateCurrent" type="text"> <button id="updateButton" onclick="updateCurrent()">Update</button><br/><br/>
 					<button onclick="mainMenu()">Main Menu</button>
 				</div>
 				
-				<div id ="existing rules">
+				<div id ="existing rules" style="padding-left: 3%">
 					<input type="text" id="myInput" onkeyup="filter()" placeholder="Type prediction..."><br/>
-					<p>Rules prioritized by the user:</p>
+					<p>Rules prioritized by interactions:</p>
 					<table id="table1" width="750" border="1">
 					</table><br/>
-					<p>Rules based on document (might be inconsistent with each other):</p>
+					<p>Rules learned automatically:</p>
 					<table id="table2" width="750" border="1">
 					</table><br/>
 					<button onclick="mainMenu()">Main Menu</button><br/>
 				</div>
 				
-				<div id ="add new rule">
-					<div id="0">Enter the new rule</div><br/>
-					<div id="1">Parent's Tag:<input id="parentTag" type="text"></div><br/>
-					<div id="2">Parent's attribute and value pair:<input id="parentAttr/Val" type="text"></div><br/>
-					<div id="3">Tag:<input id="tag" type="text"></div><br/>
-					<div id="4">Attribute:<input id="attr" type="text"></div><br/>
-					<div id="5">Value:<input id="value" type="text"></div>
-					<p id="newNotValid">Cannot add new rule</p>
+				<div id ="add new rule" style="padding-left: 3%">
+					<div id="0">Enter new prediction rule</div><br/>
+					<div id="1"><label for="parentTag">Parent Tag:</label><input id="parentTag" type="text"></div><br/>
+					<div id="2"><label for="parentAttr/Val">Parent Attribute-Value Pair:</label><input id="parentAttr/Val" type="text"></div><br/>
+					<div id="3"><label for="tag">Tag:</label><input id="tag" type="text"></div><br/>
+					<div id="4"><label for="attr">Attribute:</label><input id="attr" type="text"></div><br/>
+					<div id="5"><label for="value">Value:</label><input id="value" type="text"></div>
+					<p id="newNotValid">Invalid Rule - Are you missing a feature entry?</p>
 					<button id="addRule" onclick="addRule()">Add</button><br/><br/>
 					<button onclick="mainMenu()">Main Menu</button>
 				</div>
