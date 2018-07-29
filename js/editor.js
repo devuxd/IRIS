@@ -50,6 +50,23 @@ function insertDefaultCode() {
     storage.aceEditor.focus();
 }
 
+/*manually ccompares 1st entry in training set and sample
+Returns true if none of the features are the same
+if 1 or more features are the same, it returns false
+*/
+function notSimilar(){
+	let answer = true;
+	let entry = storage.trainingTable[0];
+	let sample = Object.assign({}, storage.sampleFeatures);
+	let keys = Object.keys(sample);
+	for (let key in keys){
+		if (entry[keys[key]] == sample[keys[key]]){
+			answer = false;
+		}
+    }
+	return answer;
+}
+
 /**
  * Uses the Ace library {@link https://ace.c9.io/} to create a code editor and
  * calls functions to initialize the auto-complete features. Runs when the page
@@ -132,7 +149,6 @@ function handleKey(key, aceEditor, outputFrame) {
         console.log("Converting to Training Table");
         extractFeatures(syntaxTree);
 
-        let firstPred = false;
         // Try to make a prediction based on the rules set by the user first
         if (storage.predictionCase === PREDICTION_CASE.VALUE){
             storage.trainingTable = storage.alwaysValue.slice();
@@ -141,26 +157,28 @@ function handleKey(key, aceEditor, outputFrame) {
         } else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
             storage.trainingTable = storage.alwaysAttr.slice();
         }
-
-        if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
+	
+	if (storage.trainingTable.length === 1 && notSimilar()){
+			console.log(notSimilar());
+			prediction = "";
+			multiplePred(prediction);
+	} else if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
 
             console.log("Building DT");
             let decisionTree = getDT();
 
             console.log("Making Prediction");
             let prediction = predicts(decisionTree, storage.sampleFeatures);
-
             multiplePred(prediction);
-            if (storage.predictionSet.size > 0){
-                firstPred = true;
-            }
-
         }
-        if (firstPred === false){ // Try to make prediction now with the existing document
             storage.trainingTable = [];
             extractFeatures(syntaxTree);
-
-            if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
+		
+	    if (storage.trainingTable.length === 1 && notSimilar()){
+		console.log(notSimilar());
+		prediction = "";
+		multiplePred(prediction);
+	    } else if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
 
                 console.log("Building DT");
                 let decisionTree = getDT();
@@ -170,7 +188,6 @@ function handleKey(key, aceEditor, outputFrame) {
                 multiplePred(prediction);
 
             }
-        }
     }
     currentPred();
     console.log('---------------------------');
