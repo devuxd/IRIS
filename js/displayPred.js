@@ -10,7 +10,7 @@ function currentPred(){
         return;
     }
 
-    let sample = storage.sampleFeatures;
+    let sample = Object.assign({}, storage.sampleFeatures);
     let featureStr;
     let predStr;
 
