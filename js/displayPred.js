@@ -24,14 +24,14 @@ function currentPred(){
     }
 
     if (storage.predictionCase === PREDICTION_CASE.VALUE){
-        predStr = "<b>Value Prediction: </b> " + Array.from(storage.predictionSet)[0].toUpperCase();
+        predStr = "<b>Top Value Prediction: </b> " + Array.from(storage.predictionSet)[0].toUpperCase();
         featureStr = "The current tag is " + sample['tag'] + ". The attribute is " + sample['attr'] + ". The parent tag is " + sample['parentTag'] + ". The parent attribute-value pair is " + sample['parentAttr/Val'] + ".";
     } else if (storage.predictionCase === PREDICTION_CASE.TAG){
         featureStr = "The parent tag is " + sample['parentTag'] + ". The parent attribute-value pair is " + sample['parentAttr/Val'] + ".";
-        predStr = "<b>Tag Prediction: </b> " + Array.from(storage.predictionSet)[0].toUpperCase();
+        predStr = "<b>Top Tag Prediction: </b> " + Array.from(storage.predictionSet)[0].toUpperCase();
     } else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
         featureStr = "The current tag is " + sample['tag'] + ", the parent tag is " + sample['parentTag'] + ", and the parent attribute-value pair is " + sample['parentAttr/Val'] + ".";
-        predStr = "<b>Attribute Prediction: </b> " + Array.from(storage.predictionSet)[0].toUpperCase();
+        predStr = "<b>Top Attribute Prediction: </b> " + Array.from(storage.predictionSet)[0].toUpperCase();
     }
     $("#features").html(featureStr);
     $("#prediction").html(predStr);
