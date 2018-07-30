@@ -93,10 +93,12 @@ $(document).ready(function() {
 		});
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
-                handleKey(e.key, aceEditor, outputFrame);
-                if (((e.key.length === 1 && /[\w"'< ]/.test(e.key)) || e.key === 'Shift') && storage.predictionCase !== PREDICTION_CASE.NONE) {
-                    aceEditor.commands.byName.startAutocomplete.exec(aceEditor);
-				}
+                if (aceEditor.isFocused()) {
+                    handleKey(e.key, aceEditor, outputFrame);
+                    if (((e.key.length === 1 && /[\w"'< ]/.test(e.key)) || e.key === 'Shift') && storage.predictionCase !== PREDICTION_CASE.NONE) {
+                        aceEditor.commands.byName.startAutocomplete.exec(aceEditor);
+                    }
+                }
             });
         })();
         return aceEditor;
