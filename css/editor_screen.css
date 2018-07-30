@@ -23,7 +23,7 @@ button {
   top: 0;
   display: block;
   height: 100%;
-  width: 33vw;
+  width: 40vw;
 }
 
 #editor {
@@ -38,7 +38,7 @@ button {
   top: 0;
   display: block;
   height: 50vh;
-  width: 67vw;
+  width: 60vw;
   border: 0;
 }
 
@@ -56,7 +56,7 @@ button {
   bottom: 0;
   display: block;
   height: 50vh;
-  width: 67vw;
+  width: 60vw;
   border: 0;
   background-color: #eee;
   overflow:auto;
