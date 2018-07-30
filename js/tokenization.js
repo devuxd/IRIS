@@ -48,6 +48,7 @@ CodeFile.prototype.tokenize = function() {
         let token = null;
         let s = text.substring(i, i+1);
         switch(s) {
+            case "\t":
             case " ":
                 token = new Token(TOKEN_TYPE.SPACE);
                 break;
