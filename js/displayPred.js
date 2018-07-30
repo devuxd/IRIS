@@ -290,28 +290,23 @@ function deleteRule(cell){
  * Shows the relevant features for the user to add a new rule
  */
 function addNew(){
-    document.getElementById("main menu").style.display = "none";
-    document.getElementById("add new rule").style.display = "block";
-    document.getElementById("newNotValid").style.display = "none";
+    document.getElementById("main menu").style.display = 'none';
+    document.getElementById("add new rule").style.display = 'block';
+    document.getElementById("newNotValid").style.display = 'none';
     let target = document.getElementById("addNewRule").value;
+	document.getElementById("0").style.display = 'block';
+	document.getElementById("1").style.display = 'block';
+    document.getElementById("2").style.display = 'block';
+    document.getElementById("3").style.display = 'block';
     if (target == "tag"){
-        document.getElementById("1").style.display = "block";
-        document.getElementById("2").style.display = "block";
-        document.getElementById("3").style.display = "block";
-        document.getElementById("4").style.display = "none";
-        document.getElementById("5").style.display = "none";
+        document.getElementById("4").style.display = 'none';
+        document.getElementById("5").style.display = 'none';
     } else if (target == "attr"){
-        document.getElementById("1").style.display = "block";
-        document.getElementById("2").style.display = "block";
-        document.getElementById("3").style.display = "block";
-        document.getElementById("4").style.display = "block";
-        document.getElementById("5").style.display = "none";
+        document.getElementById("4").style.display = 'block';
+        document.getElementById("5").style.display = 'none';
     } else if (target == "value"){
-        document.getElementById("1").style.display = "block";
-        document.getElementById("2").style.display = "block";
-        document.getElementById("3").style.display = "block";
-        document.getElementById("4").style.display = "block";
-        document.getElementById("5").style.display = "block";
+        document.getElementById("4").style.display = 'block';
+        document.getElementById("5").style.display = 'block';
     }
 }
 
