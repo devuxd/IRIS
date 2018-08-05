@@ -97,7 +97,6 @@ $(document).ready(function() {
             $(this).keyup(function (e) {
                 if (aceEditor.isFocused()) {
                     handleKey(e.key, aceEditor, outputFrame);
-                    console.log(prevKey + "~" + e.key);
                     if (((e.key.length === 1 && /[\w"'< ]/.test(e.key)) || e.key === ',' && prevKey === 'Shift') && storage.predictionCase !== PREDICTION_CASE.NONE) {
                         aceEditor.commands.byName.startAutocomplete.exec(aceEditor);
                     }
