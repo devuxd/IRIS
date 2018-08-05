@@ -92,6 +92,7 @@ $(document).ready(function() {
 			enableSnippets: true,
 			enableLiveAutocompletion: true
 		});
+        aceEditor.onPaste = function() { return "";};
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
                 if (aceEditor.isFocused()) {
