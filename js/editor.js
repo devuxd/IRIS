@@ -80,6 +80,7 @@ $(document).ready(function() {
     let staticWordCompleter = setupCompleter();
     ace.require("ace/ext/language_tools").setCompleters([staticWordCompleter]);
     mainMenu();
+    let prevKey = '';
 
 	function setupEditor() {
 		let aceEditor = ace.edit("editor");
@@ -95,9 +96,11 @@ $(document).ready(function() {
             $(this).keyup(function (e) {
                 if (aceEditor.isFocused()) {
                     handleKey(e.key, aceEditor, outputFrame);
-                    if (((e.key.length === 1 && /[\w"'< ]/.test(e.key)) || e.key === 'Shift') && storage.predictionCase !== PREDICTION_CASE.NONE) {
+                    console.log(prevKey + "~" + e.key);
+                    if (((e.key.length === 1 && /[\w"'< ]/.test(e.key)) || e.key === ',' && prevKey === 'Shift') && storage.predictionCase !== PREDICTION_CASE.NONE) {
                         aceEditor.commands.byName.startAutocomplete.exec(aceEditor);
                     }
+                    prevKey = e.key;
                 }
             });
         })();
