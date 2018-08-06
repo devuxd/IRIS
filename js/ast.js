@@ -11,6 +11,7 @@ function getAST(codeFile) {
 }
 
 function extractFeatures(syntaxTree) {
+    storage.sampleFeatures = {};
     for (let node of syntaxTree) extract(node, '', '', '');
 }
 
@@ -110,10 +111,12 @@ Retrieves/stores the input features for the DT, necessary to make a prediction.
 
 function extractSample(parentTag, parentAttrVal) {
 
+    let sampleFeatures;
+
     if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE) {
 
         let tag = storage.fragment.split(" ")[0].trim();
-        storage.sampleFeatures = {'tag': tag, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
+        sampleFeatures = {'tag': tag, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
 
     } else if (storage.predictionCase === PREDICTION_CASE.VALUE) {
         let tag = storage.fragment.split(" ")[0].trim();
@@ -136,11 +139,24 @@ function extractSample(parentTag, parentAttrVal) {
 
         let attr = storage.fragment.substring(++i, indexAssign).trim();
 
-        storage.sampleFeatures = {'tag': tag, 'attr': attr, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
+        sampleFeatures = {'tag': tag, 'attr': attr, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
 
     } else if (storage.predictionCase === PREDICTION_CASE.TAG) {
 
-        storage.sampleFeatures = {'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
+        sampleFeatures = {'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
+    }
+
+    // If we already have some sample features, that means there's multiple parentAttr/Val pairs
+    if (_.isEmpty(storage.sampleFeatures)) {
+        storage.sampleFeatures = sampleFeatures;
+    } else {
+        let exists = false;
+        for (let s of storage.sampleFeaturesExtra) {
+            if (_.isEqual(sampleFeatures, s)) {
+                exists = true;
+            }
+        }
+        if (!exists) storage.sampleFeaturesExtra.push(sampleFeatures);
     }
 
 }
