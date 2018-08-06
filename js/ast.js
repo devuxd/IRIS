@@ -12,6 +12,7 @@ function getAST(codeFile) {
 
 function extractFeatures(syntaxTree) {
     for (let node of syntaxTree) extract(node, '', '', '');
+    console.log(storage.trainingTable);
 }
 
 function extract(node, parentTag, parentAttr, parentVal) {
@@ -45,9 +46,9 @@ function extract(node, parentTag, parentAttr, parentVal) {
 
 function addTraining(tag, parentTag, parentAttrVal, attr, val) {
     let entry;
+    if (['!doctype','html','head','body'].includes(tag)) return;
 	switch (storage.predictionCase) {
         case PREDICTION_CASE.TAG:
-            if (['!doctype','html','head','body'].includes(tag)) break;
 			entry = {'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'tag':tag};
             break;
         case PREDICTION_CASE.ATTRIBUTE:
