@@ -45,8 +45,8 @@ function extract(node, parentTag, parentAttr, parentVal) {
 }
 
 function addTraining(tag, parentTag, parentAttrVal, attr, val) {
-    let entry;
     if (['!doctype','html','head','body'].includes(tag)) return;
+    let entry;
 	switch (storage.predictionCase) {
         case PREDICTION_CASE.TAG:
 			entry = {'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'tag':tag};
@@ -105,8 +105,7 @@ function clean(codeFile) {
 /*
 Retrieves/stores the input features for the DT, necessary to make a prediction.
 @param parentTag The tag of the parent node of the element being typed
-@param parentAttr The attribute of the parent node of the element being typed
-@param parentVal The value of the parent node of the element being typed
+@param parentAttrVal The attribute/value pair of the parent node of the element being typed
  */
 
 function extractSample(parentTag, parentAttrVal) {
@@ -117,9 +116,26 @@ function extractSample(parentTag, parentAttrVal) {
         storage.sampleFeatures = {'tag': tag, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
 
     } else if (storage.predictionCase === PREDICTION_CASE.VALUE) {
-
         let tag = storage.fragment.split(" ")[0].trim();
-        let attr = storage.fragment.split(" ")[1].split('=')[0].trim();
+
+        // Tokenizer - runs backwards from = until it hits text and then space
+        let indexAssign = storage.fragment.lastIndexOf("=");
+        let run = true;
+        let i = indexAssign;
+        let state = "assign"
+        while (run && --i >= 0) {
+            let chr = storage.fragment.substring(i,i+1);
+            if (chr.match(/[A-z]/)) {
+                state = "text";
+            } else if (chr === " ") {
+                if (state === "text") {
+                    run = false;
+                }
+            }
+        }
+
+        let attr = storage.fragment.substring(++i, indexAssign).trim();
+
         storage.sampleFeatures = {'tag': tag, 'attr': attr, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
 
     } else if (storage.predictionCase === PREDICTION_CASE.TAG) {
