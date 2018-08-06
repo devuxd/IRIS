@@ -46,9 +46,9 @@ function extract(node, parentTag, parentAttr, parentVal) {
 
 function addTraining(tag, parentTag, parentAttrVal, attr, val) {
     let entry;
-    if (['!doctype','html','head','body'].includes(tag)) return;
 	switch (storage.predictionCase) {
         case PREDICTION_CASE.TAG:
+            if (['!doctype','html','head','body'].includes(tag)) break;
 			entry = {'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'tag':tag};
             break;
         case PREDICTION_CASE.ATTRIBUTE:
@@ -117,9 +117,9 @@ function extractSample(parentTag, parentAttrVal) {
         storage.sampleFeatures = {'tag': tag, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
 
     } else if (storage.predictionCase === PREDICTION_CASE.VALUE) {
-
-        let tag = storage.fragment.split(" ")[0].trim();
-        let attr = storage.fragment.split(" ")[1].split('=')[0].trim();
+		let pieces =storage.fragment.split(" ")
+        let tag = pieces[0].trim();
+        let attr = pieces[pieces.length - 1].split('=')[0].trim();
         storage.sampleFeatures = {'tag': tag, 'attr': attr, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
 
     } else if (storage.predictionCase === PREDICTION_CASE.TAG) {
