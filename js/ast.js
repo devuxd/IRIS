@@ -12,7 +12,6 @@ function getAST(codeFile) {
 
 function extractFeatures(syntaxTree) {
     for (let node of syntaxTree) extract(node, '', '', '');
-    console.log(storage.trainingTable);
 }
 
 function extract(node, parentTag, parentAttr, parentVal) {
