@@ -96,6 +96,7 @@ $(document).ready(function() {
 			enableSnippets: true,
 			enableLiveAutocompletion: true,
 		});
+        aceEditor.onPaste = function() { return "";};
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
                 if (aceEditor.isFocused()) {
@@ -171,7 +172,7 @@ function handleKey(key, aceEditor, outputFrame) {
 		
         console.log("Converting to Training Table");
         extractFeatures(syntaxTree);
-		console.log(storage.sampleFeatures);
+		
         // Try to make a prediction based on the rules set by the user first
         if (storage.predictionCase === PREDICTION_CASE.VALUE){
             storage.trainingTable = storage.alwaysValue.slice();
