@@ -3,6 +3,7 @@ var storage = {
     predictionCase: {}, // Tokenizer-determined prediction scenario
     trainingTable: [],	// AST Features for making DT
     sampleFeatures: {},	// Features to input into DT to get prediction
+    sampleFeaturesExtra: [],    // For serial parent attribute-value pairs
     predictionSet: new Set(),	// Predictions from DT
     aceEditor: {},
 	
@@ -114,7 +115,6 @@ $(document).ready(function() {
 						} else{
 							deleteHighlight();
 						}
-						console.log(aceEditor);
                     }
 					prevKey = e.key;
                 }
@@ -162,6 +162,7 @@ function handleKey(key, aceEditor, outputFrame) {
     storage.fragment = {};
     storage.trainingTable = [];
     storage.sampleFeatures = {};
+    storage.sampleFeaturesExtra = [];
     storage.predictionSet = new Set();
 	storage.topPred = '';
 	
@@ -172,7 +173,7 @@ function handleKey(key, aceEditor, outputFrame) {
 		
         console.log("Converting to Training Table");
         extractFeatures(syntaxTree);
-		
+
         // Try to make a prediction based on the rules set by the user first
         if (storage.predictionCase === PREDICTION_CASE.VALUE){
             storage.trainingTable = storage.alwaysValue.slice();
@@ -190,9 +191,19 @@ function handleKey(key, aceEditor, outputFrame) {
 			let decisionTree = getDT();
 
 			console.log("Making Prediction");
+			console.log(storage.sampleFeatures);
 			let prediction = predicts(decisionTree, storage.sampleFeatures);
 			multiplePred(prediction);
+
+            // If there's multiple parentAttr/Val pairs we have more features for prediction
+            for (let sampleFeatures of storage.sampleFeaturesExtra) {
+                console.log(sampleFeatures);
+                let prediction = predicts(decisionTree, sampleFeatures);
+                multiplePred(prediction);
+            }
 		}
+
+		// Now make predictions learned from document
 		storage.trainingTable = [];
 		extractFeatures(syntaxTree);
 			
@@ -205,8 +216,16 @@ function handleKey(key, aceEditor, outputFrame) {
 			let decisionTree = getDT();
 
 			console.log("Making Prediction");
+            console.log(storage.sampleFeatures);
 			let prediction = predicts(decisionTree, storage.sampleFeatures);
 			multiplePred(prediction);
+
+			// If there's multiple parentAttr/Val pairs we have more features for prediction
+            for (let sampleFeatures of storage.sampleFeaturesExtra) {
+                console.log(sampleFeatures);
+                let prediction = predicts(decisionTree, sampleFeatures);
+                multiplePred(prediction);
+            }
 
 		}
 		if (storage.predictionSet.size !== 0){
