@@ -34,14 +34,15 @@ function extract(node, parentTag, parentAttr, parentVal) {
             val = attribute.value;
             val = val === null ? '' : val;
             addTraining(tag, parentTag, parentAttrVal, attr, val);
+            for (let child of node.children) extract(child, tag, attr, val);
         }
     } else {
         attr = '';
         val = '';
         addTraining(tag, parentTag, parentAttrVal, attr, val);
+        for (let child of node.children) extract(child, tag, attr, val);
     }
 
-    for (let child of node.children) extract(child, tag, attr, val);
 }
 
 function addTraining(tag, parentTag, parentAttrVal, attr, val) {
