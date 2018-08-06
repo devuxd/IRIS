@@ -6,6 +6,10 @@ var storage = {
     predictionSet: new Set(),	// Predictions from DT
     aceEditor: {},
 	
+	topPred: "",
+	badExamples: new Set(),
+	examples: new Set(),
+	highlights: [],
 	dontUse: [], // List of entries/rules the user doesn't want to use
 	alwaysTag: [], // Rules for predicting tags 
  	alwaysAttr: [], // Rules for predicting attributes 
@@ -80,7 +84,7 @@ $(document).ready(function() {
     let staticWordCompleter = setupCompleter();
     ace.require("ace/ext/language_tools").setCompleters([staticWordCompleter]);
     mainMenu();
-    let prevKey = '';
+	let prevKey = '';
 
 	function setupEditor() {
 		let aceEditor = ace.edit("editor");
@@ -90,19 +94,31 @@ $(document).ready(function() {
 		aceEditor.setOptions({
 			enableBasicAutocompletion: true,
 			enableSnippets: true,
-			enableLiveAutocompletion: true
+			enableLiveAutocompletion: true,
 		});
-        aceEditor.onPaste = function() { return "";};
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
                 if (aceEditor.isFocused()) {
-                    if (e.key === 'Control' && prevKey === 'Shift') aceEditor.onPaste = function(text, event) { this.commands.exec("paste", this, {text: text, event: event});};
+					if (e.key === 'Control' && prevKey === 'Shift') aceEditor.onPaste = function(text, event) { this.commands.exec("paste", this, {text: text, event: event});};
                     handleKey(e.key, aceEditor, outputFrame);
                     if (((e.key.length === 1 && /[\w"'< ]/.test(e.key)) || e.key === ',' && prevKey === 'Shift') && storage.predictionCase !== PREDICTION_CASE.NONE) {
                         aceEditor.commands.byName.startAutocomplete.exec(aceEditor);
+						if (aceEditor.completer.completions != null){
+							storage.topPred = aceEditor.completer.completions.filtered[0].caption;
+							let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
+							let syntaxTree = getAST(codeFile);
+							let rule = getRule();
+							findNodes(rule, syntaxTree);
+							highlightLine();
+						} else{
+							deleteHighlight();
+						}
+						console.log(aceEditor);
                     }
-                    prevKey = e.key;
+					prevKey = e.key;
                 }
+				currentPred();
+				
             });
         })();
         return aceEditor;
@@ -146,15 +162,16 @@ function handleKey(key, aceEditor, outputFrame) {
     storage.trainingTable = [];
     storage.sampleFeatures = {};
     storage.predictionSet = new Set();
-
+	storage.topPred = '';
+	
+	console.log("Building AST");
+    let syntaxTree = getAST(codeFile);
+	deleteHighlight();
     if (storage.predictionCase !== PREDICTION_CASE.NONE) {
-
-        console.log("Building AST");
-        let syntaxTree = getAST(codeFile);
-
+		
         console.log("Converting to Training Table");
         extractFeatures(syntaxTree);
-
+		console.log(storage.sampleFeatures);
         // Try to make a prediction based on the rules set by the user first
         if (storage.predictionCase === PREDICTION_CASE.VALUE){
             storage.trainingTable = storage.alwaysValue.slice();
@@ -164,36 +181,36 @@ function handleKey(key, aceEditor, outputFrame) {
             storage.trainingTable = storage.alwaysAttr.slice();
         }
 	
-	if (storage.trainingTable.length === 1 && notSimilar()){
-			console.log(notSimilar());
+		if (storage.trainingTable.length === 1 && notSimilar()){
+				prediction = "";
+				multiplePred(prediction);
+		} else if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
+			console.log("Building DT");
+			let decisionTree = getDT();
+
+			console.log("Making Prediction");
+			let prediction = predicts(decisionTree, storage.sampleFeatures);
+			multiplePred(prediction);
+		}
+		storage.trainingTable = [];
+		extractFeatures(syntaxTree);
+			
+		if (storage.trainingTable.length === 1 && notSimilar()){
 			prediction = "";
 			multiplePred(prediction);
-	} else if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
+		} else if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
 
-            console.log("Building DT");
-            let decisionTree = getDT();
+			console.log("Building DT");
+			let decisionTree = getDT();
 
-            console.log("Making Prediction");
-            let prediction = predicts(decisionTree, storage.sampleFeatures);
-            multiplePred(prediction);
-        }
-            storage.trainingTable = [];
-            extractFeatures(syntaxTree);
-		
-	    if (storage.trainingTable.length === 1 && notSimilar()){
-		console.log(notSimilar());
-		prediction = "";
-		multiplePred(prediction);
-	    } else if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
+			console.log("Making Prediction");
+			let prediction = predicts(decisionTree, storage.sampleFeatures);
+			multiplePred(prediction);
 
-                console.log("Building DT");
-                let decisionTree = getDT();
-
-                console.log("Making Prediction");
-                let prediction = predicts(decisionTree, storage.sampleFeatures);
-                multiplePred(prediction);
-
-            }
+		}
+		if (storage.predictionSet.size !== 0){
+			storage.topPred = Array.from(storage.predictionSet)[0];
+		}
     }
     currentPred();
     console.log('---------------------------');
