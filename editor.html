@@ -21,6 +21,7 @@
 		<script type="text/javascript" src="js/ast.js"></script>
 		<script type="text/javascript" src="js/id3.js"></script>
 		<script type="text/javascript" src="js/dt.js"></script>
+		<script type="text/javascript" src="js/displayPred.js"></script>		
 		
 	</head>
 
@@ -35,8 +36,62 @@
 				<iframe id="outputFrame"></iframe>
 			</div>
 
-			<div id="interactContainer">
-				<h1 style="text-align:center">User Interaction</h1>
+			<div id="interactContainer" style="font-family:Arial,sans-serif">
+				<h2 style="text-align:center">Interactive Rules Interface</h2>
+				
+				<div id ="main menu">
+					<div id="pred" style="padding-right: 3%">
+						<p id="features" style="text-align:center"></p>
+						<p id="prediction" style="text-align:center"></p>
+					</div>
+					<div id="options" style="padding-left: 3%">
+						<label for="button">Edit current prediction rule</label>
+						<button id="button" onclick="editCurrent()">Go</button><br/><br/>
+						<label for = "existingRules">View/edit prediction rules for:</label>
+						<select id="existingRules">
+							<option value="tag">Tag</option>
+							<option value="attr">Attribute</option>
+							<option value="val">Value</option>
+						</select> <button id="rulesButton" onclick="existingRules()">Go</button><br/><br/>
+						<label for = "addNewRule">Add new prediction rule for:</label>
+						<select id="addNewRule">
+							<option value="tag">Tag</option>
+							<option value="attr">Attribute</option>
+							<option value="value">Value</option>
+						</select> <button id="addButton" onclick="addNew()">Go</button>
+					</div>
+				</div>
+				
+				<div id ="current prediction" style="padding-left: 3%">
+					<button id="button1" onclick="include()">Prioritize this rule</button><br/>
+					<button id="button2" onclick="notInclude()">Don't use this rule for future predictions</button><br/>
+					<label for="updateCurrent">Change the prediction for this rule to:</label> <input id="updateCurrent" type="text"> <button id="updateButton" onclick="updateCurrent()">Update</button><br/><br/><br/>
+					<button onclick="mainMenu()">Main Menu</button>
+				</div>
+				
+				<div id ="existing rules" style="padding-left: 3%">
+					<input type="text" id="myInput" onkeyup="filter()" placeholder="Type prediction..."><br/>
+					<p>Rules prioritized by interactions:</p>
+					<table id="table1" width="750" border="1">
+					</table><br/>
+					<p>Rules learned automatically:</p>
+					<table id="table2" width="750" border="1">
+					</table><br/>
+					<button onclick="mainMenu()">Main Menu</button><br/>
+				</div>
+				
+				<div id ="add new rule" style="padding-left: 3%">
+					<div id="0">Enter new prediction rule</div><br/>
+					<div id="1"><label for="parentTag">Parent Tag:</label><input id="parentTag" type="text"></div><br/>
+					<div id="2"><label for="parentAttr/Val">Parent Attribute-Value Pair:</label><input id="parentAttr/Val" type="text"></div><br/>
+					<div id="3"><label for="tag">Tag:</label><input id="tag" type="text"></div><br/>
+					<div id="4"><label for="attr">Attribute:</label><input id="attr" type="text"></div><br/>
+					<div id="5"><label for="value">Value:</label><input id="value" type="text"></div>
+					<div id="newNotValid">Invalid Rule - Are you missing a feature entry?</div>
+					<button id="addRule" onclick="addRule()">Add</button><br/><br/>
+					<button onclick="mainMenu()">Main Menu</button>
+				</div>
+				
 			</div>
 
 		</div>

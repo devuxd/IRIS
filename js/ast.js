@@ -33,36 +33,71 @@ function extract(node, parentTag, parentAttr, parentVal) {
             val = attribute.value;
             val = val === null ? '' : val;
             addTraining(tag, parentTag, parentAttrVal, attr, val);
+            for (let child of node.children) extract(child, tag, attr, val);
         }
     } else {
         attr = '';
         val = '';
         addTraining(tag, parentTag, parentAttrVal, attr, val);
+        for (let child of node.children) extract(child, tag, attr, val);
     }
 
-    for (let child of node.children) extract(child, tag, attr, val);
 }
 
 function addTraining(tag, parentTag, parentAttrVal, attr, val) {
-    switch (storage.predictionCase) {
+    let entry;
+    if (['!doctype','html','head','body'].includes(tag)) return;
+	switch (storage.predictionCase) {
         case PREDICTION_CASE.TAG:
-            if (['!doctype','html','head','body'].includes(tag)) break;
-            storage.trainingTable.push({'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
+			entry = {'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'tag':tag};
             break;
         case PREDICTION_CASE.ATTRIBUTE:
-            storage.trainingTable.push({'tag':tag, 'attr':attr, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
+			entry = {'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'attr':attr};
             break;
         case PREDICTION_CASE.VALUE:
-            storage.trainingTable.push({'tag':tag, 'attr':attr, 'val':val, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal});
+			entry = {'tag':tag, 'attr':attr, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'val':val};
             break;
     }
+	if (entry !== undefined && !contains(entry, storage.dontUse)){
+		storage.trainingTable.push(entry);
+	}
+}
+
+function isEqual(entry1, entry2){
+	var a = Object.getOwnPropertyNames(entry1);
+    var b = Object.getOwnPropertyNames(entry2);
+    if (a.length !== b.length) {
+        return false;
+    }
+    for (var i = 0; i < a.length; i++) {
+        var name = a[i];
+        if (entry1[name] !== entry2[name]) {
+            return false;
+        }
+    }
+	return true;
+}
+
+function contains(x, list){
+	for (var i = 0; i < list.length; i++ ){
+		if (isEqual(x, list[i])){
+			console.log(x + "--is equal to--" + list[i]);
+			return true;
+		}
+	}
+	return false;
 }
 
 function clean(codeFile) {
     let lines = codeFile.code.split("\n");
     let text = lines[codeFile.position.row];
-    let newText = text.substring(0, codeFile.fragmentStart) + '<>' + text.substring(codeFile.position.column);   // without < to cursor
-    storage.fragment = text.substring(codeFile.fragmentStart+1, codeFile.position.column);
+	let newText;
+	if (storage.justTable === true){
+		newText = text.substring(0, codeFile.fragmentStart) + text.substring(codeFile.position.column);   // without < to cursor
+	} else{
+		newText = text.substring(0, codeFile.fragmentStart) + '<>' + text.substring(codeFile.position.column);   // without < to cursor
+    }
+	storage.fragment = text.substring(codeFile.fragmentStart+1, codeFile.position.column);
     lines[codeFile.position.row] = newText;
     return lines.join("\n");
 }
