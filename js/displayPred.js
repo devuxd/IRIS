@@ -253,7 +253,7 @@ function existingRules(){
 
     //gets all the rules from the document as if making a prediction.
     let syntaxTree = getAST(codeFile);
-    extractFeatures(syntaxTree);
+    extractFeatures(syntaxTree, false);
     for (let i=0; i < storage.trainingTable.length; i++){
         if ((!contains(storage.trainingTable[i], newList)) && (checksRule(pred, list, storage.trainingTable[i])) && storage.trainingTable[i]['tag'] != "" && storage.trainingTable[i]['attr'] != "" && storage.trainingTable[i]['val'] != ""){
             newList.push(storage.trainingTable[i]);
@@ -459,6 +459,11 @@ function findNodes(rule, syntaxTree){
 	for (let node of syntaxTree){
 		checkNodes(rule, node, "", "", "");
 	}
+	for (example of storage.badExamples){
+		if (storage.examples.has(example)){
+			storage.badExamples.delete(example);
+		}
+	}
 }
 
 function checkNodes(rule, node, parentTag, parentAttr, parentVal){
@@ -484,7 +489,6 @@ function checkNodes(rule, node, parentTag, parentAttr, parentVal){
 	for (let child of node.children){
 		checkNodes(rule, child, tag, attr, val);
 	}
-	
 }
 
 
