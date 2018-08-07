@@ -236,7 +236,7 @@ function existingRules(){
     let aceEditor = storage.aceEditor;
     let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
     codeFile.tokenize();
-    let pred = document.getElementById("existingRules").value;
+	let pred = document.getElementById("existingRules").options[document.getElementById("existingRules").selectedIndex].value;
     if (pred == "tag"){
         storage.predictionCase = PREDICTION_CASE.TAG;
         fillTable(storage.alwaysTag, "user");
@@ -326,7 +326,7 @@ function addNew(){
     document.getElementById("main menu").style.display = 'none';
     document.getElementById("add new rule").style.display = 'block';
     document.getElementById("newNotValid").style.display = 'none';
-    let type = document.getElementById("addNewRule").value;
+    let type = document.getElementById("addNewRule").options[document.getElementById("addNewRule").selectedIndex].value;
 	document.getElementById("0").style.display = 'block';
 	document.getElementById("1").style.display = 'block';
     document.getElementById("2").style.display = 'block';
