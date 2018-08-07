@@ -10,8 +10,8 @@ function getAST(codeFile) {
 	return removeWhitespace(himalaya.parse(clean(codeFile)));
 }
 
-function extractFeatures(syntaxTree) {
-    storage.sampleFeatures = {};
+function extractFeatures(syntaxTree, updateSample) {
+    if (updateSample) storage.sampleFeatures = {};
     for (let node of syntaxTree) extract(node, '', '', '');
 }
 

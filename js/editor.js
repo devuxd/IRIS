@@ -172,7 +172,7 @@ function handleKey(key, aceEditor, outputFrame) {
     if (storage.predictionCase !== PREDICTION_CASE.NONE) {
 		
         console.log("Converting to Training Table");
-        extractFeatures(syntaxTree);
+        extractFeatures(syntaxTree, true);
 
         // Try to make a prediction based on the rules set by the user first
         if (storage.predictionCase === PREDICTION_CASE.VALUE){
@@ -205,7 +205,7 @@ function handleKey(key, aceEditor, outputFrame) {
 
 		// Now make predictions learned from document
 		storage.trainingTable = [];
-		extractFeatures(syntaxTree);
+		extractFeatures(syntaxTree, true);
 			
 		if (storage.trainingTable.length === 1 && notSimilar()){
 			prediction = "";
