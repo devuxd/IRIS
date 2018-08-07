@@ -1747,7 +1747,7 @@ var parseDefaults = exports.parseDefaults = (cov_1drn7jthmy.s[0]++, {
   closingTags: _tags.closingTags,
   childlessTags: _tags.childlessTags,
   closingTagAncestorBreakers: _tags.closingTagAncestorBreakers,
-  includePositions: false
+  includePositions: true
 });
 
 function parse(str) {
