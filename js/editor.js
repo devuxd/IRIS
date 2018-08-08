@@ -6,7 +6,7 @@ var storage = {
     sampleFeaturesExtra: [],    // For serial parent attribute-value pairs
     predictionSet: new Set(),	// Predictions from DT
     aceEditor: {},
-	
+	ast: [],
 	topPred: "",
 	badExamples: new Set(),
 	examples: new Set(),
@@ -97,20 +97,18 @@ $(document).ready(function() {
 			enableSnippets: true,
 			enableLiveAutocompletion: true,
 		});
-        aceEditor.onPaste = function() { return "";};
+        // aceEditor.onPaste = function() { return "";};
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
                 if (aceEditor.isFocused()) {
-					if (e.key === 'Control' && prevKey === 'Shift') aceEditor.onPaste = function(text, event) { this.commands.exec("paste", this, {text: text, event: event});};
+					// if (e.key === 'Control' && prevKey === 'Shift') aceEditor.onPaste = function(text, event) { this.commands.exec("paste", this, {text: text, event: event});};
                     handleKey(e.key, aceEditor, outputFrame);
                     if (((e.key.length === 1 && /[\w"'< ]/.test(e.key)) || e.key === ',' && prevKey === 'Shift') && storage.predictionCase !== PREDICTION_CASE.NONE) {
                         aceEditor.commands.byName.startAutocomplete.exec(aceEditor);
 						if (aceEditor.completer.completions != null){
 							storage.topPred = aceEditor.completer.completions.filtered[0].caption;
-							let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
-							let syntaxTree = getAST(codeFile);
 							let rule = getRule();
-							findNodes(rule, syntaxTree);
+							findNodes(rule, storage.ast);
 							highlightLine();
 						} else{
 							deleteHighlight();
@@ -164,15 +162,16 @@ function handleKey(key, aceEditor, outputFrame) {
     storage.sampleFeatures = {};
     storage.sampleFeaturesExtra = [];
     storage.predictionSet = new Set();
-	storage.topPred = '';
+	//storage.topPred = '';
 	
 	console.log("Building AST");
     let syntaxTree = getAST(codeFile);
+	storage.ast = syntaxTree;
 	deleteHighlight();
     if (storage.predictionCase !== PREDICTION_CASE.NONE) {
 		
         console.log("Converting to Training Table");
-        extractFeatures(syntaxTree);
+        extractFeatures(syntaxTree, true);
 
         // Try to make a prediction based on the rules set by the user first
         if (storage.predictionCase === PREDICTION_CASE.VALUE){
@@ -205,7 +204,7 @@ function handleKey(key, aceEditor, outputFrame) {
 
 		// Now make predictions learned from document
 		storage.trainingTable = [];
-		extractFeatures(syntaxTree);
+		extractFeatures(syntaxTree, true);
 			
 		if (storage.trainingTable.length === 1 && notSimilar()){
 			prediction = "";
