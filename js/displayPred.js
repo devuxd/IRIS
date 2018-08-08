@@ -41,6 +41,7 @@ function currentPred(){
  * Lets the user edit the current prediction
  */
 function editCurrent(){
+	deleteHighlight();
 	let rule = Object.assign({}, storage.sampleFeatures);
 	let type = storage.predictionCase;
 	if (type == PREDICTION_CASE.TAG){
@@ -229,6 +230,7 @@ function mainMenu(){
  */
 var newList;
 function existingRules(){
+	deleteHighlight();
     storage.justTable = true;
     storage.trainingTable = [];
     let list = [];
@@ -291,11 +293,53 @@ function fillTable(list, type, pred){
             }
             cell.innerHTML = '<b>' + cell.innerHTML + '</b>';
             cell = row.insertCell(y);
-            cell.innerHTML = '<button id="' + x + '" onclick="deleteRule(this)">Do Not Use</butoon>';
+			if (type == "document"){
+				cell.innerHTML = '<button id="' + x + '" onclick="deleteRule(this)">Do Not Use</butoon>';
+			} else{
+				cell.innerHTML = '<button id="' + x + '" onclick="unPrioritize(this)">make regular rule</butoon>';
+			}
+			cell = row.insertCell(y);
+			cell.innerHTML = '<button id="e' + x + '" onclick="lookExamples(this)">Examples</button>';
         }
     } else {
 	    $('#table1').empty();
     }
+}
+
+function unPrioritize(cell){
+	let index = cell.id;
+    let pred = pred1;
+    let table = cell.parentNode.parentNode.parentNode.parentNode.id;
+    let sample;
+	if (pred == 'tag'){
+        sample = storage.alwaysTag[index];
+        deleteEntry(storage.alwaysTag, sample);
+    }else if (pred == 'attr'){
+        sample = storage.alwaysAttr[index];
+        deleteEntry(storage.alwaysAttr, sample);
+    }else if ( pred == 'val'){
+        sample = storage.alwaysValue[index];
+        deleteEntry(storage.alwaysValue, sample);
+    }
+	mainMenu();
+}
+
+function lookExamples(cell){
+	let index = cell.id.split("e")[1];
+    let pred = pred1;
+    let table = cell.parentNode.parentNode.parentNode.parentNode.id;
+    let sample;
+    if (table == "table2"){
+        sample = newList[index];
+    } else if (pred == 'tag'){
+        sample = storage.alwaysTag[index];
+    }else if (pred == 'attr'){
+        sample = storage.alwaysAttr[index];
+    }else if ( pred == 'val'){
+        sample = storage.alwaysValue[index];
+    }
+	findNodes(sample, storage.ast);
+	highlightLine();
 }
 
 function deleteRule(cell){
@@ -323,6 +367,7 @@ function deleteRule(cell){
  * Shows the relevant features for the user to add a new rule
  */
 function addNew(){
+	deleteHighlight();
     document.getElementById("main menu").style.display = 'none';
     document.getElementById("add new rule").style.display = 'block';
     document.getElementById("newNotValid").style.display = 'none';
@@ -480,14 +525,17 @@ function checkNodes(rule, node, parentTag, parentAttr, parentVal){
             val = attribute.value;
             val = val === null ? '' : val;
 			addLine(rule, node, tag, parentTag, parentAttrVal, attr, val);
+			for (let child of node.children){
+				checkNodes(rule, child, tag, attr, val);
+			}
 		}
 	} else {
 		attr = '';
 		val = '';
 		addLine(rule, node, tag, parentTag, parentAttrVal, attr, val);
-	}
-	for (let child of node.children){
-		checkNodes(rule, child, tag, attr, val);
+		for (let child of node.children){
+			checkNodes(rule, child, tag, attr, val);
+		}
 	}
 }
 
