@@ -82,7 +82,6 @@ function isEqual(entry1, entry2){
 function contains(x, list){
 	for (var i = 0; i < list.length; i++ ){
 		if (isEqual(x, list[i])){
-			console.log(x + "--is equal to--" + list[i]);
 			return true;
 		}
 	}

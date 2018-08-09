@@ -4,6 +4,7 @@
  * Shows the top rule for the current prediction to the user.
  */
 function currentPred(){
+	//console.log(storage.sampleFeatures);
     if (storage.topPred === ''){
         $("#features").html("No code prediction can be made.");
         $("#prediction").html("");
@@ -14,7 +15,7 @@ function currentPred(){
 
     let featureStr;
     let predStr;
-
+	let size = 0
     for (let key in sample){
         if (sample.hasOwnProperty(key)) {
             if (sample[key] === ""){
@@ -22,14 +23,15 @@ function currentPred(){
             }
             sample[key] = sample[key].toString().toUpperCase();
 		}
+		size ++;
     }
-    if (storage.predictionCase === PREDICTION_CASE.VALUE){
+    if (size === 4){
         predStr = "<b>Top Value Prediction: </b> " + storage.topPred.toUpperCase();
         featureStr = "The current tag is " + sample['tag'] + ". The attribute is " + sample['attr'] + ". The parent tag is " + sample['parentTag'] + ". The parent attribute-value pair is " + sample['parentAttr/Val'] + ".";
-    } else if (storage.predictionCase === PREDICTION_CASE.TAG){
+    } else if (size === 2){
         featureStr = "The parent tag is " + sample['parentTag'] + ". The parent attribute-value pair is " + sample['parentAttr/Val'] + ".";
         predStr = "<b>Top Tag Prediction: </b> " + storage.topPred.toUpperCase();
-    } else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
+    } else if (size === 3){
         featureStr = "The current tag is " + sample['tag'] + ", the parent tag is " + sample['parentTag'] + ", and the parent attribute-value pair is " + sample['parentAttr/Val'] + ".";
         predStr = "<b>Top Attribute Prediction: </b> " + storage.topPred.toUpperCase();
     }
@@ -42,6 +44,7 @@ function currentPred(){
  * Lets the user edit the current prediction
  */
 function editCurrent(){
+	deleteHighlight();
 	let rule = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
 	let type = storage.predictionCase;
 	if (type == PREDICTION_CASE.TAG){
@@ -217,6 +220,7 @@ function updateCurrent(){
  */
 function mainMenu(){
     currentPred();
+	
     document.getElementById("current prediction").style.display = "none";
     document.getElementById("existing rules").style.display = "none";
     document.getElementById("add new rule").style.display = "none";
@@ -230,6 +234,7 @@ function mainMenu(){
  */
 var newList;
 function existingRules(){
+	deleteHighlight();
     storage.justTable = true;
     storage.trainingTable = [];
     let list = [];
@@ -237,7 +242,7 @@ function existingRules(){
     let aceEditor = storage.aceEditor;
     let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
     codeFile.tokenize();
-    let pred = document.getElementById("existingRules").value;
+	let pred = document.getElementById("existingRules").options[document.getElementById("existingRules").selectedIndex].value;
     if (pred == "tag"){
         storage.predictionCase = PREDICTION_CASE.TAG;
         fillTable(storage.alwaysTag, "user");
@@ -292,11 +297,53 @@ function fillTable(list, type, pred){
             }
             cell.innerHTML = '<b>' + cell.innerHTML + '</b>';
             cell = row.insertCell(y);
-            cell.innerHTML = '<button id="' + x + '" onclick="deleteRule(this)">Do Not Use</butoon>';
+			if (type == "document"){
+				cell.innerHTML = '<button id="' + x + '" onclick="deleteRule(this)">Do Not Use</butoon>';
+			} else{
+				cell.innerHTML = '<button id="' + x + '" onclick="unPrioritize2(this)">make regular rule</butoon>';
+			}
+			cell = row.insertCell(y);
+			cell.innerHTML = '<button id="e' + x + '" onclick="lookExamples(this)">Examples</button>';
         }
     } else {
 	    $('#table1').empty();
     }
+}
+
+function unPrioritize2(cell){
+	let index = cell.id;
+    let pred = pred1;
+    let table = cell.parentNode.parentNode.parentNode.parentNode.id;
+    let sample;
+	if (pred == 'tag'){
+        sample = storage.alwaysTag[index];
+        deleteEntry(storage.alwaysTag, sample);
+    }else if (pred == 'attr'){
+        sample = storage.alwaysAttr[index];
+        deleteEntry(storage.alwaysAttr, sample);
+    }else if ( pred == 'val'){
+        sample = storage.alwaysValue[index];
+        deleteEntry(storage.alwaysValue, sample);
+    }
+	mainMenu();
+}
+
+function lookExamples(cell){
+	let index = cell.id.split("e")[1];
+    let pred = pred1;
+    let table = cell.parentNode.parentNode.parentNode.parentNode.id;
+    let sample;
+    if (table == "table2"){
+        sample = newList[index];
+    } else if (pred == 'tag'){
+        sample = storage.alwaysTag[index];
+    }else if (pred == 'attr'){
+        sample = storage.alwaysAttr[index];
+    }else if ( pred == 'val'){
+        sample = storage.alwaysValue[index];
+    }
+	findNodes(sample, storage.ast);
+	highlightLine();
 }
 
 function deleteRule(cell){
@@ -324,10 +371,11 @@ function deleteRule(cell){
  * Shows the relevant features for the user to add a new rule
  */
 function addNew(){
+	deleteHighlight();
     document.getElementById("main menu").style.display = 'none';
     document.getElementById("add new rule").style.display = 'block';
     document.getElementById("newNotValid").style.display = 'none';
-    let type = document.getElementById("addNewRule").value;
+    let type = document.getElementById("addNewRule").options[document.getElementById("addNewRule").selectedIndex].value;
 	document.getElementById("0").style.display = 'block';
 	document.getElementById("1").style.display = 'block';
     document.getElementById("2").style.display = 'block';
@@ -460,6 +508,11 @@ function findNodes(rule, syntaxTree){
 	for (let node of syntaxTree){
 		checkNodes(rule, node, "", "", "");
 	}
+	for (example of storage.badExamples){
+		if (storage.examples.has(example)){
+			storage.badExamples.delete(example);
+		}
+	}
 }
 
 function checkNodes(rule, node, parentTag, parentAttr, parentVal){
@@ -476,16 +529,18 @@ function checkNodes(rule, node, parentTag, parentAttr, parentVal){
             val = attribute.value;
             val = val === null ? '' : val;
 			addLine(rule, node, tag, parentTag, parentAttrVal, attr, val);
+			for (let child of node.children){
+				checkNodes(rule, child, tag, attr, val);
+			}
 		}
 	} else {
 		attr = '';
 		val = '';
 		addLine(rule, node, tag, parentTag, parentAttrVal, attr, val);
+		for (let child of node.children){
+			checkNodes(rule, child, tag, attr, val);
+		}
 	}
-	for (let child of node.children){
-		checkNodes(rule, child, tag, attr, val);
-	}
-	
 }
 
 

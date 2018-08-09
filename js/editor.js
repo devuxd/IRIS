@@ -8,6 +8,7 @@ var storage = {
     sampleFeaturesMap : {}, // Maps each prediction to its sample features
     aceEditor: {},
 
+	ast: [],
 	topPred: "",
 	badExamples: new Set(),
 	examples: new Set(),
@@ -23,7 +24,7 @@ var storage = {
 Checks if a prediction is blacklisted based on the features of the sample
 */
 function inBlackList(pred){
-	let sample = Object.assign({},storage.sampleFeatures);
+	let sample = Object.assign({}, storage.sampleFeatures);
 	if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
 		sample.attr = pred;
     } else if (storage.predictionCase === PREDICTION_CASE.VALUE){
@@ -114,10 +115,8 @@ $(document).ready(function() {
                         aceEditor.commands.byName.startAutocomplete.exec(aceEditor);
 						if (aceEditor.completer.completions != null){
 							storage.topPred = aceEditor.completer.completions.filtered[0].caption;
-							let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
-							let syntaxTree = getAST(codeFile);
 							let rule = getRule();
-							findNodes(rule, syntaxTree);
+							findNodes(rule, storage.ast);
 							highlightLine();
 						} else{
 							deleteHighlight();
@@ -175,6 +174,7 @@ function handleKey(key, aceEditor, outputFrame) {
 
 	console.log("Building AST");
     let syntaxTree = getAST(codeFile);
+	storage.ast = syntaxTree;
 	deleteHighlight();
     if (storage.predictionCase !== PREDICTION_CASE.NONE) {
 		
