@@ -47,16 +47,16 @@ function editCurrent(){
 	deleteHighlight();
 	let rule = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
 	let type = storage.predictionCase;
-	if (type == PREDICTION_CASE.TAG){
+	if (type === PREDICTION_CASE.TAG){
 		rule['tag'] = storage.topPred;
-	} else if (type == PREDICTION_CASE.ATTRIBUTE){
+	} else if (type === PREDICTION_CASE.ATTRIBUTE){
 		rule['attr'] = storage.topPred;
-	} else if (type == PREDICTION_CASE.VALUE){
+	} else if (type === PREDICTION_CASE.VALUE){
 		rule['val'] = storage.topPred;
 	}
 	document.getElementById("current prediction").style.display = "block";
     document.getElementById("options").style.display = "none";
-    if (storage.topPred == ""){
+    if (storage.topPred === ""){
         document.getElementById("button1").style.display = "none";
         document.getElementById("button2").style.display = "none";
 		document.getElementById("button3").style.display = "none";
@@ -77,17 +77,17 @@ function editCurrent(){
  */
 function include(){
     let sample = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
-    if (storage.predictionCase == PREDICTION_CASE.VALUE){
+    if (storage.predictionCase === PREDICTION_CASE.VALUE){
         sample['val'] = storage.topPred;
         if (!contains(sample, storage.alwaysValue)){
             storage.alwaysValue.push(sample);
         }
-    } else if (storage.predictionCase == PREDICTION_CASE.TAG){
+    } else if (storage.predictionCase === PREDICTION_CASE.TAG){
         sample['tag'] = storage.topPred;
         if (!contains(sample, storage.alwaysTag)){
             storage.alwaysTag.push(sample);
         }
-    } else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
+    } else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
         sample['attr'] = storage.topPred;
         if (!contains(sample, storage.alwaysAttr)){
             storage.alwaysAttr.push(sample);
@@ -103,13 +103,13 @@ function include(){
  */
 function notInclude(){
     let sample = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
-    if (storage.predictionCase == PREDICTION_CASE.VALUE){
+    if (storage.predictionCase === PREDICTION_CASE.VALUE){
         sample['val'] = storage.topPred;
         deleteEntry(storage.alwaysValue, sample);
-    } else if (storage.predictionCase == PREDICTION_CASE.TAG){
+    } else if (storage.predictionCase === PREDICTION_CASE.TAG){
         sample['tag'] = storage.topPred;
         deleteEntry(storage.alwaysTag, sample);
-    } else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
+    } else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
         sample['attr'] = storage.topPred;
         deleteEntry(storage.alwaysAttr, sample);
     }
@@ -125,13 +125,13 @@ function notInclude(){
 function unPrioritize(){
 	let rule = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
 	let type = storage.predictionCase;
-	if (type == PREDICTION_CASE.TAG){
+	if (type === PREDICTION_CASE.TAG){
 		rule['tag'] = storage.topPred;
 		deleteEntry(storage.alwaysTag, rule);
-	} else if (type == PREDICTION_CASE.ATTRIBUTE){
+	} else if (type === PREDICTION_CASE.ATTRIBUTE){
 		rule['attr'] = storage.topPred;
 		deleteEntry(storage.alwaysAttr, rule);
-	} else if (type == PREDICTION_CASE.VALUE){
+	} else if (type === PREDICTION_CASE.VALUE){
 		rule['val'] = storage.topPred;
 		deleteEntry(storage.alwaysValue, rule);
 	}
@@ -167,16 +167,16 @@ function checksRule(pred, array, rule){
  */
 function contradicts(pred, rule1, rule2){
     let contradicts = false;
-    if (pred == 'tag'){
-        if (rule1['parentTag'] == rule2['parentTag'] && rule1['parentAttr/Val'] == rule2['parentAttr/Val'] && rule1['tag'] != rule2['tag']){
+    if (pred === 'tag'){
+        if (rule1['parentTag'] === rule2['parentTag'] && rule1['parentAttr/Val'] === rule2['parentAttr/Val'] && rule1['tag'] !==rule2['tag']){
             contradicts = true;
         }
-    }else if (pred == 'attr'){
-        if (rule1['parentTag'] == rule2['parentTag'] && rule1['parentAttr/Val'] == rule2['parentAttr/Val'] && rule1['tag'] == rule2['tag'] && rule1['attr'] != rule2['attr']){
+    }else if (pred === 'attr'){
+        if (rule1['parentTag'] === rule2['parentTag'] && rule1['parentAttr/Val'] === rule2['parentAttr/Val'] && rule1['tag'] === rule2['tag'] && rule1['attr'] !==rule2['attr']){
             contradicts = true;
         }
-    }else if (pred == 'val'){
-        if (rule1['parentTag'] == rule2['parentTag'] && rule1['parentAttr/Val'] == rule2['parentAttr/Val'] && rule1['tag'] == rule2['tag'] && rule1['attr'] == rule2['attr'] && rule1['val'] != rule2['val']){
+    }else if (pred === 'val'){
+        if (rule1['parentTag'] === rule2['parentTag'] && rule1['parentAttr/Val'] === rule2['parentAttr/Val'] && rule1['tag'] === rule2['tag'] && rule1['attr'] === rule2['attr'] && rule1['val'] !==rule2['val']){
             contradicts = true;
         }
     }
@@ -193,20 +193,20 @@ function contradicts(pred, rule1, rule2){
 function updateCurrent(){
     let sample = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
     let newPred = document.getElementById("updateCurrent").value;
-    if (newPred == ""){
+    if (newPred === ""){
         return;
     }
-    if (storage.predictionCase == PREDICTION_CASE.VALUE){
+    if (storage.predictionCase === PREDICTION_CASE.VALUE){
         sample['val'] = newPred;
         if (!contains(sample, storage.dontUse) && (!contains(sample, storage.alwaysValue)) && checksRule('val', storage.alwaysValue, sample)){
             storage.alwaysValue.push(sample);
         }
-    } else if (storage.predictionCase == PREDICTION_CASE.TAG){
+    } else if (storage.predictionCase === PREDICTION_CASE.TAG){
         sample['tag'] = newPred;
         if (!contains(sample, storage.dontUse) && (!contains(sample, storage.alwaysTag)) && checksRule('tag', storage.alwaysTag, sample)){
             storage.alwaysTag.push(sample);
         }
-    } else if (storage.predictionCase == PREDICTION_CASE.ATTRIBUTE){
+    } else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
         sample['attr'] = newPred;
         if (!contains(sample, storage.dontUse) && (!contains(sample, storage.alwaysAttr)) && checksRule('attr', storage.alwaysAttr, sample)){
             storage.alwaysAttr.push(sample);
@@ -243,15 +243,15 @@ function existingRules(){
     let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
     codeFile.tokenize();
 	let pred = document.getElementById("existingRules").options[document.getElementById("existingRules").selectedIndex].value;
-    if (pred == "tag"){
+    if (pred === "tag"){
         storage.predictionCase = PREDICTION_CASE.TAG;
         fillTable(storage.alwaysTag, "user");
         list = storage.alwaysTag.slice();
-    } else if (pred == "attr"){
+    } else if (pred === "attr"){
         storage.predictionCase = PREDICTION_CASE.ATTRIBUTE;
         fillTable(storage.alwaysAttr, "user");
         list = storage.alwaysAttr.slice();
-    } else if (pred == "val"){
+    } else if (pred === "val"){
         storage.predictionCase = PREDICTION_CASE.VALUE;
         fillTable(storage.alwaysValue, "user");
         list = storage.alwaysValue.slice();
@@ -261,7 +261,7 @@ function existingRules(){
     let syntaxTree = getAST(codeFile);
     extractFeatures(syntaxTree, false);
     for (let i=0; i < storage.trainingTable.length; i++){
-        if ((!contains(storage.trainingTable[i], newList)) && (checksRule(pred, list, storage.trainingTable[i])) && storage.trainingTable[i]['tag'] != "" && storage.trainingTable[i]['attr'] != "" && storage.trainingTable[i]['val'] != ""){
+        if ((!contains(storage.trainingTable[i], newList)) && (checksRule(pred, list, storage.trainingTable[i])) && storage.trainingTable[i]['tag'] !=="" && storage.trainingTable[i]['attr'] !=="" && storage.trainingTable[i]['val'] !==""){
             newList.push(storage.trainingTable[i]);
         }
     }
@@ -277,9 +277,9 @@ var pred1;
 function fillTable(list, type, pred){
     pred1 = pred;
     let table;
-    if (type == "user"){
+    if (type === "user"){
         table = document.getElementById("table1");
-    } else if (type == "document"){
+    } else if (type === "document"){
         table = document.getElementById("table2");
     }
     if (list.length > 0){
@@ -297,7 +297,7 @@ function fillTable(list, type, pred){
             }
             cell.innerHTML = '<b>' + cell.innerHTML + '</b>';
             cell = row.insertCell(y);
-			if (type == "document"){
+			if (type === "document"){
 				cell.innerHTML = '<button id="' + x + '" onclick="deleteRule(this)">Do Not Use</butoon>';
 			} else{
 				cell.innerHTML = '<button id="' + x + '" onclick="unPrioritize2(this)">make regular rule</butoon>';
@@ -315,13 +315,13 @@ function unPrioritize2(cell){
     let pred = pred1;
     let table = cell.parentNode.parentNode.parentNode.parentNode.id;
     let sample;
-	if (pred == 'tag'){
+	if (pred === 'tag'){
         sample = storage.alwaysTag[index];
         deleteEntry(storage.alwaysTag, sample);
-    }else if (pred == 'attr'){
+    }else if (pred === 'attr'){
         sample = storage.alwaysAttr[index];
         deleteEntry(storage.alwaysAttr, sample);
-    }else if ( pred == 'val'){
+    }else if ( pred === 'val'){
         sample = storage.alwaysValue[index];
         deleteEntry(storage.alwaysValue, sample);
     }
@@ -333,13 +333,13 @@ function lookExamples(cell){
     let pred = pred1;
     let table = cell.parentNode.parentNode.parentNode.parentNode.id;
     let sample;
-    if (table == "table2"){
+    if (table === "table2"){
         sample = newList[index];
-    } else if (pred == 'tag'){
+    } else if (pred === 'tag'){
         sample = storage.alwaysTag[index];
-    }else if (pred == 'attr'){
+    }else if (pred === 'attr'){
         sample = storage.alwaysAttr[index];
-    }else if ( pred == 'val'){
+    }else if ( pred === 'val'){
         sample = storage.alwaysValue[index];
     }
 	findNodes(sample, storage.ast);
@@ -351,15 +351,15 @@ function deleteRule(cell){
     let pred = pred1;
     let table = cell.parentNode.parentNode.parentNode.parentNode.id;
     let sample;
-    if (table == "table2"){
+    if (table === "table2"){
         sample = newList[index];
-    } else if (pred == 'tag'){
+    } else if (pred === 'tag'){
         sample = storage.alwaysTag[index];
         deleteEntry(storage.alwaysTag, sample);
-    }else if (pred == 'attr'){
+    }else if (pred === 'attr'){
         sample = storage.alwaysAttr[index];
         deleteEntry(storage.alwaysAttr, sample);
-    }else if ( pred == 'val'){
+    }else if ( pred === 'val'){
         sample = storage.alwaysValue[index];
         deleteEntry(storage.alwaysValue, sample);
     }
@@ -399,27 +399,27 @@ function addNew(){
 function addRule(){
     let target = document.getElementById("addNewRule").value;
     let rule;
-    if (target == "tag"){
+    if (target === "tag"){
         rule = {'parentTag':document.getElementById("parentTag").value, 'parentAttr/Val':document.getElementById("parentAttr/Val").value, 'tag':document.getElementById("tag").value};
-        if (!contains(rule, storage.dontUse) && (!contains(rule, storage.alwaysTag)) && checksRule('tag', storage.alwaysTag, rule) && rule['tag'] != ""){
+        if (!contains(rule, storage.dontUse) && (!contains(rule, storage.alwaysTag)) && checksRule('tag', storage.alwaysTag, rule) && rule['tag'] !==""){
             storage.alwaysTag.push(rule);
             console.log(storage.alwaysTag);
         }else{
             document.getElementById("newNotValid").style.display = "block";
             return;
         }
-    } else if (target == "attr"){
+    } else if (target === "attr"){
         rule = {'tag':document.getElementById("tag").value, 'parentTag':document.getElementById("parentTag").value, 'parentAttr/Val':document.getElementById("parentAttr/Val").value, 'attr':document.getElementById("attr").value};
-        if (!contains(rule, storage.dontUse) && (!contains(rule, storage.alwaysAttr)) && checksRule('attr', storage.alwaysAttr, rule) && rule['tag'] != "" && rule['attr'] != ""){
+        if (!contains(rule, storage.dontUse) && (!contains(rule, storage.alwaysAttr)) && checksRule('attr', storage.alwaysAttr, rule) && rule['tag'] !=="" && rule['attr'] !==""){
             storage.alwaysAttr.push(rule);
             console.log(storage.alwaysAttr);
         }else{
             document.getElementById("newNotValid").style.display = "block";
             return;
         }
-    } else if (target == "value"){
+    } else if (target === "value"){
         rule = {'tag':document.getElementById("tag").value, 'attr':document.getElementById("attr").value, 'parentTag':document.getElementById("parentTag").value, 'parentAttr/Val':document.getElementById("parentAttr/Val").value, 'val':document.getElementById("value").value};
-        if (!contains(rule, storage.dontUse) && (!contains(rule, storage.alwaysValue)) && checksRule('val', storage.alwaysValue, rule) && rule['tag'] != "" && rule['attr'] != "" && rule['val'] != ""){
+        if (!contains(rule, storage.dontUse) && (!contains(rule, storage.alwaysValue)) && checksRule('val', storage.alwaysValue, rule) && rule['tag'] !=="" && rule['attr'] !=="" && rule['val'] !==""){
             storage.alwaysValue.push(rule);
             console.log(storage.alwaysValue);
         }else{
@@ -492,11 +492,11 @@ function deleteHighlight(){
 function getRule(){
 	let rule = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
 	let type = storage.predictionCase;
-	if (type == PREDICTION_CASE.TAG){
+	if (type === PREDICTION_CASE.TAG){
 		rule['tag'] = storage.topPred;
-	} else if (type == PREDICTION_CASE.ATTRIBUTE){
+	} else if (type === PREDICTION_CASE.ATTRIBUTE){
 		rule['attr'] = storage.topPred;
-	} else if (type == PREDICTION_CASE.VALUE){
+	} else if (type === PREDICTION_CASE.VALUE){
 		rule['val'] = storage.topPred;
 	}
 	return rule;
@@ -548,23 +548,23 @@ function addLine(rule, node, tag, parentTag, parentAttrVal, attr, val){
 	let type = storage.predictionCase;
 	let rule2;
 	let pred;
-	if (type == PREDICTION_CASE.TAG){
+	if (type === PREDICTION_CASE.TAG){
 		rule2 = {'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal};
-		if (rule['parentTag'] == parentTag && rule['parentAttr/Val'] == parentAttrVal && rule['tag'] == tag){
+		if (rule['parentTag'] === parentTag && rule['parentAttr/Val'] === parentAttrVal && rule['tag'] === tag){
 			storage.examples.add(node.position.start.line);
 			return;
 		}
 		pred = 'tag'
-	} else if (type == PREDICTION_CASE.ATTRIBUTE){
+	} else if (type === PREDICTION_CASE.ATTRIBUTE){
 		rule2 = {'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'attr':attr};
-		if (rule['parentTag'] == parentTag && rule['parentAttr/Val'] == parentAttrVal && rule['tag'] == tag && rule['attr'] == attr){
+		if (rule['parentTag'] === parentTag && rule['parentAttr/Val'] === parentAttrVal && rule['tag'] === tag && rule['attr'] === attr){
 			storage.examples.add(node.position.start.line);
 			return;
 		}
 		pred = 'attr';
-	} else if (type == PREDICTION_CASE.VALUE){
+	} else if (type === PREDICTION_CASE.VALUE){
 		rule2 = {'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'attr':attr, 'val':val};
-		if (rule['parentTag'] == parentTag && rule['parentAttr/Val'] == parentAttrVal && rule['tag'] == tag && rule['attr'] == attr && rule['val'] == val){
+		if (rule['parentTag'] === parentTag && rule['parentAttr/Val'] === parentAttrVal && rule['tag'] === tag && rule['attr'] === attr && rule['val'] === val){
 			storage.examples.add(node.position.start.line);
 			return;
 		}
