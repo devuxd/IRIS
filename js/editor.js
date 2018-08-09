@@ -23,7 +23,7 @@ var storage = {
 Checks if a prediction is blacklisted based on the features of the sample
 */
 function inBlackList(pred){
-	let sample = storage.sampleFeatures;
+	let sample = Object.assign({},storage.sampleFeatures);
 	if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
 		sample.attr = pred;
     } else if (storage.predictionCase === PREDICTION_CASE.VALUE){
@@ -233,6 +233,7 @@ function handleKey(key, aceEditor, outputFrame) {
                 let prediction = predicts(decisionTree, sampleFeatures);
                 multiplePred(prediction, sampleFeatures);
             }
+
 
 		}
 		if (storage.predictionSet.size !== 0){
