@@ -255,7 +255,7 @@ function existingRules(){
 
     //gets all the rules from the document as if making a prediction.
     let syntaxTree = getAST(codeFile);
-    extractFeatures(syntaxTree, false);
+    extractFeatures(syntaxTree);
     for (let i=0; i < storage.trainingTable.length; i++){
         if ((!contains(storage.trainingTable[i], newList)) && (checksRule(pred, list, storage.trainingTable[i])) && storage.trainingTable[i]['tag'] != "" && storage.trainingTable[i]['attr'] != "" && storage.trainingTable[i]['val'] != ""){
             newList.push(storage.trainingTable[i]);
