@@ -4,6 +4,7 @@
  * Shows the top rule for the current prediction to the user.
  */
 function currentPred(){
+	//console.log(storage.sampleFeatures);
     if (storage.topPred === ''){
         $("#features").html("No code prediction can be made.");
         $("#prediction").html("");
@@ -13,7 +14,7 @@ function currentPred(){
     let sample = Object.assign({}, storage.sampleFeatures);
     let featureStr;
     let predStr;
-
+	let size = 0
     for (let key in sample){
         if (sample.hasOwnProperty(key)) {
             if (sample[key] === ""){
@@ -21,14 +22,15 @@ function currentPred(){
             }
             sample[key] = sample[key].toString().toUpperCase();
 		}
+		size ++;
     }
-    if (storage.predictionCase === PREDICTION_CASE.VALUE){
+    if (size === 4){
         predStr = "<b>Top Value Prediction: </b> " + storage.topPred.toUpperCase();
         featureStr = "The current tag is " + sample['tag'] + ". The attribute is " + sample['attr'] + ". The parent tag is " + sample['parentTag'] + ". The parent attribute-value pair is " + sample['parentAttr/Val'] + ".";
-    } else if (storage.predictionCase === PREDICTION_CASE.TAG){
+    } else if (size === 2){
         featureStr = "The parent tag is " + sample['parentTag'] + ". The parent attribute-value pair is " + sample['parentAttr/Val'] + ".";
         predStr = "<b>Top Tag Prediction: </b> " + storage.topPred.toUpperCase();
-    } else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
+    } else if (size === 3){
         featureStr = "The current tag is " + sample['tag'] + ", the parent tag is " + sample['parentTag'] + ", and the parent attribute-value pair is " + sample['parentAttr/Val'] + ".";
         predStr = "<b>Top Attribute Prediction: </b> " + storage.topPred.toUpperCase();
     }
@@ -217,6 +219,7 @@ function updateCurrent(){
  */
 function mainMenu(){
     currentPred();
+	
     document.getElementById("current prediction").style.display = "none";
     document.getElementById("existing rules").style.display = "none";
     document.getElementById("add new rule").style.display = "none";
