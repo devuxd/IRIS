@@ -5,7 +5,9 @@ var storage = {
     sampleFeatures: {},	// Features to input into DT to get prediction
     sampleFeaturesExtra: [],    // For serial parent attribute-value pairs
     predictionSet: new Set(),	// Predictions from DT
+    sampleFeaturesMap : {}, // Maps each prediction to its sample features
     aceEditor: {},
+
 	ast: [],
 	topPred: "",
 	badExamples: new Set(),
@@ -37,14 +39,20 @@ function inBlackList(pred){
 This checks whether ID3 returned multiple predictions
 (sorted by probability), and if so, pushes each one.
 */
-function multiplePred(prediction){
+function multiplePred(prediction, features){
 	if (prediction.includes(" // ")) {
         let predictions = new Set(prediction.split(" // "));
-        for (let pred of predictions) if (pred !== '' && !inBlackList(pred)) storage.predictionSet.add(pred);
+        for (let pred of predictions) {
+            if (pred !== '' && !inBlackList(pred)) {
+                storage.predictionSet.add(pred);
+                storage.sampleFeaturesMap[pred] = features;
+            }
+        }
         console.log("PREDICTION: " + Array.from(storage.predictionSet));
 	} else if (!inBlackList(prediction)){
         storage.predictionSet.add(prediction);
         console.log("PREDICTION: " + prediction);
+        storage.sampleFeaturesMap[prediction] = features;
 	}
 }
 
@@ -103,7 +111,7 @@ $(document).ready(function() {
                 if (aceEditor.isFocused()) {
 					// if (e.key === 'Control' && prevKey === 'Shift') aceEditor.onPaste = function(text, event) { this.commands.exec("paste", this, {text: text, event: event});};
                     handleKey(e.key, aceEditor, outputFrame);
-                    if (((e.key.length === 1 && /[\w"'< ]/.test(e.key)) || e.key === ',' && prevKey === 'Shift') && storage.predictionCase !== PREDICTION_CASE.NONE) {
+                    if (((e.key.length === 1 && /[\w"'< ]/.test(e.key)) || e.key === ',' && prevKey === 'Shift' || e.key === 'Backspace') && storage.predictionCase !== PREDICTION_CASE.NONE) {
                         aceEditor.commands.byName.startAutocomplete.exec(aceEditor);
 						if (aceEditor.completer.completions != null){
 							storage.topPred = aceEditor.completer.completions.filtered[0].caption;
@@ -163,7 +171,7 @@ function handleKey(key, aceEditor, outputFrame) {
     storage.sampleFeaturesExtra = [];
     storage.predictionSet = new Set();
 	//storage.topPred = '';
-	
+
 	console.log("Building AST");
     let syntaxTree = getAST(codeFile);
 	storage.ast = syntaxTree;
@@ -184,7 +192,7 @@ function handleKey(key, aceEditor, outputFrame) {
 	
 		if (storage.trainingTable.length === 1 && notSimilar()){
 				prediction = "";
-				multiplePred(prediction);
+				multiplePred(prediction, storage.sampleFeatures);
 		} else if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
 			console.log("Building DT");
 			let decisionTree = getDT();
@@ -192,13 +200,13 @@ function handleKey(key, aceEditor, outputFrame) {
 			console.log("Making Prediction");
 			console.log(storage.sampleFeatures);
 			let prediction = predicts(decisionTree, storage.sampleFeatures);
-			multiplePred(prediction);
+			multiplePred(prediction, storage.sampleFeatures);
 
             // If there's multiple parentAttr/Val pairs we have more features for prediction
             for (let sampleFeatures of storage.sampleFeaturesExtra) {
                 console.log(sampleFeatures);
                 let prediction = predicts(decisionTree, sampleFeatures);
-                multiplePred(prediction);
+                multiplePred(prediction, sampleFeatures);
             }
 		}
 
@@ -208,7 +216,7 @@ function handleKey(key, aceEditor, outputFrame) {
 			
 		if (storage.trainingTable.length === 1 && notSimilar()){
 			prediction = "";
-			multiplePred(prediction);
+			multiplePred(prediction, storage.sampleFeatures);
 		} else if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
 
 			console.log("Building DT");
@@ -217,14 +225,15 @@ function handleKey(key, aceEditor, outputFrame) {
 			console.log("Making Prediction");
             console.log(storage.sampleFeatures);
 			let prediction = predicts(decisionTree, storage.sampleFeatures);
-			multiplePred(prediction);
+			multiplePred(prediction, storage.sampleFeatures);
 
 			// If there's multiple parentAttr/Val pairs we have more features for prediction
             for (let sampleFeatures of storage.sampleFeaturesExtra) {
                 console.log(sampleFeatures);
                 let prediction = predicts(decisionTree, sampleFeatures);
-                multiplePred(prediction);
+                multiplePred(prediction, sampleFeatures);
             }
+
 
 		}
 		if (storage.predictionSet.size !== 0){

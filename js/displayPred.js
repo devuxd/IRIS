@@ -11,7 +11,8 @@ function currentPred(){
         return;
     }
 
-    let sample = Object.assign({}, storage.sampleFeatures);
+    let sample = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
+
     let featureStr;
     let predStr;
 	let size = 0
@@ -44,7 +45,7 @@ function currentPred(){
  */
 function editCurrent(){
 	deleteHighlight();
-	let rule = Object.assign({}, storage.sampleFeatures);
+	let rule = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
 	let type = storage.predictionCase;
 	if (type == PREDICTION_CASE.TAG){
 		rule['tag'] = storage.topPred;
@@ -75,7 +76,7 @@ function editCurrent(){
  * If the prediction feature is empty ("") does not add the rule.
  */
 function include(){
-    let sample = Object.assign({}, storage.sampleFeatures);
+    let sample = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
     if (storage.predictionCase == PREDICTION_CASE.VALUE){
         sample['val'] = storage.topPred;
         if (!contains(sample, storage.alwaysValue)){
@@ -101,7 +102,7 @@ function include(){
  * It does not blacklist a rule if the prediction feature is empty
  */
 function notInclude(){
-    let sample = Object.assign({}, storage.sampleFeatures);
+    let sample = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
     if (storage.predictionCase == PREDICTION_CASE.VALUE){
         sample['val'] = storage.topPred;
         deleteEntry(storage.alwaysValue, sample);
@@ -122,7 +123,7 @@ function notInclude(){
 *deletes a rule from the respective priority array
 */
 function unPrioritize(){
-	let rule = Object.assign({}, storage.sampleFeatures);
+	let rule = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
 	let type = storage.predictionCase;
 	if (type == PREDICTION_CASE.TAG){
 		rule['tag'] = storage.topPred;
@@ -190,7 +191,7 @@ function contradicts(pred, rule1, rule2){
  * does not update if the input entered by the user is empty.
  */
 function updateCurrent(){
-    let sample = Object.assign({}, storage.sampleFeatures);
+    let sample = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
     let newPred = document.getElementById("updateCurrent").value;
     if (newPred == ""){
         return;
@@ -258,7 +259,7 @@ function existingRules(){
 
     //gets all the rules from the document as if making a prediction.
     let syntaxTree = getAST(codeFile);
-    extractFeatures(syntaxTree);
+    extractFeatures(syntaxTree, false);
     for (let i=0; i < storage.trainingTable.length; i++){
         if ((!contains(storage.trainingTable[i], newList)) && (checksRule(pred, list, storage.trainingTable[i])) && storage.trainingTable[i]['tag'] != "" && storage.trainingTable[i]['attr'] != "" && storage.trainingTable[i]['val'] != ""){
             newList.push(storage.trainingTable[i]);
@@ -489,7 +490,7 @@ function deleteHighlight(){
 }
 
 function getRule(){
-	let rule = Object.assign({}, storage.sampleFeatures);
+	let rule = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
 	let type = storage.predictionCase;
 	if (type == PREDICTION_CASE.TAG){
 		rule['tag'] = storage.topPred;

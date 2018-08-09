@@ -1,65 +1,135 @@
-/*#mainContainer {*/
-  /*position: relative;*/
-  /*display: block;*/
-  /*height: 100%;*/
-  /*width: 100%;*/
-  /*float: left;*/
-/*}*/
+body::-webkit-scrollbar {
+  width: 15px;
+}
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+body::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(100,100,250,0.8);
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+body::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(100,100,250,0.4);
+}
 
-button {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 2px 8px;
-    text-align: center;
-    display: inline-block;
-    margin: 4px 2px;
-    cursor: pointer;
+#editorContainer *::-webkit-scrollbar {
+  width: 10px;
+}
+#editorContainer *::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+#editorContainer *::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(240,10,10,0.8);
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+#editorContainer *::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(240,10,10,0.4);
+}
+
+#interactContainer::-webkit-scrollbar {
+  width: 10px;
+}
+#interactContainer::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+#interactContainer::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(76,175,50,0.8);
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+#interactContainer::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(76,175,50,0.4);
+}
+
+
+/*
+
+
+
+ */
+
+html {
+  height:100%;
+  width:100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height:100%;
+  width:100%;
+  margin: 0;
+  padding: 0;
+}
+
+#mainContainer {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#interactContainer {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 50%;
+  background-color: #eee;
+  overflow:auto;
 }
 
 #editorContainer {
-  position: fixed;
-  left: 0;
-  top: 0;
-  display: block;
   height: 100%;
-  width: 40vw;
+  width: 50%;
+  margin: 0;
+  padding: 0;
 }
 
 #editor {
   height: 100%;
   width: 100%;
-  position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 #outputContainer {
-  position: fixed;
-  right: 0;
-  top: 0;
-  display: block;
-  height: 50vh;
-  width: 60vw;
-  border: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #outputFrame {
-  position: relative;
   border: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  margin: 0;
+  padding: 0;
 }
 
-#interactContainer {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  display: block;
-  height: 50vh;
-  width: 60vw;
-  border: 0;
-  background-color: #eee;
-  overflow:auto;
+button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 2px 8px;
+  text-align: center;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: alias;
 }
 
 #table1 #table2 {
@@ -67,6 +137,7 @@ button {
 	text-align: left;
 	padding: 8px;
 }
+
 #myInput {
 	float:left;
 	position: relative;
@@ -75,11 +146,11 @@ button {
 
 .myMarker {
   position:absolute;
-  background:rgba(100,200,100,0.5);
+  background: rgba(100,200,100,0.3);
   z-index:20
 }
 .myMarker1 {
   position:absolute;
-  background:rgba(255, 0, 0, 0.3);
+  background: rgba(255, 0, 0, 0.3);
   z-index:20
 }
