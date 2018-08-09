@@ -296,7 +296,7 @@ function fillTable(list, type, pred){
 			if (type == "document"){
 				cell.innerHTML = '<button id="' + x + '" onclick="deleteRule(this)">Do Not Use</butoon>';
 			} else{
-				cell.innerHTML = '<button id="' + x + '" onclick="unPrioritize(this)">make regular rule</butoon>';
+				cell.innerHTML = '<button id="' + x + '" onclick="unPrioritize2(this)">make regular rule</butoon>';
 			}
 			cell = row.insertCell(y);
 			cell.innerHTML = '<button id="e' + x + '" onclick="lookExamples(this)">Examples</button>';
@@ -306,7 +306,7 @@ function fillTable(list, type, pred){
     }
 }
 
-function unPrioritize(cell){
+function unPrioritize2(cell){
 	let index = cell.id;
     let pred = pred1;
     let table = cell.parentNode.parentNode.parentNode.parentNode.id;
