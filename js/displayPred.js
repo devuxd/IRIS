@@ -4,10 +4,11 @@
  * Shows the top rule for the current prediction to the user.
  */
 function currentPred(){
-	//console.log(storage.sampleFeatures);
+    const featuresElement = $("#features");
+    const predictionElement = $("#prediction");
     if (storage.topPred === ''){
-        $("#features").html("No code prediction can be made.");
-        $("#prediction").html("");
+        featuresElement.html("No code prediction can be made.");
+        predictionElement.html("");
         return;
     }
 
@@ -15,7 +16,7 @@ function currentPred(){
 
     let featureStr;
     let predStr;
-	let size = 0
+	let size = 0;
     for (let key in sample){
         if (sample.hasOwnProperty(key)) {
             if (sample[key] === ""){
@@ -23,7 +24,7 @@ function currentPred(){
             }
             sample[key] = sample[key].toString().toUpperCase();
 		}
-		size ++;
+		size++;
     }
     if (size === 4){
         predStr = "<b>Top Value Prediction: </b> " + storage.topPred.toUpperCase();
@@ -35,8 +36,8 @@ function currentPred(){
         featureStr = "The current tag is " + sample['tag'] + ", the parent tag is " + sample['parentTag'] + ", and the parent attribute-value pair is " + sample['parentAttr/Val'] + ".";
         predStr = "<b>Top Attribute Prediction: </b> " + storage.topPred.toUpperCase();
     }
-    $("#features").html(featureStr);
-    $("#prediction").html(predStr);
+    featuresElement.html(featureStr);
+    predictionElement.html(predStr);
 }
 
 
@@ -60,7 +61,7 @@ function editCurrent(){
         document.getElementById("button1").style.display = "none";
         document.getElementById("button2").style.display = "none";
 		document.getElementById("button3").style.display = "none";
-    } else if (contains(rule, storage.alwaysTag) || contains(rule, storage.alwaysTag) || contains(rule, storage.alwaysTag)){
+    } else if (contains(rule, storage.alwaysTag) || contains(rule, storage.alwaysAttr) || contains(rule, storage.alwaysValue)){
 		document.getElementById("button1").style.display = "none";
         document.getElementById("button2").style.display = "none";
 		document.getElementById("button3").style.display = "block";
@@ -345,7 +346,7 @@ function lookExamples(cell){
 	findNodes(sample, storage.ast);
 	highlightLine();
 }
-
+// TODO: Do we need to clone objects?
 function deleteRule(cell){
     let index = cell.id;
     let pred = pred1;
@@ -489,6 +490,9 @@ function deleteHighlight(){
 		storage.highlights = [];
 }
 
+/*
+    Converts input features and top prediction to a rule object
+ */
 function getRule(){
 	let rule = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
 	let type = storage.predictionCase;

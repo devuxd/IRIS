@@ -9,6 +9,8 @@ var storage = {
     aceEditor: {},
 
 	ast: [],
+    dt: {},
+
 	topPred: "",
 	badExamples: new Set(),
 	examples: new Set(),
@@ -78,6 +80,10 @@ function notSimilar(){
 		}
     }
 	return answer;
+}
+
+function storeDT(dt) {
+    storage.dt[storage.predictionCase] = Object.assign({}, dt);
 }
 
 /**
@@ -177,11 +183,16 @@ function handleKey(key, aceEditor, outputFrame) {
 	storage.ast = syntaxTree;
 	deleteHighlight();
     if (storage.predictionCase !== PREDICTION_CASE.NONE) {
+
+        /*
+            Make predictions using prioritized rules
+         */
+        console.log("~Priority Predictions~");
 		
-        console.log("Converting to Training Table");
+        console.log("Extracting Input Features");
         extractFeatures(syntaxTree, true);
 
-        // Try to make a prediction based on the rules set by the user first
+        console.log("Extracting Priority Training Rules");
         if (storage.predictionCase === PREDICTION_CASE.VALUE){
             storage.trainingTable = storage.alwaysValue.slice();
         } else if (storage.predictionCase === PREDICTION_CASE.TAG){
@@ -191,51 +202,56 @@ function handleKey(key, aceEditor, outputFrame) {
         }
 	
 		if (storage.trainingTable.length === 1 && notSimilar()){
-				prediction = "";
-				multiplePred(prediction, storage.sampleFeatures);
+            console.log("Single Rule Not Useable");
+/*            prediction = "";
+            multiplePred(prediction, storage.sampleFeatures);*/
 		} else if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
 			console.log("Building DT");
 			let decisionTree = getDT();
+			storeDT(decisionTree);
 
 			console.log("Making Prediction");
-			console.log(storage.sampleFeatures);
 			let prediction = predicts(decisionTree, storage.sampleFeatures);
 			multiplePred(prediction, storage.sampleFeatures);
 
             // If there's multiple parentAttr/Val pairs we have more features for prediction
             for (let sampleFeatures of storage.sampleFeaturesExtra) {
-                console.log(sampleFeatures);
                 let prediction = predicts(decisionTree, sampleFeatures);
                 multiplePred(prediction, sampleFeatures);
             }
 		}
 
-		// Now make predictions learned from document
+		/*
+		    Make predictions using regular rules
+		 */
+		console.log("~Standard Predictions~");
+
+		console.log("Extracting Input/Training Features");
 		storage.trainingTable = [];
 		extractFeatures(syntaxTree, true);
 			
 		if (storage.trainingTable.length === 1 && notSimilar()){
-			prediction = "";
-			multiplePred(prediction, storage.sampleFeatures);
+            console.log("Single Rule Not Useable");
+			/*prediction = "";
+			multiplePred(prediction, storage.sampleFeatures);*/
 		} else if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
 
 			console.log("Building DT");
 			let decisionTree = getDT();
+            storeDT(decisionTree);
 
 			console.log("Making Prediction");
-            console.log(storage.sampleFeatures);
 			let prediction = predicts(decisionTree, storage.sampleFeatures);
 			multiplePred(prediction, storage.sampleFeatures);
 
 			// If there's multiple parentAttr/Val pairs we have more features for prediction
             for (let sampleFeatures of storage.sampleFeaturesExtra) {
-                console.log(sampleFeatures);
                 let prediction = predicts(decisionTree, sampleFeatures);
                 multiplePred(prediction, sampleFeatures);
             }
-
-
 		}
+
+		// TODO: Is this perhaps different from completers top?
 		if (storage.predictionSet.size !== 0){
 			storage.topPred = Array.from(storage.predictionSet)[0];
 		}
