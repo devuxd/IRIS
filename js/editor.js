@@ -19,7 +19,7 @@ var storage = {
 	alwaysTag: [], // Rules for predicting tags 
  	alwaysAttr: [], // Rules for predicting attributes 
 	alwaysValue: [], // Rules for predicting values
-	justTable: false
+	justTable: false    // TODO: This may be redundant with updateSample parameter of extractSample
 };
 
 /*
@@ -111,11 +111,9 @@ $(document).ready(function() {
 			enableSnippets: true,
 			enableLiveAutocompletion: true,
 		});
-        // aceEditor.onPaste = function() { return "";};
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
                 if (aceEditor.isFocused()) {
-					// if (e.key === 'Control' && prevKey === 'Shift') aceEditor.onPaste = function(text, event) { this.commands.exec("paste", this, {text: text, event: event});};
                     handleKey(e.key, aceEditor, outputFrame);
                     if (((e.key.length === 1 && /[\w"'< ]/.test(e.key)) || e.key === ',' && prevKey === 'Shift' || e.key === 'Backspace') && storage.predictionCase !== PREDICTION_CASE.NONE) {
                         aceEditor.commands.byName.startAutocomplete.exec(aceEditor);
@@ -253,8 +251,8 @@ function handleKey(key, aceEditor, outputFrame) {
 
 		// TODO: Is this perhaps different from completers top?
 		if (storage.predictionSet.size !== 0){
-			storage.topPred = Array.from(storage.predictionSet)[0];
-		}
+            storage.topPred = Array.from(storage.predictionSet)[0];
+        }
     }
     currentPred();
     console.log('---------------------------');

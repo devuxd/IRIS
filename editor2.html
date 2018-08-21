@@ -14,14 +14,15 @@
 		<script type="text/javascript" src="js/lib/src/ext-language_tools.js"></script>
 		<script type="text/javascript" src="js/lib/himalaya.js"></script>
 		<script type="text/javascript" src="js/lib/himalaya-whitespace.js"></script>
+		<script type="text/javascript" src="js/util.js"></script>
 
 		<!-- Project Scripts -->
 		<script type="text/javascript" src="js/tokenization.js"></script>
-		<script type="text/javascript" src="js/editor.js"></script>
-		<script type="text/javascript" src="js/ast.js"></script>
-		<script type="text/javascript" src="js/id3.js"></script>
-		<script type="text/javascript" src="js/dt.js"></script>
-		<script type="text/javascript" src="js/displayPred.js"></script>		
+		<script type="text/javascript" src="js/ast2.js"></script>
+		<script type="text/javascript" src="js/id32.js"></script>
+		<script type="text/javascript" src="js/dt2.js"></script>
+		<script type="text/javascript" src="js/displayPred2.js"></script>
+		<script type="text/javascript" src="js/editor2.js"></script>
 		
 	</head>
 
@@ -32,33 +33,33 @@
 				<div id="editor"></div>
 			</div>
 
-			<div id="interactContainer" style="font-family:Arial,sans-serif">
-				<h2 style="text-align:center">Interactive Rules Interface</h2>
-				
-				<div id ="main menu">
-					<div id="pred" style="padding-right: 3%">
-						<p id="features" style="text-align:center"></p>
-						<p id="prediction" style="text-align:center"></p>
-					</div>
-					<div id="options" style="padding-left: 3%">
+			<div id="interactContainer">
+				<h2 class="center">Interactive Rules Interface</h2>
+				<div class="center">
+					<p id="currentConditions"></p>
+					<p id="currentPrediction"></p>
+				</div>
+
+				<div id="mainMenu" class="pad">
 						<label for="button">Edit current prediction rule</label>
 						<button id="button" onclick="editCurrent()">Go</button><br/><br/>
 						<label for = "existingRules">View/edit prediction rules for:</label>
 						<select id="existingRules">
-							<option value="tag">Tag</option>
-							<option value="attr">Attribute</option>
-							<option value="val">Value</option>
-						</select> <button id="rulesButton" onclick="existingRules()">Go</button><br/><br/>
+							<option id="tag_existing" value="tag">Tag</option>
+							<option id="attribute_existing" value="attribute">Attribute</option>
+							<option id="value_existing" value="value">Value</option>
+						</select>
+						<button id="rulesButton" onclick="existingRules()">Go</button><br/><br/>
 						<label for = "addNewRule">Add new prediction rule for:</label>
 						<select id="addNewRule">
-							<option value="tag">Tag</option>
-							<option value="attr">Attribute</option>
-							<option value="value">Value</option>
-						</select> <button id="addButton" onclick="addNew()">Go</button>
-					</div>
+							<option id="tag_new" value="tag">Tag</option>
+							<option id="attribute_new" value="attribute">Attribute</option>
+							<option id="value_new" value="value">Value</option>
+						</select>
+						<button id="addButton" onclick="addNew()">Go</button>
 				</div>
 				
-				<div id ="current prediction" style="padding-left: 3%">
+				<div id ="current prediction" class="pad">
 					<button id="prioritizeCurrentRule" onclick="include()">Prioritize rule</button><br/>
 					<button id="blacklistCurrentRule" onclick="notInclude()">Blacklist rule</button><br/>
 					<button id="deleteCurrentPrioritizedRule" onclick="unPrioritize()">Delete from Prioritized list</button><br/>
@@ -66,23 +67,22 @@
 					<button onclick="mainMenu()">Main Menu</button>
 				</div>
 				
-				<div id ="existing rules" style="padding-left: 3%">
+				<div id ="existing rules" class="pad">
 					<span><button onclick="mainMenu()">Main Menu</button><input type="text" id="myInput" onkeyup="filter()" placeholder="Type prediction..."></span>
 					<br/>
-					<p>Rules prioritized by interactions:</p>
-					<table id="table1" width="750" border="1">
+					<p>Priority Patterns:</p>
+					<table id="whitelistTable">
 					</table>
-					<p>Patterns learned automatically:</p>
-					<table id="table2" width="750" border="1">
-					</table>
+					<p>Standard Patterns:</p>
+					<table id="standardTable"></table>
 				</div>
 				
-				<div id ="add new rule" style="padding-left: 3%">
+				<div id ="add new rule" class="pad">
 					<div id="0">Enter new prediction rule</div><br/>
 					<div id="1"><label for="parentTag">Parent Tag:</label><input id="parentTag" type="text"></div><br/>
-					<div id="2"><label for="parentAttr/Val">Parent Attribute-Value Pair:</label><input id="parentAttr/Val" type="text"></div><br/>
+					<div id="2"><label for="parentAttributeValue">Parent Attribute-Value Pair:</label><input id="parentAttributeValue" type="text"></div><br/>
 					<div id="3"><label for="tag">Tag:</label><input id="tag" type="text"></div><br/>
-					<div id="4"><label for="attr">Attribute:</label><input id="attr" type="text"></div><br/>
+					<div id="4"><label for="attribute">Attribute:</label><input id="attribute" type="text"></div><br/>
 					<div id="5"><label for="value">Value:</label><input id="value" type="text"></div>
 					<div id="newNotValid">Invalid Rule - Are you missing a feature entry?</div>
 					<button id="addRule" onclick="addRule()">Add</button><br/><br/>

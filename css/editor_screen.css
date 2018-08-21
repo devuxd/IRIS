@@ -1,3 +1,7 @@
+/*
+  Scrollbar Styling
+ */
+
 body::-webkit-scrollbar {
   width: 15px;
 }
@@ -54,9 +58,7 @@ body::-webkit-scrollbar-thumb:window-inactive {
 
 
 /*
-
-
-
+  Content Styling
  */
 
 html {
@@ -87,14 +89,15 @@ body {
   right: 0;
   bottom: 0;
   height: 100%;
-  width: 50%;
+  width: 52%;
   background-color: #eee;
   overflow:auto;
+  font-family:Arial,sans-serif;
 }
 
 #editorContainer {
   height: 100%;
-  width: 50%;
+  width: 48%;
   margin: 0;
   padding: 0;
 }
@@ -121,6 +124,15 @@ body {
   padding: 0;
 }
 
+.center {
+  text-align:center;
+}
+
+.pad {
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
 button {
   background-color: #4CAF50;
   border: none;
@@ -132,10 +144,26 @@ button {
   cursor: alias;
 }
 
-#table1 #table2 {
-  border: 3px solid #ddd;
+table {
   text-align: left;
-  padding: 8px;
+  border-collapse: collapse;
+  width: 97%;
+/*  padding: 8px;*/
+}
+
+td {
+  border: 1px solid black;
+  white-space:nowrap;
+}
+
+tr:nth-child(odd) {
+  background-color: white;
+}
+
+tr:first-child {
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
 }
 
 #myInput {

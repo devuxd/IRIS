@@ -11,7 +11,7 @@ var id3 = function(_s,target,features){
     }
     if(features.length === 0){
         //console.log("returning the most dominate feature!!!");
-        var topTarget = mostCommon(_s.pluck(target)).join(" // ");  // Combines multiple predictions into a string
+        var topTarget = mostCommon(_s.pluck(target)).join(" // ");  // Combines multiple predictions into a string // TODO Change this
         return {type:"result", val: topTarget, name: topTarget, alias: topTarget+randomTag()};
     }
     var bestFeature = maxGain(_s,target,features);
@@ -32,6 +32,7 @@ var id3 = function(_s,target,features){
 
 var predicts = function(id3Model,sample) {
     var root = id3Model;
+    let path = {};
     while(root.type !== "result") {
         var attr = root.name;
         var sampleVal = sample[attr];
@@ -43,7 +44,7 @@ var predicts = function(id3Model,sample) {
         }
         root = childNode.child;
     }
-    return root.val;
+    return {prediction:root.val, path:path};
 };
 
 

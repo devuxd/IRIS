@@ -124,7 +124,7 @@ function extractSample(parentTag, parentAttrVal) {
         let indexAssign = storage.fragment.lastIndexOf("=");
         let run = true;
         let i = indexAssign;
-        let state = "assign"
+        let state = "assign";
         while (run && --i >= 0) {
             let chr = storage.fragment.substring(i,i+1);
             if (chr.match(/[A-z]/)) {
