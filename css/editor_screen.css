@@ -126,11 +126,34 @@ body {
 
 .center {
   text-align:center;
+  padding: 0 2px 0 2px;
 }
 
 .pad {
   padding-left: 3%;
   padding-right: 3%;
+}
+
+.hide {
+  display: none;
+}
+
+.invis {
+  visibility: hidden;
+}
+
+.expandH {
+  width: 99%;
+}
+
+.uniqueCondition {
+  background-color: white;
+}
+
+.sameCondition {
+  background-color: #eeeeee;
+  color: gray;
+
 }
 
 button {
@@ -144,26 +167,39 @@ button {
   cursor: alias;
 }
 
+button[disabled] {
+  background-color: rgba(211, 211, 211, 100);
+  cursor: not-allowed;
+}
+
+.example {
+  cursor: help;
+}
+
+td button {
+  line-height: 1;
+  padding: 5px;
+}
+
 table {
   text-align: left;
   border-collapse: collapse;
-  width: 97%;
-/*  padding: 8px;*/
+  width: 100%;
+  font-size: small;
+  margin: 15px 0 15px 0;
 }
 
 td {
   border: 1px solid black;
   white-space:nowrap;
-}
-
-tr:nth-child(odd) {
-  background-color: white;
+  padding: 1px 5px 1px 5px;
 }
 
 tr:first-child {
   background-color: #4CAF50;
   color: white;
   text-align: center;
+  font-size: medium;
 }
 
 #myInput {

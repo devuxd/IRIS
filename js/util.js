@@ -7,8 +7,8 @@ function Rule(inputs, prediction) {
     this.getPrediction = function() {return this.prediction};
     this.getPredictionCase = function() {return Object.keys(this.prediction)[0]};
     this.getRule = function() {return {...this.inputs, ...this.prediction}};
-    this.equalsRule = function(rule) {
-        return kvpEquals(this.getRule(),rule.getRule());
+    this.equalsRule = function(rule, strictEquality) {
+        return kvpEquals(this.getRule(),rule.getRule(), strictEquality);
     }
 }
 
@@ -37,8 +37,8 @@ function toPlaintext(ruleComponent, isConditions) {
             const value = ruleComponent[key];
             switch(key) {
                 case 'parentTag': if(value===''){break;} hasParentTag = true; parentHandler[key] = value; break;
-                case 'parentAttributeValue': if(value===''){break;} hasParentAttributeValue = true; parentHandler[key] = value; break;
-                case 'tag': hasTag = true; if(value===''){break;} elementHandler[key] = value; break;
+                case 'parentAttributeValue': if(value===''){break;} hasParentAttributeValue = true;  parentHandler[key] = value; break;
+                case 'tag': if(value===''){break;} hasTag = true;  elementHandler[key] = value; break;
                 case 'attribute': if(value===''){break;} hasAttribute = true; elementHandler[key] = value; break;
             }
         }
@@ -51,36 +51,38 @@ function toPlaintext(ruleComponent, isConditions) {
                 parentConditions = ('<' + parentHandler.parentTag + '>');
             } else {
                 let parentAttributeValue = parentHandler.parentAttributeValue.replace("="," = '")+"'";
-                parentConditions = ('<*** ' + parentAttributeValue + '>');
+                parentConditions = ('<tag ' + parentAttributeValue + '>');
             }
         }
 
         if (!_.isEmpty(elementHandler)) {
             if (hasTag && hasAttribute) {
-                elementConditions = ('<' + elementHandler.tag + ' ' + elementHandler.attribute + '>');
+                elementConditions = ('<' + elementHandler.tag + ' ' + elementHandler.attribute);
             } else if (hasTag) {
-                elementConditions = ('<' + elementHandler.tag + '>');
+                elementConditions = ('<' + elementHandler.tag);
             } else {
-                elementConditions = ('<*** ' + elementHandler.attribute + '>');
+                elementConditions = ('<tag ' + elementHandler.attribute);
             }
         }
 
-        let plaintext = 'IF: ';
+        let plaintext = '';
         if (!_.isEmpty(parentHandler) && !_.isEmpty(elementHandler)) {
-            plaintext += 'Parent ' + parentConditions;
+            plaintext += 'Parent: ' + parentConditions;
             plaintext += ' AND ';
-            plaintext += 'Element ' + elementConditions;
+            plaintext += 'Element: ' + elementConditions;
         } else if (!_.isEmpty(parentHandler)) {
-            plaintext += 'Parent ' + parentConditions;
+            plaintext += 'Parent: ' + parentConditions;
+        } else if (!_.isEmpty(elementHandler)) {
+            plaintext += 'Element: ' + elementConditions;
         } else {
-            plaintext += 'Element ' + elementConditions;
+            plaintext += 'Parent: none'
         }
         return _.escape(plaintext);
 
     } else {
         const predictionCase = Object.keys(ruleComponent)[0];
         const prediction = ruleComponent[predictionCase];
-        return 'THEN: ' + prediction;
+        return prediction;
     }
 }
 
@@ -90,8 +92,8 @@ function toPlaintext(ruleComponent, isConditions) {
  */
 function whitelist(rule) {
     const relevantWhitelist = storage.whitelist[rule.getPredictionCase()];
-    if (containsRule(rule, relevantWhitelist)) {
-        alert('Rule is already whitelisted.');
+    if (containsRule(rule, relevantWhitelist, true)) {
+        alert('Error: Rule is already whitelisted.');
     } else {
         relevantWhitelist.push(rule);
     }
@@ -103,8 +105,8 @@ function whitelist(rule) {
  */
 function blacklist(rule) {
     const relevantBlacklist = storage.blacklist[rule.getPredictionCase()];
-    if (contains(rule, relevantBlacklist)) {
-        alert('Rule is already blacklisted.');
+    if (containsRule(rule, relevantBlacklist, true)) {
+        alert('Error: Rule is already blacklisted.');
     } else {
         relevantBlacklist.push(rule);
     }
@@ -119,7 +121,7 @@ function unWhitelist(rule) {
     const relevantWhitelist = storage.whitelist[rule.getPredictionCase()];
     for (let i = 0; i < relevantWhitelist.length; i++) {
         const whitelistRule = relevantWhitelist[i];
-        if (whitelistRule.equalsRule(rule)) {
+        if (whitelistRule.equalsRule(rule, true)) {
             relevantWhitelist.splice(i, 1);
             return;
         }
@@ -127,9 +129,26 @@ function unWhitelist(rule) {
     alert('Error: Rule not found on whitelist.');
 }
 
-function containsRule(rule, list){
+/*
+    What: Removes rule from blacklist
+    How: Uses deep equality to find and remove the first match
+    @param {Rule} rule - Rule to be un-whitelisted
+ */
+function unBlacklist(rule) {
+    const relevantBlacklist = storage.blacklist[rule.getPredictionCase()];
+    for (let i = 0; i < relevantBlacklist.length; i++) {
+        const blacklistRule = relevantBlacklist[i];
+        if (blacklistRule.equalsRule(rule, true)) {
+            relevantBlacklist.splice(i, 1);
+            return;
+        }
+    }
+    alert('Error: Rule not found on blacklist.');
+}
+
+function containsRule(rule, list, strictEquality){
     for (let i = 0; i < list.length; i++ ){
-        if (rule.equalsRule(list[i])) {
+        if (rule.equalsRule(list[i], strictEquality)) {
             return true;
         }
     }
@@ -137,20 +156,25 @@ function containsRule(rule, list){
 }
 
 /*
-    What: Whether the key-value pairs for the objects are equal
+    What: Whether the key-value pairs for the objects are equal/matched
     How:
-        1. If number of KVPs is different, false
-        2. For each key in a, if value in a and b are different, false
+        1. If strict equality desired AND number of KVPs is different, false
+        2. For each key in one, if value in that and other are different, false
  */
-function kvpEquals(obj1, obj2){
+function kvpEquals(obj1, obj2, strictEquality){
+    let obj1First = true;
     let a = Object.getOwnPropertyNames(obj1);
     let b = Object.getOwnPropertyNames(obj2);
-    if (a.length !== b.length) {
+    if (strictEquality && (a.length !== b.length)) {
         return false;
     }
-    for (let i = 0; i < a.length; i++) {
-        const name = a[i];
-        if (obj1[name] !== obj2[name]) {
+    if (!strictEquality) obj1First = a.length <= b.length;
+    const objFirst = obj1First ? obj1 : obj2;
+    const objSecond = obj1First ? obj2 : obj1;
+    const props = obj1First ? a : b;
+    for (let i = 0; i < props.length; i++) {
+        const name = props[i];
+        if (objFirst[name] !== objSecond[name]) {
             return false;
         }
     }

@@ -7,11 +7,11 @@ var id3 = function(_s,target,features){
     var targets = _.unique(_s.pluck(target));
     if (targets.length === 1){
         //console.log("end node! "+targets[0]);
-        return {type:"result", val: targets[0], name: targets[0], alias:targets[0]+randomTag() };
+        return {type:"result", val: targets, name: targets, alias:targets+randomTag() };
     }
     if(features.length === 0){
         //console.log("returning the most dominate feature!!!");
-        var topTarget = mostCommon(_s.pluck(target)).join(" // ");  // Combines multiple predictions into a string
+        var topTarget = mostCommon(_s.pluck(target));
         return {type:"result", val: topTarget, name: topTarget, alias: topTarget+randomTag()};
     }
     var bestFeature = maxGain(_s,target,features);
@@ -32,6 +32,7 @@ var id3 = function(_s,target,features){
 
 var predicts = function(id3Model,sample) {
     var root = id3Model;
+    let path = {};
     while(root.type !== "result") {
         var attr = root.name;
         var sampleVal = sample[attr];
@@ -43,7 +44,7 @@ var predicts = function(id3Model,sample) {
         }
         root = childNode.child;
     }
-    return root.val;
+    return {prediction:root.val, path:path};
 };
 
 
@@ -86,11 +87,12 @@ var log2 = function(n){
 /*
 MODIFIED to return the array, instead of just the first element.
 This lets us display multiple predictions, sorted by probability.
+MODIFIED 2: Made unique list
  */
 var mostCommon = function(l){
-   return  _.sortBy(l,function(a){
-	return count(a,l);
-    }).reverse();
+    return _.uniq(_.sortBy(l,function(a){
+        return count(a,l);
+    }).reverse());
 };
 
 var count = function(a,l){
@@ -167,4 +169,4 @@ var calcError = function(samples,model,target){
         }
     });
     return correct/total;
-}
+};

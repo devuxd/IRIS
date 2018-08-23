@@ -6,156 +6,124 @@ parsing HTML --> JSON and removing whitespace.
 @param {CodeFile} codeFile - An object that includes the editor code and cursor position
 @returns {JSON} AST - The Abstract Syntax Tree
  */
-function getAST(codeFile) {
-	return removeWhitespace(himalaya.parse(clean(codeFile)));
+function getAST(codeFile, markSample) {
+	return removeWhitespace(himalaya.parse(clean(codeFile, markSample)));
 }
 
-function extractFeatures(syntaxTree, updateSample) {
-    if (updateSample) storage.sampleFeatures = {};
-    for (let node of syntaxTree) extract(node, '', '', '');
+function extractFeatures(syntaxTree, predictionCase) {
+    for (let node of syntaxTree) extract(node, predictionCase, '', '', '');
 }
 
-function extract(node, parentTag, parentAttr, parentVal) {
+function extract(node, predictionCase, parentTag, parentAttribute, parentValue) {
 
-    let parentAttrVal = parentAttr + '=' + parentVal;
-    if (parentAttrVal === '=') parentAttrVal = '';
+    let parentAttributeValue = parentAttribute + '=' + parentValue;
+    if (parentAttributeValue === '=') parentAttributeValue = '';
     
     if (node.type !== 'element') {
-        if (node.content.includes('<>')) extractSample(parentTag, parentAttrVal);
+        if (node.content.includes('<>')) extractSample(parentTag, parentAttributeValue);
         return;
     }
 
-    let tag = node.tagName;
-    let attr, val;
+    const tag = node.tagName;
 
     if (node.attributes.length > 0) {
-        for (let attribute of node.attributes) {
-            attr = attribute.key;
-            val = attribute.value;
-            val = val === null ? '' : val;
-            addTraining(tag, parentTag, parentAttrVal, attr, val);
-            for (let child of node.children) extract(child, tag, attr, val);
+        for (const attributeValue of node.attributes) {
+            const attribute = attributeValue.key;
+            let value = attributeValue.value;
+            value = value === null ? '' : value;
+            addTraining(predictionCase, tag, parentTag, parentAttributeValue, attribute, value);
+            for (const child of node.children) extract(child, predictionCase, tag, attribute, value);
         }
     } else {
-        attr = '';
-        val = '';
-        addTraining(tag, parentTag, parentAttrVal, attr, val);
-        for (let child of node.children) extract(child, tag, attr, val);
+        const attribute = '';
+        const value = '';
+        addTraining(predictionCase, tag, parentTag, parentAttributeValue, attribute, value);
+        for (const child of node.children) extract(child, predictionCase, tag, attribute, value);
     }
 
 }
 
-function addTraining(tag, parentTag, parentAttrVal, attr, val) {
-    if (['!doctype','html','head','body'].includes(tag)) return;
-    let entry;
-	switch (storage.predictionCase) {
+function addTraining(predictionCase, tag, parentTag, parentAttributeValue, attribute, value) {
+    if (tag === '!doctype') return;
+    let rule = new Rule(null, null);
+	switch (predictionCase) {
         case PREDICTION_CASE.TAG:
-			entry = {'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'tag':tag};
+            rule.setInputs({'parentTag':parentTag, 'parentAttributeValue':parentAttributeValue});
+            rule.setPrediction({'tag':tag});
             break;
         case PREDICTION_CASE.ATTRIBUTE:
-			entry = {'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'attr':attr};
-            break;
+            rule.setInputs({'tag':tag, 'parentTag':parentTag, 'parentAttributeValue':parentAttributeValue});
+            rule.setPrediction({'attribute':attribute});
+			break;
         case PREDICTION_CASE.VALUE:
-			entry = {'tag':tag, 'attr':attr, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'val':val};
-            break;
+            rule.setInputs({'tag':tag, 'attribute':attribute, 'parentTag':parentTag, 'parentAttributeValue':parentAttributeValue});
+            rule.setPrediction({'value':value});
+			break;
     }
-	if (entry !== undefined && !contains(entry, storage.dontUse)){
-		storage.trainingTable.push(entry);
-	}
+    const relevantBlacklist = storage.blacklist[predictionCase];
+    if (!containsRule(rule, relevantBlacklist, false)) storage.trainingTable.push(rule.getRule());
 }
 
-function isEqual(entry1, entry2){
-	var a = Object.getOwnPropertyNames(entry1);
-    var b = Object.getOwnPropertyNames(entry2);
-    if (a.length !== b.length) {
-        return false;
-    }
-    for (var i = 0; i < a.length; i++) {
-        var name = a[i];
-        if (entry1[name] !== entry2[name]) {
-            return false;
-        }
-    }
-	return true;
-}
-
-function contains(x, list){
-	for (var i = 0; i < list.length; i++ ){
-		if (isEqual(x, list[i])){
-			return true;
-		}
-	}
-	return false;
-}
-
-function clean(codeFile) {
+/*
+    What: Removes the code fragment user is currently writing
+    Why: To not interfere parsing into AST
+    @param {CodeFile} codeFile - Contains whole document, and current cursor position
+    @param {Boolean} markSample - Whether to mark the fragment location for input extraction
+ */
+function clean(codeFile, markSample) {
     let lines = codeFile.code.split("\n");
     let text = lines[codeFile.position.row];
-	let newText;
-	if (storage.justTable === true){
-		newText = text.substring(0, codeFile.fragmentStart) + text.substring(codeFile.position.column);   // without < to cursor
-	} else{
-		newText = text.substring(0, codeFile.fragmentStart) + '<>' + text.substring(codeFile.position.column);   // without < to cursor
-    }
+	const sampleMarker = markSample ? "<>" : "";
+    let newText = text.substring(0, codeFile.fragmentStart) + sampleMarker + text.substring(codeFile.position.column);   // without < to cursor
 	storage.fragment = text.substring(codeFile.fragmentStart+1, codeFile.position.column);
     lines[codeFile.position.row] = newText;
     return lines.join("\n");
 }
 
 /*
-Retrieves/stores the input features for the DT, necessary to make a prediction.
-@param parentTag The tag of the parent node of the element being typed
-@param parentAttrVal The attribute/value pair of the parent node of the element being typed
+    What: Finds and stores the inputs to feed into the DT
+    @param parentTag The tag of the parent node of the element being typed
+    @param parentAttributeValue The attribute/value pair of the parent node of the element being typed
  */
+function extractSample(parentTag, parentAttributeValue) {
 
-function extractSample(parentTag, parentAttrVal) {
+    let input;
+    const tag = storage.fragment.split(" ")[0].trim();
 
-    let sampleFeatures;
+    switch (storage.predictionCase) {
+        case PREDICTION_CASE.TAG:
+            input = {'parentTag': parentTag, 'parentAttributeValue': parentAttributeValue};
+            break;
+        case PREDICTION_CASE.ATTRIBUTE:
+            input = {'tag': tag, 'parentTag': parentTag, 'parentAttributeValue': parentAttributeValue};
+            break;
+        case PREDICTION_CASE.VALUE:
+            const attribute = extractAttribute();
+            input = {'tag': tag, 'attribute': attribute, 'parentTag': parentTag, 'parentAttributeValue': parentAttributeValue};
+    }
+    storage.inputs.push(input);
+}
 
-    if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE) {
+/*
+    What: Extracts attribute from the user's code fragment
+    How: Runs backward from assign (=) until it hits text and then a space. Stores the text.
+ */
+function extractAttribute() {
 
-        let tag = storage.fragment.split(" ")[0].trim();
-        sampleFeatures = {'tag': tag, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
-
-    } else if (storage.predictionCase === PREDICTION_CASE.VALUE) {
-        let tag = storage.fragment.split(" ")[0].trim();
-
-        // Tokenizer - runs backwards from = until it hits text and then space
-        let indexAssign = storage.fragment.lastIndexOf("=");
-        let run = true;
-        let i = indexAssign;
-        let state = "assign";
-        while (run && --i >= 0) {
-            let chr = storage.fragment.substring(i,i+1);
-            if (chr.match(/[A-z]/)) {
-                state = "text";
-            } else if (chr === " ") {
-                if (state === "text") {
-                    run = false;
-                }
+    let indexAssign = storage.fragment.lastIndexOf("=");
+    let run = true;
+    let i = indexAssign;
+    let state = "assign";
+    while (run && --i >= 0) {
+        let chr = storage.fragment.substring(i,i+1);
+        if (chr.match(/[A-z]/)) {
+            state = "text";
+        } else if (chr === " ") {
+            if (state === "text") {
+                run = false;
             }
         }
-
-        let attr = storage.fragment.substring(++i, indexAssign).trim();
-
-        sampleFeatures = {'tag': tag, 'attr': attr, 'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
-
-    } else if (storage.predictionCase === PREDICTION_CASE.TAG) {
-
-        sampleFeatures = {'parentTag': parentTag, 'parentAttr/Val': parentAttrVal};
     }
-
-    // If we already have some sample features, that means there's multiple parentAttr/Val pairs
-    if (_.isEmpty(storage.sampleFeatures)) {
-        storage.sampleFeatures = sampleFeatures;
-    } else {
-        let exists = false;
-        for (let s of storage.sampleFeaturesExtra) {
-            if (_.isEqual(sampleFeatures, s)) {
-                exists = true;
-            }
-        }
-        if (!exists) storage.sampleFeaturesExtra.push(sampleFeatures);
-    }
-
+    const attribute = storage.fragment.substring(++i, indexAssign).trim();
+    return attribute;
 }
