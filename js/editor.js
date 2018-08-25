@@ -1,26 +1,23 @@
 var storage = {
 
-    // TODO needed?
     aceEditor: {},
 
-    fragment: '', // Incomplete code currently being written
+    fragment: '', // Incomplete code developer is writing
     predictionCase: PREDICTION_CASE.NONE,
     trainingTable: [],
+    standard: {tag:[], attribute: [], value:[]},
+    whitelist: {tag:[],attribute:[],value:[]},
+    blacklist: {tag:[],attribute:[],value:[]},
     predictions: [],
+    inputs: [],
+    inputPerPrediction: {},
+    topRule: new Rule(null, null),
 
     badExamples: new Set(),
     examples: new Set(),
     highlights: [],
 
-    topRule: new Rule({}, null),
-    inputPerPrediction: {},
-    inputs: [],
     ast: {},
-    standard: {tag:[], attribute: [], value:[]},
-    whitelist: {tag:[],attribute:[],value:[]},
-    blacklist: {tag:[],attribute:[],value:[]},
-   /* cache: {length, }*/
-
 };
 
 function updateOutputFrame(outputFrame, value) {
@@ -48,7 +45,7 @@ function predictFromWhitelist(whitelistRules) {
             }
 
             if (predictions.length > 0) {
-                addPredictions(predictions, whitelistRuleInput); // TODO is this the right order?
+                addPredictions(predictions, whitelistRuleInput, 'priority'); // TODO is this the right order?
             }
         }
     }
@@ -67,14 +64,13 @@ function predictFromDT() {
         if (predictionInfo === null) continue;
         const predictions = predictionInfo.prediction;
         const path = predictionInfo.path;
-        addPredictions(predictions, path);
+        addPredictions(predictions, path, '');
     }
-
 }
 
-function addPredictions(predictions, input){
+function addPredictions(predictions, input, meta){
     for (const prediction of predictions) {
-        storage.predictions.push(prediction);
+        storage.predictions.push({prediction:prediction, meta:meta});
         if (storage.inputPerPrediction[prediction] === undefined) {
             storage.inputPerPrediction[prediction] = input;
         }
@@ -130,6 +126,8 @@ $(document).ready(function() {
     storage.aceEditor = setupEditor();
     let staticWordCompleter = setupCompleter();
     ace.require("ace/ext/language_tools").setCompleters([staticWordCompleter]);
+    loadElements();
+    refreshUI();
 
 	function setupEditor() {
 
@@ -152,7 +150,6 @@ $(document).ready(function() {
                     const key = e.key;
                     if (shouldTriggerTokenization(key)) {
                         handleKey(key, aceEditor, outputFrame);
-                        refreshUI();
                         console.log('---------------------------');
                     }
                     if (shouldTriggerAutocomplete(key, prevKey)) {
@@ -166,7 +163,7 @@ $(document).ready(function() {
                         }
                     }
 					prevKey = key;
-                    updateCurrentRule();
+                    refreshUI();
                     updateOutputFrame(outputFrame, aceEditor.getValue());
                 }
             });
@@ -177,14 +174,12 @@ $(document).ready(function() {
     function setupCompleter() {
         return {
             getCompletions: function (editor, session, pos, prefix, callback) {
-                let rank = storage.predictions.size;
-                callback(null, storage.predictions.map(function (word) {
-/*                    rank--;*/
+                callback(null, storage.predictions.map(function (predictionInfo) {
                     return {
-                        caption: word, // completion displayed
-                        value: word, // completion performed
-/*                        score: 0, // ordering*/
-                        meta: storage.predictionCase // description displayed
+                        caption: predictionInfo.prediction, // completion displayed
+                        value: predictionInfo.prediction, // completion performed
+                        meta: predictionInfo.meta // subtitle displayed
+                        // score: 0, // ordering
                     };
                 }));
             }
@@ -206,6 +201,7 @@ function handleKey(key, aceEditor) {
     storage.trainingTable.length = 0; // Resets training rules
     storage.inputs.length = 0;    // Resets inputs
     storage.predictions.length = 0;  // Resets
+    storage.inputPerPrediction = {};
 	storage.topRule = new Rule(null, null);
 
 	//deleteHighlight();

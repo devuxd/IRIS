@@ -1,64 +1,8 @@
-/*
-  Scrollbar Styling
- */
 
-body::-webkit-scrollbar {
-  width: 15px;
-}
-body::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-}
-body::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background: rgba(100,100,250,0.8);
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-}
-body::-webkit-scrollbar-thumb:window-inactive {
-  background: rgba(100,100,250,0.4);
-}
-
-#editorContainer *::-webkit-scrollbar {
-  width: 10px;
-}
-#editorContainer *::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-}
-#editorContainer *::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background: rgba(240,10,10,0.8);
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-}
-#editorContainer *::-webkit-scrollbar-thumb:window-inactive {
-  background: rgba(240,10,10,0.4);
-}
-
-#interactContainer::-webkit-scrollbar {
-  width: 10px;
-}
-#interactContainer::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-}
-#interactContainer::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background: rgba(76,175,50,0.8);
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-}
-#interactContainer::-webkit-scrollbar-thumb:window-inactive {
-  background: rgba(76,175,50,0.4);
-}
 
 
 /*
-  Content Styling
+  Structure
  */
 
 html {
@@ -124,6 +68,10 @@ body {
   padding: 0;
 }
 
+/*
+  Content
+ */
+
 .center {
   text-align:center;
   padding: 0 2px 0 2px;
@@ -153,39 +101,43 @@ body {
 .sameCondition {
   background-color: #eeeeee;
   color: gray;
+}
 
+.small {
+  font-size: small;
 }
 
 button {
   background-color: #4CAF50;
-  border: none;
+  border: 1px #3C9F40 solid;
   color: white;
-  padding: 2px 8px;
   text-align: center;
   display: inline-block;
   margin: 4px 2px;
   cursor: alias;
+  line-height: 1;
+  padding: 5px;
+  font-size: small;
 }
 
 button[disabled] {
   background-color: rgba(211, 211, 211, 100);
+  border: 1px rgba(195, 195, 195, 100) solid;
   cursor: not-allowed;
+}
+
+select {
+  height: 25px;
 }
 
 .example {
   cursor: help;
 }
 
-td button {
-  line-height: 1;
-  padding: 5px;
-}
-
 table {
   text-align: left;
   border-collapse: collapse;
   width: 100%;
-  font-size: small;
   margin: 15px 0 15px 0;
 }
 
@@ -202,19 +154,75 @@ tr:first-child {
   font-size: medium;
 }
 
-#myInput {
-  float:left;
-  position: relative;
-  left: 50%;
-}
+/*
+  Highlight
+ */
 
 .myMarker {
   position:absolute;
   background: rgba(100,200,100,0.3);
-  z-index:20
+  z-index: 20;
 }
 .myMarker1 {
   position:absolute;
   background: rgba(255, 0, 0, 0.3);
   z-index:20
+}
+
+/*
+  Scrollbar Styling
+ */
+
+body::-webkit-scrollbar {
+  width: 15px;
+}
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+body::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(100,100,250,0.8);
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+body::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(100,100,250,0.4);
+}
+
+#editorContainer *::-webkit-scrollbar {
+  width: 10px;
+}
+#editorContainer *::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+#editorContainer *::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(240,10,10,0.8);
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+#editorContainer *::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(240,10,10,0.4);
+}
+
+#interactContainer::-webkit-scrollbar {
+  width: 10px;
+}
+#interactContainer::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+#interactContainer::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(76,175,50,0.8);
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+#interactContainer::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(76,175,50,0.4);
 }

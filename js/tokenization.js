@@ -33,20 +33,17 @@ const WHITESPACE = new Token(TOKEN_TYPE.SPACE);
 function CodeFile(code, position) {
     this.code = code;
     this.position = position;
-    this.findFragmentStart = function(text) {
-        // "<" most close to the cursor from the left
-        this.fragmentStart = text.substring(0, position.column).lastIndexOf("<");
-    }
+    this.lines = code.split("\n");
+    this.text = this.lines[this.position.row];
+    this.fragmentStart = this.text.substring(0, position.column).lastIndexOf("<");
 }
 
 CodeFile.prototype.tokenize = function() {
-    let text = this.code.split("\n")[this.position.row];
-    this.findFragmentStart(text);
     let tokens = [];
     let i = 0;
     while (i < this.position.column) {
         let token = null;
-        let s = text.substring(i, i+1);
+        let s = this.text.substring(i, i+1);
         switch(s) {
             case "\t":
             case " ":

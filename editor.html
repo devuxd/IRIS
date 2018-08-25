@@ -27,79 +27,81 @@
 	</head>
 
 	<body>
-		<div id="mainContainer">
+		<main id="mainContainer">
 
-			<div id="editorContainer">
+			<section id="editorContainer">
 				<div id="editor"></div>
-			</div>
+			</section>
 
-			<div id="interactContainer">
+			<section id="interactContainer">
 
-				<h2 class="center">Interactive Rules Interface</h2>
+				<header>
+					<h2 class="center">Interactive Rules Interface</h2>
+				</header>
 
-				<div class="center">
-					<p id="currentConditions">No code prediction can be made.</p>
-					<p id="currentPrediction" class="invis">.</p>
-				</div>
+                <hr>
 
-				<div id="mainMenu" class="pad">
-						<label for="button">Edit current prediction rule</label>
-						<button id="button" onclick="editCurrent()">Go</button><br/><br/>
-						<label for = "existingRules">View/edit prediction rules for:</label>
-						<select id="existingRules">
-							<option id="tag_existing" value="tag">Tag</option>
-							<option id="attribute_existing" value="attribute">Attribute</option>
-							<option id="value_existing" value="value">Value</option>
-						</select>
-						<button id="rulesButton" onclick="existingRules()">Go</button><br/><br/>
-						<label for = "addNewRule">Add new prediction rule for:</label>
-						<select id="addNewRule">
-							<option id="tag_new" value="tag">Tag</option>
-							<option id="attribute_new" value="attribute">Attribute</option>
-							<option id="value_new" value="value">Value</option>
-						</select>
-						<button id="addButton" onclick="addNew()">Go</button>
-				</div>
+				<section class="pad">
+					<h3>Current Code Pattern</h3>
+					<table class="small">
+						<tr>
+							<td class="expandH">Conditions</td>
+							<td id="currentPredictionHeader">&#10132;</td>
+							<td>Options</td>
+						</tr>
+						<tr class="uniqueCondition">
+							<td><span id="currentConditions" class="invis">-</span></td>
+							<td><span id="currentPrediction" class="invis">-</span></td>
+							<td><span>
+								<button disabled id="currentExample">&#128269;</button>
+								<button disabled id="currentPromote" onclick="whitelist(storage.topRule)">&#9650;</button>
+								<button disabled id="currentDemote">&#9660;</button>
+							</span></td>
+						</tr>
+					</table>
+				</section>
+
+				<hr>
+
+                <section class="pad" onchange="refreshUI()">
+                    <h3 style="display:inline; line-height:1.8em">All Code Patterns</h3>
+                    <span style="float:right">
+                        <button id="addRuleButton" onclick="addRule()">&#10010; Add</button>
+                        <button id="viewRulesButton" onclick="viewRules()">&#9871; View</button>
+                        <select id="selectPredictionCase">
+                            <option id="tag_existing" value="tag">Tag</option>
+                            <option id="attribute_existing" value="attribute">Attribute</option>
+                            <option id="value_existing" value="value">Value</option>
+                        </select>
+                    </span>
+                </section>
 				
-				<div id ="current prediction" class="pad hide">
-					<button id="prioritizeCurrentRule" onclick="include()">Prioritize rule</button><br/>
-					<button id="blacklistCurrentRule" onclick="notInclude()">Blacklist rule</button><br/>
-					<button id="deleteCurrentPrioritizedRule" onclick="unPrioritize()">Delete from Prioritized list</button><br/>
-					<span id="updateOptions"><label for="updateCurrent">Change the prediction for this rule to:</label> <input id="updateCurrent" type="text"> <button id="updateButton" onclick="updateCurrent()">Update</button><br/><br/><br/></span>
-					<button onclick="mainMenu()">Main Menu</button>
-				</div>
-				
-				<div id ="existing rules" class="pad hide">
-					<span><button onclick="mainMenu()">Main Menu</button><input type="text" id="myInput" onkeyup="filter()" placeholder="Type prediction..."></span>
-					<br/>
-					<p class="center">Priority Patterns:</p>
-					<table id="whitelistTable"></table>
-					<hr>
-					<p class="center">Standard Patterns:</p>
-					<table id="standardTable"></table>
-					<hr>
-					<p class="center">Blacklisted Patterns:</p>
-					<table id="blacklistTable"></table>
-				</div>
+				<section id="allRules" class="pad hide">
+					<p class="pad">Priority Patterns:</p>
+					<table id="whitelistTable" class="small"></table>
+					<p class="pad">Standard Patterns:</p>
+					<table id="standardTable" class="small"></table>
+					<p class="pad">Blacklisted Patterns:</p>
+					<table id="blacklistTable"  class="small"></table>
+				</section>
 
-				<div id ="add new rule" class="pad hide">
-					<div id="0">Enter new prediction rule</div><br/>
-					<div id="1"><label for="parentTag">Parent Tag:</label><input id="parentTag" type="text"></div><br/>
-					<div id="2"><label for="parentAttributeValue">Parent Attribute-Value Pair:</label><input id="parentAttributeValue" type="text"></div><br/>
-					<div id="3"><label for="tag">Tag:</label><input id="tag" type="text"></div><br/>
-					<div id="4"><label for="attribute">Attribute:</label><input id="attribute" type="text"></div><br/>
-					<div id="5"><label for="value">Value:</label><input id="value" type="text"></div>
-					<div id="newNotValid">Invalid Rule - Are you missing a feature entry?</div>
-					<button id="addRule" onclick="addRule()">Add</button><br/><br/>
-					<button onclick="mainMenu()">Main Menu</button>
-				</div>
+				<section id="addRule" class="pad hide">
+					<p class="small">
+						For a rule to be valid, at least one condition AND the prediction value must be provided.
+						Fewer conditions will make the rule more general, while more conditions will make it more narrowly applicable.
+					</p>
+					<table id="newRuleTable" class="small">
+					</table>
+				</section>
 				
-			</div>
+			</section>
 
-		</div>
-		<div id="outputContainer">
+		</main>
+
+		<section id="outputContainer">
 			<iframe id="outputFrame"></iframe>
-		</div>
+		</section>
+
 	</body>
 
 </html>

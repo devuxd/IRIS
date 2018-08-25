@@ -1,173 +1,102 @@
-//All necessary functions for UI. Including functions for editing rules
-
-/**
- *Display the main menu
+/*
+    Setup
  */
-function mainMenu(){
-    document.getElementById("current prediction").style.display = "none";
-    document.getElementById("existing rules").style.display = "none";
-    document.getElementById("add new rule").style.display = "none";
-    document.getElementById("mainMenu").style.display = "block";
-    updateCurrentRule();
+
+const elem = {};
+const newRulePlaceholders = {tag:["<div class = 'content'>", null, '<main>'], attribute:['<nav>','<a','href'], value:["<table id = 'data'>","",]};
+const MODE = Object.freeze({'VIEW':0,'ADD':1});
+let mode = MODE.VIEW;
+
+function loadElements() {
+    elem.currentConditions = document.getElementById('currentConditions');
+    elem.currentPrediction = document.getElementById('currentPrediction');
+    elem.currentPredictionHeader = document.getElementById('currentPredictionHeader');
+    elem.currentExamplesButton = document.getElementById('currentExample');
+    elem.currentPromoteButton = document.getElementById('currentPromote');
+    elem.currentDemoteButton = document.getElementById('currentDemote');
+
+    elem.predictionCaseSelector = document.getElementById('selectPredictionCase');
+    elem.addRuleButton = document.getElementById('addRuleButton');
+    elem.viewRulesButton = document.getElementById('viewRulesButton');
+
+    elem.allRules = document.getElementById('allRules');
+    elem.addRule = document.getElementById('addRule');
+
+    elem.newRuleTable = document.getElementById('newRuleTable');
 }
 
 function refreshUI() {
-    if (document.getElementById("existing rules").style.display === "block") {
-        existingRules();
+    updateCurrentRule();
+    switch(mode) {
+        case MODE.VIEW: viewRules(); break;
+        case MODE.ADD: addRule(); break;
     }
-}
-
-/**
- * Shows the top rule for the current prediction to the user.
- */
-function updateCurrentRule() {
-    const featuresElement = document.getElementById('currentConditions');
-    const predictionElement = document.getElementById('currentPrediction');
-    const topRule = storage.topRule;
-    const topPred = topRule.getPrediction();
-
-    if (topPred === null){
-        featuresElement.innerHTML = 'No code prediction can be made.';
-        predictionElement.innerHTML = '.';
-        predictionElement.style.visibility = 'hidden';
-    } else {
-        featuresElement.innerHTML = toPlaintext(topRule.getInputs(), true);
-        predictionElement.style.visibility = 'visible';
-        predictionElement.innerHTML = toPlaintext(topPred, false);
-    }
-
-    /*
-        Update selected options
-     */
-    for (const predictionCase of ['tag', 'attribute', 'value']) {
-        if (predictionCase === storage.predictionCase) {
-            document.getElementById(predictionCase + '_existing').setAttribute('selected', '');
-            document.getElementById(predictionCase + '_new').setAttribute('selected', '');
-        } else {
-            document.getElementById(predictionCase + '_existing').removeAttribute('selected');
-            document.getElementById(predictionCase + '_new').removeAttribute('selected');
-        }
-    }
-
-}
-
-
-/**
- * Lets the user edit the current prediction
- */
-function editCurrent(){
-	//deleteHighlight();
-    if (storage.topRule.getPrediction() === null) {
-        alert('No code prediction available.');
-        return;
-    }
-	document.getElementById("current prediction").style.display = "block";
-    document.getElementById("mainMenu").style.display = "none";
-
-    const relevantWhitelist = storage.whitelist[storage.topRule.getPredictionCase()];
-    if (containsRule(storage.topRule, relevantWhitelist, false)){
-		document.getElementById("prioritizeCurrentRule").style.display = "none";
-        document.getElementById("blacklistCurrentRule").style.display = "none";
-		document.getElementById("deleteCurrentPrioritizedRule").style.display = "block";
-
-	} else {
-		document.getElementById("prioritizeCurrentRule").style.display = "block";
-        document.getElementById("blacklistCurrentRule").style.display = "block";
-		document.getElementById("deleteCurrentPrioritizedRule").style.display = "none";
-	}
-
-    document.getElementById("updateOptions").style.display = "block";
-}
-
-/**
- * Adds rule to priority list via edit current menu
- */
-function include(){
-    whitelist(storage.topRule);
-    mainMenu();
-}
-
-/**
- * Blacklists rule via edit current menu
- * Gets rule from topPred and corresponding input features
- */
-function notInclude(){
-    blacklist(storage.topRule);
-    mainMenu();
 }
 
 /*
-    Deletes rule from whitelist via edit current menu
+    Current Rule
  */
-function unPrioritize(){
-	unWhitelist(storage.topRule);
-	mainMenu();
-}
 
-/*// *
-//  * Checks for inconsistency between rules
-//  * returns true if a rule contradicts one in the array
-function  checksRule(pred, array, rule){
-    let valid = true;
-    for (let i = 0; i < array.length; i++){
-        if (contradicts(pred, rule, array[i])){
-            valid = false;
+function updateCurrentRule() {
+
+    const topRule = storage.topRule;
+    const topPrediction = topRule.getPrediction();
+
+    if (topPrediction === null){
+        elem.currentPrediction.style.visibility = 'hidden';
+        elem.currentPredictionHeader.innerHTML = toPredictionHeader('');
+        elem.currentConditions.style.visibility = 'hidden';
+        for (const button of [elem.currentExamplesButton, elem.currentPromoteButton, elem.currentDemoteButton]) {
+            button.setAttribute('disabled', '');
+        }
+
+    } else {
+        elem.currentConditions.innerHTML = toPlaintext(topRule.getInputs(), true);
+        elem.currentPrediction.innerHTML = toPlaintext(topPrediction, false);
+        elem.currentPredictionHeader.innerHTML = toPredictionHeader(topRule.getPredictionCase());
+        elem.currentConditions.style.visibility = 'visible';
+        elem.currentPrediction.style.visibility = 'visible';
+
+        elem.currentExamplesButton.removeAttribute('disabled');
+        elem.currentDemoteButton.removeAttribute('disabled');
+        const relevantWhitelist = storage.whitelist[topRule.getPredictionCase()];
+        const isWhitelisted = containsRule(topRule, relevantWhitelist, false);
+        if (isWhitelisted) {
+            elem.currentDemoteButton.onclick = function() {
+                unWhitelist(topRule);
+            };
+        } else {
+            elem.currentDemoteButton.onclick = function () {
+                blacklist(topRule);
+            };
+            elem.currentPromoteButton.removeAttribute('disabled');
         }
     }
-    return valid;
-}
 
-// *
-//  * Returns true if 2 rules contradict each other based on the target feature.
-//  * A contradiction is defined as having equivalent input features and different prediction value
-function contradicts(pred, rule1, rule2){
-    let contradicts = false;
-    if (pred === 'tag'){
-        if (rule1['parentTag'] === rule2['parentTag'] && rule1['parentAttr/Val'] === rule2['parentAttr/Val'] && rule1['tag'] !==rule2['tag']){
-            contradicts = true;
-        }
-    }else if (pred === 'attr'){
-        if (rule1['parentTag'] === rule2['parentTag'] && rule1['parentAttr/Val'] === rule2['parentAttr/Val'] && rule1['tag'] === rule2['tag'] && rule1['attr'] !==rule2['attr']){
-            contradicts = true;
-        }
-    }else if (pred === 'val'){
-        if (rule1['parentTag'] === rule2['parentTag'] && rule1['parentAttr/Val'] === rule2['parentAttr/Val'] && rule1['tag'] === rule2['tag'] && rule1['attr'] === rule2['attr'] && rule1['val'] !==rule2['val']){
-            contradicts = true;
+    // Update dropdowns
+    for (const predictionCase of ['tag', 'attribute', 'value']) {
+        if (predictionCase === storage.predictionCase) {
+            document.getElementById(predictionCase + '_existing').setAttribute('selected', '');
+        } else {
+            document.getElementById(predictionCase + '_existing').removeAttribute('selected');
         }
     }
-    return contradicts;
-}*/
 
-
-/**
- * Adds custom rule to the whitelist unless new prediction is empty
- */
-function updateCurrent(){
-    const newPrediction = document.getElementById("updateCurrent").value;
-    if (newPrediction === ''){
-        alert('Invalid prediction value.');
-        return;
-    }
-    const rule = Object.assign({}, storage.topRule);    // Clones rule to not modify original
-    const prediction = {};
-    prediction[rule.getPredictionCase()] = newPrediction;
-    rule.setPrediction(prediction);
-    whitelist(rule);
-    mainMenu();
 }
 
-/**
- *Display all existing rules for a prediction scenario.
- * Fills priority table with all priority rules for scenario
- * Fills regular table with all regular training rules...
+/*
+    All Rules
  */
-function existingRules() {
 
-    const predictionCase = document.getElementById("existingRules").options[document.getElementById("existingRules").selectedIndex].value;
+function viewRules() {
+    mode = MODE.VIEW;
 
+    // View Whitelist
+    const predictionCase = elem.predictionCaseSelector.options[elem.predictionCaseSelector.selectedIndex].value;
     const relevantWhitelist = storage.whitelist[predictionCase];
-    fillTable(relevantWhitelist, 'whitelistTable');
+    fillTable(relevantWhitelist, 'whitelistTable', predictionCase);
 
+    // View Standard
     const codeFile = new CodeFile(storage.aceEditor.getValue(), storage.aceEditor.getCursorPosition());
     const ast = getAST(codeFile, false);
     storage.trainingTable.length = 0;
@@ -176,16 +105,19 @@ function existingRules() {
     const relevantList = storage.standard[predictionCase];
     relevantList.length = 0;
     getRulesFromDT(decisionTree, predictionCase);
-    fillTable(relevantList, 'standardTable');
+    fillTable(relevantList, 'standardTable', predictionCase);
 
+    // View Blacklist
     const relevantBlacklist = storage.blacklist[predictionCase];
-    fillTable(relevantBlacklist, 'blacklistTable');
+    fillTable(relevantBlacklist, 'blacklistTable', predictionCase);
 
-    document.getElementById("mainMenu").style.display = "none";
-    document.getElementById("existing rules").style.display = "block";
+    elem.addRule.style.display = 'none';
+    elem.allRules.style.display = 'block';
+    elem.addRuleButton.removeAttribute('disabled');
+    elem.viewRulesButton.setAttribute('disabled','');
 }
 
-function fillTable(list, table){
+function fillTable(list, table, predictionCase){
     const tableElem = document.getElementById(table);
     tableElem.innerHTML = '';
 
@@ -211,31 +143,31 @@ function fillTable(list, table){
         cell.setAttribute('class', 'expandH');
 
         cell = row.insertCell(y++);
-        cell.innerHTML = i > 0 ? toPlaintext(rule.getPrediction(), false): 'Prediction';
+        cell.innerHTML = i > 0 ? toPlaintext(rule.getPrediction(), false): toPredictionHeader(predictionCase);
 
         const ruleInfo = {rule: rule, table:table};
         let options = [];
         options[0] = document.createElement('button');
         options[0].innerHTML = '&#128269;';
         options[0].setAttribute('class', 'example');
-        options[0].addEventListener('click', function(){
+        options[0].onclick = function(){
             viewRulesExample(ruleInfo);
-        });
+        };
 
 
         options[1] = document.createElement('button');
         options[1].innerHTML = '&#9650;';
         if (table === 'whitelistTable') options[1].setAttribute('disabled','');
-        options[1].addEventListener('click', function(){
+        options[1].onclick = function(){
             viewRulesPromote(ruleInfo);
-        });
+        };
 
         options[2] = document.createElement('button');
         options[2].innerHTML = '&#9660;';
         if (table === 'blacklistTable') options[2].setAttribute('disabled','');
-        options[2].addEventListener('click', function(){
+        options[2].onclick = function(){
             viewRulesDemote(ruleInfo);
-        });
+        };
 
         let span = document.createElement('span');
         for (const option of options) {
@@ -262,7 +194,7 @@ function viewRulesDemote(ruleInfo){
             blacklist(rule);
             break;
     }
-	existingRules();
+	refreshUI();
 }
 
 function viewRulesPromote(ruleInfo) {
@@ -275,114 +207,116 @@ function viewRulesPromote(ruleInfo) {
             whitelist(rule);
             break;
     }
-    existingRules();
+    refreshUI();
 }
 
 function viewRulesExample(ruleInfo) {
     const input = ruleInfo.rule.getInputs();
     findNodes(input, storage.ast);
     highlightLine();
-    existingRules();
+    refreshUI();
 }
 
-/**
- * Shows the relevant features for the user to add a new rule
+/*
+    Add Rule
  */
-function addNew(){
-	//deleteHighlight();
-    document.getElementById("mainMenu").style.display = 'none';
-    document.getElementById("add new rule").style.display = 'block';
-    document.getElementById("newNotValid").style.display = 'none';
-    let type = document.getElementById("addNewRule").options[document.getElementById("addNewRule").selectedIndex].value;
-	document.getElementById("0").style.display = 'block';
-	document.getElementById("1").style.display = 'block';
-    document.getElementById("2").style.display = 'block';
-    document.getElementById("3").style.display = 'block';
-    if (type === "tag"){
-        document.getElementById("4").style.display = 'none';
-        document.getElementById("5").style.display = 'none';
-    } else if (type === "attr"){
-        document.getElementById("4").style.display = 'block';
-        document.getElementById("5").style.display = 'none';
-    } else if (type === "value"){
-        document.getElementById("4").style.display = 'block';
-        document.getElementById("5").style.display = 'block';
+
+function addRule() {
+    mode = MODE.ADD;
+
+    const fields = [];
+    const predictionCase = elem.predictionCaseSelector.options[elem.predictionCaseSelector.selectedIndex].value;
+    switch (predictionCase) {
+        case PREDICTION_CASE.VALUE:
+            fields.push({header:'Attribute',placeholder:'width',class:'attribute'});
+        case PREDICTION_CASE.ATTRIBUTE:
+            fields.push({header:'Tag',placeholder:'img',class:'tag'});
+        case PREDICTION_CASE.TAG:
+            fields.push({header:'Parent Attribute-Value',placeholder:'class=header',class:'parentAttributeValue'});
+            fields.push({header:'Parent Tag',placeholder:'section',class:'parentTag'});
+            break;
     }
-}
+    fields.reverse();
+    const predictionPlaceholders = {tag: 'img', attribute:'width', value:'250px'};
+    fields.push({header:toPredictionHeader(predictionCase),placeholder:predictionPlaceholders[predictionCase],class:predictionCase});
+    const table = elem.newRuleTable;
+    table.innerHTML = '';
+    const tableHeaderRow = table.insertRow();
+    const tableBodyRow = table.insertRow();
+    tableBodyRow.setAttribute('class', 'uniqueCondition');
 
-/**
- * Adds the new rule to the respective always use array,
- * only if it's not on the dontUse array or alwaysArray
- * so rule cannot be blacklisted or whitelisted already
- */
-function addRule(){
-    let target = document.getElementById("addNewRule").value;
-    let rule;
-    if (target === "tag"){
-        rule = {'parentTag':document.getElementById("parentTag").value, 'parentAttr/Val':document.getElementById("parentAttr/Val").value, 'tag':document.getElementById("tag").value};
-        if (!contains(rule, storage.dontUse) && (!contains(rule, storage.alwaysTag)) && checksRule('tag', storage.alwaysTag, rule) && rule['tag'] !==""){
-            storage.alwaysTag.push(rule);
-            console.log(storage.alwaysTag);
-        }else{
-            document.getElementById("newNotValid").style.display = "block";
-            return;
-        }
-    } else if (target === "attr"){
-        rule = {'tag':document.getElementById("tag").value, 'parentTag':document.getElementById("parentTag").value, 'parentAttr/Val':document.getElementById("parentAttr/Val").value, 'attr':document.getElementById("attr").value};
-        if (!contains(rule, storage.dontUse) && (!contains(rule, storage.alwaysAttr)) && checksRule('attr', storage.alwaysAttr, rule) && rule['tag'] !=="" && rule['attr'] !==""){
-            storage.alwaysAttr.push(rule);
-            console.log(storage.alwaysAttr);
-        }else{
-            document.getElementById("newNotValid").style.display = "block";
-            return;
-        }
-    } else if (target === "value"){
-        rule = {'tag':document.getElementById("tag").value, 'attr':document.getElementById("attr").value, 'parentTag':document.getElementById("parentTag").value, 'parentAttr/Val':document.getElementById("parentAttr/Val").value, 'val':document.getElementById("value").value};
-        if (!contains(rule, storage.dontUse) && (!contains(rule, storage.alwaysValue)) && checksRule('val', storage.alwaysValue, rule) && rule['tag'] !=="" && rule['attr'] !=="" && rule['val'] !==""){
-            storage.alwaysValue.push(rule);
-            console.log(storage.alwaysValue);
-        }else{
-            document.getElementById("newNotValid").style.display = "block";
-            return;
-        }
+    let j, cell;
+    for (j = 0; j < fields.length; j++) {
+        const field = fields[j];
+        cell = tableHeaderRow.insertCell(j);
+        cell.innerHTML = field.header;
+        cell = tableBodyRow.insertCell(j);
+        const inputField = document.createElement('input');
+        inputField.setAttribute('placeholder', field.placeholder);
+        inputField.setAttribute('class',field.class);
+        inputField.onkeyup = function () {
+            validateNewRule(tableBodyRow, inputField);
+        };
+        cell.appendChild(inputField);
     }
-    mainMenu();
+    cell = tableHeaderRow.insertCell(j);
+    cell.innerHTML = 'Options';
+    const optionsButton = document.createElement('button');
+    optionsButton.setAttribute('disabled','');
+    optionsButton.innerHTML = '&#10010;';
+    optionsButton.onclick = function() {
+        newRule(tableBodyRow);
+    };
+    cell = tableBodyRow.insertCell(j);
+    cell.appendChild(optionsButton);
+
+    elem.allRules.style.display = 'none';
+    elem.addRule.style.display = 'block';
+    elem.viewRulesButton.removeAttribute('disabled');
+    elem.addRuleButton.setAttribute('disabled','');
 }
 
-/**
- * Part of the search engine, narrows down the options when the user starts typing when looking for a rule
- */
-function filter(){
-    let columns = document.getElementById("table2").rows[0].cells.length;
-    let input, filter, table, tr, td, i;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("table1");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[columns - 2];
-        if (td) {
-            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
+function validateNewRule(tableBodyRow, inputField) {
+
+    if (inputField.className === 'parentAttributeValue') {
+        inputField.value = inputField.value.replace(/[ '"]/,'');
+    }
+
+    let valid = false;
+    const cells = tableBodyRow.cells;
+    const prediction = cells[cells.length - 2].children[0].value;
+    if (prediction !== '') {
+        for (let i = 0; i < cells.length - 2; i++) {
+            const entry = cells[i].children[0].value;
+            if (entry !== '') {
+                valid = true;
+                break;
             }
         }
     }
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("table2");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[columns - 2];
-        if (td) {
-            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
+    const optionButton = cells[cells.length - 1].children[0];
+    if (valid) {
+        optionButton.removeAttribute('disabled');
+    } else {
+        optionButton.setAttribute('disabled','');
     }
+}
+
+function newRule(tableBodyRow) {
+    const cells = tableBodyRow.cells;
+    const input = {};
+    for (let i = 0; i < cells.length - 2; i++) {
+        const field = cells[i].children[0];
+        input[field.className] = field.value;
+    }
+    const predictionField = cells[cells.length - 2].children[0];
+    const predictionCase = predictionField.className;
+    const predictionVal = predictionField.value;
+    const prediction = {};
+    prediction[predictionCase] = predictionVal;
+
+    const newRule = new Rule(input, prediction);
+    whitelist(newRule);
 }
 
 function highlightLine(){
@@ -408,29 +342,13 @@ function deleteHighlight(){
 		storage.highlights = [];
 }
 
-/*
-    Converts input features and top prediction to a rule object
- */
-function getRule(){
-	let rule = Object.assign({}, storage.sampleFeaturesMap[storage.topPred]);
-	let type = storage.predictionCase;
-	if (type === PREDICTION_CASE.TAG){
-		rule['tag'] = storage.topPred;
-	} else if (type === PREDICTION_CASE.ATTRIBUTE){
-		rule['attr'] = storage.topPred;
-	} else if (type === PREDICTION_CASE.VALUE){
-		rule['val'] = storage.topPred;
-	}
-	return rule;
-}
-
 function findNodes(rule, syntaxTree){
 	storage.examples = new Set();
 	storage.badExamples = new Set();
 	for (let node of syntaxTree){
 		checkNodes(rule, node, "", "", "");
 	}
-	for (example of storage.badExamples){
+	for (const example of storage.badExamples){
 		if (storage.examples.has(example)){
 			storage.badExamples.delete(example);
 		}

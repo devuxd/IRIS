@@ -12,6 +12,14 @@ function Rule(inputs, prediction) {
     }
 }
 
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function toPredictionHeader(predictionCase) {
+    return '&#10132 ' + capitalizeFirstLetter(predictionCase);
+}
+
 /*
     What: Formats a rule component in plaintext
     @param {Object} ruleComponent - component to be formatted

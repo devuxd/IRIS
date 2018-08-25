@@ -11,10 +11,10 @@ function getAST(codeFile, markSample) {
 }
 
 function extractFeatures(syntaxTree, predictionCase) {
-    for (let node of syntaxTree) extract(node, predictionCase, '', '', '');
+    for (let node of syntaxTree) extract(node, predictionCase, '', '', '', 0    );
 }
 
-function extract(node, predictionCase, parentTag, parentAttribute, parentValue) {
+function extract(node, predictionCase, parentTag, parentAttribute, parentValue, pAVIndex, ) {
 
     let parentAttributeValue = parentAttribute + '=' + parentValue;
     if (parentAttributeValue === '=') parentAttributeValue = '';
@@ -27,18 +27,28 @@ function extract(node, predictionCase, parentTag, parentAttribute, parentValue) 
     const tag = node.tagName;
 
     if (node.attributes.length > 0) {
+        let i = 0;
         for (const attributeValue of node.attributes) {
             const attribute = attributeValue.key;
             let value = attributeValue.value;
             value = value === null ? '' : value;
             addTraining(predictionCase, tag, parentTag, parentAttributeValue, attribute, value);
-            for (const child of node.children) extract(child, predictionCase, tag, attribute, value);
+            if (pAVIndex === 0) {
+                for (const child of node.children) {
+                    extract(child, predictionCase, tag, attribute, value, i);
+                }
+            }
+            i++;
         }
     } else {
         const attribute = '';
         const value = '';
         addTraining(predictionCase, tag, parentTag, parentAttributeValue, attribute, value);
-        for (const child of node.children) extract(child, predictionCase, tag, attribute, value);
+        if (pAVIndex === 0) {
+            for (const child of node.children) {
+                extract(child, predictionCase, tag, attribute, value, 0);
+            }
+        }
     }
 
 }
@@ -61,7 +71,10 @@ function addTraining(predictionCase, tag, parentTag, parentAttributeValue, attri
 			break;
     }
     const relevantBlacklist = storage.blacklist[predictionCase];
-    if (!containsRule(rule, relevantBlacklist, false)) storage.trainingTable.push(rule.getRule());
+	// Adds rule if its prediction isn't empty and if its not blacklisted
+    if ((rule.getPrediction()[predictionCase] !== '') && !containsRule(rule, relevantBlacklist, false)) {
+        storage.trainingTable.push(rule.getRule());
+    }
 }
 
 /*
@@ -71,11 +84,11 @@ function addTraining(predictionCase, tag, parentTag, parentAttributeValue, attri
     @param {Boolean} markSample - Whether to mark the fragment location for input extraction
  */
 function clean(codeFile, markSample) {
-    let lines = codeFile.code.split("\n");
-    let text = lines[codeFile.position.row];
+    let lines = codeFile.lines;
+    let text = codeFile.text;
 	const sampleMarker = markSample ? "<>" : "";
     let newText = text.substring(0, codeFile.fragmentStart) + sampleMarker + text.substring(codeFile.position.column);   // without < to cursor
-	storage.fragment = text.substring(codeFile.fragmentStart+1, codeFile.position.column);
+	if (markSample) storage.fragment = text.substring(codeFile.fragmentStart+1, codeFile.position.column);
     lines[codeFile.position.row] = newText;
     return lines.join("\n");
 }
