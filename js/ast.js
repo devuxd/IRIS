@@ -14,13 +14,31 @@ function extractFeatures(syntaxTree, predictionCase) {
     for (let node of syntaxTree) extract(node, predictionCase, '', '', '', 0    );
 }
 
+/*
+    What: Extracts features like tag and attribute-value pairs for the element and its parent
+    How:
+        1. Parent features passed as parameter
+        2. Extract tag
+        3. If node has attribute-value pairs:
+            a. For each pair, extract attribute and value
+                b. Send tag, attribute, value and parent info for training storage
+                c. If the current node is recursed from first parent attribute-value pair, recurse node children
+        4. Else
+            a. Send tag, attribute, value, and parent info for training storage
+            b. If the current node is recursed from first parent attribute-value pair, recurse node children
+
+    What: Also extracts input features if marked for extraction
+
+ */
 function extract(node, predictionCase, parentTag, parentAttribute, parentValue, pAVIndex, ) {
 
     let parentAttributeValue = parentAttribute + '=' + parentValue;
     if (parentAttributeValue === '=') parentAttributeValue = '';
     
     if (node.type !== 'element') {
-        if (node.content.includes('<>')) extractSample(parentTag, parentAttributeValue);
+        if (node.content.includes('<>')) {
+            extractSample(parentTag, parentAttributeValue);
+        }
         return;
     }
 
@@ -28,9 +46,9 @@ function extract(node, predictionCase, parentTag, parentAttribute, parentValue, 
 
     if (node.attributes.length > 0) {
         let i = 0;
-        for (const attributeValue of node.attributes) {
-            const attribute = attributeValue.key;
-            let value = attributeValue.value;
+        for (const avPair of node.attributes) {
+            const attribute = avPair.key;
+            let value = avPair.value;
             value = value === null ? '' : value;
             addTraining(predictionCase, tag, parentTag, parentAttributeValue, attribute, value);
             if (pAVIndex === 0) {

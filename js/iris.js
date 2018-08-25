@@ -25,11 +25,24 @@ function loadElements() {
     elem.newRuleTable = document.getElementById('newRuleTable');
 }
 
-function refreshUI() {
+/*
+    What: Updates current rule, dropdown, menu
+ */
+function refreshUI(updateDropdown) {
     updateCurrentRule();
+    if (updateDropdown) this.updateDropdown();
     switch(mode) {
         case MODE.VIEW: viewRules(); break;
         case MODE.ADD: addRule(); break;
+    }
+}
+
+function updateDropdown() {
+    if (storage.predictionCase !== 'none') {
+        for (const predictionCase of ['tag', 'attribute', 'value']) {
+            document.getElementById(predictionCase + '_existing').removeAttribute('selected');
+        }
+        document.getElementById(storage.predictionCase + '_existing').setAttribute('selected','');
     }
 }
 
@@ -72,16 +85,6 @@ function updateCurrentRule() {
             elem.currentPromoteButton.removeAttribute('disabled');
         }
     }
-
-    // Update dropdowns
-    for (const predictionCase of ['tag', 'attribute', 'value']) {
-        if (predictionCase === storage.predictionCase) {
-            document.getElementById(predictionCase + '_existing').setAttribute('selected', '');
-        } else {
-            document.getElementById(predictionCase + '_existing').removeAttribute('selected');
-        }
-    }
-
 }
 
 /*
@@ -101,10 +104,12 @@ function viewRules() {
     const ast = getAST(codeFile, false);
     storage.trainingTable.length = 0;
     extractFeatures(ast, predictionCase);
-    const decisionTree = getDT(storage.trainingTable, predictionCase);
     const relevantList = storage.standard[predictionCase];
     relevantList.length = 0;
-    getRulesFromDT(decisionTree, predictionCase);
+    if (storage.trainingTable.length > 0) {
+        const decisionTree = getDT(storage.trainingTable, predictionCase);
+        getRulesFromDT(decisionTree, predictionCase);
+    }
     fillTable(relevantList, 'standardTable', predictionCase);
 
     // View Blacklist
@@ -194,7 +199,7 @@ function viewRulesDemote(ruleInfo){
             blacklist(rule);
             break;
     }
-	refreshUI();
+	refreshUI(false);
 }
 
 function viewRulesPromote(ruleInfo) {
@@ -207,14 +212,14 @@ function viewRulesPromote(ruleInfo) {
             whitelist(rule);
             break;
     }
-    refreshUI();
+    refreshUI(false);
 }
 
 function viewRulesExample(ruleInfo) {
     const input = ruleInfo.rule.getInputs();
     findNodes(input, storage.ast);
     highlightLine();
-    refreshUI();
+    refreshUI(false);
 }
 
 /*

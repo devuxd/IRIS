@@ -127,7 +127,7 @@ $(document).ready(function() {
     let staticWordCompleter = setupCompleter();
     ace.require("ace/ext/language_tools").setCompleters([staticWordCompleter]);
     loadElements();
-    refreshUI();
+    refreshUI(false);
 
 	function setupEditor() {
 
@@ -163,7 +163,7 @@ $(document).ready(function() {
                         }
                     }
 					prevKey = key;
-                    refreshUI();
+                    refreshUI(true);
                     updateOutputFrame(outputFrame, aceEditor.getValue());
                 }
             });
@@ -216,7 +216,7 @@ function handleKey(key, aceEditor) {
         console.log("Extracting Inputs / Training Rules");
         extractFeatures(ast, storage.predictionCase);
 
-        if (_.isEmpty(storage.inputs)) return;
+        if (storage.inputs.length === 0) return;
 
         let whitelistRules = storage.whitelist[storage.predictionCase];
         if (whitelistRules.length > 0) {
