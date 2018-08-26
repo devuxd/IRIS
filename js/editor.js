@@ -4,6 +4,7 @@ var storage = {
 
     fragment: '', // Incomplete code developer is writing
     predictionCase: PREDICTION_CASE.NONE,
+    predictionCaseInfo: PREDICTION_CASE.NONE,
     trainingTable: [],
     standard: {tag:[], attribute: [], value:[]},
     whitelist: {tag:[],attribute:[],value:[]},
@@ -70,7 +71,11 @@ function predictFromDT() {
 
 function addPredictions(predictions, input, meta){
     for (const prediction of predictions) {
-        storage.predictions.push({prediction:prediction, meta:meta});
+        let predictionPerformed = prediction;
+        if (storage.predictionCase === PREDICTION_CASE.VALUE) {
+            predictionPerformed = storage.predictionCaseInfo.toString().replace('value',prediction);
+        }
+        storage.predictions.push({prediction:prediction, meta:meta, predictionPerformed:predictionPerformed});
         if (storage.inputPerPrediction[prediction] === undefined) {
             storage.inputPerPrediction[prediction] = input;
         }
@@ -91,14 +96,14 @@ function storeAST(ast) {  // TODO is cloning necessary?
 
 /*
     What: Decides whether to show autocomplete menu based on latest 2 keystrokes
-    How: Prediction case is not none AND one of the following // TODO ctrlspace works?
+    How: Prediction case is not none AND one of the following // TODO ctrlspace works? Also this is outdated
     1. Alphanumeric/underscore, quotes, bracket, or space character
     2. Comma after Shift (bracket)
     3. Backspace key
  */
 function shouldTriggerAutocomplete(key, prevKey) {
     let shortcut = (key === 'Space' && prevKey === 'Control');
-    let validKey = (key.length === 1 && /[\w"'< ]/.test(key));
+    let validKey = (key.length === 1 && /[\w"'<= ]/.test(key));
     let bracket = (key === ',' && prevKey === 'Shift');
     let backspace = (key === 'Backspace');
     let predicting = storage.predictionCase !== PREDICTION_CASE.NONE;
@@ -177,7 +182,7 @@ $(document).ready(function() {
                 callback(null, storage.predictions.map(function (predictionInfo) {
                     return {
                         caption: predictionInfo.prediction, // completion displayed
-                        value: predictionInfo.prediction, // completion performed
+                        value: predictionInfo.predictionPerformed, // completion performed
                         meta: predictionInfo.meta // subtitle displayed
                         // score: 0, // ordering
                     };
@@ -195,7 +200,7 @@ function handleKey(key, aceEditor) {
     console.log("Tokenizing");
     const codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
     codeFile.tokenize();
-    console.log("PREDICTION CASE: " + storage.predictionCase);
+    console.log("PREDICTION CASE: " + storage.predictionCase + (storage.predictionCase === PREDICTION_CASE.VALUE ? '; ' + storage.predictionCaseInfo : ''));
 
     storage.fragment = '';  // Resets fragment
     storage.trainingTable.length = 0; // Resets training rules

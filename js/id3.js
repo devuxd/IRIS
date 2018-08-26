@@ -85,9 +85,7 @@ var log2 = function(n){
 };
 
 /*
-MODIFIED to return the array, instead of just the first element.
-This lets us display multiple predictions, sorted by probability.
-MODIFIED 2: Made unique list
+MODIFIED to return a uniquified array, instead of just the first element.
  */
 var mostCommon = function(l){
     return _.uniq(_.sortBy(l,function(a){

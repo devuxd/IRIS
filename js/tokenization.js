@@ -1,7 +1,7 @@
 var PREDICTION_CASE = Object.freeze({
     "TAG": "tag",
     "ATTRIBUTE": "attribute",
-    "VALUE_ASSIGN_SPACE": " = \"value\"",
+    "VALUE_ASSIGN_SPACE": "= \"value\"",
     "VALUE_QUOTES_SPACE": " \"value\"",
     "VALUE_QUOTES": "\"value\"",
     "VALUE": "value",
@@ -23,10 +23,6 @@ let TOKEN_TYPE = Object.freeze({
 function Token(type) {
     this.type = type;
 }
-
-Token.prototype.toString = function() {
-    return this.type;
-};
 
 const WHITESPACE = new Token(TOKEN_TYPE.SPACE);
 
@@ -76,10 +72,12 @@ CodeFile.prototype.tokenize = function() {
     // NOTE: FOLLOWING CODE IS QUICK FIX FOR CONVENIENCE. SHOULD NOT BE PERMANENT
     if (storage.predictionCase === PREDICTION_CASE.VALUE_ASSIGN_SPACE ||
         storage.predictionCase === PREDICTION_CASE.VALUE_QUOTES ||
-        storage.predictionCase === PREDICTION_CASE.VALUE_QUOTES_SPACE) {
+        storage.predictionCase === PREDICTION_CASE.VALUE_QUOTES_SPACE ||
+        storage.predictionCase === PREDICTION_CASE.VALUE) {
 
-        /*storage.predictionCase = PREDICTION_CASE.VALUE;*/
-        storage.predictionCase = PREDICTION_CASE.NONE;
+        storage.predictionCaseInfo = storage.predictionCase;
+        storage.predictionCase = PREDICTION_CASE.VALUE;
+
     }
 };
 
