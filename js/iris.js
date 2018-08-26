@@ -54,6 +54,7 @@ function updateCurrentRule() {
 
     const topRule = storage.topRule;
     const topPrediction = topRule.getPrediction();
+    const topPredictionCase = topRule.getPredictionCase();
 
     if (topPrediction === null){
         elem.currentPrediction.style.visibility = 'hidden';
@@ -64,9 +65,9 @@ function updateCurrentRule() {
         }
 
     } else {
-        elem.currentConditions.innerHTML = toPlaintext(topRule.getInputs(), true);
-        elem.currentPrediction.innerHTML = toPlaintext(topPrediction, false);
-        elem.currentPredictionHeader.innerHTML = toPredictionHeader(topRule.getPredictionCase());
+        elem.currentConditions.innerHTML = toPlaintext(topRule.getInputs(), true, topPredictionCase);
+        elem.currentPrediction.innerHTML = toPlaintext(topPrediction, false, topPredictionCase);
+        elem.currentPredictionHeader.innerHTML = toPredictionHeader(topPredictionCase);
         elem.currentConditions.style.visibility = 'visible';
         elem.currentPrediction.style.visibility = 'visible';
 
@@ -140,7 +141,7 @@ function fillTable(list, table, predictionCase){
 
         const rule = list[i-1]; // Account for header
         cell = row.insertCell(y++);
-        const conditions = i > 0 ? toPlaintext(rule.getInputs(), true) : null;
+        const conditions = i > 0 ? toPlaintext(rule.getInputs(), true, predictionCase) : null;
         const matchesPrevConditions = conditions === prevConditions;
         row.setAttribute('class', matchesPrevConditions  ? 'sameCondition' : 'uniqueCondition');
         prevConditions = conditions;
@@ -148,7 +149,7 @@ function fillTable(list, table, predictionCase){
         cell.setAttribute('class', 'expandH');
 
         cell = row.insertCell(y++);
-        cell.innerHTML = i > 0 ? toPlaintext(rule.getPrediction(), false): toPredictionHeader(predictionCase);
+        cell.innerHTML = i > 0 ? toPlaintext(rule.getPrediction(), false, predictionCase): toPredictionHeader(predictionCase);
 
         const ruleInfo = {rule: rule, table:table};
         let options = [];

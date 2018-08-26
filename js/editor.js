@@ -46,7 +46,7 @@ function predictFromWhitelist(whitelistRules) {
             }
 
             if (predictions.length > 0) {
-                addPredictions(predictions, whitelistRuleInput, 'priority'); // TODO is this the right order?
+                addPredictions(predictions, whitelistRuleInput, 'priority | ' + storage.predictionCase); // TODO is this the right order?
             }
         }
     }
@@ -65,7 +65,7 @@ function predictFromDT() {
         if (predictionInfo === null) continue;
         const predictions = predictionInfo.prediction;
         const path = predictionInfo.path;
-        addPredictions(predictions, path, '');
+        addPredictions(predictions, path, storage.predictionCase);
     }
 }
 

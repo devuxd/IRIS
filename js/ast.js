@@ -72,7 +72,7 @@ function extract(node, predictionCase, parentTag, parentAttribute, parentValue, 
 }
 
 function addTraining(predictionCase, tag, parentTag, parentAttributeValue, attribute, value) {
-    if (tag === '!doctype') return;
+    if (['!doctype', 'html', 'head', 'body'].includes(tag)) return;
     let rule = new Rule(null, null);
 	switch (predictionCase) {
         case PREDICTION_CASE.TAG:

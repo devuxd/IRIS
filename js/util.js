@@ -5,7 +5,7 @@ function Rule(inputs, prediction) {
     this.setPrediction = function(prediction) {this.prediction = prediction};
     this.getInputs = function() {return this.inputs;};
     this.getPrediction = function() {return this.prediction};
-    this.getPredictionCase = function() {return Object.keys(this.prediction)[0]};
+    this.getPredictionCase = function() {return (this.prediction === null ? null : Object.keys(this.prediction)[0])};
     this.getRule = function() {return {...this.inputs, ...this.prediction}};
     this.equalsRule = function(rule, strictEquality) {
         return kvpEquals(this.getRule(),rule.getRule(), strictEquality);
@@ -26,7 +26,7 @@ function toPredictionHeader(predictionCase) {
     @param {Boolean} isConditions - true if conditions, false if prediction
     @return {String} plaintext - converted
  */
-function toPlaintext(ruleComponent, isConditions) {
+function toPlaintext(ruleComponent, isConditions, predictionCase) {
     if (isConditions === undefined) alert('Error: Plaintext conversion scheme unspecified');
     if (isConditions) {
 
@@ -73,24 +73,32 @@ function toPlaintext(ruleComponent, isConditions) {
             }
         }
 
-        let plaintext = '';
+        let plaintext;
         if (!_.isEmpty(parentHandler) && !_.isEmpty(elementHandler)) {
-            plaintext += 'Parent: ' + parentConditions;
+            plaintext = 'Parent: ' + parentConditions;
             plaintext += ' AND ';
             plaintext += 'Element: ' + elementConditions;
         } else if (!_.isEmpty(parentHandler)) {
-            plaintext += 'Parent: ' + parentConditions;
+            plaintext = 'Parent: ' + parentConditions;
         } else if (!_.isEmpty(elementHandler)) {
-            plaintext += 'Element: ' + elementConditions;
+            plaintext = 'Element: ' + elementConditions;
         } else {
-            plaintext += 'Parent: none'
+            switch (predictionCase) {
+                case PREDICTION_CASE.TAG:
+                    plaintext = 'Parent: <tag>';
+                    break;
+                case PREDICTION_CASE.ATTRIBUTE:
+                    plaintext = 'Element: <tag';
+                    break;
+                case PREDICTION_CASE.VALUE:
+                    plaintext = 'Element: <tag attribute';
+                    break;
+            }
         }
         return _.escape(plaintext);
 
     } else {
-        const predictionCase = Object.keys(ruleComponent)[0];
-        const prediction = ruleComponent[predictionCase];
-        return prediction;
+        return ruleComponent[predictionCase];
     }
 }
 
