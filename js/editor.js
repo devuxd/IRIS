@@ -1,83 +1,128 @@
 var storage = {
-    fragment: {}, // Incomplete code currently being written
-    predictionCase: {}, // Tokenizer-determined prediction scenario
-    trainingTable: [],	// AST Features for making DT
-    sampleFeatures: {},	// Features to input into DT to get prediction
-    sampleFeaturesExtra: [],    // For serial parent attribute-value pairs
-    predictionSet: new Set(),	// Predictions from DT
-    sampleFeaturesMap : {}, // Maps each prediction to its sample features
+
     aceEditor: {},
 
-	ast: [],
-	topPred: "",
-	badExamples: new Set(),
-	examples: new Set(),
-	highlights: [],
-	dontUse: [], // List of entries/rules the user doesn't want to use
-	alwaysTag: [], // Rules for predicting tags 
- 	alwaysAttr: [], // Rules for predicting attributes 
-	alwaysValue: [], // Rules for predicting values
-	justTable: false
+    fragment: '', // Incomplete code developer is writing
+    predictionCase: PREDICTION_CASE.NONE,
+    predictionCaseInfo: PREDICTION_CASE.NONE,
+    trainingTable: [],
+
+    standard: {tag:[], attribute: [], value:[]},
+    whitelist: {tag:[],attribute:[],value:[]},
+    blacklist: {tag:[],attribute:[],value:[]},
+
+    predictions: [],
+    inputs: [],
+    inputPerPrediction: {},
+    topRule: new Rule(null, null),
+
+    ast: {},
+    examples: [],
+    strongExamples: [],
+    highlights: [],
 };
 
 /*
-Checks if a prediction is blacklisted based on the features of the sample
-*/
-function inBlackList(pred){
-	let sample = Object.assign({}, storage.sampleFeatures);
-	if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
-		sample.attr = pred;
-    } else if (storage.predictionCase === PREDICTION_CASE.VALUE){
-        sample.val = pred;
-    } else if (storage.predictionCase === PREDICTION_CASE.TAG){
-        sample.tag = pred;
+    @param {Array} whitelistRules - whitelisted rules for specific prediction case
+ */
+function predictFromWhitelist(whitelistRules) {
+
+    console.log('~Whitelist Predictions~');
+
+    // If a whitelist rule has the user inputs, store its prediction
+    // TODO: This is blind to strength and biased to order
+    for (const userInput of storage.inputs) {
+        for (const whitelistRule of whitelistRules) {
+
+            const predictions = [];
+            const whitelistRuleInput = whitelistRule.getInputs();
+
+            if (kvpEquals(whitelistRuleInput, userInput, false)) {
+                const prediction = whitelistRule.getPrediction()[whitelistRule.getPredictionCase()];
+                predictions.push(prediction);
+            }
+
+            if (predictions.length > 0) {
+                addPredictions(predictions, whitelistRuleInput, 'priority | ' + storage.predictionCase); // TODO is this the right order?
+            }
+        }
     }
-	return contains(sample, storage.dontUse);
+
+}
+
+function predictFromDT() {
+
+    console.log("~Standard Predictions~");
+
+    console.log("Building DT");
+    const decisionTree = buildDT(storage.trainingTable, storage.predictionCase);
+
+    for (const input of storage.inputs) {
+        const predictionInfo = predicts(decisionTree, input);
+        if (predictionInfo === null) continue;
+        const predictions = predictionInfo.prediction;
+        const path = predictionInfo.path;
+        addPredictions(predictions, path, storage.predictionCase);
+    }
+}
+
+function addPredictions(predictions, input, meta){
+    for (const prediction of predictions) {
+        if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE && storage.fragment.includes(prediction)) {
+            console.log('Omitting attribute ' + prediction);
+            continue;
+        }
+        let predictionPerformed = prediction;
+        if (storage.predictionCase === PREDICTION_CASE.VALUE) {
+            predictionPerformed = storage.predictionCaseInfo.toString().replace('value',prediction);
+        }
+        storage.predictions.push({prediction:prediction, meta:meta, predictionPerformed:predictionPerformed});
+        if (storage.inputPerPrediction[prediction] === undefined) {
+            storage.inputPerPrediction[prediction] = input;
+        }
+    }
+    console.log("PREDICTION: " + predictions);
+}
+
+function updateOutputFrame(outputFrame, value) {
+    outputFrame.contents().find('body').html(value);
+}
+
+function insertDefaultCode(aceEditor) {
+    const def = '<!DOCTYPE html>\n<html>\n\t<head></head>\n\t<body>\n\t\t\n\t</body>\n</html>';
+    aceEditor.setValue(def, -1);
+    aceEditor.gotoLine(5, 2);
+    aceEditor.focus();
+}
+
+
+/*  TODO why is this distinct from shouldTriggerTokenization?
+    What: Decides whether to show autocomplete menu based on latest 2 keystrokes
+    How: Prediction case is not none AND one of the following // TODO ctrlspace works? Also this is outdated
+    1. Alphanumeric/underscore, quotes, open bracket, equals sign, or space
+    2. Comma after Shift (bracket)
+    3. Backspace key
+ */
+function shouldTriggerAutocomplete(key, prevKey) {
+    let shortcut = (key === 'Space' && prevKey === 'Control');
+    let validKey = (key.length === 1 && /[\w"'<= ]/.test(key));
+    let bracket = (key === ',' && prevKey === 'Shift');
+    let backspace = (key === 'Backspace');
+    let predicting = storage.predictionCase !== PREDICTION_CASE.NONE;
+    return predicting && (shortcut || validKey || bracket || backspace);
 }
 
 /*
-This checks whether ID3 returned multiple predictions
-(sorted by probability), and if so, pushes each one.
-*/
-function multiplePred(prediction, features){
-	if (prediction.includes(" // ")) {
-        let predictions = new Set(prediction.split(" // "));
-        for (let pred of predictions) {
-            if (pred !== '' && !inBlackList(pred)) {
-                storage.predictionSet.add(pred);
-                storage.sampleFeaturesMap[pred] = features;
-            }
-        }
-        console.log("PREDICTION: " + Array.from(storage.predictionSet));
-	} else if (!inBlackList(prediction)){
-        storage.predictionSet.add(prediction);
-        console.log("PREDICTION: " + prediction);
-        storage.sampleFeaturesMap[prediction] = features;
-	}
+    What: Decides whether to perform tokenization to determine prediction case
+    How: Anything except an arrow key, shift, capslock, tab, alt or control.
+ */
+function shouldTriggerTokenization(key) {
+    const noTrigger = ['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft', 'Shift', 'CapsLock', 'Tab', 'Alt', 'Control'];
+    return !(noTrigger.includes(key));
 }
 
-function insertDefaultCode() {
-    const def = '<!DOCTYPE html>\n<html>\n\t<head></head>\n\t<body>\n\t\t\n\t</body>\n</html>';
-    storage.aceEditor.setValue(def, -1);
-    storage.aceEditor.gotoLine(5, 2);
-    storage.aceEditor.focus();
-}
-
-/*manually ccompares 1st entry in training set and sample
-Returns true if none of the features are the same
-if 1 or more features are the same, it returns false
-*/
-function notSimilar(){
-	let answer = true;
-	let entry = storage.trainingTable[0];
-	let sample = Object.assign({}, storage.sampleFeatures);
-	let keys = Object.keys(sample);
-	for (let key in keys){
-		if (entry[keys[key]] == sample[keys[key]]){
-			answer = false;
-		}
-    }
-	return answer;
+function storeAST(ast) {
+    storage.ast = ast;
 }
 
 /**
@@ -85,17 +130,18 @@ function notSimilar(){
  * calls functions to initialize the auto-complete features. Runs when the page
  * has loaded to initialize everything.
  */
+
 $(document).ready(function() {
 
-    storage.aceEditor = setupEditor();
     let outputFrame = $('#outputFrame');
-    insertDefaultCode();
+    storage.aceEditor = setupEditor();
     let staticWordCompleter = setupCompleter();
     ace.require("ace/ext/language_tools").setCompleters([staticWordCompleter]);
-    mainMenu();
-	let prevKey = '';
+    loadElements();
+    refreshUI(false);
 
 	function setupEditor() {
+
 		let aceEditor = ace.edit("editor");
 		aceEditor.setTheme("ace/theme/monokai");
 		aceEditor.getSession().setMode("ace/mode/html");
@@ -105,27 +151,32 @@ $(document).ready(function() {
 			enableSnippets: true,
 			enableLiveAutocompletion: true,
 		});
-        // aceEditor.onPaste = function() { return "";};
+		insertDefaultCode(aceEditor);
+
+        let prevKey = '';
+
         aceEditor.on('focus', function (event, editors) {
             $(this).keyup(function (e) {
                 if (aceEditor.isFocused()) {
-					// if (e.key === 'Control' && prevKey === 'Shift') aceEditor.onPaste = function(text, event) { this.commands.exec("paste", this, {text: text, event: event});};
-                    handleKey(e.key, aceEditor, outputFrame);
-                    if (((e.key.length === 1 && /[\w"'< ]/.test(e.key)) || e.key === ',' && prevKey === 'Shift' || e.key === 'Backspace') && storage.predictionCase !== PREDICTION_CASE.NONE) {
-                        aceEditor.commands.byName.startAutocomplete.exec(aceEditor);
-						if (aceEditor.completer.completions != null){
-							storage.topPred = aceEditor.completer.completions.filtered[0].caption;
-							let rule = getRule();
-							findNodes(rule, storage.ast);
-							highlightLine();
-						} else{
-							deleteHighlight();
-						}
+                    const key = e.key;
+                    if (shouldTriggerTokenization(key)) {
+                        handleKey(key, aceEditor, outputFrame);
+                        console.log('---------------------------');
                     }
-					prevKey = e.key;
+                    if (shouldTriggerAutocomplete(key, prevKey)) {
+                        aceEditor.commands.byName.startAutocomplete.exec(aceEditor);
+                        if (aceEditor.completer.completions !== null) {
+                            const top = aceEditor.completer.completions.filtered[0].caption;
+                            const prediction = {};
+                            prediction[storage.predictionCase] = top;
+                            storage.topRule.setPrediction(prediction);
+                            storage.topRule.setInputs(storage.inputPerPrediction[top]);
+                        }
+                    }
+					prevKey = key;
+                    refreshUI(true);
+                    updateOutputFrame(outputFrame, aceEditor.getValue());
                 }
-				currentPred();
-				
             });
         })();
         return aceEditor;
@@ -134,113 +185,57 @@ $(document).ready(function() {
     function setupCompleter() {
         return {
             getCompletions: function (editor, session, pos, prefix, callback) {
-                let rank = storage.predictionSet.size;
-                callback(null, Array.from(storage.predictionSet).map(function (word) {
-                    rank--;
+                callback(null, storage.predictions.map(function (predictionInfo) {
                     return {
-                        caption: word, // completion displayed
-                        value: word, // completion performed
-                        score: rank, // ordering
-                        meta: storage.predictionCase // description displayed
+                        caption: predictionInfo.prediction, // completion displayed
+                        value: predictionInfo.predictionPerformed, // completion performed
+                        meta: predictionInfo.meta // subtitle displayed
+                        // score: 0, // ordering
                     };
                 }));
             }
         };
     }
-
-
+    
 });
 
-function updateOutputFrame(outputFrame, value) {
-    outputFrame.contents().find('body').html(value);
-}
+function handleKey(key, aceEditor) {
 
-function handleKey(key, aceEditor, outputFrame) {
-
-    if (['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft', 'Shift', 'CapsLock', 'Tab', 'Alt'].includes(key)) return;
     console.log("KEY: " + key);
 
     console.log("Tokenizing");
-    let codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
+    const codeFile = new CodeFile(aceEditor.getValue(), aceEditor.getCursorPosition());
     codeFile.tokenize();
-    console.log("PREDICTION CASE: " + storage.predictionCase);
+    console.log("PREDICTION CASE: " + storage.predictionCase + (storage.predictionCase === PREDICTION_CASE.VALUE ? '; ' + storage.predictionCaseInfo : ''));
 
-    storage.fragment = {};
-    storage.trainingTable = [];
-    storage.sampleFeatures = {};
-    storage.sampleFeaturesExtra = [];
-    storage.predictionSet = new Set();
-	//storage.topPred = '';
+    storage.fragment = '';  // Resets fragment
+    storage.trainingTable.length = 0; // Resets training rules
+    storage.inputs.length = 0;    // Resets inputs
+    storage.predictions.length = 0;  // Resets
+    storage.inputPerPrediction = {};
+	storage.topRule = new Rule(null, null);
 
-	console.log("Building AST");
-    let syntaxTree = getAST(codeFile);
-	storage.ast = syntaxTree;
-	deleteHighlight();
+	//deleteHighlight();
+
     if (storage.predictionCase !== PREDICTION_CASE.NONE) {
-		
-        console.log("Converting to Training Table");
-        extractFeatures(syntaxTree, true);
 
-        // Try to make a prediction based on the rules set by the user first
-        if (storage.predictionCase === PREDICTION_CASE.VALUE){
-            storage.trainingTable = storage.alwaysValue.slice();
-        } else if (storage.predictionCase === PREDICTION_CASE.TAG){
-            storage.trainingTable = storage.alwaysTag.slice();
-        } else if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE){
-            storage.trainingTable = storage.alwaysAttr.slice();
+        console.log("Building AST");
+        const ast = getAST(codeFile, true);
+        storeAST(ast);
+
+        console.log("Extracting Inputs / Training Rules");
+        extractFeatures(ast, storage.predictionCase);
+
+        if (storage.inputs.length === 0) return;
+
+        let whitelistRules = storage.whitelist[storage.predictionCase];
+        if (whitelistRules.length > 0) {
+            predictFromWhitelist(whitelistRules);
         }
-	
-		if (storage.trainingTable.length === 1 && notSimilar()){
-				prediction = "";
-				multiplePred(prediction, storage.sampleFeatures);
-		} else if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
-			console.log("Building DT");
-			let decisionTree = getDT();
 
-			console.log("Making Prediction");
-			console.log(storage.sampleFeatures);
-			let prediction = predicts(decisionTree, storage.sampleFeatures);
-			multiplePred(prediction, storage.sampleFeatures);
+		if (storage.trainingTable.length > 0) {
+            predictFromDT();
+        }
 
-            // If there's multiple parentAttr/Val pairs we have more features for prediction
-            for (let sampleFeatures of storage.sampleFeaturesExtra) {
-                console.log(sampleFeatures);
-                let prediction = predicts(decisionTree, sampleFeatures);
-                multiplePred(prediction, sampleFeatures);
-            }
-		}
-
-		// Now make predictions learned from document
-		storage.trainingTable = [];
-		extractFeatures(syntaxTree, true);
-			
-		if (storage.trainingTable.length === 1 && notSimilar()){
-			prediction = "";
-			multiplePred(prediction, storage.sampleFeatures);
-		} else if (storage.trainingTable.length > 0 && !_.isEmpty(storage.sampleFeatures)) {
-
-			console.log("Building DT");
-			let decisionTree = getDT();
-
-			console.log("Making Prediction");
-            console.log(storage.sampleFeatures);
-			let prediction = predicts(decisionTree, storage.sampleFeatures);
-			multiplePred(prediction, storage.sampleFeatures);
-
-			// If there's multiple parentAttr/Val pairs we have more features for prediction
-            for (let sampleFeatures of storage.sampleFeaturesExtra) {
-                console.log(sampleFeatures);
-                let prediction = predicts(decisionTree, sampleFeatures);
-                multiplePred(prediction, sampleFeatures);
-            }
-
-
-		}
-		if (storage.predictionSet.size !== 0){
-			storage.topPred = Array.from(storage.predictionSet)[0];
-		}
     }
-    currentPred();
-    console.log('---------------------------');
-    updateOutputFrame(outputFrame, aceEditor.getValue());
 }

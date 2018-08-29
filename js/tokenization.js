@@ -1,7 +1,7 @@
 var PREDICTION_CASE = Object.freeze({
     "TAG": "tag",
     "ATTRIBUTE": "attribute",
-    "VALUE_ASSIGN_SPACE": " = \"value\"",
+    "VALUE_ASSIGN_SPACE": "= \"value\"",
     "VALUE_QUOTES_SPACE": " \"value\"",
     "VALUE_QUOTES": "\"value\"",
     "VALUE": "value",
@@ -24,29 +24,27 @@ function Token(type) {
     this.type = type;
 }
 
-Token.prototype.toString = function() {
-    return this.type;
-};
-
 const WHITESPACE = new Token(TOKEN_TYPE.SPACE);
 
 function CodeFile(code, position) {
     this.code = code;
     this.position = position;
-    this.findFragmentStart = function(text) {
-        // "<" most close to the cursor from the left
-        this.fragmentStart = text.substring(0, position.column).lastIndexOf("<");
-    }
+    this.lines = code.split("\n");
+    this.text = this.lines[this.position.row];
+    // Returns the last open bracket unless followed by close bracket.
+    this.fragmentStart = function () {
+        const lastOpen = this.text.substring(0, position.column).lastIndexOf('<');
+        const lastClose = this.text.substring(0, position.column).lastIndexOf('>');
+        return (lastOpen > lastClose) ? lastOpen : position.column;
+    };
 }
 
 CodeFile.prototype.tokenize = function() {
-    let text = this.code.split("\n")[this.position.row];
-    this.findFragmentStart(text);
     let tokens = [];
     let i = 0;
     while (i < this.position.column) {
         let token = null;
-        let s = text.substring(i, i+1);
+        let s = this.text.substring(i, i+1);
         switch(s) {
             case "\t":
             case " ":
@@ -76,13 +74,14 @@ CodeFile.prototype.tokenize = function() {
     // TODO: Implement more comprehensive fix to backspace
     if (tokens.length === 0 || (tokens.length === 1 && tokens[0].type === TOKEN_TYPE.SPACE)) storage.predictionCase = PREDICTION_CASE.NONE;   // No real tokens --> predict nothing
 
-    // NOTE: FOLLOWING CODE IS QUICK FIX FOR CONVENIENCE. SHOULD NOT BE PERMANENT
     if (storage.predictionCase === PREDICTION_CASE.VALUE_ASSIGN_SPACE ||
         storage.predictionCase === PREDICTION_CASE.VALUE_QUOTES ||
-        storage.predictionCase === PREDICTION_CASE.VALUE_QUOTES_SPACE) {
+        storage.predictionCase === PREDICTION_CASE.VALUE_QUOTES_SPACE ||
+        storage.predictionCase === PREDICTION_CASE.VALUE) {
 
-        /*storage.predictionCase = PREDICTION_CASE.VALUE;*/
-        storage.predictionCase = PREDICTION_CASE.NONE;
+        storage.predictionCaseInfo = storage.predictionCase;
+        storage.predictionCase = PREDICTION_CASE.VALUE;
+
     }
 };
 
