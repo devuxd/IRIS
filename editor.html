@@ -14,7 +14,9 @@
 		<script type="text/javascript" src="js/lib/src/ext-language_tools.js"></script>
 		<script type="text/javascript" src="js/lib/himalaya.js"></script>
 		<script type="text/javascript" src="js/lib/himalaya-whitespace.js"></script>
+
 		<script type="text/javascript" src="js/util.js"></script>
+		<script type="text/javascript" src="js/examples.js"></script>
 
 		<!-- Project Scripts -->
 		<script type="text/javascript" src="js/tokenization.js"></script>
@@ -50,8 +52,8 @@
 							<td>Options</td>
 						</tr>
 						<tr class="uniqueCondition">
-							<td><span id="currentConditions" class="invis">-</span></td>
-							<td><span id="currentPrediction" class="invis">-</span></td>
+							<td><span id="currentConditions" class="temporarilyHiddenText">-</span></td>
+							<td><span id="currentPrediction" class="temporarilyHiddenText">-</span></td>
 							<td><span>
 								<button disabled id="currentExample">&#128269;</button>
 								<button disabled id="currentPromote" onclick="whitelist(storage.topRule)">&#9650;</button>
@@ -64,8 +66,8 @@
 				<hr>
 
                 <section class="pad" onchange="refreshUI(false)">
-                    <h3 style="display:inline; line-height:1.8em">All Code Patterns</h3>
-                    <span style="float:right">
+                    <h3 class="inlineHeader">All Code Patterns</h3>
+                    <span class="right">
                         <button id="addRuleButton" onclick="addRule()">&#10010; Add</button>
                         <button id="viewRulesButton" onclick="viewRules()">&#9871; View</button>
                         <select id="selectPredictionCase">
@@ -76,19 +78,19 @@
                     </span>
                 </section>
 				
-				<section id="allRules" class="pad hide">
-					<p class="pad">Priority Patterns:</p>
+				<section id="allRules" class="pad">
+					<p class="pad">Prioritized:</p>
 					<table id="whitelistTable" class="small"></table>
-					<p class="pad">Standard Patterns:</p>
+					<p class="pad">Standard:</p>
 					<table id="standardTable" class="small"></table>
-					<p class="pad">Blacklisted Patterns:</p>
-					<table id="blacklistTable"  class="small"></table>
+					<p class="pad">Blacklisted:</p>
+					<table id="blacklistTable" class="small"></table>
 				</section>
 
-				<section id="addRule" class="pad hide">
+				<section id="addRule" class="pad hiddenSection">
 					<p class="small">
 						For a rule to be valid, at least one condition AND the prediction value must be provided.
-						Fewer conditions will make the rule more general, while more conditions will make it more narrowly applicable.
+						Fewer conditions will make the rule general, while more conditions will make it narrowly applicable.
 					</p>
 					<table id="newRuleTable" class="small">
 					</table>

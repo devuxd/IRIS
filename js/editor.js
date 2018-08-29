@@ -6,24 +6,21 @@ var storage = {
     predictionCase: PREDICTION_CASE.NONE,
     predictionCaseInfo: PREDICTION_CASE.NONE,
     trainingTable: [],
+
     standard: {tag:[], attribute: [], value:[]},
     whitelist: {tag:[],attribute:[],value:[]},
     blacklist: {tag:[],attribute:[],value:[]},
+
     predictions: [],
     inputs: [],
     inputPerPrediction: {},
     topRule: new Rule(null, null),
 
-    badExamples: new Set(),
-    examples: new Set(),
-    highlights: [],
-
     ast: {},
+    examples: [],
+    strongExamples: [],
+    highlights: [],
 };
-
-function updateOutputFrame(outputFrame, value) {
-    outputFrame.contents().find('body').html(value);
-}
 
 /*
     @param {Array} whitelistRules - whitelisted rules for specific prediction case
@@ -58,7 +55,7 @@ function predictFromDT() {
     console.log("~Standard Predictions~");
 
     console.log("Building DT");
-    const decisionTree = getDT(storage.trainingTable, storage.predictionCase);
+    const decisionTree = buildDT(storage.trainingTable, storage.predictionCase);
 
     for (const input of storage.inputs) {
         const predictionInfo = predicts(decisionTree, input);
@@ -71,6 +68,10 @@ function predictFromDT() {
 
 function addPredictions(predictions, input, meta){
     for (const prediction of predictions) {
+        if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE && storage.fragment.includes(prediction)) {
+            console.log('Omitting attribute ' + prediction);
+            continue;
+        }
         let predictionPerformed = prediction;
         if (storage.predictionCase === PREDICTION_CASE.VALUE) {
             predictionPerformed = storage.predictionCaseInfo.toString().replace('value',prediction);
@@ -83,6 +84,10 @@ function addPredictions(predictions, input, meta){
     console.log("PREDICTION: " + predictions);
 }
 
+function updateOutputFrame(outputFrame, value) {
+    outputFrame.contents().find('body').html(value);
+}
+
 function insertDefaultCode(aceEditor) {
     const def = '<!DOCTYPE html>\n<html>\n\t<head></head>\n\t<body>\n\t\t\n\t</body>\n</html>';
     aceEditor.setValue(def, -1);
@@ -90,14 +95,11 @@ function insertDefaultCode(aceEditor) {
     aceEditor.focus();
 }
 
-function storeAST(ast) {  // TODO is cloning necessary?
-    storage.ast = Object.assign({}, ast);
-}
 
-/*
+/*  TODO why is this distinct from shouldTriggerTokenization?
     What: Decides whether to show autocomplete menu based on latest 2 keystrokes
     How: Prediction case is not none AND one of the following // TODO ctrlspace works? Also this is outdated
-    1. Alphanumeric/underscore, quotes, bracket, or space character
+    1. Alphanumeric/underscore, quotes, open bracket, equals sign, or space
     2. Comma after Shift (bracket)
     3. Backspace key
  */
@@ -112,11 +114,15 @@ function shouldTriggerAutocomplete(key, prevKey) {
 
 /*
     What: Decides whether to perform tokenization to determine prediction case
-    How: Anything except an arrow key, shift, capslock, tab or alt.
+    How: Anything except an arrow key, shift, capslock, tab, alt or control.
  */
 function shouldTriggerTokenization(key) {
-    const noTrigger = ['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft', 'Shift', 'CapsLock', 'Tab', 'Alt'];
+    const noTrigger = ['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft', 'Shift', 'CapsLock', 'Tab', 'Alt', 'Control'];
     return !(noTrigger.includes(key));
+}
+
+function storeAST(ast) {
+    storage.ast = ast;
 }
 
 /**
@@ -213,7 +219,6 @@ function handleKey(key, aceEditor) {
 
     if (storage.predictionCase !== PREDICTION_CASE.NONE) {
 
-        // TODO: Should this happen before the case evaluation?
         console.log("Building AST");
         const ast = getAST(codeFile, true);
         storeAST(ast);

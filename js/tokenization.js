@@ -31,7 +31,12 @@ function CodeFile(code, position) {
     this.position = position;
     this.lines = code.split("\n");
     this.text = this.lines[this.position.row];
-    this.fragmentStart = this.text.substring(0, position.column).lastIndexOf("<");
+    // Returns the last open bracket unless followed by close bracket.
+    this.fragmentStart = function () {
+        const lastOpen = this.text.substring(0, position.column).lastIndexOf('<');
+        const lastClose = this.text.substring(0, position.column).lastIndexOf('>');
+        return (lastOpen > lastClose) ? lastOpen : position.column;
+    };
 }
 
 CodeFile.prototype.tokenize = function() {
@@ -69,7 +74,6 @@ CodeFile.prototype.tokenize = function() {
     // TODO: Implement more comprehensive fix to backspace
     if (tokens.length === 0 || (tokens.length === 1 && tokens[0].type === TOKEN_TYPE.SPACE)) storage.predictionCase = PREDICTION_CASE.NONE;   // No real tokens --> predict nothing
 
-    // NOTE: FOLLOWING CODE IS QUICK FIX FOR CONVENIENCE. SHOULD NOT BE PERMANENT
     if (storage.predictionCase === PREDICTION_CASE.VALUE_ASSIGN_SPACE ||
         storage.predictionCase === PREDICTION_CASE.VALUE_QUOTES ||
         storage.predictionCase === PREDICTION_CASE.VALUE_QUOTES_SPACE ||

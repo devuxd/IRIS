@@ -1,9 +1,8 @@
 /*
-    Setup
+    SETUP
  */
 
 const elem = {};
-const newRulePlaceholders = {tag:["<div class = 'content'>", null, '<main>'], attribute:['<nav>','<a','href'], value:["<table id = 'data'>","",]};
 const MODE = Object.freeze({'VIEW':0,'ADD':1});
 let mode = MODE.VIEW;
 
@@ -26,7 +25,7 @@ function loadElements() {
 }
 
 /*
-    What: Updates current rule, dropdown, menu
+    What: Updates current rule, dropdown, screen mode shown, and highlights
  */
 function refreshUI(updateDropdown) {
     updateCurrentRule();
@@ -35,19 +34,21 @@ function refreshUI(updateDropdown) {
         case MODE.VIEW: viewRules(); break;
         case MODE.ADD: addRule(); break;
     }
+    updateHighlights(storage.topRule, storage.ast);
 }
 
 function updateDropdown() {
     if (storage.predictionCase !== 'none') {
-        for (const predictionCase of ['tag', 'attribute', 'value']) {
+/*        for (const predictionCase of ['tag', 'attribute', 'value']) {
             document.getElementById(predictionCase + '_existing').removeAttribute('selected');
         }
-        document.getElementById(storage.predictionCase + '_existing').setAttribute('selected','');
+        document.getElementById(storage.predictionCase + '_existing').setAttribute('selected','');*/
+        elem.predictionCaseSelector.value = storage.predictionCase;
     }
 }
 
 /*
-    Current Rule
+    CURRENT RULE
  */
 
 function updateCurrentRule() {
@@ -89,33 +90,34 @@ function updateCurrentRule() {
 }
 
 /*
-    All Rules
+    ALL RULES
  */
 
 function viewRules() {
     mode = MODE.VIEW;
 
+    const codeFile = new CodeFile(storage.aceEditor.getValue(), storage.aceEditor.getCursorPosition());
+    const ast = getAST(codeFile, false);
+
     // View Whitelist
     const predictionCase = elem.predictionCaseSelector.options[elem.predictionCaseSelector.selectedIndex].value;
     const relevantWhitelist = storage.whitelist[predictionCase];
-    fillTable(relevantWhitelist, 'whitelistTable', predictionCase);
+    fillTable(relevantWhitelist, 'whitelistTable', predictionCase, ast);
 
     // View Standard
-    const codeFile = new CodeFile(storage.aceEditor.getValue(), storage.aceEditor.getCursorPosition());
-    const ast = getAST(codeFile, false);
     storage.trainingTable.length = 0;
     extractFeatures(ast, predictionCase);
     const relevantList = storage.standard[predictionCase];
     relevantList.length = 0;
     if (storage.trainingTable.length > 0) {
-        const decisionTree = getDT(storage.trainingTable, predictionCase);
+        const decisionTree = buildDT(storage.trainingTable, predictionCase);
         getRulesFromDT(decisionTree, predictionCase);
     }
-    fillTable(relevantList, 'standardTable', predictionCase);
+    fillTable(relevantList, 'standardTable', predictionCase, ast);
 
     // View Blacklist
     const relevantBlacklist = storage.blacklist[predictionCase];
-    fillTable(relevantBlacklist, 'blacklistTable', predictionCase);
+    fillTable(relevantBlacklist, 'blacklistTable', predictionCase, ast);
 
     elem.addRule.style.display = 'none';
     elem.allRules.style.display = 'block';
@@ -123,7 +125,7 @@ function viewRules() {
     elem.viewRulesButton.setAttribute('disabled','');
 }
 
-function fillTable(list, table, predictionCase){
+function fillTable(list, table, predictionCase, ast){
     const tableElem = document.getElementById(table);
     tableElem.innerHTML = '';
 
@@ -157,7 +159,7 @@ function fillTable(list, table, predictionCase){
         options[0].innerHTML = '&#128269;';
         options[0].setAttribute('class', 'example');
         options[0].onclick = function(){
-            viewRulesExample(ruleInfo);
+            viewRulesExample(ruleInfo, ast);
         };
 
 
@@ -185,6 +187,10 @@ function fillTable(list, table, predictionCase){
             cell.appendChild(span);
         } else {
             cell.innerHTML = 'Options';
+        }
+
+        if (i > 0 && rule.equalsRule(storage.topRule, true)) {
+            row.setAttribute('class', 'currentRule');
         }
 
     }
@@ -216,15 +222,13 @@ function viewRulesPromote(ruleInfo) {
     refreshUI(false);
 }
 
-function viewRulesExample(ruleInfo) {
-    const input = ruleInfo.rule.getInputs();
-    findNodes(input, storage.ast);
-    highlightLine();
-    refreshUI(false);
+function viewRulesExample(ruleInfo, ast) {
+    const rule = ruleInfo.rule;
+    updateHighlights(rule, ast);
 }
 
 /*
-    Add Rule
+    ADD RULE
  */
 
 function addRule() {
@@ -323,100 +327,5 @@ function newRule(tableBodyRow) {
 
     const newRule = new Rule(input, prediction);
     whitelist(newRule);
-}
-
-function highlightLine(){
-	let aceEditor = storage.aceEditor;
-	let Range = ace.require('ace/range').Range;
-	let marker;
-	deleteHighlight();
-	for (let line of storage.examples){
-		marker = aceEditor.getSession().addMarker(new Range(line, 0, line, 1), "myMarker", "fullLine");
-		storage.highlights.push(marker);
-	}
-	for (let line of storage.badExamples){
-		marker = aceEditor.getSession().addMarker(new Range(line, 0, line, 1), "myMarker1", "fullLine");
-		storage.highlights.push(marker);
-	}
-}
-
-function deleteHighlight(){
-	let aceEditor = storage.aceEditor;
-	for (let highlight of storage.highlights){
-		aceEditor.getSession().removeMarker(highlight);
-	}
-		storage.highlights = [];
-}
-
-function findNodes(rule, syntaxTree){
-	storage.examples = new Set();
-	storage.badExamples = new Set();
-	for (let node of syntaxTree){
-		checkNodes(rule, node, "", "", "");
-	}
-	for (const example of storage.badExamples){
-		if (storage.examples.has(example)){
-			storage.badExamples.delete(example);
-		}
-	}
-}
-
-function checkNodes(rule, node, parentTag, parentAttr, parentVal){
-	if (node.type !== 'element'){
-		return;
-	}
-	let parentAttrVal = parentAttr + '=' + parentVal;
-	if (parentAttrVal === '=') parentAttrVal = '';
-	let tag = node.tagName;
-	let attr, val;
-	if (node.attributes.length > 0) {
-		for (let attribute of node.attributes) {
-			attr = attribute.key;
-            val = attribute.value;
-            val = val === null ? '' : val;
-			addLine(rule, node, tag, parentTag, parentAttrVal, attr, val);
-			for (let child of node.children){
-				checkNodes(rule, child, tag, attr, val);
-			}
-		}
-	} else {
-		attr = '';
-		val = '';
-		addLine(rule, node, tag, parentTag, parentAttrVal, attr, val);
-		for (let child of node.children){
-			checkNodes(rule, child, tag, attr, val);
-		}
-	}
-}
-
-
-function addLine(rule, node, tag, parentTag, parentAttrVal, attr, val){
-	let type = storage.predictionCase;
-	let rule2;
-	let pred;
-	if (type === PREDICTION_CASE.TAG){
-		rule2 = {'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal};
-		if (rule['parentTag'] === parentTag && rule['parentAttr/Val'] === parentAttrVal && rule['tag'] === tag){
-			storage.examples.add(node.position.start.line);
-			return;
-		}
-		pred = 'tag'
-	} else if (type === PREDICTION_CASE.ATTRIBUTE){
-		rule2 = {'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'attr':attr};
-		if (rule['parentTag'] === parentTag && rule['parentAttr/Val'] === parentAttrVal && rule['tag'] === tag && rule['attr'] === attr){
-			storage.examples.add(node.position.start.line);
-			return;
-		}
-		pred = 'attr';
-	} else if (type === PREDICTION_CASE.VALUE){
-		rule2 = {'tag':tag, 'parentTag':parentTag, 'parentAttr/Val':parentAttrVal, 'attr':attr, 'val':val};
-		if (rule['parentTag'] === parentTag && rule['parentAttr/Val'] === parentAttrVal && rule['tag'] === tag && rule['attr'] === attr && rule['val'] === val){
-			storage.examples.add(node.position.start.line);
-			return;
-		}
-		pred = 'val'
-	}
-	if (Object.keys(rule2).length > 0 && contradicts(pred, rule, rule2)){
-		storage.badExamples.add(node.position.start.line);
-	}
+    alert('Whitelisted custom rule.');
 }

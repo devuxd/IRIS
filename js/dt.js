@@ -5,7 +5,7 @@
 * Tag, Attribute or Value.
 *
 */
-function getDT(trainingRules, predictionCase) {
+function buildDT(trainingRules, predictionCase) {
     trainingRules = _(trainingRules);
     let inputFeatures;
     switch (predictionCase) {
@@ -24,23 +24,23 @@ function getDT(trainingRules, predictionCase) {
 }
 
 function getRulesFromDT(dt, predictionCase) {
-    handleNode(dt, predictionCase, {});
+    parseDTNode(dt, predictionCase, {});
 }
 
-function handleNode(node, predictionCase, info, featureKey) {
+function parseDTNode(node, predictionCase, info, featureKey) {
 
     if (node.type === 'feature') {
 
         const featureKey = node.name;
         for (const featureValueNode of node.vals) {
-            handleNode(featureValueNode, predictionCase, info, featureKey);
+            parseDTNode(featureValueNode, predictionCase, info, featureKey);
         }
 
     } else if (node.type === 'feature_value') {
 
         const kvp = Object.assign({}, info);    // Clones info to allow upstream reuse
         kvp[featureKey] = node.name;
-        handleNode(node.child, predictionCase, kvp);
+        parseDTNode(node.child, predictionCase, kvp);
 
     } else if (node.type === 'result') {
         const relevantList = storage.standard[predictionCase];

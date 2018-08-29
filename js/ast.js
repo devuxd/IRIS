@@ -30,10 +30,9 @@ function extractFeatures(syntaxTree, predictionCase) {
     What: Also extracts input features if marked for extraction
 
  */
-function extract(node, predictionCase, parentTag, parentAttribute, parentValue, pAVIndex, ) {
+function extract(node, predictionCase, parentTag, parentAttribute, parentValue, pAVIndex) {
 
-    let parentAttributeValue = parentAttribute + '=' + parentValue;
-    if (parentAttributeValue === '=') parentAttributeValue = '';
+    const parentAttributeValue = (parentAttribute === '' && parentValue === '') ? '' : parentAttribute + '=' + parentValue;
     
     if (node.type !== 'element') {
         if (node.content.includes('<>')) {
@@ -48,8 +47,7 @@ function extract(node, predictionCase, parentTag, parentAttribute, parentValue, 
         let i = 0;
         for (const avPair of node.attributes) {
             const attribute = avPair.key;
-            let value = avPair.value;
-            value = value === null ? '' : value;
+            const value = avPair.value === null ? '' : avPair.value;
             addTraining(predictionCase, tag, parentTag, parentAttributeValue, attribute, value);
             if (pAVIndex === 0) {
                 for (const child of node.children) {
@@ -104,9 +102,9 @@ function addTraining(predictionCase, tag, parentTag, parentAttributeValue, attri
 function clean(codeFile, markSample) {
     let lines = codeFile.lines;
     let text = codeFile.text;
-	const sampleMarker = markSample ? "<>" : "";
-    let newText = text.substring(0, codeFile.fragmentStart) + sampleMarker + text.substring(codeFile.position.column);   // without < to cursor
-	if (markSample) storage.fragment = text.substring(codeFile.fragmentStart+1, codeFile.position.column);
+	const sampleMarker = markSample ? '<>' : '';
+    let newText = text.substring(0, codeFile.fragmentStart()) + sampleMarker + text.substring(codeFile.position.column);   // without < to cursor
+	if (markSample) storage.fragment = text.substring(codeFile.fragmentStart()+1, codeFile.position.column);
     lines[codeFile.position.row] = newText;
     return lines.join("\n");
 }

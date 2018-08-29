@@ -1,3 +1,7 @@
+/*
+    RULE
+ */
+
 function Rule(inputs, prediction) {
     this.inputs = inputs;
     this.prediction = prediction;
@@ -11,6 +15,45 @@ function Rule(inputs, prediction) {
         return kvpEquals(this.getRule(),rule.getRule(), strictEquality);
     }
 }
+
+function containsRule(rule, list, strictEquality){
+    for (let i = 0; i < list.length; i++ ){
+        if (rule.equalsRule(list[i], strictEquality)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/*
+    What: Whether the key-value pairs for the objects are equal/matched
+    How:
+        1. If strict equality desired AND number of KVPs is different, false
+        2. For each key in one, if value in that and other are different, false
+ */
+function kvpEquals(obj1, obj2, strictEquality){
+    let obj1First = true;
+    let a = Object.getOwnPropertyNames(obj1);
+    let b = Object.getOwnPropertyNames(obj2);
+    if (strictEquality && (a.length !== b.length)) {
+        return false;
+    }
+    if (!strictEquality) obj1First = a.length <= b.length;
+    const objFirst = obj1First ? obj1 : obj2;
+    const objSecond = obj1First ? obj2 : obj1;
+    const props = obj1First ? a : b;
+    for (let i = 0; i < props.length; i++) {
+        const name = props[i];
+        if (objFirst[name] !== objSecond[name]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/*
+    TEXT
+ */
 
 function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -27,7 +70,6 @@ function toPredictionHeader(predictionCase) {
     @return {String} plaintext - converted
  */
 function toPlaintext(ruleComponent, isConditions, predictionCase) {
-    if (isConditions === undefined) alert('Error: Plaintext conversion scheme unspecified');
     if (isConditions) {
 
         let parentConditions = '';
@@ -103,6 +145,10 @@ function toPlaintext(ruleComponent, isConditions, predictionCase) {
 }
 
 /*
+    RULE RANKING
+ */
+
+/*
     What: Whitelists rule if not whitelisted already
     @param {Rule} rule - Rule to be whitelisted
  */
@@ -160,39 +206,4 @@ function unBlacklist(rule) {
         }
     }
     alert('Error: Rule not found on blacklist.');
-}
-
-function containsRule(rule, list, strictEquality){
-    for (let i = 0; i < list.length; i++ ){
-        if (rule.equalsRule(list[i], strictEquality)) {
-            return true;
-        }
-    }
-    return false;
-}
-
-/*
-    What: Whether the key-value pairs for the objects are equal/matched
-    How:
-        1. If strict equality desired AND number of KVPs is different, false
-        2. For each key in one, if value in that and other are different, false
- */
-function kvpEquals(obj1, obj2, strictEquality){
-    let obj1First = true;
-    let a = Object.getOwnPropertyNames(obj1);
-    let b = Object.getOwnPropertyNames(obj2);
-    if (strictEquality && (a.length !== b.length)) {
-        return false;
-    }
-    if (!strictEquality) obj1First = a.length <= b.length;
-    const objFirst = obj1First ? obj1 : obj2;
-    const objSecond = obj1First ? obj2 : obj1;
-    const props = obj1First ? a : b;
-    for (let i = 0; i < props.length; i++) {
-        const name = props[i];
-        if (objFirst[name] !== objSecond[name]) {
-            return false;
-        }
-    }
-    return true;
 }
