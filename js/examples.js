@@ -86,6 +86,9 @@ function checkExample(node, desiredRule, tag, parentTag, parentAttributeValue, a
             break;
     }
 
+    desiredRule.trimInputs();
+    prospectiveRule.trimInputs();
+
     const line = node.position.start.line;
     if (prospectiveRule.equalsRule(desiredRule, true)) {
         if (!storage.strongExamples.includes(line)) {

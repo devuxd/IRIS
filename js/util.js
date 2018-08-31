@@ -13,7 +13,19 @@ function Rule(inputs, prediction) {
     this.getRule = function() {return {...this.inputs, ...this.prediction}};
     this.equalsRule = function(rule, strictEquality) {
         return kvpEquals(this.getRule(),rule.getRule(), strictEquality);
-    }
+    };
+    this.trimInputs = function() {
+        const refinedInput = {};
+        const inputs = this.inputs;
+        const componentKeys = Object.keys(inputs);
+        for (const key of componentKeys) {
+            const val = inputs[key];
+            if (val !== '') {
+                refinedInput[key] = val;
+            }
+        }
+        this.inputs = refinedInput;
+    };
 }
 
 function containsRule(rule, list, strictEquality){
@@ -72,6 +84,10 @@ function toPredictionHeader(predictionCase) {
 function toPlaintext(ruleComponent, isConditions, predictionCase) {
     if (isConditions) {
 
+        let temp = new Rule(ruleComponent, null);
+        temp.trimInputs();
+        ruleComponent = temp.getInputs();
+
         let parentConditions = '';
         let elementConditions = '';
         const parentHandler = {};
@@ -86,10 +102,10 @@ function toPlaintext(ruleComponent, isConditions, predictionCase) {
         for (const key of keys) {
             const value = ruleComponent[key];
             switch(key) {
-                case 'parentTag': if(value===''){break;} hasParentTag = true; parentHandler[key] = value; break;
-                case 'parentAttributeValue': if(value===''){break;} hasParentAttributeValue = true;  parentHandler[key] = value; break;
-                case 'tag': if(value===''){break;} hasTag = true;  elementHandler[key] = value; break;
-                case 'attribute': if(value===''){break;} hasAttribute = true; elementHandler[key] = value; break;
+                case 'parentTag': hasParentTag = true; parentHandler[key] = value; break;
+                case 'parentAttributeValue': hasParentAttributeValue = true;  parentHandler[key] = value; break;
+                case 'tag': hasTag = true;  elementHandler[key] = value; break;
+                case 'attribute': hasAttribute = true; elementHandler[key] = value; break;
             }
         }
 
