@@ -68,8 +68,12 @@ function predictFromDT() {
 
 function addPredictions(predictions, input, meta){
     for (const prediction of predictions) {
+        if (storage.inputPerPrediction[prediction] !== undefined) {
+            console.log('Omitting redundant prediction ' + prediction);
+            continue;
+        }
         if (storage.predictionCase === PREDICTION_CASE.ATTRIBUTE && storage.fragment.includes(prediction)) {
-            console.log('Omitting attribute ' + prediction);
+            console.log('Omitting user-utilized attribute ' + prediction);
             continue;
         }
         let predictionPerformed = prediction;
@@ -77,9 +81,7 @@ function addPredictions(predictions, input, meta){
             predictionPerformed = storage.predictionCaseInfo.toString().replace('value',prediction);
         }
         storage.predictions.push({prediction:prediction, meta:meta, predictionPerformed:predictionPerformed});
-        if (storage.inputPerPrediction[prediction] === undefined) {
-            storage.inputPerPrediction[prediction] = input;
-        }
+        storage.inputPerPrediction[prediction] = input;
     }
     console.log("PREDICTION: " + predictions);
 }
