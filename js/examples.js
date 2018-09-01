@@ -1,6 +1,7 @@
 function updateHighlights(rule, ast) {
     unHighlightExamples();
-    storage.examples.length = 0;
+    storage.wrongExamples.length = 0;
+    storage.weakExamples.length = 0;
     storage.strongExamples.length = 0;
     if (!_.isEmpty(ast) && rule.getPrediction() !== null) {
         findExamples(rule, ast);
@@ -10,12 +11,16 @@ function updateHighlights(rule, ast) {
 
 function highlightExamples() {
     const Range = ace.require('ace/range').Range;
-    for (const line of storage.examples){
-        const marker = storage.aceEditor.getSession().addMarker(new Range(line, 0, line, 1), "highlightGreen", "fullLine");
+    for (const line of storage.weakExamples){
+        const marker = storage.aceEditor.getSession().addMarker(new Range(line, 0, line, 1), "highlightYellow", "fullLine");
         storage.highlights.push(marker);
     }
     for (const line of storage.strongExamples){
-        const marker = storage.aceEditor.getSession().addMarker(new Range(line, 0, line, 1), "highlightBrightGreen", "fullLine");
+        const marker = storage.aceEditor.getSession().addMarker(new Range(line, 0, line, 1), "highlightGreen", "fullLine");
+        storage.highlights.push(marker);
+    }
+    for (const line of storage.wrongExamples){
+        const marker = storage.aceEditor.getSession().addMarker(new Range(line, 0, line, 1), "highlightRed", "fullLine");
         storage.highlights.push(marker);
     }
 }
@@ -95,8 +100,12 @@ function checkExample(node, desiredRule, tag, parentTag, parentAttributeValue, a
             storage.strongExamples.push(line);
         }
     } else if (prospectiveRule.equalsRule(desiredRule, false)) {
-        if (!storage.examples.includes(line)) {
-            storage.examples.push(line);
+        if (!storage.weakExamples.includes(line)) {
+            storage.weakExamples.push(line);
+        }
+    } else if (prospectiveRule.contradictsRule(desiredRule)) {
+        if (!storage.wrongExamples.includes(line)) {
+            storage.wrongExamples.push(line);
         }
     }
 }

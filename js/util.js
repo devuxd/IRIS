@@ -14,6 +14,9 @@ function Rule(inputs, prediction) {
     this.equalsRule = function(rule, strictEquality) {
         return kvpEquals(this.getRule(),rule.getRule(), strictEquality);
     };
+    this.contradictsRule = function(rule) {
+        return kvpEquals(this.getInputs(), rule.getInputs(), true) && !kvpEquals(this.getPrediction(), rule.getPrediction());
+    };
     this.trimInputs = function() {
         const refinedInput = {};
         const inputs = this.inputs;

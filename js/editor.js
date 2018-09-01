@@ -17,7 +17,8 @@ var storage = {
     topRule: new Rule(null, null),
 
     ast: {},
-    examples: [],
+    wrongExamples: [],
+    weakExamples: [],
     strongExamples: [],
     highlights: [],
 };

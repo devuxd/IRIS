@@ -177,13 +177,19 @@ tr:first-child {
   Highlight
  */
 
-.highlightGreen {
+.highlightRed {
+  position:absolute;
+  background: rgba(250,20,20,0.3);
+  z-index: 20;
+}
+
+.highlightYellow {
   position:absolute;
   background: rgba(150,200,0,0.3);
   z-index: 20;
 }
 
-.highlightBrightGreen {
+.highlightGreen {
   position:absolute;
   background: rgba(100,250,100,0.3);
   z-index: 20;
