@@ -99,7 +99,7 @@ function insertDefaultCode(aceEditor) {
 }
 
 
-/*  
+/*
     What: Decides whether to show autocomplete menu based on latest 2 keystrokes
     How: Prediction case is not none AND one of the following
     1. Control after Space (autocomplete shortcut)
@@ -121,7 +121,7 @@ function shouldTriggerAutocomplete(key, prevKey) {
     How: Anything except an arrow key, shift, capslock, tab, alt or control, unless control preceded by space
  */
 function shouldTriggerTokenization(key, prevKey) {
-    const noTriggerKeys = ['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft', 'Shift', 'CapsLock', 'Tab', 'Alt', 'Control', 'Escape'];
+    const noTriggerKeys = ['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft', 'Shift', 'CapsLock', 'Tab', 'Alt', 'Control'];
     const trigger = !(noTriggerKeys.includes(key));
     const autocompleteShortcut = (key === 'Control' && prevKey === ' ');
     return trigger || autocompleteShortcut;
