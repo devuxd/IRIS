@@ -99,29 +99,32 @@ function insertDefaultCode(aceEditor) {
 }
 
 
-/*  TODO why is this distinct from shouldTriggerTokenization?
+/*  
     What: Decides whether to show autocomplete menu based on latest 2 keystrokes
-    How: Prediction case is not none AND one of the following // TODO ctrlspace works? Also this is outdated
-    1. Alphanumeric/underscore, quotes, open bracket, equals sign, or space
+    How: Prediction case is not none AND one of the following
+    1. Control after Space (autocomplete shortcut)
+    2. Alphanumeric/underscore, quotes, open bracket, equals sign, or space
     2. Comma after Shift (bracket)
-    3. Backspace key
+    3. Backspace
  */
 function shouldTriggerAutocomplete(key, prevKey) {
-    let shortcut = (key === 'Space' && prevKey === 'Control');
-    let validKey = (key.length === 1 && /[\w"'<= ]/.test(key));
-    let bracket = (key === ',' && prevKey === 'Shift');
-    let backspace = (key === 'Backspace');
-    let predicting = storage.predictionCase !== PREDICTION_CASE.NONE;
-    return predicting && (shortcut || validKey || bracket || backspace);
+    const autocompleteShortcut = (key === 'Control' && prevKey === ' ');
+    const validKey = (key.length === 1 && /[\w"'<= ]/.test(key));
+    const bracket = (key === ',' && prevKey === 'Shift');
+    const backspace = (key === 'Backspace');
+    const predicting = storage.predictionCase !== PREDICTION_CASE.NONE;
+    return predicting && (autocompleteShortcut || validKey || bracket || backspace);
 }
 
 /*
     What: Decides whether to perform tokenization to determine prediction case
-    How: Anything except an arrow key, shift, capslock, tab, alt or control.
+    How: Anything except an arrow key, shift, capslock, tab, alt or control, unless control preceded by space
  */
-function shouldTriggerTokenization(key) {
-    const noTrigger = ['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft', 'Shift', 'CapsLock', 'Tab', 'Alt', 'Control'];
-    return !(noTrigger.includes(key));
+function shouldTriggerTokenization(key, prevKey) {
+    const noTriggerKeys = ['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft', 'Shift', 'CapsLock', 'Tab', 'Alt', 'Control', 'Escape'];
+    const trigger = !(noTriggerKeys.includes(key));
+    const autocompleteShortcut = (key === 'Control' && prevKey === ' ');
+    return trigger || autocompleteShortcut;
 }
 
 function storeAST(ast) {
@@ -162,7 +165,7 @@ $(document).ready(function() {
             $(this).keyup(function (e) {
                 if (aceEditor.isFocused()) {
                     const key = e.key;
-                    if (shouldTriggerTokenization(key)) {
+                    if (shouldTriggerTokenization(key, prevKey)) {
                         handleKey(key, aceEditor, outputFrame);
                         console.log('---------------------------');
                     }
