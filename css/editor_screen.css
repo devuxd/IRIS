@@ -179,7 +179,7 @@ tr:first-child {
 
 .highlightRed {
   position:absolute;
-  background: rgba(250,20,20,0.3);
+  background: rgba(230,0,0,0.3);
   z-index: 20;
 }
 
