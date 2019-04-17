@@ -104,7 +104,7 @@ function checkExample(node, desiredRule, tag, parentTag, parentAttributeValue, a
             storage.weakExamples.push(line);
         }
     } else if (prospectiveRule.contradictsRule(desiredRule)) {
-        if (!storage.wrongExamples.includes(line)) {
+        if (!storage.wrongExamples.includes(line) && !storage.weakExamples.includes(line)) {
             storage.wrongExamples.push(line);
         }
     }
